@@ -1,8 +1,13 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { phoneSignupSchema } from "@/lib/validators";
 import { Input } from "@/components/shared/Input";
 import { Button } from "@/components/shared/Button";
+import { z } from "zod";
+
+type PhoneSignupFormData = z.infer<typeof phoneSignupSchema>;
 
 export function PhoneSignupStep({
   onOtpSent,
@@ -12,11 +17,15 @@ export function PhoneSignupStep({
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
-  } = useForm();
+    formState: { errors, isSubmitting },
+  } = useForm<PhoneSignupFormData>({
+    resolver: zodResolver(phoneSignupSchema),
+  });
 
-  async function onSubmit(data: any) {
+  async function onSubmit(data: PhoneSignupFormData) {
     console.log("SEND OTP TO:", data.phone);
+
+    // No backend yet — directly proceed
     onOtpSent(data.phone);
   }
 
@@ -26,7 +35,22 @@ export function PhoneSignupStep({
       className="space-y-4"
     >
       <Input label="Full Name" {...register("name")} />
-      <Input label="Mobile Number" {...register("phone")} />
+      {errors.name && (
+        <p className="text-xs text-red-500">
+          {errors.name.message}
+        </p>
+      )}
+
+      <Input
+        label="Mobile Number"
+        inputMode="numeric"
+        {...register("phone")}
+      />
+      {errors.phone && (
+        <p className="text-xs text-red-500">
+          {errors.phone.message}
+        </p>
+      )}
 
       {/* ✅ ALWAYS VISIBLE */}
       <div className="pt-4">

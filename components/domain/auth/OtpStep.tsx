@@ -1,8 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { otpSchema } from "@/lib/validators";
 import { Input } from "@/components/shared/Input";
 import { Button } from "@/components/shared/Button";
+import { z } from "zod";
+
+type OtpFormData = z.infer<typeof otpSchema>;
 
 export function OtpStep({
   phone,
@@ -11,39 +16,49 @@ export function OtpStep({
   phone: string;
   onVerified: () => void;
 }) {
-  const [otp, setOtp] = useState("");
-  const [error, setError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<OtpFormData>({
+    resolver: zodResolver(otpSchema),
+  });
 
-  function verifyOtp() {
-    setError("");
-
-    // ✅ MOCK OTP
-    if (otp !== "1234") {
-      setError("Invalid OTP");
+  function onSubmit(data: OtpFormData) {
+    // ✅ MOCK OTP CHECK
+    if (data.otp !== "1234") {
       return;
     }
 
-    // ✅ SUCCESS → bubble up
     onVerified();
   }
 
   return (
-    <div className="space-y-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-4"
+    >
       <p className="text-sm text-gray-600">
-        OTP sent to {phone}
+        OTP sent on WhatsApp to <strong>{phone}</strong>
       </p>
 
       <Input
         label="Enter OTP"
-        value={otp}
-        onChange={(e) => setOtp(e.target.value)}
+        inputMode="numeric"
+        maxLength={4}
+        {...register("otp")}
       />
+      {errors.otp && (
+        <p className="text-xs text-red-500">
+          {errors.otp.message}
+        </p>
+      )}
 
-      {error && <p className="text-xs text-red-500">{error}</p>}
-
-      <Button onClick={verifyOtp}>
-        Verify & Continue
-      </Button>
-    </div>
+      <div className="pt-4">
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Verifying..." : "Verify & Continue"}
+        </Button>
+      </div>
+    </form>
   );
 }
