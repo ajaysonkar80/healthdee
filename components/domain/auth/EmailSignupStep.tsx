@@ -16,15 +16,11 @@ export function EmailSignupStep({
   } = useForm();
 
   async function onSubmit(data: any) {
-    console.log("EMAIL SIGNUP (DEV MODE):", data);
+    // Temporary: no API, no backend
+    console.log("EMAIL SIGNUP (NO BACKEND YET):", data);
 
-    // ✅ DEV MODE BYPASS
-    if (process.env.NODE_ENV === "development") {
-      onSuccess();
-      return;
-    }
-
-    // later: real API call
+    // ✅ ALWAYS move to EmailVerificationStep
+    onSuccess();
   }
 
   return (
