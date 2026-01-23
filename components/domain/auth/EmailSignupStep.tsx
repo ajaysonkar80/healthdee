@@ -36,6 +36,7 @@ export function EmailSignupStep({
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-4"
     >
+      
       {/* Full Name */}
       <Input label="Full Name" {...register("name")} />
       {errors.name && (

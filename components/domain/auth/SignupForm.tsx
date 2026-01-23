@@ -7,7 +7,7 @@ import { PhoneSignupStep } from "./PhoneSignupStep";
 import { OtpStep } from "./OtpStep";
 import { EmailVerificationStep } from "./EmailVerificationStep";
 import { Button } from "@/components/shared/Button";
-
+import Link from 'next/link'
 type Step = "EMAIL" | "PHONE" | "OTP" | "EMAIL_VERIFY";
 
 export function SignupForm() {
@@ -28,9 +28,20 @@ export function SignupForm() {
   }
 
   return (
+    
     <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg">
       {/* 🔹 SIGNUP METHOD SELECTOR */}
-      {(step === "EMAIL" || step === "PHONE") && (
+      {/* 🔹 GREETING */}
+      <div className="mb-4 text-center">
+        <h1 className="text-xl font-semibold text-gray-900">
+          Sign up to continue
+        </h1>
+        <p className="mt-1 text-sm text-gray-500">
+          Create an account to get started
+        </p>
+      </div>
+      {
+      (step === "EMAIL" || step === "PHONE") && (
         <div className="flex gap-2">
           <button
             type="button"
@@ -77,6 +88,24 @@ export function SignupForm() {
       )}
 
       {step === "EMAIL_VERIFY" && <EmailVerificationStep />}
+
+      <div className="mt-6 text-center text-sm text-gray-500">
+  Already registered?{" "}
+  <Link href="/login" className="font-medium text-pink-600">
+    Login here
+  </Link>
+
+        <div className="mt-3 flex justify-center gap-4 text-xs">
+    <Link href="/privacy" className="hover:underline">
+      Privacy Policy
+    </Link>
+    <Link href="/terms" className="hover:underline">
+      Terms of Service
+    </Link>
+  </div>
+  </div>
     </div>
+
+    
   );
 }

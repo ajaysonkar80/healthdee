@@ -2,21 +2,32 @@ import Link from "next/link";
 
 export default function CTASection() {
   return (
-    <section className="bg-pink-500 text-white px-6 py-20 text-center">
-      <h2 className="text-2xl font-semibold">
-        Ready to get started?
-      </h2>
+    <section className="w-full py-16 px-4 bg-white">
+      {/* 
+        Card Container 
+        - Max width constrains it (max-w-4xl)
+        - White background with subtle border and shadow to match the image
+      */}
+      <div className="max-w-5xl mx-auto bg-white border border-gray-100 rounded-2xl p-10 md:p-16 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+        
+        {/* Heading */}
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Ready to Get Started?
+        </h2>
 
-      <p className="mt-2 text-sm">
-        Join thousands of people who have simplified their healthcare journey.
-      </p>
+        {/* Subtext */}
+        <p className="text-gray-500 text-lg mb-8 max-w-2xl mx-auto">
+          Join thousands of patients who trust Healthdee for their healthcare needs
+        </p>
 
-      <Link
-        href="/signup"
-        className="mt-6 inline-block rounded-full bg-white px-6 py-3 text-sm text-pink-600"
-      >
-        Book an Appointment Now
-      </Link>
+        {/* Button - Using Primary Brand Color #F26A8D */}
+        <Link
+          href="/signup"
+          className="inline-block bg-[#F26A8D] hover:bg-[#d95676] text-white font-semibold px-8 py-3 rounded-lg transition-colors duration-200 shadow-sm"
+        >
+          Create Free Account
+        </Link>
+      </div>
     </section>
   );
 }

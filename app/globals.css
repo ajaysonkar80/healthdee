@@ -34,7 +34,7 @@
 
   /* STRICT LINK STYLES */
   a {
-    color: var(--color-secondary-blue) !important;
+    color: var(--color-secondary-blue) ;
     text-decoration: none;
     transition: opacity 0.2s ease;
   }
