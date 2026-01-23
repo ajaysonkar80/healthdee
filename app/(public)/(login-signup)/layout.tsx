@@ -1,6 +1,10 @@
-import { LoginForm } from "@/components/domain/auth/LoginForm";
-import Link from 'next/link';
-export default function LoginPage() {
+import Link from "next/link";
+
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <main className="min-h-screen bg-[#FFF7F9]">
       {/* Top Bar */}
@@ -11,9 +15,12 @@ export default function LoginPage() {
         </div>
 
         <div className="flex gap-3">
-          <Link href="/help"
-          className="text-sm text-pink-600">Help</Link>
-          <Link href="/support" className="text-sm text-gray-600">Support</Link>
+          <Link href="/help" className="text-sm text-pink-600">
+            Help
+          </Link>
+          <Link href="/support" className="text-sm text-gray-600">
+            Support
+          </Link>
         </div>
       </header>
 
@@ -39,9 +46,7 @@ export default function LoginPage() {
           {/* Security Card */}
           <div className="mt-6 max-w-md rounded-xl bg-white p-4 shadow-sm">
             <div className="flex items-start gap-3">
-              <div className="rounded-full bg-pink-100 p-2">
-                🔐
-              </div>
+              <div className="rounded-full bg-pink-100 p-2">🔐</div>
               <div>
                 <p className="font-medium">Secure & Encrypted</p>
                 <p className="text-sm text-gray-500">
@@ -64,9 +69,9 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* RIGHT SIDE */}
+        {/* RIGHT SIDE (FORM SLOT) */}
         <div className="flex justify-center pt-10 px-4 min-h-screen">
-          <LoginForm />
+          {children}
         </div>
       </section>
     </main>

@@ -28,7 +28,7 @@ export function SignupForm() {
   }
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-sm space-y-6">
+    <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg">
       {/* 🔹 SIGNUP METHOD SELECTOR */}
       {(step === "EMAIL" || step === "PHONE") && (
         <div className="flex gap-2">

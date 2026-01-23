@@ -11,7 +11,7 @@ import { Button } from "@/components/shared/Button";
 
 type ResetPasswordData = z.infer<typeof resetPasswordSchema>;
 
-export function ResetPasswordForm() {
+export default function ResetPasswordForm() {
   const router = useRouter();
   const { register, handleSubmit, formState: { errors } } =
     useForm<ResetPasswordData>({
@@ -24,6 +24,7 @@ export function ResetPasswordForm() {
   }
 
   return (
+    <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg">
     <form className="bg-white p-6 rounded-xl space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <h1 className="text-lg font-semibold text-center">Reset Password</h1>
 
@@ -39,5 +40,6 @@ export function ResetPasswordForm() {
         Change Password
       </Button>
     </form>
+    </div>
   );
 }
