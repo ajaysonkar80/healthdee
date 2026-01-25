@@ -1,9 +1,19 @@
-export default function Page() {
+import ProfileSettings from '@/components/doctor/settings/ProfileSettings';
+import ClinicSettings from '@/components/doctor/settings/ClinicSettings';
+import NotificationSettings from '@/components/doctor/settings/NotificationSettings';
+import SecuritySettings from '@/components/doctor/settings/SecuritySettings';
+
+export default function DoctorSettingsPage() {
   return (
-    <main className="min-h-screen flex items-center justify-center px-4">
-      <p className="text-sm text-gray-500">
-        This page is under construction.
-      </p>
-    </main>
+    <div className="space-y-6">
+      <h1 className="text-2xl font-semibold text-gray-900">
+        Settings
+      </h1>
+
+      <ProfileSettings />
+      <ClinicSettings />
+      <NotificationSettings />
+      <SecuritySettings />
+    </div>
   );
 }

@@ -32,7 +32,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="flex h-16 items-center justify-between border-b bg-white px-6">
+    <header className="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-6">
       {/* Date & Time */}
       <div className="text-sm text-gray-500">
         {formatDateTime(now)}

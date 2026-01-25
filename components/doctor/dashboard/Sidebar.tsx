@@ -42,9 +42,10 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 border-r bg-white flex flex-col">
+    <aside className="w-64 bg-white flex flex-col">
+
       {/* Logo */}
-      <div className="px-6 py-5 border-b">
+      <div className="px-6 py-5">
         <h1 className="text-xl font-bold text-pink-600">
           HealTech Doctor
         </h1>
