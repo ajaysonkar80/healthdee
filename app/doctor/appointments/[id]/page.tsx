@@ -1,13 +1,18 @@
+// app/doctor/appointments/[id]/page.tsx
 import Link from 'next/link';
 
-export default function AppointmentDetailsPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+// ✅ Correct Next.js 15 Type Definition
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function AppointmentDetailsPage({ params }: Props) {
+  // ✅ Correctly awaiting params for Next.js 15
+  const { id } = await params;
+
   // Dummy data (replace with API later)
   const appointment = {
-    id: params.id,
+    id: id,
     patientName: 'Suman Verma',
     age: 42,
     gender: 'Female',
@@ -19,9 +24,9 @@ export default function AppointmentDetailsPage({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-6"> {/* Added p-6 for padding */}
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">
             Appointment Details
@@ -34,14 +39,14 @@ export default function AppointmentDetailsPage({
         <div className="flex items-center gap-3">
           <Link
             href={`/doctor/patients/${appointment.id}`}
-            className="rounded-lg border border-pink-600 px-4 py-2 text-sm font-medium text-pink-600 hover:bg-pink-50"
+            className="rounded-lg border border-pink-600 px-4 py-2 text-sm font-medium text-pink-600 hover:bg-pink-50 transition"
           >
             View File
           </Link>
 
           <Link
             href="/doctor/prescriptions/new"
-            className="rounded-lg bg-pink-600 px-4 py-2 text-sm font-medium text-white hover:bg-pink-700"
+            className="rounded-lg bg-pink-600 px-4 py-2 text-sm font-medium text-white hover:bg-pink-700 transition"
           >
             Write Prescription
           </Link>
@@ -61,13 +66,13 @@ export default function AppointmentDetailsPage({
           </Section>
 
           <Section title="Symptoms">
-            <p className="text-sm text-gray-700">
+            <p className="text-sm text-gray-700 leading-relaxed">
               {appointment.symptoms}
             </p>
           </Section>
 
           <Section title="Doctor Notes">
-            <p className="text-sm text-gray-700">
+            <p className="text-sm text-gray-700 leading-relaxed">
               {appointment.notes}
             </p>
           </Section>
@@ -76,11 +81,11 @@ export default function AppointmentDetailsPage({
         {/* Right: Actions */}
         <div className="space-y-6">
           <Section title="Quick Actions">
-            <button className="w-full rounded-lg bg-pink-600 px-4 py-2 text-sm font-medium text-white hover:bg-pink-700">
+            <button className="w-full rounded-lg bg-pink-600 px-4 py-2 text-sm font-medium text-white hover:bg-pink-700 transition">
               Resume Consultation
             </button>
 
-            <button className="mt-3 w-full rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+            <button className="mt-3 w-full rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
               Mark as Completed
             </button>
           </Section>
@@ -106,8 +111,8 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border bg-white p-6">
-      <h2 className="mb-4 font-semibold text-gray-900">
+    <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+      <h2 className="mb-4 font-semibold text-gray-900 border-b border-gray-100 pb-2">
         {title}
       </h2>
       {children}
@@ -123,7 +128,7 @@ function InfoRow({
   value: string;
 }) {
   return (
-    <div className="flex items-center justify-between py-2">
+    <div className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
       <span className="text-sm text-gray-500">{label}</span>
       <span className="text-sm font-medium text-gray-900">
         {value}
