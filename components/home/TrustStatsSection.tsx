@@ -23,22 +23,22 @@ const stats = [
 
 const TrustStatsSection: React.FC = () => {
   return (
-    <section className="w-full py-16 md:py-24 bg-[#587CFF]">
+    <section className="w-full py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
           {/* Left Column: Content */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 leading-tight">
               Trusted Healthcare at Your Fingertips
             </h2>
             
             <ul className="space-y-5">
               {features.map((feature, index) => (
-                <li key={index} className="flex items-start gap-4 text-white">
+                <li key={index} className="flex items-start gap-4 ">
                   {/* Icon */}
                   <CheckCircle2 
-                    className="w-6 h-6 text-white shrink-0 opacity-90" 
+                    className="w-6 h-6  shrink-0 opacity-90" 
                     strokeWidth={2}
                   />
                   {/* Text */}
@@ -57,10 +57,10 @@ const TrustStatsSection: React.FC = () => {
                 key={stat.id} 
                 className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 md:p-10 text-center shadow-lg transition-transform hover:scale-105"
               >
-                <div className="text-3xl md:text-5xl font-bold text-white mb-2">
+                <div className="text-3xl md:text-5xl font-bold  mb-2">
                   {stat.value}
                 </div>
-                <div className="text-blue-100 text-sm md:text-lg font-medium">
+                <div className="text-pink-600 text-sm md:text-lg font-medium">
                   {stat.label}
                 </div>
               </div>

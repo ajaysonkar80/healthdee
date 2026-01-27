@@ -1,86 +1,127 @@
-import { 
-  FaStethoscope, 
-  FaHeart, 
-  FaSpa, // For Dermatology
-  FaBone, 
-  FaBrain, 
-  FaBaby, 
-  FaUserMd, // For Psychiatry/General
-  FaVenus, // For Gynecology
-  FaEye, 
-  FaTooth 
-} from 'react-icons/fa';
+import {
+  FaStethoscope,
+  FaHeart,
+  FaSpa,
+  FaBone,
+  FaBrain,
+  FaBaby,
+  FaUserMd,
+  FaVenus,
+  FaEye,
+  FaTooth,
+} from "react-icons/fa";
+
+const specialties = [
+  {
+    title: "General Physician",
+    count: "120 doctors",
+    icon: FaStethoscope,
+    bg: "bg-blue-50",
+    color: "text-blue-600",
+  },
+  {
+    title: "Cardiology",
+    count: "45 doctors",
+    icon: FaHeart,
+    bg: "bg-red-50",
+    color: "text-red-600",
+  },
+  {
+    title: "Dermatology",
+    count: "38 doctors",
+    icon: FaSpa,
+    bg: "bg-amber-50",
+    color: "text-amber-600",
+  },
+  {
+    title: "Orthopedics",
+    count: "32 doctors",
+    icon: FaBone,
+    bg: "bg-yellow-50",
+    color: "text-yellow-700",
+  },
+  {
+    title: "Neurology",
+    count: "28 doctors",
+    icon: FaBrain,
+    bg: "bg-purple-50",
+    color: "text-purple-600",
+  },
+  {
+    title: "Pediatrics",
+    count: "52 doctors",
+    icon: FaBaby,
+    bg: "bg-sky-50",
+    color: "text-sky-600",
+  },
+  {
+    title: "Psychiatry",
+    count: "25 doctors",
+    icon: FaUserMd,
+    bg: "bg-indigo-50",
+    color: "text-indigo-600",
+  },
+  {
+    title: "Gynecology",
+    count: "40 doctors",
+    icon: FaVenus,
+    bg: "bg-rose-50",
+    color: "text-rose-600",
+  },
+  {
+    title: "Ophthalmology",
+    count: "22 doctors",
+    icon: FaEye,
+    bg: "bg-teal-50",
+    color: "text-teal-600",
+  },
+  {
+    title: "Dentistry",
+    count: "65 doctors",
+    icon: FaTooth,
+    bg: "bg-cyan-50",
+    color: "text-cyan-600",
+  },
+];
 
 export default function SpecialtiesSection() {
-  const primaryColor = '#F26A8D'; // Pink
-
-  const specialties = [
-    { title: 'General Physician', count: '120 doctors', icon: <FaStethoscope /> },
-    { title: 'Cardiology', count: '45 doctors', icon: <FaHeart /> },
-    { title: 'Dermatology', count: '38 doctors', icon: <FaSpa /> },
-    { title: 'Orthopedics', count: '32 doctors', icon: <FaBone /> },
-    { title: 'Neurology', count: '28 doctors', icon: <FaBrain /> },
-    { title: 'Pediatrics', count: '52 doctors', icon: <FaBaby /> },
-    { title: 'Psychiatry', count: '25 doctors', icon: <FaUserMd /> },
-    { title: 'Gynecology', count: '40 doctors', icon: <FaVenus /> },
-    { title: 'Ophthalmology', count: '22 doctors', icon: <FaEye /> },
-    { title: 'Dentistry', count: '65 doctors', icon: <FaTooth /> },
-  ];
-
   return (
-    <section className="bg-white py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">
+    <section className="bg-white py-16 px-4">
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-gray-900">
             Find Doctors by Specialty
           </h2>
-          <p className="text-gray-500 text-base">
+          <p className="mt-2 text-gray-500">
             Browse our wide range of medical specialties
           </p>
         </div>
 
-        {/* Grid Container */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {specialties.map((item, index) => (
-            <div 
-              key={index}
-              className="group flex flex-col items-center justify-center p-6 border border-gray-100 rounded-xl bg-white transition-all duration-300 hover:shadow-lg cursor-pointer"
-              // Add a hover style via inline style to use the exact pink color for the border
-              style={{ borderColor: 'transparent' }} 
-            >
-              {/* Card wrapper to handle hover border manually or via Tailwind classes. 
-                  Below I use standard Tailwind for layout and inline styles for dynamic colors. */}
-              <div 
-                className="w-full h-full flex flex-col items-center justify-center rounded-xl border border-gray-100 transition-colors group-hover:border-[color:var(--hover-color)]"
-                style={{ '--hover-color': primaryColor } as React.CSSProperties}
+        {/* Grid */}
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
+          {specialties.map(
+            ({ title, count, icon: Icon, bg, color }) => (
+              <div
+                key={title}
+                className="flex flex-col items-center rounded-xl border border-gray-100 p-6 text-center"
               >
-                 {/* Icon Container */}
-                <div 
-                  className="w-14 h-14 rounded-full flex items-center justify-center mb-4 transition-transform group-hover:scale-110"
-                  style={{ 
-                    backgroundColor: `${primaryColor}15`, // ~10% opacity pink
-                    color: primaryColor 
-                  }}
+                <div
+                  className={`mb-4 flex h-12 w-12 items-center justify-center rounded-full ${bg} ${color}`}
                 >
-                  <span className="text-2xl">
-                    {item.icon}
-                  </span>
+                  <Icon className="text-xl" />
                 </div>
 
-                {/* Text */}
-                <h3 className="text-sm font-bold text-gray-800 mb-1 text-center">
-                  {item.title}
+                <h3 className="text-sm font-semibold text-gray-800">
+                  {title}
                 </h3>
-                <p className="text-xs text-gray-400 font-medium">
-                  {item.count}
+                <p className="mt-1 text-xs text-gray-500">
+                  {count}
                 </p>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
-
       </div>
     </section>
   );
