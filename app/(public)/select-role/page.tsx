@@ -1,4 +1,4 @@
-import { SelectRoleForm } from "@/components/domain/auth/SelectRoleForm";
+import { SelectRoleForm } from "@/components/auth/SelectRoleForm";
 
 export default function SelectRolePage() {
   return (
