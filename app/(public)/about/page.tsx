@@ -1,9 +1,24 @@
-export default function Page() {
+// app/about/page.tsx
+import AboutHero from "@/components/about/about-hero/AboutHero";
+import OurStory from "@/components/about/our-story/OurStory";
+import TrustBadges from "@/components/about/trust-badges/TrustBadges";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import FinalCTA from "@/components/about/final-cta/FinalCTA";
+import MeetTheTeam from "@/components/about/meet-the-team/MeetTheTeam";
+import CoreValues from "@/components/about/core-values/CoreValues";
+
+export default function AboutPage() {
   return (
-    <main className="min-h-screen flex items-center justify-center px-4">
-      <p className="text-sm text-gray-500">
-        This page is under construction.
-      </p>
-    </main>
+    <>
+      <Header/>
+      <AboutHero />
+      <OurStory/>
+      <TrustBadges/>
+      <CoreValues/>
+      <MeetTheTeam/>
+      <FinalCTA/>
+      <Footer/>
+    </>
   );
 }
