@@ -16,7 +16,6 @@ export default function AboutPage() {
       <OurStory/>
       <TrustBadges/>
       <CoreValues/>
-      <MeetTheTeam/>
       <FinalCTA/>
       <Footer/>
     </>
