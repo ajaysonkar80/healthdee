@@ -59,28 +59,30 @@ export default async function ClinicPage({
     ],
     amenities: ["Parking", "Wheelchair", "Free WiFi", "Insurance"],
     mapEmbedUrl:
-      "https://www.google.com/maps/dir/?api=1&destination=City+General+Hospital+Jaipur+Rajasthan",
+      "https://www.google.com/maps?q=26.9155255,75.8106633&output=embed",
   };
 
   return (
     <ClinicPageLayout
-      sidebar={
-        <ClinicSidebar
-          operatingHours={clinic.operatingHours}
-          amenities={clinic.amenities}
-          mapEmbedUrl={clinic.mapEmbedUrl}
-          address={clinic.address}
-        />
-      }
-    >
-      <ClinicHero
-        name={clinic.name}
-        imageUrl={clinic.heroImage}
-        rating={clinic.rating}
-        reviewCount={clinic.reviews}
-        location={clinic.location}
-        isVerified
-      />
+  hero={
+    <ClinicHero
+      name={clinic.name}
+      imageUrl={clinic.heroImage}
+      rating={clinic.rating}
+      reviewCount={clinic.reviews}
+      location={clinic.location}
+      isVerified
+    />
+  }
+  sidebar={
+    <ClinicSidebar
+      operatingHours={clinic.operatingHours}
+      amenities={clinic.amenities}
+      mapEmbedUrl={clinic.mapEmbedUrl}
+      address={clinic.address}
+    />
+  }
+>
 
       <ClinicSummary
         name={clinic.name}
