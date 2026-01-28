@@ -5,7 +5,6 @@ import TrustBadges from "@/components/about/trust-badges/TrustBadges";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import FinalCTA from "@/components/about/final-cta/FinalCTA";
-import MeetTheTeam from "@/components/about/meet-the-team/MeetTheTeam";
 import CoreValues from "@/components/about/core-values/CoreValues";
 
 export default function AboutPage() {
