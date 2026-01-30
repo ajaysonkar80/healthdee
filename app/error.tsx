@@ -1,15 +1,14 @@
 "use client";
 
-export default function Error({
-  error,
-  reset,
-}: {
+type ErrorProps = {
   error: Error;
   reset: () => void;
-}) {
+};
+
+export default function Error({ reset }: ErrorProps) {
   return (
-    <main className="min-h-screen flex items-center justify-center px-4">
-      <div className="text-center space-y-4">
+    <main className="flex min-h-screen items-center justify-center px-4">
+      <div className="space-y-4 text-center">
         <h1 className="text-xl font-semibold">
           Something went wrong
         </h1>
@@ -20,6 +19,7 @@ export default function Error({
         </p>
 
         <button
+          type="button"
           onClick={reset}
           className="mt-2 rounded-lg bg-gray-900 px-4 py-2 text-sm text-white"
         >

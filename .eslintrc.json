@@ -1,0 +1,87 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:security/recommended",
+    "plugin:promise/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "react-hooks",
+    "security",
+    "promise",
+    "unused-imports",
+    "import"
+  ],
+  "rules": {
+    /* -------------------- REACT / NEXT -------------------- */
+    "react-hooks/exhaustive-deps": "warn",
+    "@next/next/no-html-link-for-pages": "error",
+
+    /* -------------------- TYPESCRIPT SAFETY -------------------- */
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-non-null-assertion": "error",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      { "prefer": "type-imports" }
+    ],
+
+    /* -------------------- UNUSED CODE (AI KILLER) -------------------- */
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+
+    /* -------------------- SECURITY -------------------- */
+    "security/detect-object-injection": "off",
+    "security/detect-non-literal-fs-filename": "error",
+    "security/detect-non-literal-require": "error",
+    "security/detect-eval-with-expression": "error",
+
+    /* -------------------- PROMISE / ASYNC SAFETY -------------------- */
+    "promise/catch-or-return": "error",
+    "promise/no-nesting": "warn",
+    "promise/no-return-wrap": "error",
+    "promise/always-return": "off",
+
+    /* -------------------- IMPORT HYGIENE -------------------- */
+    "import/no-cycle": "error",
+    "import/no-self-import": "error",
+
+    /* -------------------- LOGGING -------------------- */
+    "no-console": ["warn", { "allow": ["warn", "error"] }]
+  },
+
+  "overrides": [
+    {
+      "files": ["**/*.tsx", "**/*.ts"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "drizzle-orm",
+                "message": "❌ Drizzle ORM must NOT be imported into Client Components. Use server-only files."
+              },
+              {
+                "name": "drizzle-orm/node-postgres",
+                "message": "❌ Drizzle DB adapters are server-only."
+              },
+              {
+                "name": "@/db",
+                "message": "❌ Database access is server-only. Do not import DB into client code."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

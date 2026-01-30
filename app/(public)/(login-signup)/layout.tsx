@@ -1,12 +1,14 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
-export default function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+type AuthLayoutProps = {
+  children: ReactNode;
+};
+
+export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <main className="min-h-screen bg-[#FFF7F9]">
+    <main className="min-h-screen bg-accent-primary">
       {/* Top Bar */}
       <header className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-2 font-semibold">
@@ -14,20 +16,20 @@ export default function AuthLayout({
           HealthTech Portal
         </div>
 
-        <div className="flex gap-3">
+        <nav className="flex gap-3">
           <Link href="/help" className="text-sm text-pink-600">
             Help
           </Link>
           <Link href="/support" className="text-sm text-gray-600">
             Support
           </Link>
-        </div>
+        </nav>
       </header>
 
       {/* Content */}
       <section className="grid min-h-[calc(100vh-64px)] grid-cols-1 lg:grid-cols-2">
         {/* LEFT SIDE */}
-        <div className="hidden lg:flex flex-col justify-center px-16">
+        <div className="hidden flex-col justify-center px-16 lg:flex">
           <span className="mb-4 inline-block w-fit rounded-full bg-pink-100 px-3 py-1 text-xs font-medium text-pink-600">
             🔒 Secure Access
           </span>
@@ -39,8 +41,8 @@ export default function AuthLayout({
           </h1>
 
           <p className="mt-4 max-w-md text-gray-600">
-            Join thousands of doctors providing digital care on a
-            platform designed for trust and efficiency.
+            Join thousands of doctors providing digital care on a platform
+            designed for trust and efficiency.
           </p>
 
           {/* Security Card */}
@@ -52,7 +54,10 @@ export default function AuthLayout({
                 <p className="text-sm text-gray-500">
                   HIPAA Compliant | 256-bit Encryption
                 </p>
-                <button className="mt-2 text-sm text-pink-600">
+                <button
+                  type="button"
+                  className="mt-2 text-sm text-pink-600"
+                >
                   Learn more about our security standards →
                 </button>
               </div>
@@ -60,17 +65,20 @@ export default function AuthLayout({
           </div>
 
           {/* Image */}
-          <div className="mt-10 overflow-hidden rounded-2xl">
-            <img
+          <div className="relative mt-10 h-64 overflow-hidden rounded-2xl">
+            <Image
               src="/clinic.jpg"
-              alt="Clinic"
-              className="h-full w-full object-cover"
+              alt="Modern healthcare clinic interior"
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              priority
             />
           </div>
         </div>
 
         {/* RIGHT SIDE (FORM SLOT) */}
-        <div className="flex justify-center pt-10 px-4 min-h-screen">
+        <div className="flex min-h-screen justify-center px-4 pt-10">
           {children}
         </div>
       </section>

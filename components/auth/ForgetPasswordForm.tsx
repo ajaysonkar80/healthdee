@@ -1,45 +1,41 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 
-export default function ForgotPasswordForm() {
-  const router = useRouter();
-  const { register, handleSubmit } = useForm();
+type ForgotPasswordFormData = {
+  email: string;
+};
 
-  function onSubmit(data: any) {
+export default function ForgetPasswordForm() {
+  const router = useRouter();
+
+  const { register, handleSubmit } = useForm<ForgotPasswordFormData>();
+
+  const onSubmit: SubmitHandler<ForgotPasswordFormData> = (data) => {
     console.log("SEND RESET EMAIL TO:", data.email);
 
     // mock email sent
     router.push("/reset-password");
-  }
+  };
 
   return (
-    <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg">
-      <h1 className="text-xl font-semibold text-center">
-        Forgot your password?
-      </h1>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-4"
+    >
+      <Input
+        label="Email address"
+        type="email"
+        placeholder="Email address"
+        {...register("email", { required: true })}
+      />
 
-      <p className="mt-1 text-center text-sm text-gray-500">
-        Enter your email and we’ll send you a reset link.
-      </p>
-
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="mt-6 space-y-4"
-      >
-        <Input
-          label="Email address"
-          type="email"
-          {...register("email")}
-        />
-
-        <Button type="submit">
-          Send reset link
-        </Button>
-      </form>
-    </div>
+      <Button type="submit" className="w-full">
+        Send reset link
+      </Button>
+    </form>
   );
 }
