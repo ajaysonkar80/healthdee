@@ -5,9 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { emailSignupSchema } from "@/lib/validators";
-import { Input } from "@/components/shared/Input";
-import { PasswordInput } from "@/components/shared/PasswordInput";
-import { Button } from "@/components/shared/Button";
+import { Input } from "@/components/ui/Input";
+import { PasswordInput } from "@/components/ui/PasswordInput";
+import { Button } from "@/components/ui/Button";
 
 type EmailSignupFormData = z.infer<typeof emailSignupSchema>;
 

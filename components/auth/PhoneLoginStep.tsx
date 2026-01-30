@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { phoneLoginSchema } from "@/lib/validators";
-import { Input } from "@/components/shared/Input";
-import { Button } from "@/components/shared/Button";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
 
 type FormData = z.infer<typeof phoneLoginSchema>;
 

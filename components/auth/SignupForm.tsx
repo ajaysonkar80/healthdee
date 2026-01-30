@@ -6,7 +6,7 @@ import { EmailSignupStep } from "./EmailSignupStep";
 import { PhoneSignupStep } from "./PhoneSignupStep";
 import { OtpStep } from "./OtpStep";
 import { EmailVerificationStep } from "./EmailVerificationStep";
-import { Button } from "@/components/shared/Button";
+import { Button } from "@/components/ui/Button";
 import Link from 'next/link'
 type Step = "EMAIL" | "PHONE" | "OTP" | "EMAIL_VERIFY";
 

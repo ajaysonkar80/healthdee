@@ -6,9 +6,9 @@ import { z } from "zod";
 // 1. Correct Import for App Router
 import { useRouter } from "next/navigation"; 
 import { emailLoginSchema } from "@/lib/validators";
-import { Input } from "@/components/shared/Input";
-import { PasswordInput } from "@/components/shared/PasswordInput";
-import { Button } from "@/components/shared/Button";
+import { Input } from "@/components/ui/Input";
+import { PasswordInput } from "@/components/ui/PasswordInput";
+import { Button } from "@/components/ui/Button";
 
 type FormData = z.infer<typeof emailLoginSchema>;
 

@@ -9,9 +9,9 @@ export function Button({
       {...props}
       className={`
         w-full
-        min-h-[48px]
+        min-h-12
         rounded-xl
-        bg-[#F26A8D]
+        bg-accent-primary
         text-white
         font-semibold
         text-base

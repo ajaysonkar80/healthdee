@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { Input } from "@/components/shared/Input";
-import { Button } from "@/components/shared/Button";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
 
 export default function ForgotPasswordForm() {
   const router = useRouter();
