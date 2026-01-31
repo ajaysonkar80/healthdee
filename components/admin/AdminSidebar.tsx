@@ -3,14 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "../ui/Button";
-import { Badge } from "../ui/badge";
+
 
 const navItems = [
   { label: "Dashboard", href: "/admin" },
   { label: "Clinics", href: "/admin/clinics" },
   { label: "Doctors", href: "/admin/doctors" },
+  { label: "Doctors Verification", href: "/admin/doctors-verification", badge: 14 },
   { label: "Patients", href: "/admin/patients" },
-  { label: "Verifications", href: "/admin/verifications", badge: 14 },
+  {label:"Appointment Requests",href:"/admin/appointment-requests"},
   { label: "Settings", href: "/admin/settings" },
 ];
 
