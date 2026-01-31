@@ -1,9 +1,19 @@
-export default function Page() {
+import type { ReactNode } from "react";
+import AdminSidebar from "@/components/admin/AdminSidebar";
+import AdminTopBar from "@/components/admin/AdminTopBar";
+
+export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
-    <main className="min-h-screen flex items-center justify-center px-4">
-      <p className="text-sm text-gray-500">
-        This page is under construction.
-      </p>
-    </main>
+    <div className="flex min-h-screen bg-[#fff7f8]">
+      {/* Sidebar */}
+      <AdminSidebar />
+
+      {/* Main content */}
+      <div className="flex flex-1 flex-col">
+        <AdminTopBar />
+
+        <main className="flex-1 p-6">{children}</main>
+      </div>
+    </div>
   );
 }

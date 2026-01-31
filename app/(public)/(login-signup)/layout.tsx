@@ -8,7 +8,7 @@ type AuthLayoutProps = {
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <main className="min-h-screen bg-accent-primary">
+    <main className="min-h-screen ">
       {/* Top Bar */}
       <header className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-2 font-semibold">
@@ -45,24 +45,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
             designed for trust and efficiency.
           </p>
 
-          {/* Security Card */}
-          <div className="mt-6 max-w-md rounded-xl bg-white p-4 shadow-sm">
-            <div className="flex items-start gap-3">
-              <div className="rounded-full bg-pink-100 p-2">🔐</div>
-              <div>
-                <p className="font-medium">Secure & Encrypted</p>
-                <p className="text-sm text-gray-500">
-                  HIPAA Compliant | 256-bit Encryption
-                </p>
-                <button
-                  type="button"
-                  className="mt-2 text-sm text-pink-600"
-                >
-                  Learn more about our security standards →
-                </button>
-              </div>
-            </div>
-          </div>
+          
 
           {/* Image */}
           <div className="relative mt-10 h-64 overflow-hidden rounded-2xl">
