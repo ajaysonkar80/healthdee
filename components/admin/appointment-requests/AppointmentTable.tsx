@@ -5,7 +5,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Card, CardContent } from "@/components/ui/Card";
+import { Card, CardContent } from "@/components/ui/card";
 import { AppointmentTableRow, AppointmentRowData } from "./AppointmentTableRow";
 
 interface AppointmentTableProps {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { ClinicStats } from "@/components/admin/clinic/ClinicStats";
 import { ClinicTable } from "@/components/admin/clinic/ClinicTable";
 import { ClinicPagination } from "@/components/admin/clinic/ClinicPagination";

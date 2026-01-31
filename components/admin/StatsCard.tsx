@@ -1,4 +1,4 @@
-import { Card,CardContent,CardHeader } from "../ui/Card";
+import { Card,CardContent,CardHeader } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { ReactNode } from "react";
 

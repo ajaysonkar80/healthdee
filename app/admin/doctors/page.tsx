@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Plus } from 'lucide-react'
 
-import { Button } from '@/components/ui/Button'
+import { Button } from '@/components/ui/button'
 import { StatsCards } from '@/components/admin/doctor/StatsCard'
 import { DoctorTable } from '@/components/admin/doctor/DoctorTable'
 import { BulkHelpCards } from '@/components/admin/doctor/BulkHelpCards'

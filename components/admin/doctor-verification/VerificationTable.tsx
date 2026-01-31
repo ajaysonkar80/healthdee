@@ -5,7 +5,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Card, CardContent } from "@/components/ui/Card";
+import { Card, CardContent } from "@/components/ui/card";
 import { VerificationTableRow, VerificationRowData } from "./VerificationTableRow";
 
 interface VerificationTableProps {

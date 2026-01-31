@@ -7,7 +7,7 @@ import { z } from "zod";
 
 import { resetPasswordSchema } from "@/lib/validators";
 import { PasswordInput } from "@/components/ui/PasswordInput";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 
 type ResetPasswordData = z.infer<typeof resetPasswordSchema>;
 

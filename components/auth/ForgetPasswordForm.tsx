@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 type ForgotPasswordFormData = {
   email: string;

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { AppointmentFilters } from "@/components/admin/appointment-requests/AppointmentFilters";
 import { AppointmentTable } from "@/components/admin/appointment-requests/AppointmentTable";

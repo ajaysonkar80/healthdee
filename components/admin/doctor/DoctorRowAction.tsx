@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Eye, Pencil } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
+import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 
 export interface DoctorRowActionsProps {

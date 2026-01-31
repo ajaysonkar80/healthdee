@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { VerificationFilters } from "@/components/admin/doctor-verification/VerificationFilters";
 import { VerificationTable } from "@/components/admin/doctor-verification/VerificationTable";
 import { VerificationPagination } from "@/components/admin/doctor-verification/VerificationPagination";

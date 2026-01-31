@@ -2,7 +2,7 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { AppointmentStatusBadge, AppointmentStatus } from "./AppointmentStatusBadge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MoreHorizontal, Calendar } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,

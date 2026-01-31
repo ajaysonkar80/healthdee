@@ -6,7 +6,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ClinicTableRow, ClinicRowData } from "./ClinicTableRow";
-import { Card, CardContent } from "@/components/ui/Card";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface ClinicTableProps {
   clinics: ClinicRowData[];
