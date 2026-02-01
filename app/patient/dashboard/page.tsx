@@ -1,9 +1,18 @@
-export default function Page() {
+import PatientSettingsLayout from "@/components/patient/PatientSettingsLayout"
+import ProfileHeader from "@/components/patient/ProfileHeader"
+import PersonalInformationSection from "@/components/patient/PersonalInformationSection"
+import EmergencyContactsSection from "@/components/patient/EmergencyContactSection"
+import NotificationPrivacySection from "@/components/patient/NotificationPrivacySection"
+import DangerZone from "@/components/patient/DangerZone"
+
+export default function PatientSettingsPage() {
   return (
-    <main className="min-h-screen flex items-center justify-center px-4">
-      <p className="text-sm text-gray-500">
-        This page is under construction.
-      </p>
-    </main>
-  );
+    <PatientSettingsLayout>
+      <ProfileHeader />
+      <PersonalInformationSection />
+      <EmergencyContactsSection />
+      <NotificationPrivacySection />
+      <DangerZone />
+    </PatientSettingsLayout>
+  )
 }
