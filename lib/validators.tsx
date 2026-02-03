@@ -118,8 +118,8 @@ const doctorProfileSchema = z.object({
     .int("Consultation fee must be an integer")
     .nonnegative("Consultation fee must be positive"),
 
-  // ✅ FIX 1: z.record now requires key + value schema
-  availability: z.record(z.string(), z.array(z.string())).optional(),
+  // ✅ Zod v3 compatible
+  availability: z.record(z.array(z.string())).optional(),
 
   verificationStatus: z
     .enum(["pending", "approved", "rejected"])
@@ -158,7 +158,5 @@ export const doctorFormSchema = z.object({
   npi: z.string().regex(/^\d{7,10}$/, "NPI must be 7 to 10 digits"),
   specialty: z.string().min(2, "Specialty is required"),
   city: z.string().min(2, "City is required"),
-
-  // ✅ FIX 2: remove required_error (Zod v4)
   status: z.enum(["active", "inactive"]),
 });
