@@ -7,18 +7,23 @@ import { doctorUpdateSchema } from "@/lib/validators";
 import { and, eq } from "drizzle-orm";
 
 interface RouteContext {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export async function GET(request: NextRequest, { params }: RouteContext) {
+async function getParams(context: RouteContext) {
+  return context.params;
+}
+
+export async function GET(request: NextRequest, context: RouteContext) {
   const { response } = await authorizeAdmin(request);
 
   if (response) {
     return response;
   }
 
+  const { id } = await getParams(context);
   const doctor = await db.query.users.findFirst({
-    where: and(eq(users.id, params.id), eq(users.role, "doctor")),
+    where: and(eq(users.id, id), eq(users.role, "doctor")),
     columns: { id: true, email: true, phone: true, role: true, createdAt: true },
     with: { doctorProfile: true },
   });
@@ -30,7 +35,7 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
   return NextResponse.json({ data: doctor });
 }
 
-export async function PATCH(request: NextRequest, { params }: RouteContext) {
+export async function PATCH(request: NextRequest, context: RouteContext) {
   const { response } = await authorizeAdmin(request);
 
   if (response) {
@@ -45,8 +50,9 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
 
   const { email, phone, profile } = payload.data;
 
+  const { id } = await getParams(context);
   const doctor = await db.query.users.findFirst({
-    where: and(eq(users.id, params.id), eq(users.role, "doctor")),
+    where: and(eq(users.id, id), eq(users.role, "doctor")),
     columns: { id: true },
   });
 
@@ -68,7 +74,7 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
     await db
       .update(users)
       .set(userUpdates)
-      .where(eq(users.id, params.id));
+      .where(eq(users.id, id));
   }
 
   if (profile) {
@@ -120,7 +126,7 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
 
     if (Object.keys(profileUpdates).length === 0) {
       const updatedDoctor = await db.query.users.findFirst({
-        where: eq(users.id, params.id),
+        where: eq(users.id, id),
         columns: { id: true, email: true, phone: true, role: true, createdAt: true },
         with: { doctorProfile: true },
       });
@@ -131,11 +137,11 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
     await db
       .update(doctorProfiles)
       .set(profileUpdates)
-      .where(eq(doctorProfiles.userId, params.id));
+      .where(eq(doctorProfiles.userId, id));
   }
 
   const updatedDoctor = await db.query.users.findFirst({
-    where: eq(users.id, params.id),
+    where: eq(users.id, id),
     columns: { id: true, email: true, phone: true, role: true, createdAt: true },
     with: { doctorProfile: true },
   });
@@ -147,15 +153,16 @@ export async function PUT(request: NextRequest, context: RouteContext) {
   return PATCH(request, context);
 }
 
-export async function DELETE(request: NextRequest, { params }: RouteContext) {
+export async function DELETE(request: NextRequest, context: RouteContext) {
   const { response } = await authorizeAdmin(request);
 
   if (response) {
     return response;
   }
 
+  const { id } = await getParams(context);
   const doctor = await db.query.users.findFirst({
-    where: and(eq(users.id, params.id), eq(users.role, "doctor")),
+    where: and(eq(users.id, id), eq(users.role, "doctor")),
     columns: { id: true },
   });
 
@@ -163,7 +170,7 @@ export async function DELETE(request: NextRequest, { params }: RouteContext) {
     return NextResponse.json({ error: "Doctor not found" }, { status: 404 });
   }
 
-  await db.delete(users).where(eq(users.id, params.id));
+  await db.delete(users).where(eq(users.id, id));
 
   return NextResponse.json({ success: true });
 }
