@@ -1,29 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
+import { and, desc, eq, like, or, sql, type SQL } from "drizzle-orm";
 
 import { db } from "@/db";
-import { doctorProfiles, users } from "@/db/schema";
+import { users, doctorProfiles } from "@/db/schema";
 import { authorizeAdmin } from "@/lib/auth";
 import { doctorCreateSchema } from "@/lib/validators";
-import { and, desc, eq, like, or, sql } from "drizzle-orm";
 
+type VerificationStatus = "pending" | "approved" | "rejected";
+
+/* ============================
+   GET: List doctors (admin)
+============================ */
 export async function GET(request: NextRequest) {
   const { response } = await authorizeAdmin(request);
-
-  if (response) {
-    return response;
-  }
+  if (response) return response;
 
   const { searchParams } = request.nextUrl;
-  const page = Math.max(Number(searchParams.get("page") ?? "1"), 1);
-  const pageSize = Math.min(Math.max(Number(searchParams.get("pageSize") ?? "20"), 1), 100);
-  const search = searchParams.get("search")?.trim();
-  const status = searchParams.get("status")?.trim();
 
-  if (status && !["pending", "approved", "rejected"].includes(status)) {
-    return NextResponse.json({ error: "Invalid status filter" }, { status: 400 });
+  const page = Math.max(Number(searchParams.get("page") ?? "1"), 1);
+  const pageSize = Math.min(
+    Math.max(Number(searchParams.get("pageSize") ?? "20"), 1),
+    100
+  );
+
+  const search = searchParams.get("search")?.trim();
+  const rawStatus = searchParams.get("status")?.trim();
+
+  const status: VerificationStatus | undefined =
+    rawStatus && ["pending", "approved", "rejected"].includes(rawStatus)
+      ? (rawStatus as VerificationStatus)
+      : undefined;
+
+  if (rawStatus && !status) {
+    return NextResponse.json(
+      { error: "Invalid status filter" },
+      { status: 400 }
+    );
   }
 
-  const filters = [eq(users.role, "doctor")];
+  const filters: SQL[] = [eq(users.role, "doctor")];
 
   if (status) {
     filters.push(eq(doctorProfiles.verificationStatus, status));
@@ -31,14 +46,17 @@ export async function GET(request: NextRequest) {
 
   if (search) {
     const searchValue = `%${search}%`;
-    filters.push(
-      or(
-        like(users.email, searchValue),
-        like(users.phone, searchValue),
-        like(doctorProfiles.fullName, searchValue),
-        like(doctorProfiles.licenseNumber, searchValue)
-      )
+
+    const searchFilter = or(
+      like(users.email, searchValue),
+      like(users.phone, searchValue),
+      like(sql`${doctorProfiles.fullName}`, searchValue),
+      like(sql`${doctorProfiles.licenseNumber}`, searchValue)
     );
+
+    if (searchFilter) {
+      filters.push(searchFilter);
+    }
   }
 
   const whereClause = and(...filters);
@@ -75,28 +93,36 @@ export async function GET(request: NextRequest) {
   });
 }
 
+/* ============================
+   POST: Create doctor (admin)
+============================ */
 export async function POST(request: NextRequest) {
   const { response } = await authorizeAdmin(request);
-
-  if (response) {
-    return response;
-  }
+  if (response) return response;
 
   const payload = doctorCreateSchema.safeParse(await request.json());
 
   if (!payload.success) {
-    return NextResponse.json({ error: payload.error.flatten() }, { status: 400 });
+    return NextResponse.json(
+      { error: payload.error.flatten() },
+      { status: 400 }
+    );
   }
 
   const { email, phone, profile } = payload.data;
 
   const existingUser = await db.query.users.findFirst({
-    where: email ? eq(users.email, email) : eq(users.phone, phone ?? ""),
+    where: email
+      ? eq(users.email, email)
+      : eq(users.phone, phone ?? ""),
     columns: { id: true },
   });
 
   if (existingUser) {
-    return NextResponse.json({ error: "User already exists" }, { status: 409 });
+    return NextResponse.json(
+      { error: "User already exists" },
+      { status: 409 }
+    );
   }
 
   const [user] = await db
@@ -106,7 +132,11 @@ export async function POST(request: NextRequest) {
       phone: phone ?? null,
       role: "doctor",
     })
-    .returning({ id: users.id, email: users.email, phone: users.phone });
+    .returning({
+      id: users.id,
+      email: users.email,
+      phone: users.phone,
+    });
 
   const [doctorProfile] = await db
     .insert(doctorProfiles)
@@ -126,5 +156,8 @@ export async function POST(request: NextRequest) {
     })
     .returning();
 
-  return NextResponse.json({ data: { ...user, doctorProfile } }, { status: 201 });
+  return NextResponse.json(
+    { data: { ...user, doctorProfile } },
+    { status: 201 }
+  );
 }
