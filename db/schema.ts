@@ -1,138 +1,408 @@
-import { sqliteTable, text, integer, real } from 'drizzle-orm/sqlite-core';
-import { relations, sql } from 'drizzle-orm';
-import { createId } from '@paralleldrive/cuid2'; // Better than UUID for databases
+import {
+  sqliteTable,
+  text,
+  integer,
+  uniqueIndex,
+  primaryKey,
+  index,
+} from "drizzle-orm/sqlite-core";
+import { sql } from "drizzle-orm";
+import { z } from "zod";
 
-// --- 1. AUTHENTICATION & USERS ---
+/* -----------------------------------------------------
+   Helpers
+----------------------------------------------------- */
 
-export const users = sqliteTable('users', {
-  id: text('id').primaryKey().$defaultFn(() => createId()),
-  email: text('email').unique(),      // Nullable, as they might use phone
-  phone: text('phone').unique(),      // Nullable, as they might use email
-  role: text('role', { enum: ['patient', 'doctor', 'admin'] }).notNull().default('patient'),
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`(unixepoch())`),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).$onUpdate(() => new Date()),
-  // No password column since we use OTP
+const uuid = () =>
+  text("id")
+    .primaryKey()
+    .default(sql`(lower(hex(randomblob(16))))`);
+
+/* -----------------------------------------------------
+   ENUMS (SQLite-safe)
+----------------------------------------------------- */
+
+export const UserRoleSchema = z.enum(["patient", "doctor", "admin"]);
+export type UserRole = z.infer<typeof UserRoleSchema>;
+
+export const UserStatusSchema = z.enum(["active", "deactivated", "deleted"]);
+export type UserStatus = z.infer<typeof UserStatusSchema>;
+
+export const OtpChannelSchema = z.enum(["whatsapp", "email"]);
+export type OtpChannel = z.infer<typeof OtpChannelSchema>;
+
+export const ConsentStatusSchema = z.enum([
+  "granted",
+  "withdrawn",
+  "expired",
+]);
+export type ConsentStatus = z.infer<typeof ConsentStatusSchema>;
+
+export const ErasureStatusSchema = z.enum([
+  "requested",
+  "in_progress",
+  "completed",
+  "rejected",
+]);
+export type ErasureStatus = z.infer<typeof ErasureStatusSchema>;
+
+export const FhirSourceSchema = z.enum(["internal", "abdm_gateway"]);
+export type FhirSource = z.infer<typeof FhirSourceSchema>;
+
+export const DoctorVerificationSchema = z.enum([
+  "pending",
+  "verified",
+  "rejected",
+]);
+export type DoctorVerificationStatus = z.infer<
+  typeof DoctorVerificationSchema
+>;
+
+export const AppointmentStatusSchema = z.enum([
+  "scheduled",
+  "completed",
+  "cancelled",
+]);
+export type AppointmentStatus = z.infer<
+  typeof AppointmentStatusSchema
+>;
+
+export const ConsultationModeSchema = z.enum([
+  "video",
+  "audio",
+  "chat",
+]);
+export type ConsultationMode = z.infer<
+  typeof ConsultationModeSchema
+>;
+
+export const ConsultationLogTypeSchema = z.enum([
+  "transcript",
+  "chat_history",
+  "call_metadata",
+  "prescription",
+  "consent_log",
+  "clinical_summary",
+]);
+export type ConsultationLogType = z.infer<
+  typeof ConsultationLogTypeSchema
+>;
+
+export const ScheduleClassSchema = z.enum([
+  "OTC",
+  "G",
+  "H",
+  "H1",
+  "X",
+  "SCHEDULE_K",
+  "G_LIST",
+]);
+export type ScheduleClass = z.infer<
+  typeof ScheduleClassSchema
+>;
+
+/* -----------------------------------------------------
+   1) USERS & AUTH
+----------------------------------------------------- */
+
+export const users = sqliteTable("users", {
+  id: uuid(),
+  role: text("role").$type<UserRole>().notNull(),
+  status: text("status").$type<UserStatus>().notNull().default("active"),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+  updatedAt: integer("updated_at", { mode: "timestamp" }),
 });
 
-// Store OTPs temporarily. Delete rows after validation or expiry.
-export const otps = sqliteTable('otps', {
-  id: text('id').primaryKey().$defaultFn(() => createId()),
-  contact: text('contact').notNull(), // The email OR phone number
-  code: text('code').notNull(),       // The 6-digit code
-  expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
-});
+export const authCredentials = sqliteTable(
+  "auth_credentials",
+  {
+    id: uuid(),
+    userId: text("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    email: text("email"),
+    passwordHash: text("password_hash"),
+    whatsappPhone: text("whatsapp_phone"),
+    whatsappVerifiedAt: integer("whatsapp_verified_at", {
+      mode: "timestamp",
+    }),
+    emailVerifiedAt: integer("email_verified_at", {
+      mode: "timestamp",
+    }),
+    lastLoginAt: integer("last_login_at", {
+      mode: "timestamp",
+    }),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => ({
+    emailUnique: uniqueIndex("auth_email_unique").on(t.email),
+    whatsappUnique: uniqueIndex("auth_whatsapp_unique").on(t.whatsappPhone),
+  })
+);
 
-// --- 2. PROFILES (Extensive Onboarding Data) ---
-
-export const patientProfiles = sqliteTable('patient_profiles', {
-  id: text('id').primaryKey().$defaultFn(() => createId()),
-  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull().unique(),
-  fullName: text('full_name').notNull(),
-  dateOfBirth: text('date_of_birth'), // ISO String YYYY-MM-DD
-  gender: text('gender', { enum: ['male', 'female', 'other'] }),
-  bloodGroup: text('blood_group'),
-  address: text('address'),
-  // Medical Onboarding Data
-  allergies: text('allergies'), // JSON string or comma-separated
-  chronicConditions: text('chronic_conditions'), // e.g., "Diabetes, Hypertension"
-  emergencyContactName: text('emergency_contact_name'),
-  emergencyContactPhone: text('emergency_contact_phone'),
-});
-
-export const doctorProfiles = sqliteTable('doctor_profiles', {
-  id: text('id').primaryKey().$defaultFn(() => createId()),
-  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull().unique(),
-  fullName: text('full_name').notNull(),
-  specialization: text('specialization').notNull(), // e.g., "Cardiologist"
-  licenseNumber: text('license_number').notNull(),
-  yearsOfExperience: integer('years_of_experience'),
-  bio: text('bio'),
-  clinicAddress: text('clinic_address'),
-  clinicGeoLat: real('clinic_geo_lat'), // For map search
-  clinicGeoLng: real('clinic_geo_lng'),
-  consultationFee: integer('consultation_fee').notNull(), // Store in cents/lowest currency unit
-  
-  // JSON field for complex availability (e.g., { "mon": ["09:00", "17:00"], "tue": ... })
-  availability: text('availability', { mode: 'json' }), 
-  
-  verificationStatus: text('verification_status', { enum: ['pending', 'approved', 'rejected'] }).default('pending'),
-});
-
-// --- 3. CORE BUSINESS LOGIC ---
-
-export const appointments = sqliteTable('appointments', {
-  id: text('id').primaryKey().$defaultFn(() => createId()),
-  patientId: text('patient_id').references(() => users.id).notNull(),
-  doctorId: text('doctor_id').references(() => users.id).notNull(),
-  
-  startTime: text('start_time').notNull(), // ISO String: 2023-10-25T14:30:00Z
-  status: text('status', { enum: ['pending', 'confirmed', 'completed', 'cancelled'] }).default('pending'),
-  
-  // Snapshot of fee at time of booking (in case doctor changes price later)
-  feeAmount: integer('fee_amount').notNull(), 
-  paymentStatus: text('payment_status', { enum: ['unpaid', 'paid', 'refunded'] }).default('unpaid'),
-  
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`(unixepoch())`),
-});
-
-export const prescriptions = sqliteTable('prescriptions', {
-  id: text('id').primaryKey().$defaultFn(() => createId()),
-  appointmentId: text('appointment_id').references(() => appointments.id).notNull(),
-  doctorId: text('doctor_id').references(() => users.id).notNull(),
-  patientId: text('patient_id').references(() => users.id).notNull(),
-  
-  diagnosis: text('diagnosis').notNull(),
-  // Store medicines as a JSON array for simplicity in SQLite
-  // Example: [{ name: "Paracetamol", dosage: "500mg", freq: "1-0-1", duration: "5 days" }]
-  medications: text('medications', { mode: 'json' }).notNull(),
-  advice: text('advice'),
-  
-  issuedAt: integer('issued_at', { mode: 'timestamp' }).default(sql`(unixepoch())`),
-});
-
-export const medicalRecords = sqliteTable('medical_records', {
-  id: text('id').primaryKey().$defaultFn(() => createId()),
-  patientId: text('patient_id').references(() => users.id).notNull(),
-  title: text('title').notNull(), // e.g., "Blood Test Report"
-  fileUrl: text('file_url').notNull(), // Link to R2/S3 bucket
-  uploadedAt: integer('uploaded_at', { mode: 'timestamp' }).default(sql`(unixepoch())`),
-});
-
-export const transactions = sqliteTable('transactions', {
-  id: text('id').primaryKey().$defaultFn(() => createId()),
-  appointmentId: text('appointment_id').references(() => appointments.id),
-  doctorId: text('doctor_id').references(() => users.id),
-  amount: integer('amount').notNull(), // Total paid by patient
-  platformFee: integer('platform_fee').notNull(), // Your earnings
-  doctorNet: integer('doctor_net').notNull(), // amount - platformFee
-  status: text('status', { enum: ['pending', 'cleared'] }).default('pending'), // 'cleared' when you payout to doctor
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`(unixepoch())`),
-});
-
-// --- 4. RELATIONS (For easy querying) ---
-
-
-export const appointmentsRelations = relations(appointments, ({ one }) => ({
-  patient: one(users, { fields: [appointments.patientId], references: [users.id], relationName: 'patientAppointments' }),
-  doctor: one(users, { fields: [appointments.doctorId], references: [users.id], relationName: 'doctorAppointments' }),
-  prescription: one(prescriptions),
-  transaction: one(transactions),
-}));
-
-export const usersRelations = relations(users, ({ one, many }) => ({
-  // 1. Explicitly tell Drizzle how to find the Patient Profile
-  patientProfile: one(patientProfiles, {
-    fields: [users.id],              // The field in THIS table
-    references: [patientProfiles.userId], // The field in the OTHER table
+export const otpSessions = sqliteTable("otp_sessions", {
+  id: uuid(),
+  userId: text("user_id").references(() => users.id, {
+    onDelete: "cascade",
   }),
+  channel: text("channel").$type<OtpChannel>().notNull(),
+  destination: text("destination").notNull(),
+  otpHash: text("otp_hash").notNull(),
+  expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
+  verifiedAt: integer("verified_at", { mode: "timestamp" }),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
 
-  // 2. Explicitly tell Drizzle how to find the Doctor Profile
-  doctorProfile: one(doctorProfiles, {
-    fields: [users.id],
-    references: [doctorProfiles.userId],
+/* -----------------------------------------------------
+   2) CONSENT & DPDP
+----------------------------------------------------- */
+
+export const consentNotices = sqliteTable("consent_notices", {
+  id: uuid(),
+  noticeKey: text("notice_key").notNull(),
+  language: text("language").notNull(),
+  content: text("content").notNull(),
+  version: text("version").notNull(),
+  effectiveFrom: integer("effective_from", { mode: "timestamp" }).notNull(),
+});
+
+export const consents = sqliteTable("consents", {
+  id: uuid(),
+  userId: text("user_id")
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  noticeId: text("notice_id")
+    .references(() => consentNotices.id)
+    .notNull(),
+  purpose: text("purpose").notNull(),
+  consentStatus: text("consent_status")
+    .$type<ConsentStatus>()
+    .notNull(),
+  grantedAt: integer("granted_at", { mode: "timestamp" }),
+  withdrawnAt: integer("withdrawn_at", { mode: "timestamp" }),
+  channel: text("channel").notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+export const dataErasureRequests = sqliteTable("data_erasure_requests", {
+  id: uuid(),
+  userId: text("user_id")
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  status: text("status").$type<ErasureStatus>().notNull(),
+  reason: text("reason"),
+  requestedAt: integer("requested_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+  completedAt: integer("completed_at", { mode: "timestamp" }),
+});
+
+/* -----------------------------------------------------
+   3) ABDM + FHIR
+----------------------------------------------------- */
+
+export const abhaProfiles = sqliteTable(
+  "abha_profiles",
+  {
+    id: uuid(),
+    userId: text("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    abhaNumber: text("abha_number").notNull(),
+    abhaAddress: text("abha_address"),
+    verifiedAt: integer("verified_at", { mode: "timestamp" }),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => ({
+    abhaNumberUnique: uniqueIndex("abha_number_unique").on(t.abhaNumber),
+    abhaUserUnique: uniqueIndex("abha_user_unique").on(t.userId),
+  })
+);
+
+export const fhirResources = sqliteTable("fhir_resources", {
+  id: uuid(),
+  userId: text("user_id").references(() => users.id, {
+    onDelete: "cascade",
   }),
+  abhaProfileId: text("abha_profile_id").references(
+    () => abhaProfiles.id,
+    { onDelete: "cascade" }
+  ),
+  resourceType: text("resource_type").notNull(),
+  resourceJson: text("resource_json", { mode: "json" }).notNull(),
+  source: text("source").$type<FhirSource>().notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
 
-  // 3. Keep appointments as they were
-  appointmentsAsPatient: many(appointments, { relationName: 'patientAppointments' }),
-  appointmentsAsDoctor: many(appointments, { relationName: 'doctorAppointments' }),
-}));
+/* -----------------------------------------------------
+   4) DOCTORS
+----------------------------------------------------- */
+
+export const doctors = sqliteTable(
+  "doctors",
+  {
+    id: uuid(),
+    userId: text("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    publicId: text("public_id").notNull(),
+    specialty: text("specialty").notNull(),
+    experienceYears: integer("experience_years").default(0),
+    rating: integer("rating").notNull().default(0),
+    profileImageUrl: text("profile_image_url"),
+    rmpRegistrationNumber: text("rmp_registration_number").notNull(),
+    rmpStateMedicalCouncil: text("rmp_state_medical_council").notNull(),
+    verificationStatus: text("verification_status")
+      .$type<DoctorVerificationStatus>()
+      .notNull(),
+    verifiedAt: integer("verified_at", { mode: "timestamp" }),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => ({
+    publicIdUnique: uniqueIndex("doctor_public_id_unique").on(t.publicId),
+  })
+);
+
+/* -----------------------------------------------------
+   5) CLINICS
+----------------------------------------------------- */
+
+export const clinics = sqliteTable("clinics", {
+  id: uuid(),
+  name: text("name").notNull(),
+  publicSlug: text("public_slug").notNull(),
+  description: text("description"),
+  address: text("address").notNull(),
+  city: text("city").notNull(),
+  state: text("state"),
+  country: text("country").notNull().default("IN"),
+  geoLat: text("geo_lat"),
+  geoLng: text("geo_lng"),
+  rating: integer("rating").notNull().default(0),
+  isActive: integer("is_active", { mode: "boolean" })
+    .notNull()
+    .default(true),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+/* -----------------------------------------------------
+   6) APPOINTMENTS & CONSULTATIONS
+----------------------------------------------------- */
+
+export const appointments = sqliteTable(
+  "appointments",
+  {
+    id: uuid(),
+    patientId: text("patient_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    doctorId: text("doctor_id")
+      .references(() => doctors.id, { onDelete: "cascade" })
+      .notNull(),
+    scheduledAt: integer("scheduled_at", { mode: "timestamp" }).notNull(),
+    status: text("status").$type<AppointmentStatus>().notNull(),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => ({
+    doctorTimeUnique: uniqueIndex("doctor_time_unique").on(
+      t.doctorId,
+      t.scheduledAt
+    ),
+  })
+);
+
+export const consultations = sqliteTable("consultations", {
+  id: uuid(),
+  appointmentId: text("appointment_id")
+    .references(() => appointments.id, { onDelete: "cascade" })
+    .notNull(),
+  mode: text("mode").$type<ConsultationMode>().notNull(),
+  startedAt: integer("started_at", { mode: "timestamp" }),
+  endedAt: integer("ended_at", { mode: "timestamp" }),
+  summary: text("summary"),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+export const consultationLogs = sqliteTable("consultation_logs", {
+  id: uuid(),
+  consultationId: text("consultation_id")
+    .references(() => consultations.id, { onDelete: "cascade" })
+    .notNull(),
+  logType: text("log_type")
+    .$type<ConsultationLogType>()
+    .notNull(),
+  content: text("content", { mode: "json" }).notNull(),
+  storedAt: integer("stored_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+/* -----------------------------------------------------
+   7) PRESCRIPTIONS
+----------------------------------------------------- */
+
+export const prescriptions = sqliteTable("prescriptions", {
+  id: uuid(),
+  consultationId: text("consultation_id")
+    .references(() => consultations.id, { onDelete: "cascade" })
+    .notNull(),
+  doctorId: text("doctor_id")
+    .references(() => doctors.id, { onDelete: "cascade" })
+    .notNull(),
+  patientId: text("patient_id")
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+export const prescriptionItems = sqliteTable("prescription_items", {
+  id: uuid(),
+  prescriptionId: text("prescription_id")
+    .references(() => prescriptions.id, { onDelete: "cascade" })
+    .notNull(),
+  drugName: text("drug_name").notNull(),
+  dosage: text("dosage").notNull(),
+  frequency: text("frequency").notNull(),
+  durationDays: integer("duration_days").notNull(),
+  scheduleClass: text("schedule_class")
+    .$type<ScheduleClass>()
+    .notNull(),
+});
+
+/* -----------------------------------------------------
+   8) AUDIT & COMPLIANCE
+----------------------------------------------------- */
+
+export const auditLogs = sqliteTable("audit_logs", {
+  id: uuid(),
+  actorUserId: text("actor_user_id").references(() => users.id),
+  action: text("action").notNull(),
+  targetType: text("target_type").notNull(),
+  targetId: text("target_id").notNull(),
+  metadata: text("metadata", { mode: "json" }),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
