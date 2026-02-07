@@ -2,11 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { and, desc, eq, like, or, sql, type SQL } from "drizzle-orm";
 
 import { db } from "@/db";
-import { users, doctorProfiles } from "@/db/schema";
+import { users, doctors } from "@/db/schema";
 import { authorizeAdmin } from "@/lib/auth";
 import { doctorCreateSchema } from "@/lib/validators";
-
-type VerificationStatus = "pending" | "approved" | "rejected";
 
 /* ============================
    GET: List doctors (admin)
@@ -26,9 +24,9 @@ export async function GET(request: NextRequest) {
   const search = searchParams.get("search")?.trim();
   const rawStatus = searchParams.get("status")?.trim();
 
-  const status: VerificationStatus | undefined =
-    rawStatus && ["pending", "approved", "rejected"].includes(rawStatus)
-      ? (rawStatus as VerificationStatus)
+  const status =
+    rawStatus && ["pending", "verified", "rejected"].includes(rawStatus)
+      ? (rawStatus as "pending" | "verified" | "rejected")
       : undefined;
 
   if (rawStatus && !status) {
@@ -41,38 +39,42 @@ export async function GET(request: NextRequest) {
   const filters: SQL[] = [eq(users.role, "doctor")];
 
   if (status) {
-    filters.push(eq(doctorProfiles.verificationStatus, status));
+    filters.push(eq(doctors.verificationStatus, status));
   }
 
   if (search) {
     const searchValue = `%${search}%`;
 
-    const searchFilter = or(
-      like(users.email, searchValue),
-      like(users.phone, searchValue),
-      like(sql`${doctorProfiles.fullName}`, searchValue),
-      like(sql`${doctorProfiles.licenseNumber}`, searchValue)
+    filters.push(
+      or(
+        like(doctors.publicId, searchValue),
+        like(doctors.specialty, searchValue),
+        like(doctors.rmpRegistrationNumber, searchValue)
+      )!
     );
-
-    if (searchFilter) {
-      filters.push(searchFilter);
-    }
   }
 
   const whereClause = and(...filters);
   const offset = (page - 1) * pageSize;
 
-  const doctors = await db
+  const data = await db
     .select({
       id: users.id,
-      email: users.email,
-      phone: users.phone,
       role: users.role,
+      status: users.status,
       createdAt: users.createdAt,
-      doctorProfile: doctorProfiles,
+
+      doctorId: doctors.id,
+      publicId: doctors.publicId,
+      specialty: doctors.specialty,
+      experienceYears: doctors.experienceYears,
+      rating: doctors.rating,
+      verificationStatus: doctors.verificationStatus,
+      verifiedAt: doctors.verifiedAt,
+      profileImageUrl: doctors.profileImageUrl,
     })
     .from(users)
-    .leftJoin(doctorProfiles, eq(doctorProfiles.userId, users.id))
+    .innerJoin(doctors, eq(doctors.userId, users.id))
     .where(whereClause)
     .orderBy(desc(users.createdAt))
     .limit(pageSize)
@@ -81,11 +83,11 @@ export async function GET(request: NextRequest) {
   const [{ count }] = await db
     .select({ count: sql<number>`count(*)` })
     .from(users)
-    .leftJoin(doctorProfiles, eq(doctorProfiles.userId, users.id))
+    .innerJoin(doctors, eq(doctors.userId, users.id))
     .where(whereClause);
 
   return NextResponse.json({
-    data: doctors,
+    data,
     page,
     pageSize,
     total: count,
@@ -100,64 +102,48 @@ export async function POST(request: NextRequest) {
   const { response } = await authorizeAdmin(request);
   if (response) return response;
 
-  const payload = doctorCreateSchema.safeParse(await request.json());
-
-  if (!payload.success) {
+  const parsed = doctorCreateSchema.safeParse(await request.json());
+  if (!parsed.success) {
     return NextResponse.json(
-      { error: payload.error.flatten() },
+      { error: parsed.error.flatten() },
       { status: 400 }
     );
   }
 
-  const { email, phone, profile } = payload.data;
+  const { profile } = parsed.data;
 
-  const existingUser = await db.query.users.findFirst({
-    where: email
-      ? eq(users.email, email)
-      : eq(users.phone, phone ?? ""),
-    columns: { id: true },
-  });
-
-  if (existingUser) {
-    return NextResponse.json(
-      { error: "User already exists" },
-      { status: 409 }
-    );
-  }
-
+  // Create user
   const [user] = await db
     .insert(users)
     .values({
-      email: email ?? null,
-      phone: phone ?? null,
       role: "doctor",
+      status: "active",
     })
-    .returning({
-      id: users.id,
-      email: users.email,
-      phone: users.phone,
-    });
+    .returning({ id: users.id });
 
-  const [doctorProfile] = await db
-    .insert(doctorProfiles)
+  // Create doctor profile
+  const [doctor] = await db
+    .insert(doctors)
     .values({
       userId: user.id,
-      fullName: profile.fullName,
-      specialization: profile.specialization,
-      licenseNumber: profile.licenseNumber,
-      yearsOfExperience: profile.yearsOfExperience ?? null,
-      bio: profile.bio ?? null,
-      clinicAddress: profile.clinicAddress ?? null,
-      clinicGeoLat: profile.clinicGeoLat ?? null,
-      clinicGeoLng: profile.clinicGeoLng ?? null,
-      consultationFee: profile.consultationFee,
-      availability: profile.availability ?? null,
+      publicId: crypto.randomUUID(),
+      specialty: profile.specialty,
+      experienceYears: profile.yearsOfExperience ?? 0,
+      rating: 0,
+      profileImageUrl: profile.profileImageUrl ?? null,
+      rmpRegistrationNumber: profile.rmpRegistrationNumber,
+      rmpStateMedicalCouncil: profile.rmpStateMedicalCouncil,
       verificationStatus: profile.verificationStatus ?? "pending",
     })
     .returning();
 
   return NextResponse.json(
-    { data: { ...user, doctorProfile } },
+    {
+      data: {
+        user,
+        doctor,
+      },
+    },
     { status: 201 }
   );
 }

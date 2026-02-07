@@ -1,174 +1,123 @@
 import { NextRequest, NextResponse } from "next/server";
-
-import { db } from "@/db";
-import { doctorProfiles, users } from "@/db/schema";
-import { authorizeAdmin } from "@/lib/auth";
-import { doctorUpdateSchema } from "@/lib/validators";
 import { and, eq } from "drizzle-orm";
 
-interface RouteContext {
-  params: Promise<{ id: string }>;
-}
+import { db } from "@/db";
+import { doctors, users } from "@/db/schema";
+import { authorizeAdmin } from "@/lib/auth";
+import { doctorUpdateSchema } from "@/lib/validators";
 
-async function getParams(context: RouteContext) {
-  return context.params;
-}
+/* -----------------------------------------------------
+   GET /admin/api/doctors/:id
+----------------------------------------------------- */
+export async function GET(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { id } = await context.params;
 
-export async function GET(request: NextRequest, context: RouteContext) {
   const { response } = await authorizeAdmin(request);
+  if (response) return response;
 
-  if (response) {
-    return response;
+  const result = await db
+    .select({
+      id: users.id,
+      role: users.role,
+      status: users.status,
+      createdAt: users.createdAt,
+
+      doctorId: doctors.id,
+      publicId: doctors.publicId,
+      specialty: doctors.specialty,
+      experienceYears: doctors.experienceYears,
+      rating: doctors.rating,
+      verificationStatus: doctors.verificationStatus,
+      verifiedAt: doctors.verifiedAt,
+      profileImageUrl: doctors.profileImageUrl,
+    })
+    .from(users)
+    .innerJoin(doctors, eq(doctors.userId, users.id))
+    .where(and(eq(users.id, id), eq(users.role, "doctor")))
+    .limit(1);
+
+  if (!result.length) {
+    return NextResponse.json(
+      { error: "Doctor not found" },
+      { status: 404 }
+    );
   }
 
-  const { id } = await getParams(context);
-  const doctor = await db.query.users.findFirst({
-    where: and(eq(users.id, id), eq(users.role, "doctor")),
-    columns: { id: true, email: true, phone: true, role: true, createdAt: true },
-    with: { doctorProfile: true },
-  });
-
-  if (!doctor) {
-    return NextResponse.json({ error: "Doctor not found" }, { status: 404 });
-  }
-
-  return NextResponse.json({ data: doctor });
+  return NextResponse.json({ data: result[0] });
 }
 
-export async function PATCH(request: NextRequest, context: RouteContext) {
+/* -----------------------------------------------------
+   PATCH /admin/api/doctors/:id
+----------------------------------------------------- */
+export async function PATCH(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { id } = await context.params;
+
   const { response } = await authorizeAdmin(request);
+  if (response) return response;
 
-  if (response) {
-    return response;
+  const parsed = doctorUpdateSchema.safeParse(await request.json());
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: parsed.error.flatten() },
+      { status: 400 }
+    );
   }
 
-  const payload = doctorUpdateSchema.safeParse(await request.json());
-
-  if (!payload.success) {
-    return NextResponse.json({ error: payload.error.flatten() }, { status: 400 });
-  }
-
-  const { email, phone, profile } = payload.data;
-
-  const { id } = await getParams(context);
-  const doctor = await db.query.users.findFirst({
-    where: and(eq(users.id, id), eq(users.role, "doctor")),
-    columns: { id: true },
-  });
-
-  if (!doctor) {
-    return NextResponse.json({ error: "Doctor not found" }, { status: 404 });
-  }
-
-  if (email !== undefined || phone !== undefined) {
-    const userUpdates: { email?: string | null; phone?: string | null } = {};
-
-    if (email !== undefined) {
-      userUpdates.email = email ?? null;
-    }
-
-    if (phone !== undefined) {
-      userUpdates.phone = phone ?? null;
-    }
-
-    await db
-      .update(users)
-      .set(userUpdates)
-      .where(eq(users.id, id));
-  }
+  const { profile } = parsed.data;
 
   if (profile) {
-    const profileUpdates: Partial<typeof doctorProfiles.$inferInsert> = {};
+    const updates: Partial<typeof doctors.$inferInsert> = {};
 
-    if (profile.fullName !== undefined) {
-      profileUpdates.fullName = profile.fullName;
+    if (profile.specialty !== undefined)
+      updates.specialty = profile.specialty;
+
+    if (profile.yearsOfExperience !== undefined)
+      updates.experienceYears = profile.yearsOfExperience ?? 0;
+
+    if (profile.verificationStatus !== undefined)
+      updates.verificationStatus = profile.verificationStatus;
+
+    if (profile.profileImageUrl !== undefined)
+      updates.profileImageUrl = profile.profileImageUrl ?? null;
+
+    if (Object.keys(updates).length) {
+      await db
+        .update(doctors)
+        .set(updates)
+        .where(eq(doctors.userId, id));
     }
-
-    if (profile.specialization !== undefined) {
-      profileUpdates.specialization = profile.specialization;
-    }
-
-    if (profile.licenseNumber !== undefined) {
-      profileUpdates.licenseNumber = profile.licenseNumber;
-    }
-
-    if (profile.yearsOfExperience !== undefined) {
-      profileUpdates.yearsOfExperience = profile.yearsOfExperience ?? null;
-    }
-
-    if (profile.bio !== undefined) {
-      profileUpdates.bio = profile.bio ?? null;
-    }
-
-    if (profile.clinicAddress !== undefined) {
-      profileUpdates.clinicAddress = profile.clinicAddress ?? null;
-    }
-
-    if (profile.clinicGeoLat !== undefined) {
-      profileUpdates.clinicGeoLat = profile.clinicGeoLat ?? null;
-    }
-
-    if (profile.clinicGeoLng !== undefined) {
-      profileUpdates.clinicGeoLng = profile.clinicGeoLng ?? null;
-    }
-
-    if (profile.consultationFee !== undefined) {
-      profileUpdates.consultationFee = profile.consultationFee;
-    }
-
-    if (profile.availability !== undefined) {
-      profileUpdates.availability = profile.availability ?? null;
-    }
-
-    if (profile.verificationStatus !== undefined) {
-      profileUpdates.verificationStatus = profile.verificationStatus;
-    }
-
-    if (Object.keys(profileUpdates).length === 0) {
-      const updatedDoctor = await db.query.users.findFirst({
-        where: eq(users.id, id),
-        columns: { id: true, email: true, phone: true, role: true, createdAt: true },
-        with: { doctorProfile: true },
-      });
-
-      return NextResponse.json({ data: updatedDoctor });
-    }
-
-    await db
-      .update(doctorProfiles)
-      .set(profileUpdates)
-      .where(eq(doctorProfiles.userId, id));
   }
 
-  const updatedDoctor = await db.query.users.findFirst({
-    where: eq(users.id, id),
-    columns: { id: true, email: true, phone: true, role: true, createdAt: true },
-    with: { doctorProfile: true },
-  });
-
-  return NextResponse.json({ data: updatedDoctor });
+  return NextResponse.json({ success: true });
 }
 
-export async function PUT(request: NextRequest, context: RouteContext) {
+/* -----------------------------------------------------
+   PUT → PATCH
+----------------------------------------------------- */
+export function PUT(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   return PATCH(request, context);
 }
 
-export async function DELETE(request: NextRequest, context: RouteContext) {
+/* -----------------------------------------------------
+   DELETE /admin/api/doctors/:id
+----------------------------------------------------- */
+export async function DELETE(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { id } = await context.params;
+
   const { response } = await authorizeAdmin(request);
-
-  if (response) {
-    return response;
-  }
-
-  const { id } = await getParams(context);
-  const doctor = await db.query.users.findFirst({
-    where: and(eq(users.id, id), eq(users.role, "doctor")),
-    columns: { id: true },
-  });
-
-  if (!doctor) {
-    return NextResponse.json({ error: "Doctor not found" }, { status: 404 });
-  }
+  if (response) return response;
 
   await db.delete(users).where(eq(users.id, id));
 

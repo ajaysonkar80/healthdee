@@ -1,56 +1,88 @@
-// scripts/seed.ts
-import { db } from '../db';
-import { users, patientProfiles, doctorProfiles, appointments } from '../db/schema';
+import { db } from "../db";
+import {
+  users,
+  authCredentials,
+  doctors,
+  appointments,
+} from "../db/schema";
 
 async function main() {
-  console.log('🌱 Seeding database...');
+  console.log("🌱 Seeding database...");
 
-  // 1. Create a Patient
-  const [patient] = await db.insert(users).values({
-    email: 'patient@demo.com',
-    phone: '1234567890',
-    role: 'patient',
-  }).returning();
+  /* -----------------------------------------------------
+     1. Create Patient User
+  ----------------------------------------------------- */
+  const [patient] = await db
+    .insert(users)
+    .values({
+      role: "patient",
+      status: "active",
+      createdAt: new Date(),
+    })
+    .returning({ id: users.id });
 
-  await db.insert(patientProfiles).values({
+  await db.insert(authCredentials).values({
     userId: patient.id,
-    fullName: 'John Doe',
-    dateOfBirth: '1995-05-20',
-    gender: 'male',
-    bloodGroup: 'O+',
+    email: "patient@demo.com",
+    whatsappPhone: "1234567890",
+    createdAt: new Date(),
   });
 
-  // 2. Create a Doctor
-  const [doctor] = await db.insert(users).values({
-    email: 'doctor@healthdee.com',
-    phone: '9876543210',
-    role: 'doctor',
-  }).returning();
+  /* -----------------------------------------------------
+     2. Create Doctor User
+  ----------------------------------------------------- */
+  const [doctorUser] = await db
+    .insert(users)
+    .values({
+      role: "doctor",
+      status: "active",
+      createdAt: new Date(),
+    })
+    .returning({ id: users.id });
 
-  await db.insert(doctorProfiles).values({
-    userId: doctor.id,
-    fullName: 'Dr. Sarah Smith',
-    specialization: 'Cardiologist',
-    licenseNumber: 'CARDIO-999',
-    consultationFee: 5000, // 50.00
-    verificationStatus: 'approved',
-    availability: JSON.stringify({ mon: ["09:00", "17:00"] }),
+  await db.insert(authCredentials).values({
+    userId: doctorUser.id,
+    email: "doctor@healthdee.com",
+    whatsappPhone: "9876543210",
+    createdAt: new Date(),
   });
 
-  // 3. Create an Appointment
+  /* -----------------------------------------------------
+     3. Create Doctor Profile
+  ----------------------------------------------------- */
+  const [doctor] = await db
+    .insert(doctors)
+    .values({
+      userId: doctorUser.id,
+      publicId: crypto.randomUUID(),
+      specialty: "Cardiology",
+      experienceYears: 10,
+      rating: 5,
+      profileImageUrl: null,
+      rmpRegistrationNumber: "CARDIO-999",
+      rmpStateMedicalCouncil: "Maharashtra",
+      verificationStatus: "verified",
+      verifiedAt: new Date(),
+      createdAt: new Date(),
+    })
+    .returning({ id: doctors.id });
+
+  /* -----------------------------------------------------
+     4. Create Appointment
+  ----------------------------------------------------- */
   await db.insert(appointments).values({
     patientId: patient.id,
     doctorId: doctor.id,
-    startTime: new Date().toISOString(),
-    status: 'pending',
-    feeAmount: 5000,
+    scheduledAt: new Date(Date.now() + 60 * 60 * 1000), // +1 hour
+    status: "scheduled",
+    createdAt: new Date(),
   });
 
-  console.log('✅ Database populated with dummy data!');
+  console.log("✅ Database populated with dummy data!");
   process.exit(0);
 }
 
 main().catch((err) => {
-  console.error('❌ Seeding failed:', err);
+  console.error("❌ Seeding failed:", err);
   process.exit(1);
 });

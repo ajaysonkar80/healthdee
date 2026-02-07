@@ -1,5 +1,5 @@
 import { z } from "zod";
-
+import { DoctorVerificationSchema } from "@/db/schema";
 /* ======================================================
    PASSWORD RULE (Reusable)
 ====================================================== */
@@ -125,29 +125,34 @@ const doctorProfileSchema = z.object({
     .enum(["pending", "approved", "rejected"])
     .optional(),
 });
+export const doctorCreateSchema = z.object({
+  profile: z.object({
+    specialty: z.string().min(1),
 
-export const doctorCreateSchema = z
-  .object({
-    email: z.string().email("Please enter a valid email address").optional(),
-    phone: phoneSchema.optional(),
-    profile: doctorProfileSchema,
-  })
-  .refine((data) => data.email || data.phone, {
-    message: "Email or phone number is required",
-    path: ["email"],
-  });
+    yearsOfExperience: z.number().int().nonnegative().optional(),
 
-export const doctorUpdateSchema = z
-  .object({
-    email: z.string().email("Please enter a valid email address").optional(),
-    phone: phoneSchema.optional(),
-    profile: doctorProfileSchema.partial().optional(),
-  })
-  .refine((data) => data.email || data.phone || data.profile, {
-    message: "Provide at least one field to update",
-    path: ["email"],
-  });
+    profileImageUrl: z.string().url().nullable().optional(),
 
+    rmpRegistrationNumber: z.string().min(1),
+
+    rmpStateMedicalCouncil: z.string().min(1),
+
+    verificationStatus: DoctorVerificationSchema.optional(),
+  }),
+});
+export const doctorUpdateSchema = z.object({
+  profile: z
+    .object({
+      specialty: z.string().min(1).optional(),
+
+      yearsOfExperience: z.number().int().nonnegative().optional(),
+
+      verificationStatus: DoctorVerificationSchema.optional(),
+
+      profileImageUrl: z.string().url().nullable().optional(),
+    })
+    .optional(),
+});
 /* =========================
    DOCTOR FORM
 ========================= */
