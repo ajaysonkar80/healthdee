@@ -9,6 +9,27 @@ import {
 async function main() {
   console.log("🌱 Seeding database...");
 
+
+  
+  /* -----------------------------------------------------
+     0. Admin User
+  ----------------------------------------------------- */
+  const [admin] = await db
+    .insert(users)
+    .values({
+      role: "admin",
+      status: "active",
+      createdAt: new Date(),
+    })
+    .returning({ id: users.id });
+
+  await db.insert(authCredentials).values({
+    userId: admin.id,
+    email: "admin@healthdee.com",
+    whatsappPhone: "7777777777",
+    createdAt: new Date(),
+  });
+
   /* -----------------------------------------------------
      1. Create Patient User
   ----------------------------------------------------- */
