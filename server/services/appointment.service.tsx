@@ -1,0 +1,346 @@
+import { appointmentRepo } from "@/server/repositories/appointment.repo";
+import { doctorRepo } from "@/server/repositories/doctor.repo";
+import { patientRepo } from "@/server/repositories/patient.repo";
+import { userRepo } from "@/server/repositories/user.repo";
+import { auditRepo } from "@/server/repositories/audit.repo";
+
+import {
+  assertAuditActorPresent,
+  assertAuditTargetValid,
+  assertAuditMetadataSerializable,
+  type AuditLogInput,
+} from "@/server/domain/audit.domain";
+
+import {
+  assertValidAppointmentStatusTransition,
+  assertAppointmentScheduledInFuture,
+  assertPatientIsNotDoctor,
+  assertAppointmentIsMutable,
+} from "@/server/domain/appointment.domain";
+
+import {
+  ForbiddenError,
+  ValidationError,
+} from "@/server/utils/errors";
+
+import { UserRole } from "@/server/constants/user-role";
+import { UserStatus } from "@/server/constants/user-status";
+
+import type {
+  AppointmentStatus,
+  ConsultationMode,
+  ConsultationLogType,
+} from "@/db/schema";
+
+/* ======================================================
+   Helpers
+====================================================== */
+
+async function persistAudit(log: AuditLogInput) {
+  assertAuditActorPresent(log);
+  assertAuditTargetValid(log);
+  assertAuditMetadataSerializable(log.metadata);
+  await auditRepo.create(log);
+}
+
+/* ======================================================
+   Appointment Service
+====================================================== */
+
+export const appointmentService = {
+  /* --------------------------------------------------
+     Create appointment (patient only)
+  --------------------------------------------------- */
+  async createAppointment(
+    actorUserId: string,
+    input: {
+      doctorId: string;
+      scheduledAt: Date;
+    }
+  ) {
+    const user = await userRepo.getUserById(actorUserId);
+
+    if (user.role !== UserRole.patient) {
+      throw new ForbiddenError("Only patients can create appointments");
+    }
+
+    if (user.status !== UserStatus.active) {
+      throw new ForbiddenError("Inactive users cannot create appointments");
+    }
+
+    const patient = await patientRepo.getPatientByUserId(actorUserId);
+    const doctor = await doctorRepo.getDoctorById(input.doctorId);
+
+    if (doctor.verificationStatus !== "verified") {
+      throw new ValidationError("Doctor is not verified");
+    }
+
+    assertPatientIsNotDoctor(actorUserId, doctor.userId);
+
+    const scheduledAtSeconds = Math.floor(
+      input.scheduledAt.getTime() / 1000
+    );
+
+    assertAppointmentScheduledInFuture(scheduledAtSeconds);
+
+    const appointment = await appointmentRepo.createAppointment({
+      patientId: patient.id,
+      doctorId: doctor.id,
+      scheduledAt: input.scheduledAt,
+      status: "scheduled",
+    });
+
+    await persistAudit({
+      actorUserId,
+      action: "APPOINTMENT_CREATED",
+      targetType: "appointment",
+      targetId: appointment.id,
+      metadata: {
+        scheduledAt: input.scheduledAt.toISOString(),
+      },
+    });
+
+    return appointment;
+  },
+
+  /* --------------------------------------------------
+     Get appointment by ID (patient / doctor / admin)
+  --------------------------------------------------- */
+  async getAppointmentById(
+    actorUserId: string,
+    appointmentId: string
+  ) {
+    const actor = await userRepo.getUserById(actorUserId);
+    const appointment =
+      await appointmentRepo.getAppointmentById(appointmentId);
+
+    if (
+      actor.role !== UserRole.admin &&
+      appointment.patientId !== actorUserId &&
+      appointment.doctorId !== actorUserId
+    ) {
+      throw new ForbiddenError("Access denied");
+    }
+
+    return appointment;
+  },
+
+  /* --------------------------------------------------
+     List appointments (patient)
+  --------------------------------------------------- */
+  async listAppointmentsByPatient(
+    actorUserId: string,
+    params?: {
+      limit?: number;
+      offset?: number;
+      status?: AppointmentStatus;
+      from?: Date;
+      to?: Date;
+    }
+  ) {
+    const user = await userRepo.getUserById(actorUserId);
+
+    if (user.role !== UserRole.patient) {
+      throw new ForbiddenError("Only patients can view appointments");
+    }
+
+    return appointmentRepo.listAppointmentsByPatient(
+      actorUserId,
+      params
+    );
+  },
+
+  /* --------------------------------------------------
+     List appointments (doctor)
+  --------------------------------------------------- */
+  async listAppointmentsByDoctor(
+    actorUserId: string,
+    params?: {
+      limit?: number;
+      offset?: number;
+      status?: AppointmentStatus;
+      from?: Date;
+      to?: Date;
+    }
+  ) {
+    const user = await userRepo.getUserById(actorUserId);
+
+    if (user.role !== UserRole.doctor) {
+      throw new ForbiddenError("Only doctors can view appointments");
+    }
+
+    const doctor = await doctorRepo.getDoctorByUserId(actorUserId);
+
+    return appointmentRepo.listAppointmentsByDoctor(
+      doctor.id,
+      params
+    );
+  },
+
+  /* --------------------------------------------------
+     Update appointment status
+  --------------------------------------------------- */
+  async updateAppointmentStatus(
+    actorUserId: string,
+    appointmentId: string,
+    nextStatus: AppointmentStatus
+  ) {
+    const actor = await userRepo.getUserById(actorUserId);
+    const appointment =
+      await appointmentRepo.getAppointmentById(appointmentId);
+
+    if (
+      actor.role !== UserRole.admin &&
+      appointment.patientId !== actorUserId &&
+      appointment.doctorId !== actorUserId
+    ) {
+      throw new ForbiddenError("Not allowed to modify appointment");
+    }
+
+    assertValidAppointmentStatusTransition(
+      appointment.status,
+      nextStatus
+    );
+
+    await appointmentRepo.updateAppointmentStatus(
+      appointmentId,
+      nextStatus
+    );
+
+    await persistAudit({
+      actorUserId,
+      action:
+        nextStatus === "cancelled"
+          ? "APPOINTMENT_CANCELLED"
+          : "APPOINTMENT_COMPLETED",
+      targetType: "appointment",
+      targetId: appointmentId,
+      metadata: {
+        from: appointment.status,
+        to: nextStatus,
+      },
+    });
+
+    return { success: true };
+  },
+
+  /* --------------------------------------------------
+     Consultation lifecycle
+  --------------------------------------------------- */
+  async startConsultation(
+    actorUserId: string,
+    appointmentId: string,
+    mode: ConsultationMode
+  ) {
+    const user = await userRepo.getUserById(actorUserId);
+
+    if (user.role !== UserRole.doctor) {
+      throw new ForbiddenError("Only doctors can start consultations");
+    }
+
+    const doctor = await doctorRepo.getDoctorByUserId(actorUserId);
+    const appointment =
+      await appointmentRepo.getAppointmentById(appointmentId);
+
+    if (appointment.doctorId !== doctor.id) {
+      throw new ForbiddenError("Not your appointment");
+    }
+
+    assertAppointmentIsMutable({
+      id: appointment.id,
+      patientId: appointment.patientId,
+      doctorId: appointment.doctorId,
+      status: appointment.status,
+      scheduledAt: Math.floor(
+        appointment.scheduledAt.getTime() / 1000
+      ),
+    });
+
+    const consultation =
+      await appointmentRepo.createConsultation({
+        appointmentId,
+        mode,
+        startedAt: new Date(),
+      });
+
+    await persistAudit({
+      actorUserId,
+      action: "CONSULTATION_STARTED",
+      targetType: "consultation",
+      targetId: consultation.id,
+    });
+
+    return consultation;
+  },
+
+  async endConsultation(
+    actorUserId: string,
+    consultationId: string,
+    input: { summary?: string }
+  ) {
+    const user = await userRepo.getUserById(actorUserId);
+
+    if (user.role !== UserRole.doctor) {
+      throw new ForbiddenError("Only doctors can end consultations");
+    }
+
+    await appointmentRepo.endConsultation(consultationId, {
+      endedAt: new Date(),
+      summary: input.summary,
+    });
+
+    await persistAudit({
+      actorUserId,
+      action: "CONSULTATION_ENDED",
+      targetType: "consultation",
+      targetId: consultationId,
+    });
+
+    return { success: true };
+  },
+
+  /* --------------------------------------------------
+     Consultation logs
+  --------------------------------------------------- */
+  async addConsultationLog(
+    actorUserId: string,
+    input: {
+      consultationId: string;
+      logType: ConsultationLogType;
+      content: unknown;
+    }
+  ) {
+    const user = await userRepo.getUserById(actorUserId);
+
+    if (user.role !== UserRole.doctor) {
+      throw new ForbiddenError("Only doctors can add logs");
+    }
+
+    return appointmentRepo.addConsultationLog({
+      consultationId: input.consultationId,
+      logType: input.logType,
+      content: input.content,
+    });
+  },
+
+  async listConsultationLogs(
+    actorUserId: string,
+    consultationId: string,
+    params?: {
+      limit?: number;
+      offset?: number;
+      logType?: ConsultationLogType;
+    }
+  ) {
+    const user = await userRepo.getUserById(actorUserId);
+
+    if (user.role !== UserRole.doctor) {
+      throw new ForbiddenError("Only doctors can view logs");
+    }
+
+    return appointmentRepo.listConsultationLogs(
+      consultationId,
+      params
+    );
+  },
+};
