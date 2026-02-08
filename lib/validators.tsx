@@ -82,12 +82,12 @@ export const resetPasswordSchema = z
    ADMIN DOCTOR MANAGEMENT
 ====================================================== */
 
-const phoneSchema = z
+export const phoneSchema = z
   .string()
   .regex(/^\d+$/, "Phone number must contain only numbers")
   .length(10, "Phone number must be exactly 10 digits");
 
-const doctorProfileSchema = z.object({
+export const doctorProfileSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters"),
   specialization: z.string().min(2, "Specialization is required"),
   licenseNumber: z.string().min(2, "License number is required"),

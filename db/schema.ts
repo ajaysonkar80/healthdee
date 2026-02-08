@@ -3,8 +3,6 @@ import {
   text,
   integer,
   uniqueIndex,
-  primaryKey,
-  index,
 } from "drizzle-orm/sqlite-core";
 import { sql } from "drizzle-orm";
 import { z } from "zod";
