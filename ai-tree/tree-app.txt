@@ -1,0 +1,38 @@
+﻿
+C:\Users\ajays\OneDrive\Desktop\project\healthdee
+Γö£ΓöÇΓöÇ AGENTS.md
+Γö£ΓöÇΓöÇ ai-tree
+Γö£ΓöÇΓöÇ ajaygit.txt
+Γö£ΓöÇΓöÇ ajaygit.txt.pub
+Γö£ΓöÇΓöÇ app
+Γö£ΓöÇΓöÇ components
+Γö£ΓöÇΓöÇ components.json
+Γö£ΓöÇΓöÇ db
+Γö£ΓöÇΓöÇ drizzle
+Γö£ΓöÇΓöÇ drizzle.config.ts
+Γö£ΓöÇΓöÇ eslint.config.mjs
+Γö£ΓöÇΓöÇ export-tree-for-ai.ps1
+Γö£ΓöÇΓöÇ hooks
+Γö£ΓöÇΓöÇ lib
+Γö£ΓöÇΓöÇ next-env.d.ts
+Γö£ΓöÇΓöÇ next.config.ts
+Γö£ΓöÇΓöÇ package-lock.json
+Γö£ΓöÇΓöÇ package.json
+Γö£ΓöÇΓöÇ postcss.config.mjs
+Γö£ΓöÇΓöÇ public
+Γö£ΓöÇΓöÇ README.md
+Γö£ΓöÇΓöÇ scripts
+Γö£ΓöÇΓöÇ server
+Γö£ΓöÇΓöÇ services
+Γö£ΓöÇΓöÇ tailwind.config.ts
+Γö£ΓöÇΓöÇ tsconfig.json
+Γö£ΓöÇΓöÇ tsconfig.tsbuildinfo
+Γö£ΓöÇΓöÇ vitest.config.ts
+ΓööΓöÇΓöÇ vitest.setup.ts
+
+directory: 11 file: 18
+
+ignored: directory (1)
+
+
+[2K[1G

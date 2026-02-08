@@ -1,7 +1,7 @@
 // server/repositories/appointment.repo.ts
 import { db } from "@/db";
 import * as schema from "@/db/schema";
-import { sql, eq } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 import { RepositoryError, PaginationParams } from "./user.repo";
 
 /* -----------------------------------------------------

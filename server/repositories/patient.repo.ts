@@ -3,7 +3,6 @@ import { db } from "@/db";
 import * as schema from "@/db/schema";
 import {
   eq,
-  like,
   sql,
   isNotNull,
 } from "drizzle-orm";
