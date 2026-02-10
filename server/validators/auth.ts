@@ -27,6 +27,20 @@ export const emailSchema = z
    Signup
 ----------------------------------------------------- */
 
+export const registerSchema = z.discriminatedUnion("type", [
+  z.object({
+    type: z.literal("email"),
+    email: z.string().email(),
+    password: z.string().min(8),
+  }),
+  z.object({
+    type: z.literal("phone"),
+    phone: z.string().min(10),
+  }),
+]);
+
+export type RegisterInput = z.infer<typeof registerSchema>;
+
 export const emailSignupSchema = z
   .object({
     name: z.string().min(2),
@@ -46,6 +60,21 @@ export const phoneSignupSchema = z.object({
 /* -----------------------------------------------------
    Login
 ----------------------------------------------------- */
+
+export const loginSchema = z.discriminatedUnion("type", [
+  z.object({
+    type: z.literal("email"),
+    email: z.string().email(),
+    password: z.string().min(8),
+  }),
+  z.object({
+    type: z.literal("phone"),
+    phone: z.string().min(10),
+    otp: z.string().min(4),
+  }),
+]);
+
+export type LoginInput = z.infer<typeof loginSchema>;
 
 export const emailLoginSchema = z.object({
   email: emailSchema,

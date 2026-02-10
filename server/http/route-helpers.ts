@@ -3,67 +3,69 @@ import { ZodSchema } from "zod";
 import { error } from "./response";
 
 /**
- * Context passed by Next.js App Router
+ * Next.js-compatible route handler.
+ * We intentionally do NOT type the context,
+ * because Next.js owns it and may change it.
  */
-export type RouteContext = {
-  params?: Record<string, string>;
-};
-
-/**
- * Base API route handler type
- */
-export type RouteHandler = (
+type RouteHandler = (
   req: NextRequest,
-  ctx: RouteContext
+  context?: unknown
 ) => Promise<Response>;
 
-/**
- * Centralized error handling wrapper
- */
+/* --------------------------------------------------
+   Error Handling
+--------------------------------------------------- */
 export function withErrorHandling(handler: RouteHandler): RouteHandler {
-  return async (req, ctx) => {
+  return async (req, context) => {
     try {
-      return await handler(req, ctx);
+      return await handler(req, context);
     } catch (err) {
-      const e = err instanceof Error ? err : new Error("Internal Server Error");
+      if (err instanceof Error) {
+        return error({
+          message: err.message,
+          status: (err as Error & { status?: number }).status ?? 500,
+        });
+      }
 
       return error({
-        message: e.message,
-        status: (e as Error & { status?: number }).status ?? 500,
+        message: "Internal Server Error",
+        status: 500,
       });
     }
   };
 }
 
-/**
- * Requires authenticated user (set by auth middleware)
- */
+/* --------------------------------------------------
+   Auth Guard
+--------------------------------------------------- */
 export function withAuth(handler: RouteHandler): RouteHandler {
-  return async (req, ctx) => {
-    const auth = (req as NextRequest & { auth?: { userId?: string } }).auth;
+  return async (req, context) => {
+    const authReq = req as NextRequest & {
+      auth?: { userId?: string };
+    };
 
-    if (!auth?.userId) {
+    if (!authReq.auth?.userId) {
       return error({
         message: "Unauthorized",
         status: 401,
       });
     }
 
-    return handler(req, ctx);
+    return handler(req, context);
   };
 }
 
-/**
- * Request validation wrapper
- */
+/* --------------------------------------------------
+   Validation
+--------------------------------------------------- */
 export function withValidation<T>(
   schema: ZodSchema<T>,
   handler: (
     req: NextRequest & { validated: T },
-    ctx: RouteContext
+    context?: unknown
   ) => Promise<Response>
 ): RouteHandler {
-  return async (req, ctx) => {
+  return async (req, context) => {
     const input =
       req.method === "GET"
         ? Object.fromEntries(req.nextUrl.searchParams)
@@ -83,6 +85,6 @@ export function withValidation<T>(
       validated: parsed.data,
     }) as NextRequest & { validated: T };
 
-    return handler(validatedReq, ctx);
+    return handler(validatedReq, context);
   };
 }

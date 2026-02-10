@@ -299,6 +299,53 @@ export const authService = {
       refreshToken: signRefreshToken({ sub: user.id }),
     };
   },
+  /* --------------------------------------------------
+     Login via Phone (OTP-based)
+  --------------------------------------------------- */
+  async loginWithPhone(phone: string, input: unknown) {
+    const { otp } = otpVerifySchema.parse(input);
+
+    const session = await userRepo.getValidOtpSession(
+      phone,
+      OtpChannel.whatsapp
+    );
+
+    const ok = await verify(otp, session.otpHash);
+    if (!ok) {
+      throw new ValidationError("Invalid or expired OTP");
+    }
+
+    await userRepo.markOtpVerified(session.id);
+
+    const auth = await userRepo
+      .getAuthByWhatsapp(phone)
+      .catch(() => null);
+
+    if (!auth) {
+      throw new ValidationError("User not registered");
+    }
+
+    const user = await userRepo.getUserById(auth.userId);
+
+    const authState = toAuthDomainState(auth);
+
+    assertHasAtLeastOneCredential(authState);
+    assertLoginAllowed(authState, "whatsapp");
+
+    if (user.status !== UserStatus.active) {
+      throw new ForbiddenError("User is not active");
+    }
+
+    await userRepo.updateLastLogin(user.id);
+
+    return {
+      accessToken: signAccessToken({
+        sub: user.id,
+        role: user.role,
+      }),
+      refreshToken: signRefreshToken({ sub: user.id }),
+    };
+  },
 
   /* --------------------------------------------------
      Logout
