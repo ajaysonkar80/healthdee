@@ -3,6 +3,7 @@ import {
   text,
   integer,
   uniqueIndex,
+  index,
 } from "drizzle-orm/sqlite-core";
 import { sql } from "drizzle-orm";
 import { z } from "zod";
@@ -404,3 +405,18 @@ export const auditLogs = sqliteTable("audit_logs", {
     .notNull()
     .default(sql`(unixepoch())`),
 });
+
+/* -----------------------------------------------------
+   9) Rate Limiting
+----------------------------------------------------- */
+export const rateLimits = sqliteTable(
+  "rate_limits",
+  {
+    key: text("key").primaryKey(),
+    count: integer("count").notNull(),
+    resetAt: integer("reset_at").notNull(),
+  },
+  (t) => ({
+    resetAtIdx: index("rate_limits_reset_at_idx").on(t.resetAt),
+  })
+);
