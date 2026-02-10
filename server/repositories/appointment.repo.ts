@@ -167,6 +167,22 @@ export const appointmentRepo = {
     return result[0];
   },
 
+  async existsForDoctorAndPatient(
+    doctorId: string,
+    patientUserId: string
+  ): Promise<boolean> {
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(schema.appointments)
+      .where(
+        sql`${schema.appointments.doctorId} = ${doctorId}
+            AND ${schema.appointments.patientId} = ${patientUserId}`
+      );
+
+    return result[0].count > 0;
+  },
+
+
   /* -----------------------------
      Consultations
   ----------------------------- */

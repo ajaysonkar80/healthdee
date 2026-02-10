@@ -14,7 +14,7 @@ const store =
 export async function rateLimitMiddleware(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for") ?? "unknown";
 
-  // @ts-expect-error injected by auth middleware
+  
   const key = req.auth?.userId ? `user:${req.auth.userId}` : `ip:${ip}`;
 
   const count = await store.incr(key, WINDOW_MS);
