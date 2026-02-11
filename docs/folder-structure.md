@@ -1,0 +1,461 @@
+# Folder Structure for AI Navigation
+
+Generated from `git ls-files` to provide a complete, deterministic map.
+
+```text
+.
+├── .vscode
+│   └── settings.json
+├── ai-tree
+│   ├── tree-app.txt
+│   ├── tree-db.txt
+│   ├── tree-hooks.txt
+│   ├── tree-lib.txt
+│   ├── tree-root.txt
+│   └── tree-server.txt
+├── app
+│   ├── (public)
+│   │   ├── (login-signup)
+│   │   │   ├── forgot-password
+│   │   │   │   └── page.tsx
+│   │   │   ├── login
+│   │   │   │   └── page.tsx
+│   │   │   ├── reset-password
+│   │   │   │   └── page.tsx
+│   │   │   ├── signup
+│   │   │   │   └── page.tsx
+│   │   │   ├── verify-email
+│   │   │   │   └── page.tsx
+│   │   │   └── layout.tsx
+│   │   ├── about
+│   │   │   └── page.tsx
+│   │   ├── help
+│   │   │   └── page.tsx
+│   │   ├── policies
+│   │   │   └── page.tsx
+│   │   ├── select-role
+│   │   │   └── page.tsx
+│   │   └── page.tsx
+│   ├── admin
+│   │   ├── api
+│   │   │   └── doctors
+│   │   │       ├── [id]
+│   │   │       │   └── route.ts
+│   │   │       └── route.ts
+│   │   ├── appointment-requests
+│   │   │   └── page.tsx
+│   │   ├── clinics
+│   │   │   └── page.tsx
+│   │   ├── dashboard
+│   │   │   └── page.tsx
+│   │   ├── doctor
+│   │   │   ├── [doctorId]
+│   │   │   │   └── edit
+│   │   │   │       └── page.tsx
+│   │   │   ├── create
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── doctors-verification
+│   │   │   └── page.tsx
+│   │   ├── settings
+│   │   │   └── page.tsx
+│   │   ├── users
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── api
+│   │   ├── admin
+│   │   │   └── metrics
+│   │   │       └── route.ts
+│   │   ├── appointments
+│   │   │   ├── [id]
+│   │   │   │   └── route.ts
+│   │   │   └── route.ts
+│   │   ├── auth
+│   │   │   ├── login
+│   │   │   │   └── route.ts
+│   │   │   ├── logout
+│   │   │   │   └── route.ts
+│   │   │   ├── me
+│   │   │   │   └── route.ts
+│   │   │   ├── otp
+│   │   │   │   ├── request
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── verify
+│   │   │   │       └── route.ts
+│   │   │   ├── refresh
+│   │   │   │   └── route.ts
+│   │   │   └── register
+│   │   │       └── route.ts
+│   │   ├── doctors
+│   │   │   ├── [id]
+│   │   │   │   ├── verify
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── route.ts
+│   │   │   └── route.ts
+│   │   ├── health
+│   │   │   └── route.ts
+│   │   ├── patients
+│   │   │   ├── [id]
+│   │   │   │   └── route.ts
+│   │   │   └── route.ts
+│   │   └── users
+│   │       ├── [id]
+│   │       │   └── route.ts
+│   │       └── route.ts
+│   ├── clinics
+│   │   ├── [id]
+│   │   │   ├── ClinicDetails.tsx
+│   │   │   ├── ClinicDoctors.tsx
+│   │   │   ├── ClinicHero.tsx
+│   │   │   ├── ClinicPageLayout.tsx
+│   │   │   ├── ClinicServices.tsx
+│   │   │   ├── ClinicSidebar.tsx
+│   │   │   ├── ClinicSummary.tsx
+│   │   │   └── page.tsx
+│   │   └── page.tsx
+│   ├── context
+│   │   └── AuthContext.tsx
+│   ├── doctor
+│   │   ├── appointments
+│   │   │   ├── [id]
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── dashboard
+│   │   │   ├── error.tsx
+│   │   │   ├── loading.tsx
+│   │   │   └── page.tsx
+│   │   ├── earnings
+│   │   │   └── page.tsx
+│   │   ├── onboarding
+│   │   │   └── page.tsx
+│   │   ├── prescriptions
+│   │   │   └── page.tsx
+│   │   ├── settings
+│   │   │   └── page.tsx
+│   │   ├── verification
+│   │   │   └── page.tsx
+│   │   └── layout.tsx
+│   ├── doctors
+│   │   └── booking
+│   │       ├── confirmation
+│   │       │   └── page.tsx
+│   │       ├── layout.tsx
+│   │       └── page.tsx
+│   ├── patient
+│   │   ├── appointments
+│   │   │   ├── book
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── dashboard
+│   │   │   └── page.tsx
+│   │   ├── profile
+│   │   │   └── page.tsx
+│   │   ├── records
+│   │   │   └── page.tsx
+│   │   └── layout.tsx
+│   ├── services
+│   │   └── auth.service.ts
+│   ├── types
+│   │   └── auth.tsx
+│   ├── Header.tsx
+│   ├── error.tsx
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── loading.tsx
+│   ├── notfound.tsx
+│   └── page.tsx
+├── components
+│   ├── about
+│   │   ├── about-hero
+│   │   │   ├── AboutHero.tsx
+│   │   │   └── HeroContent.tsx
+│   │   ├── core-values
+│   │   │   ├── CoreValues.tsx
+│   │   │   └── ValueCard.tsx
+│   │   ├── final-cta
+│   │   │   └── FinalCTA.tsx
+│   │   ├── impact-stats
+│   │   │   ├── ImpactCard.tsx
+│   │   │   └── StatCard.tsx
+│   │   ├── our-story
+│   │   │   ├── ImpactInlineStats.tsx
+│   │   │   ├── OurStory.tsx
+│   │   │   ├── StoryContent.tsx
+│   │   │   └── StoryImageCard.tsx
+│   │   └── trust-badges
+│   │       ├── BadgeItem.tsx
+│   │       └── TrustBadges.tsx
+│   ├── admin
+│   │   ├── appointment-requests
+│   │   │   ├── AppointmentActionsMenu.tsx
+│   │   │   ├── AppointmentFilters.tsx
+│   │   │   ├── AppointmentPagination.tsx
+│   │   │   ├── AppointmentStatusBadge.tsx
+│   │   │   ├── AppointmentTable.tsx
+│   │   │   ├── AppointmentTableRow.tsx
+│   │   │   └── PatientInfoCell.tsx
+│   │   ├── clinic
+│   │   │   ├── ClinicPagination.tsx
+│   │   │   ├── ClinicStatCard.tsx
+│   │   │   ├── ClinicStats.tsx
+│   │   │   ├── ClinicStatusBadge.tsx
+│   │   │   ├── ClinicTable.tsx
+│   │   │   └── ClinicTableRow.tsx
+│   │   ├── doctor
+│   │   │   ├── BulkHelpCards.tsx
+│   │   │   ├── DoctorDeleteModal.tsx
+│   │   │   ├── DoctorForm.tsx
+│   │   │   ├── DoctorRowAction.tsx
+│   │   │   ├── DoctorTable.tsx
+│   │   │   └── StatsCard.tsx
+│   │   ├── doctor-verification
+│   │   │   ├── DoctorsInfoCell.tsx
+│   │   │   ├── VerificationFilters.tsx
+│   │   │   ├── VerificationPagination.tsx
+│   │   │   ├── VerificationStatusBadge.tsx
+│   │   │   ├── VerificationTable.tsx
+│   │   │   ├── VerificationTableRow.tsx
+│   │   │   └── VerificationsActionsMenu.tsx
+│   │   ├── AdminSidebar.tsx
+│   │   ├── AdminTopBar.tsx
+│   │   ├── RecentActivity.tsx
+│   │   ├── StatsCard.tsx
+│   │   └── StatsGrid.tsx
+│   ├── auth
+│   │   ├── EmailLoginStep.tsx
+│   │   ├── EmailSignupStep.tsx
+│   │   ├── EmailVerificationStep.tsx
+│   │   ├── ForgetPasswordForm.tsx
+│   │   ├── LoginForm.tsx
+│   │   ├── LoginOtpStep.tsx
+│   │   ├── OtpStep.tsx
+│   │   ├── PhoneLoginStep.tsx
+│   │   ├── PhoneSignupStep.tsx
+│   │   ├── ResetPasswordForm.tsx
+│   │   ├── SelectRoleForm.tsx
+│   │   └── SignupForm.tsx
+│   ├── doctor
+│   │   ├── appointment
+│   │   │   ├── AppointmentQueue.tsx
+│   │   │   └── appointmentSlot.tsx
+│   │   ├── booking
+│   │   │   ├── confirmation
+│   │   │   │   ├── AppointmentMeta.tsx
+│   │   │   │   ├── BookingActions.tsx
+│   │   │   │   ├── BookingConfirmationHero.tsx
+│   │   │   │   ├── BookingSummaryCard.tsx
+│   │   │   │   ├── DoctorSummary.tsx
+│   │   │   │   ├── ExpectationStep.tsx
+│   │   │   │   ├── SupportFooter.tsx
+│   │   │   │   └── WhatToExpect.tsx
+│   │   │   ├── AboutDoctor.tsx
+│   │   │   ├── BookingPanel.tsx
+│   │   │   ├── ClinicInfo.tsx
+│   │   │   ├── DoctorProfile.tsx
+│   │   │   ├── DoctorStats.tsx
+│   │   │   └── Reviews.tsx
+│   │   ├── dashboard
+│   │   │   ├── CurrentlyConsulting.tsx
+│   │   │   ├── Header.tsx
+│   │   │   ├── Sidebar.tsx
+│   │   │   ├── StatCard.tsx
+│   │   │   ├── StatsSection.tsx
+│   │   │   └── UrgentNotifications.tsx
+│   │   ├── earnings
+│   │   │   ├── EarningsSummary.tsx
+│   │   │   └── EarningsTable.tsx
+│   │   ├── prescriptions
+│   │   │   └── PrescriptionsTable.tsx
+│   │   ├── settings
+│   │   │   ├── ClinicSettings.tsx
+│   │   │   ├── NotificationSettings.tsx
+│   │   │   ├── ProfileSettings.tsx
+│   │   │   └── SecuritySettings.tsx
+│   │   ├── DoctorCard.tsx
+│   │   └── PrescriptionForm.tsx
+│   ├── help
+│   │   ├── FAQAccordion.tsx
+│   │   └── HelpTopicCard.tsx
+│   ├── home
+│   │   ├── CTASection.tsx
+│   │   ├── HeroSection.tsx
+│   │   ├── HowItWorksSection.tsx
+│   │   ├── SpecialtiesSection.tsx
+│   │   ├── TopRatedDoctors.tsx
+│   │   ├── TrustStatsSection.tsx
+│   │   └── WhyHealthDeeSection.tsx
+│   ├── layout
+│   │   ├── Footer.tsx
+│   │   └── Header.tsx
+│   ├── patient
+│   │   ├── DangerZone.tsx
+│   │   ├── EmergencyContactItem.tsx
+│   │   ├── EmergencyContactSection.tsx
+│   │   ├── NotificationPrivacySection.tsx
+│   │   ├── PatientInfoCard.tsx
+│   │   ├── PatientSettingsLayout.tsx
+│   │   ├── PatientSideBar.tsx
+│   │   ├── PatientTopNav.tsx
+│   │   ├── PersonalInfoFieldCard.tsx
+│   │   ├── PersonalInformationSection.tsx
+│   │   ├── ProfileHeader.tsx
+│   │   └── ToggleSettingsItem.tsx
+│   └── ui
+│       ├── PasswordInput.tsx
+│       ├── RadioGroup.tsx
+│       ├── alert.tsx
+│       ├── avatar.tsx
+│       ├── badge.tsx
+│       ├── button.test.tsx
+│       ├── button.tsx
+│       ├── card.tsx
+│       ├── dropdown-menu.tsx
+│       ├── input.tsx
+│       ├── pagination.tsx
+│       ├── select.tsx
+│       ├── switch.tsx
+│       ├── table.tsx
+│       └── tooltip.tsx
+├── db
+│   ├── index.ts
+│   ├── schema.ts
+│   └── turso.tsx
+├── drizzle
+│   ├── meta
+│   │   ├── 0000_snapshot.json
+│   │   ├── 0001_snapshot.json
+│   │   └── _journal.json
+│   ├── 0000_purple_tiger_shark.sql
+│   └── 0001_exotic_dakota_north.sql
+├── hooks
+│   ├── useAppointment.tsx
+│   ├── useAuth.tsx
+│   ├── useDebounce.tsx
+│   └── useRole.tsx
+├── lib
+│   ├── auth.ts
+│   ├── constant.tsx
+│   ├── routes.tsx
+│   ├── utils.test.ts
+│   ├── utils.ts
+│   └── validators.tsx
+├── public
+│   ├── fonts
+│   │   ├── Geist-Bold.ttf
+│   │   ├── Geist-Regular.ttf
+│   │   └── GeistMono-Regular.ttf
+│   ├── clinic-logo.jpg
+│   ├── clinic.jpg
+│   ├── doctor-1.jpg
+│   ├── doctor-2.jpg
+│   ├── doctors.jpg
+│   ├── hospital.jpg
+│   └── water-flask.png
+├── scripts
+│   └── seed.ts
+├── server
+│   ├── constants
+│   │   ├── otp-channel.ts
+│   │   ├── user-role.ts
+│   │   └── user-status.ts
+│   ├── db
+│   │   └── types.ts
+│   ├── domain
+│   │   ├── appointment.domain.ts
+│   │   ├── audit.domain.ts
+│   │   ├── auth.domain.ts
+│   │   ├── clinic.domain.ts
+│   │   ├── consent.domain.ts
+│   │   ├── consultation.domain.ts
+│   │   ├── doctor.domain.ts
+│   │   ├── erasure.domain.ts
+│   │   ├── index.ts
+│   │   ├── prescription.domain.ts
+│   │   └── user.domain.ts
+│   ├── http
+│   │   ├── response.ts
+│   │   └── route-helpers.ts
+│   ├── middleware
+│   │   ├── auth.ts
+│   │   └── rate-limit.ts
+│   ├── policies
+│   │   ├── access
+│   │   │   ├── canAccess.ts
+│   │   │   ├── canAccessAppointment.ts
+│   │   │   ├── canAccessPatient.ts
+│   │   │   ├── canAccessPrescription.ts
+│   │   │   └── canAccessUser.ts
+│   │   ├── fields
+│   │   │   └── patient.fields.ts
+│   │   ├── guards
+│   │   │   ├── isAdmin.ts
+│   │   │   ├── isDoctor.ts
+│   │   │   └── isPatient.ts
+│   │   ├── ability.ts
+│   │   ├── permissions.ts
+│   │   ├── rbac-deps.ts
+│   │   ├── repositories.ts
+│   │   ├── roles.ts
+│   │   └── types.ts
+│   ├── rate-limit
+│   │   ├── memory-store.ts
+│   │   ├── sqlite-store.ts
+│   │   └── store.ts
+│   ├── repositories
+│   │   ├── appointment.repo.ts
+│   │   ├── audit.repo.ts
+│   │   ├── doctor.repo.ts
+│   │   ├── patient.repo.ts
+│   │   ├── prescription.repo.ts
+│   │   └── user.repo.ts
+│   ├── services
+│   │   ├── admin.service.tsx
+│   │   ├── api.tsx
+│   │   ├── appointment.service.tsx
+│   │   ├── auth.service.tsx
+│   │   ├── doctor.service.tsx
+│   │   ├── patient.service.tsx
+│   │   ├── prescription.services.tsx
+│   │   └── user.service.tsx
+│   ├── types
+│   │   └── next-request.d.ts
+│   ├── utils
+│   │   ├── errors.ts
+│   │   ├── jwt.ts
+│   │   ├── logger.ts
+│   │   ├── logger_test.ts
+│   │   ├── pagination.ts
+│   │   ├── pagination_test.ts
+│   │   ├── password.ts
+│   │   └── password_test.ts
+│   └── validators
+│       ├── appointment.ts
+│       ├── audit.ts
+│       ├── auth.ts
+│       ├── clinic.ts
+│       ├── consent.ts
+│       ├── consultation.ts
+│       ├── doctor.ts
+│       ├── prescription.ts
+│       └── user.ts
+├── .eslintrc.json
+├── .gitignore
+├── AGENTS.md
+├── README.md
+├── ajaygit.txt
+├── ajaygit.txt.pub
+├── components.json
+├── drizzle.config.ts
+├── eslint.config.mjs
+├── export-tree-for-ai.ps1
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── tailwind.config.ts
+├── tsconfig.json
+├── vitest.config.ts
+└── vitest.setup.ts
+```

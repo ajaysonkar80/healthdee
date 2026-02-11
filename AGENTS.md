@@ -202,3 +202,39 @@ interface DoctorCardProps {
 - Use semantic HTML5 elements
 - Follow accessibility best practices
 - Mobile-responsive design required
+
+## AI Navigation Protocol (Repository-Specific)
+
+When an AI model starts work in this repository, use this exact order:
+
+1. `AGENTS.md` (this file) for constraints and conventions.
+2. `docs/folder-structure.md` for full folder/file discovery.
+3. `docs/ai-codebase-map.md` for:
+   - 2-week prioritized completion plan
+   - feature-to-file mapping
+   - critical end-to-end flows
+   - extension rules
+   - per-file analysis blocks
+
+### How to navigate quickly
+
+- If changing UI routes, start in `app/<segment>/` and matching `components/<segment>/`.
+- If changing API behavior, start in `app/api/*` then follow into:
+  `server/validators` → `server/services` → `server/domain` → `server/repositories`.
+- If changing data model, update `db/schema.ts` first, then migrations in `drizzle/`, then repository/service callsites.
+
+### Mandatory implementation order for new features
+
+1. Validation schema (`server/validators` and/or `lib/validators.tsx`)
+2. Domain rule (`server/domain`)
+3. Repository query/mutation (`server/repositories`)
+4. Service orchestration (`server/services`)
+5. API handler (`app/api/.../route.ts`)
+6. Route/page/components (`app/*`, `components/*`)
+7. Tests and static checks (`npm run test`, `npm run lint`, `npm run typecheck`)
+
+### Non-negotiables
+
+- Do not bypass authz/authn wrappers (`withAuth`, ability checks, access guards).
+- Do not return non-standard API envelopes where existing wrappers are used.
+- Do not break migration compatibility between `db/schema.ts` and `drizzle/*`.
