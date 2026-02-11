@@ -147,6 +147,47 @@ export const appointmentRepo = {
     return { data, total: count };
   },
 
+    async listAllAppointments(
+    params?: PaginationParams & {
+      status?: schema.AppointmentStatus;
+      from?: Date;
+      to?: Date;
+    }
+  ) {
+    const { limit, offset } = getPagination(params);
+
+    let where = sql`1 = 1`;
+
+    if (params?.status) {
+      where = sql`${where} AND ${schema.appointments.status} = ${params.status}`;
+    }
+
+    if (params?.from) {
+      where = sql`${where} AND ${schema.appointments.scheduledAt} >= ${params.from}`;
+    }
+
+    if (params?.to) {
+      where = sql`${where} AND ${schema.appointments.scheduledAt} <= ${params.to}`;
+    }
+
+    const [data, [{ count }]] = await Promise.all([
+      db
+        .select()
+        .from(schema.appointments)
+        .where(where)
+        .orderBy(schema.appointments.scheduledAt)
+        .limit(limit)
+        .offset(offset),
+
+      db
+        .select({ count: sql<number>`count(*)` })
+        .from(schema.appointments)
+        .where(where),
+    ]);
+
+    return { data, total: count };
+  },
+
   async updateAppointmentStatus(
     appointmentId: string,
     status: schema.AppointmentStatus

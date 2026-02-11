@@ -146,4 +146,56 @@ export const patientService = {
 
     return patientRepo.getAbhaProfileByUserId(targetUserId);
   },
+
+    /* --------------------------------------------------
+     Update ABHA profile (self only)
+  --------------------------------------------------- */
+  async updateAbhaProfile(
+    actorUserId: string,
+    targetUserId: string,
+    input: {
+      abhaAddress?: string;
+    }
+  ) {
+    // Self only
+    if (actorUserId !== targetUserId) {
+      throw new ForbiddenError("Access denied");
+    }
+
+    const user = await userRepo.getUserById(actorUserId);
+
+    if (user.role !== UserRole.patient) {
+      throw new ForbiddenError("Only patients can update ABHA profile");
+    }
+
+    if (user.status !== UserStatus.active) {
+      throw new ForbiddenError("Inactive user cannot update ABHA profile");
+    }
+
+    const existing = await patientRepo
+      .getAbhaProfileByUserId(actorUserId)
+      .catch(() => null);
+
+    if (!existing) {
+      throw new ValidationError("ABHA profile does not exist");
+    }
+
+    const updated = await patientRepo.updateAbhaProfileByUserId({
+      userId: actorUserId,
+      abhaAddress: input.abhaAddress,
+    });
+
+    await persistAudit({
+      actorUserId,
+      action: "ABHA_PROFILE_UPDATED",
+      targetType: "patient",
+      targetId: actorUserId,
+      metadata: {
+        fields: Object.keys(input),
+      },
+    });
+
+    return updated;
+  },
+
 };

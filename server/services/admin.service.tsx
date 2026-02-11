@@ -29,7 +29,7 @@ import type { DoctorVerificationStatus } from "@/db/schema";
 type UserStatusValue =
   typeof UserStatus[keyof typeof UserStatus];
 
-  type UserRoleValue =
+type UserRoleValue =
   typeof UserRole[keyof typeof UserRole];
 
 /* ======================================================
@@ -172,5 +172,87 @@ export const adminService = {
     await this.assertAdmin(actorUserId);
 
     return doctorRepo.listDoctors(params);
+  },
+
+  /* --------------------------------------------------
+     Admin metrics dashboard
+  --------------------------------------------------- */
+  async getMetrics(actorUserId: string) {
+    await this.assertAdmin(actorUserId);
+
+    const [
+      allUsers,
+      activeUsers,
+      inactiveUsers,
+      adminUsers,
+      doctorUsers,
+      patientUsers,
+
+      allDoctors,
+      verifiedDoctors,
+      rejectedDoctors,
+      pendingDoctors,
+    ] = await Promise.all([
+      userRepo.listUsers({ limit: 1, offset: 0 }),
+      userRepo.listUsers({
+        limit: 1,
+        offset: 0,
+        status: UserStatus.active,
+      }),
+      userRepo.listUsers({
+        limit: 1,
+        offset: 0,
+        status: UserStatus.deactivated,
+      }),
+      userRepo.listUsers({
+        limit: 1,
+        offset: 0,
+        role: UserRole.admin,
+      }),
+      userRepo.listUsers({
+        limit: 1,
+        offset: 0,
+        role: UserRole.doctor,
+      }),
+      userRepo.listUsers({
+        limit: 1,
+        offset: 0,
+        role: UserRole.patient,
+      }),
+
+      doctorRepo.listDoctors({ limit: 1, offset: 0 }),
+      doctorRepo.listDoctors({
+        limit: 1,
+        offset: 0,
+        verificationStatus: "verified",
+      }),
+      doctorRepo.listDoctors({
+        limit: 1,
+        offset: 0,
+        verificationStatus: "rejected",
+      }),
+      doctorRepo.listDoctors({
+        limit: 1,
+        offset: 0,
+        verificationStatus: "pending",
+      }),
+    ]);
+
+    return {
+      users: {
+        total: allUsers.total,
+        active: activeUsers.total,
+        inactive: inactiveUsers.total,
+        admins: adminUsers.total,
+        doctors: doctorUsers.total,
+        patients: patientUsers.total,
+      },
+      doctors: {
+        total: allDoctors.total,
+        verified: verifiedDoctors.total,
+        rejected: rejectedDoctors.total,
+        pending: pendingDoctors.total,
+      },
+    };
   },
 };

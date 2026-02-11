@@ -177,6 +177,21 @@ export const appointmentService = {
     );
   },
 
+    /* --------------------------------------------------
+     List appointments (admin)
+  --------------------------------------------------- */
+  async listAllAppointments(params?: {
+    limit?: number;
+    offset?: number;
+    status?: AppointmentStatus;
+    from?: Date;
+    to?: Date;
+  }) {
+    // Admin-only by design
+    // Actor identity is resolved at API layer
+    return appointmentRepo.listAllAppointments(params);
+  },
+
   /* --------------------------------------------------
      Update appointment status
   --------------------------------------------------- */

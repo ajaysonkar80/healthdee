@@ -27,7 +27,8 @@ export type AuditAction =
   | "CONSENT_GRANTED"
   | "CONSENT_WITHDRAWN"
   | "DATA_ERASURE_REQUESTED"
-  | "DATA_ERASURE_COMPLETED";
+  | "DATA_ERASURE_COMPLETED"
+  | "ABHA_PROFILE_UPDATED";
 
 export type AuditLogInput = {
   actorUserId?: string | null;

@@ -159,4 +159,26 @@ export const patientRepo = {
 
     return profile;
   },
+    async updateAbhaProfileByUserId(input: {
+    userId: string;
+    abhaAddress?: string;
+  }) {
+    const [profile] = await db
+      .update(schema.abhaProfiles)
+      .set({
+        abhaAddress: input.abhaAddress,
+      })
+      .where(eq(schema.abhaProfiles.userId, input.userId))
+      .returning();
+
+    if (!profile) {
+      throw new RepositoryError(
+        "NOT_FOUND",
+        `ABHA profile not found for user: ${input.userId}`
+      );
+    }
+
+    return profile;
+  },
+  
 };
