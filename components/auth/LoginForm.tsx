@@ -1,7 +1,9 @@
 "use client";
-import Link from 'next/link';
+
+import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/context/AuthContext";
+
 import { EmailLoginStep } from "./EmailLoginStep";
 import { PhoneLoginStep } from "./PhoneLoginStep";
 import { LoginOtpStep } from "./LoginOtpStep";
@@ -11,14 +13,12 @@ type Step = "PHONE" | "EMAIL" | "OTP";
 export function LoginForm() {
   const [step, setStep] = useState<Step>("PHONE");
   const [phone, setPhone] = useState("");
-  const router = useRouter();
 
-  function handleLoginSuccess(role: "patient" | "doctor") {
-    if (role === "doctor") {
-      router.push("/doctor/dashboard");
-    } else {
-      router.push("/patient/dashboard");
-    }
+  const { login, loading } = useAuth();
+
+  async function handleOtpVerified(role: "admin" | "doctor" | "patient") {
+    // After OTP verification backend should return role
+    // For now redirect logic handled in AuthContext
   }
 
   return (
@@ -65,33 +65,42 @@ export function LoginForm() {
           />
         )}
 
-        {step === "EMAIL" && (
-          <EmailLoginStep onSuccess={handleLoginSuccess} />
-        )}
+        {step === "EMAIL" && 
+          <EmailLoginStep />}
+
 
         {step === "OTP" && (
           <LoginOtpStep
             phone={phone}
-            onVerified={handleLoginSuccess}
+            onVerified={handleOtpVerified}
           />
         )}
       </div>
 
+      {loading && (
+        <p className="mt-4 text-center text-sm text-gray-500">
+          Logging in...
+        </p>
+      )}
+
       {/* Footer */}
       <div className="mt-6 text-center text-sm text-gray-500">
-  New to the platform?{" "}
-  <Link href="/signup" className="font-medium text-pink-600">
-    Register as Doctor/Clinic
-  </Link>
+        New to the platform?{" "}
+        <Link
+          href="/signup"
+          className="font-medium text-pink-600"
+        >
+          Register as Doctor/Clinic
+        </Link>
 
         <div className="mt-3 flex justify-center gap-4 text-xs">
-    <Link href="/privacy" className="hover:underline">
-      Privacy Policy
-    </Link>
-    <Link href="/terms" className="hover:underline">
-      Terms of Service
-    </Link>
-  </div>
+          <Link href="/privacy" className="hover:underline">
+            Privacy Policy
+          </Link>
+          <Link href="/terms" className="hover:underline">
+            Terms of Service
+          </Link>
+        </div>
       </div>
     </div>
   );

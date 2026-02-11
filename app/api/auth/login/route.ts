@@ -3,6 +3,7 @@ import { success, error } from "@/server/http/response";
 import { authService } from "@/server/services/auth.service";
 import { loginSchema } from "@/server/validators/auth";
 import { NextRequest } from "next/server";
+import { cookies } from "next/headers";
 
 export const POST = withErrorHandling(async (req: NextRequest) => {
   const body = await req.json();
@@ -18,18 +19,49 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
 
   const data = parsed.data;
 
+  let result:
+    | {
+        user: { id: string; role: string };
+        accessToken: string;
+        refreshToken: string;
+      };
+
   switch (data.type) {
     case "email":
-      return success(await authService.loginWithEmail(data));
+      result = await authService.loginWithEmail(data);
+      break;
 
     case "phone":
-  return success(
-    await authService.loginWithPhone(data.phone, { otp: data.otp })
-  );
+      result = await authService.loginWithPhone(
+        data.phone,
+        { otp: data.otp }
+      );
+      break;
 
     default: {
       const _exhaustive: never = data;
       throw _exhaustive;
     }
   }
+
+  const cookieStore = await cookies();
+
+  // Set Access Token Cookie
+  cookieStore.set("access_token", result.accessToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+  });
+
+  // Set Refresh Token Cookie
+  cookieStore.set("refresh_token", result.refreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+  });
+
+  // Only return safe user info to frontend
+  return success(result.user);
 });

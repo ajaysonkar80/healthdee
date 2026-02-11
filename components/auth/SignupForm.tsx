@@ -1,36 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { EmailSignupStep } from "./EmailSignupStep";
 import { PhoneSignupStep } from "./PhoneSignupStep";
 import { OtpStep } from "./OtpStep";
 import { EmailVerificationStep } from "./EmailVerificationStep";
-import Link from 'next/link'
+import Link from "next/link";
+
 type Step = "EMAIL" | "PHONE" | "OTP" | "EMAIL_VERIFY";
 
 export function SignupForm() {
   const [step, setStep] = useState<Step>("EMAIL");
   const [phone, setPhone] = useState("");
-  const router = useRouter();
 
   function handleOtpVerified() {
-    router.push("/select-role");
+    setStep("EMAIL_VERIFY");
   }
 
   function handleEmailSignupDone() {
-    if (process.env.NODE_ENV === "development") {
-      router.push("/select-role");
-    } else {
-      setStep("EMAIL_VERIFY");
-    }
+    setStep("EMAIL_VERIFY");
   }
 
   return (
-    
     <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg">
-      {/* 🔹 SIGNUP METHOD SELECTOR */}
-      {/* 🔹 GREETING */}
       <div className="mb-4 text-center">
         <h1 className="text-xl font-semibold text-gray-900">
           Sign up to continue
@@ -39,8 +31,8 @@ export function SignupForm() {
           Create an account to get started
         </p>
       </div>
-      {
-      (step === "EMAIL" || step === "PHONE") && (
+
+      {(step === "EMAIL" || step === "PHONE") && (
         <div className="flex gap-2">
           <button
             type="button"
@@ -68,9 +60,9 @@ export function SignupForm() {
         </div>
       )}
 
-      {/* 🔹 STEP RENDERING */}
       {step === "EMAIL" && (
-        <EmailSignupStep onSuccess={handleEmailSignupDone} />
+        <EmailSignupStep setStep={setStep} />
+
       )}
 
       {step === "PHONE" && (
@@ -89,22 +81,23 @@ export function SignupForm() {
       {step === "EMAIL_VERIFY" && <EmailVerificationStep />}
 
       <div className="mt-6 text-center text-sm text-gray-500">
-  Already registered?{" "}
-  <Link href="/login" className="font-medium text-pink-600">
-    Login here
-  </Link>
+        Already registered?{" "}
+        <Link
+          href="/login"
+          className="font-medium text-pink-600"
+        >
+          Login here
+        </Link>
 
         <div className="mt-3 flex justify-center gap-4 text-xs">
-    <Link href="/privacy" className="hover:underline">
-      Privacy Policy
-    </Link>
-    <Link href="/terms" className="hover:underline">
-      Terms of Service
-    </Link>
-  </div>
-  </div>
+          <Link href="/privacy" className="hover:underline">
+            Privacy Policy
+          </Link>
+          <Link href="/terms" className="hover:underline">
+            Terms of Service
+          </Link>
+        </div>
+      </div>
     </div>
-
-    
   );
 }

@@ -158,6 +158,27 @@ export const otpSessions = sqliteTable("otp_sessions", {
     .default(sql`(unixepoch())`),
 });
 
+export const refreshTokens = sqliteTable("refresh_tokens", {
+  id: uuid(),
+
+  userId: text("user_id")
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+
+  tokenHash: text("token_hash").notNull(),
+
+  expiresAt: integer("expires_at", {
+    mode: "timestamp",
+  }).notNull(),
+
+  createdAt: integer("created_at", {
+    mode: "timestamp",
+  })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
+
 /* -----------------------------------------------------
    2) CONSENT & DPDP
 ----------------------------------------------------- */

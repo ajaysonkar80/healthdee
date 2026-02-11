@@ -166,39 +166,59 @@ export const authService = {
     return { success: true };
   },
 
-  /* --------------------------------------------------
-     Login via Email
-  --------------------------------------------------- */
-  async loginWithEmail(input: unknown) {
-    const data = emailLoginSchema.parse(input);
+/* --------------------------------------------------
+   Login via Email
+--------------------------------------------------- */
+async loginWithEmail(input: unknown) {
+  const data = emailLoginSchema.parse(input);
 
-    const auth = await userRepo.getAuthByEmail(data.email);
-    const user = await userRepo.getUserById(auth.userId);
+  // Get auth record
+  const auth = await userRepo.getAuthByEmail(data.email);
 
-    const authState = toAuthDomainState(auth);
+  // Get user
+  const user = await userRepo.getUserById(auth.userId);
 
-    assertHasAtLeastOneCredential(authState);
-    assertLoginAllowed(authState, "email");
+  const authState = toAuthDomainState(auth);
 
-    const ok = await verify(data.password, auth.passwordHash!);
-    if (!ok) {
-      throw new ValidationError("Invalid credentials");
-    }
+  // Domain validations
+  assertHasAtLeastOneCredential(authState);
+  assertLoginAllowed(authState, "email");
 
-    if (user.status !== UserStatus.active) {
-      throw new ForbiddenError("User is not active");
-    }
+  // Verify password
+  const ok = await verify(data.password, auth.passwordHash!);
+  if (!ok) {
+    throw new ValidationError("Invalid credentials");
+  }
 
-    await userRepo.updateLastLogin(user.id);
+  // Ensure user active
+  if (user.status !== UserStatus.active) {
+    throw new ForbiddenError("User is not active");
+  }
 
-    return {
-      accessToken: signAccessToken({
-        sub: user.id,
-        role: user.role,
-      }),
-      refreshToken: signRefreshToken({ sub: user.id }),
-    };
-  },
+  // Update last login timestamp
+  await userRepo.updateLastLogin(user.id);
+
+  // Generate tokens
+  const accessToken = signAccessToken({
+    sub: user.id,
+    role: user.role,
+  });
+
+  const refreshToken = signRefreshToken({
+    sub: user.id,
+  });
+
+  // ✅ Return correct structure for route layer
+  return {
+    user: {
+      id: user.id,
+      role: user.role,
+    },
+    accessToken,
+    refreshToken,
+  };
+},
+
 
   /* --------------------------------------------------
      Request OTP
@@ -299,53 +319,58 @@ export const authService = {
       refreshToken: signRefreshToken({ sub: user.id }),
     };
   },
-  /* --------------------------------------------------
-     Login via Phone (OTP-based)
-  --------------------------------------------------- */
-  async loginWithPhone(phone: string, input: unknown) {
-    const { otp } = otpVerifySchema.parse(input);
+ 
+/* --------------------------------------------------
+   Login via Phone (OTP-based)
+--------------------------------------------------- */
+async loginWithPhone(phone: string, input: unknown) {
+  const { otp } = otpVerifySchema.parse(input);
 
-    const session = await userRepo.getValidOtpSession(
-      phone,
-      OtpChannel.whatsapp
-    );
+  const session = await userRepo.getValidOtpSession(
+    phone,
+    OtpChannel.whatsapp
+  );
 
-    const ok = await verify(otp, session.otpHash);
-    if (!ok) {
-      throw new ValidationError("Invalid or expired OTP");
-    }
+  const ok = await verify(otp, session.otpHash);
+  if (!ok) {
+    throw new ValidationError("Invalid or expired OTP");
+  }
 
-    await userRepo.markOtpVerified(session.id);
+  await userRepo.markOtpVerified(session.id);
 
-    const auth = await userRepo
-      .getAuthByWhatsapp(phone)
-      .catch(() => null);
+  const auth = await userRepo.getAuthByWhatsapp(phone);
 
-    if (!auth) {
-      throw new ValidationError("User not registered");
-    }
+  const user = await userRepo.getUserById(auth.userId);
 
-    const user = await userRepo.getUserById(auth.userId);
+  const authState = toAuthDomainState(auth);
 
-    const authState = toAuthDomainState(auth);
+  assertHasAtLeastOneCredential(authState);
+  assertLoginAllowed(authState, "whatsapp");
 
-    assertHasAtLeastOneCredential(authState);
-    assertLoginAllowed(authState, "whatsapp");
+  if (user.status !== UserStatus.active) {
+    throw new ForbiddenError("User is not active");
+  }
 
-    if (user.status !== UserStatus.active) {
-      throw new ForbiddenError("User is not active");
-    }
+  await userRepo.updateLastLogin(user.id);
 
-    await userRepo.updateLastLogin(user.id);
+  const accessToken = signAccessToken({
+    sub: user.id,
+    role: user.role,
+  });
 
-    return {
-      accessToken: signAccessToken({
-        sub: user.id,
-        role: user.role,
-      }),
-      refreshToken: signRefreshToken({ sub: user.id }),
-    };
-  },
+  const refreshToken = signRefreshToken({
+    sub: user.id,
+  });
+
+  return {
+    user: {
+      id: user.id,
+      role: user.role,
+    },
+    accessToken,
+    refreshToken,
+  };
+},
 
   /* --------------------------------------------------
      Logout

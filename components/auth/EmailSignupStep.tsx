@@ -12,9 +12,13 @@ import { Button } from "@/components/ui/button";
 type EmailSignupFormData = z.infer<typeof emailSignupSchema>;
 
 export function EmailSignupStep({
-  onSuccess,
+  setStep,
 }: {
-  onSuccess: () => void;
+  setStep: React.Dispatch<
+    React.SetStateAction<
+      "EMAIL" | "PHONE" | "OTP" | "EMAIL_VERIFY"
+    >
+  >;
 }) {
   const {
     register,
@@ -25,19 +29,35 @@ export function EmailSignupStep({
   });
 
   async function onSubmit(data: EmailSignupFormData) {
-    console.log("EMAIL SIGNUP (NO BACKEND YET):", data);
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          type: "email",
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }),
+      });
 
-    // ✅ Always move to EmailVerificationStep
-    onSuccess();
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error || "Registration failed");
+      }
+
+      // Move to email verification step
+      setStep("EMAIL_VERIFY");
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert("Registration failed. Please try again.");
+    }
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4"
-    >
-      
-      {/* Full Name */}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <Input label="Full Name" {...register("name")} />
       {errors.name && (
         <p className="text-xs text-red-500">
@@ -45,7 +65,6 @@ export function EmailSignupStep({
         </p>
       )}
 
-      {/* Email */}
       <Input
         label="Email Address"
         type="email"
@@ -57,7 +76,6 @@ export function EmailSignupStep({
         </p>
       )}
 
-      {/* Password */}
       <PasswordInput
         label="Password"
         {...register("password")}
@@ -68,7 +86,6 @@ export function EmailSignupStep({
         </p>
       )}
 
-      {/* Confirm Password */}
       <PasswordInput
         label="Confirm Password"
         {...register("confirmPassword")}
@@ -79,7 +96,6 @@ export function EmailSignupStep({
         </p>
       )}
 
-      {/* Submit */}
       <div className="pt-4">
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Please wait..." : "Continue"}

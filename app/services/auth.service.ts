@@ -77,16 +77,32 @@ export const authService = {
   /* --------------------------------------------------
      Refresh Token
   --------------------------------------------------- */
-  async refresh(): Promise<void> {
-    const response = await fetch("/api/auth/refresh", {
-      method: "POST",
-      credentials: "include",
-    });
+  /* --------------------------------------------------
+   Refresh Token
+--------------------------------------------------- */
+async refresh(): Promise<AuthUser> {
+  const response = await fetch("/api/auth/refresh", {
+    method: "POST",
+    credentials: "include",
+  });
 
-    if (!response.ok) {
-      throw new Error("Session expired");
-    }
-  },
+  if (response.status === 401) {
+    throw new Error("UNAUTHORIZED");
+  }
+
+  if (response.status === 403) {
+    throw new Error("FORBIDDEN");
+  }
+
+  if (!response.ok) {
+    throw new Error("Session expired");
+  }
+
+  const json: ApiResponse<AuthUser> = await response.json();
+
+  return json.data;
+},
+
 
   /* --------------------------------------------------
      Get Current Authenticated User

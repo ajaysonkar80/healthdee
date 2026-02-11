@@ -300,4 +300,38 @@ export const userRepo = {
       .delete(schema.otpSessions)
       .where(sql`${schema.otpSessions.expiresAt} <= CURRENT_TIMESTAMP`);
   },
+
+  async storeRefreshToken(input: {
+  userId: string;
+  tokenHash: string;
+  expiresAt: Date;
+}) {
+  await db.insert(schema.refreshTokens).values({
+    userId: input.userId,
+    tokenHash: input.tokenHash,
+    expiresAt: input.expiresAt,
+  });
+},
+
+async findValidRefreshToken(tokenHash: string) {
+  return db.query.refreshTokens.findFirst({
+    where: sql`
+      ${schema.refreshTokens.tokenHash} = ${tokenHash}
+      AND ${schema.refreshTokens.expiresAt} > ${new Date()}
+    `,
+  });
+},
+
+async deleteRefreshToken(tokenHash: string) {
+  await db
+    .delete(schema.refreshTokens)
+    .where(sql`${schema.refreshTokens.tokenHash} = ${tokenHash}`);
+},
+
+async deleteAllUserRefreshTokens(userId: string) {
+  await db
+    .delete(schema.refreshTokens)
+    .where(sql`${schema.refreshTokens.userId} = ${userId}`);
+},
+
 };
