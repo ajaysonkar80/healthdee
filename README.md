@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Healthdee
 
-## Getting Started
+Healthdee is a healthcare platform with role-based access for patients, doctors, and administrators. It is built with Next.js App Router, React, TypeScript, Tailwind CSS, and Drizzle ORM.
 
-First, run the development server:
+## Quick Start
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Core Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# App lifecycle
+npm run dev
+npm run build
+npm run start
 
-## Learn More
+# Code quality
+npm run typecheck
+npm run lint
+npm run test
 
-To learn more about Next.js, take a look at the following resources:
+# Database
+npm run db:push
+npm run db:seed
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Architecture at a Glance
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `app/` → route segments, pages, layouts, and API route handlers.
+- `components/` → role-focused and reusable UI components.
+- `server/` → service/domain/repository/policy layers.
+- `db/` + `drizzle/` → schema, DB connection, migrations.
+- `lib/` + `hooks/` → shared client utilities and hooks.
 
-## Deploy on Vercel
+## AI/Contributor Navigation Docs
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For complete onboarding and implementation guidance, use these first:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. `AGENTS.md` → coding and architecture conventions for agents.
+2. `docs/folder-structure.md` → full repository folder and file tree.
+3. `docs/ai-codebase-map.md` → 2-week prioritized completion plan, critical flows, extension rules, and per-file analysis template output.
+
+## Suggested AI Workflow
+
+1. Start from `docs/folder-structure.md` to find relevant areas quickly.
+2. Read `docs/ai-codebase-map.md` sections in this order:
+   - `2-Week Prioritized Completion Plan`
+   - `Feature-to-File Mapping`
+   - `CRITICAL FLOWS`
+   - `EXTENSION RULES`
+3. Make changes in this sequence: validator → domain → repository → service → API route → UI.
+4. Verify with `npm run typecheck && npm run lint && npm run test && npm run build`.
