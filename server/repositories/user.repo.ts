@@ -181,6 +181,31 @@ export const userRepo = {
     return credentials;
   },
 
+  async updatePasswordHashByUserId(
+  userId: string,
+  passwordHash: string
+) {
+  const now = new Date();
+
+  const result = await db
+    .update(schema.authCredentials)
+    .set({
+      passwordHash
+    })
+    .where(eq(schema.authCredentials.userId, userId))
+    .returning();
+
+  if (result.length === 0) {
+    throw new RepositoryError(
+      "NOT_FOUND",
+      `Auth credentials not found for user: ${userId}`
+    );
+  }
+
+  return result[0];
+},
+
+
   async getAuthByEmail(email: string) {
     const record = await db.query.authCredentials.findFirst({
       where: eq(schema.authCredentials.email, email),

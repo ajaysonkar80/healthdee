@@ -1,7 +1,6 @@
 import { userRepo } from "@/server/repositories/user.repo";
 import { patientRepo } from "@/server/repositories/patient.repo";
 import { auditRepo } from "@/server/repositories/audit.repo";
-import { hashToken } from "../utils/hash";
 import { refreshTokenRepo } from "../repositories/refreshToken.repo";
 import { hash, verify } from "@/server/utils/password";
 import {
@@ -211,7 +210,7 @@ async loginWithEmail(input: unknown) {
 
   await refreshTokenRepo.create({
     userId: user.id,
-    tokenHash: hashToken(refreshToken),
+    tokenHash: hash(refreshToken),
     expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
   });
 
@@ -271,13 +270,17 @@ async resetPassword(input: {
 
   await userRepo.markOtpVerified(session.id);
 
-  await userRepo.createAuthCredentials({
-    userId: auth.userId,
-    email: auth.email ?? undefined,
-    passwordHash: await hash(input.password),
-    whatsappPhone: auth.whatsappPhone ?? undefined,
-  });
+  // 4️⃣ Hash new password
+  const newPasswordHash = await hash(input.password);
 
+  // 5️⃣ UPDATE password instead of creating new row
+  await userRepo.updatePasswordHashByUserId(
+    auth.userId,
+    newPasswordHash
+  );
+
+  // 6️⃣ Invalidate all active refresh tokens
+  await userRepo.deleteAllUserRefreshTokens(auth.userId);
   return { success: true };
 },
 
