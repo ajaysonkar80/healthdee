@@ -219,6 +219,61 @@ async loginWithEmail(input: unknown) {
   };
 },
 
+  /* --------------------------------------------------
+   Request Password Reset (Email OTP)
+--------------------------------------------------- */
+async requestPasswordReset(email: string) {
+  const auth = await userRepo.getAuthByEmail(email);
+
+  const otp = generateOtp();
+
+  await userRepo.createOtpSession({
+    userId: auth.userId,
+    channel: OtpChannel.email,
+    destination: email,
+    otpHash: await hash(otp),
+    expiresAt: otpExpiresAt(10),
+  });
+
+  // For development — remove in production
+  console.log("PASSWORD RESET OTP:", otp);
+
+  return { sent: true };
+},
+
+/* --------------------------------------------------
+   Reset Password Using OTP
+--------------------------------------------------- */
+async resetPassword(input: {
+  email: string;
+  otp: string;
+  password: string;
+}) {
+  const auth = await userRepo.getAuthByEmail(input.email);
+
+  const session = await userRepo.getValidOtpSession(
+    input.email,
+    OtpChannel.email
+  );
+
+  const ok = await verify(input.otp, session.otpHash);
+
+  if (!ok) {
+    throw new ValidationError("Invalid or expired OTP");
+  }
+
+  await userRepo.markOtpVerified(session.id);
+
+  await userRepo.createAuthCredentials({
+    userId: auth.userId,
+    email: auth.email ?? undefined,
+    passwordHash: await hash(input.password),
+    whatsappPhone: auth.whatsappPhone ?? undefined,
+  });
+
+  return { success: true };
+},
+
 
   /* --------------------------------------------------
      Request OTP

@@ -105,3 +105,14 @@ export const resetPasswordSchema = z
   .refine((d) => d.password === d.confirmPassword, {
     path: ["confirmPassword"],
   });
+
+export const resetPasswordWithOtpSchema = z
+  .object({
+    email: emailSchema,
+    otp: z.string().regex(/^\d{4}$/, "OTP must be 4 digits"),
+    password: strongPassword,
+    confirmPassword: z.string(),
+  })
+  .refine((d) => d.password === d.confirmPassword, {
+    path: ["confirmPassword"],
+  });

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -12,14 +12,23 @@ type ForgotPasswordFormData = {
 export default function ForgetPasswordForm() {
   const router = useRouter();
 
-  const { register, handleSubmit } = useForm<ForgotPasswordFormData>();
+  const { register, handleSubmit } =
+    useForm<ForgotPasswordFormData>();
 
-  const onSubmit: SubmitHandler<ForgotPasswordFormData> = (data) => {
-    console.log("SEND RESET EMAIL TO:", data.email);
+  async function onSubmit(data: ForgotPasswordFormData) {
+    const res = await fetch("/api/auth/password/forgot", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
 
-    // mock email sent
-    router.push("/reset-password");
-  };
+    if (!res.ok) {
+      alert("Failed to send OTP");
+      return;
+    }
+
+    router.push(`/reset-password?email=${data.email}`);
+  }
 
   return (
     <form
@@ -34,7 +43,7 @@ export default function ForgetPasswordForm() {
       />
 
       <Button type="submit" className="w-full">
-        Send reset link
+        Send OTP
       </Button>
     </form>
   );
