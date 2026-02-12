@@ -358,22 +358,41 @@ async resetPassword(input: {
   /* --------------------------------------------------
      Refresh Token
   --------------------------------------------------- */
-  async refresh(refreshToken: string) {
-    const payload = verifyRefreshToken(refreshToken);
-    const user = await userRepo.getUserById(payload.sub);
+  /* --------------------------------------------------
+   Refresh Token
+--------------------------------------------------- */
+async refresh(refreshToken: string) {
+  const payload = verifyRefreshToken(refreshToken);
 
-    if (user.status !== UserStatus.active) {
-      throw new ForbiddenError("User is not active");
-    }
+  const user = await userRepo.getUserById(payload.sub);
 
-    return {
-      accessToken: signAccessToken({
-        sub: user.id,
-        role: user.role,
-      }),
-      refreshToken: signRefreshToken({ sub: user.id }),
-    };
-  },
+  if (!user) {
+    throw new ForbiddenError("Invalid refresh token");
+  }
+
+  if (user.status !== UserStatus.active) {
+    throw new ForbiddenError("User is not active");
+  }
+
+  const newAccessToken = signAccessToken({
+    sub: user.id,
+    role: user.role,
+  });
+
+  const newRefreshToken = signRefreshToken({
+    sub: user.id,
+  });
+
+  return {
+    user: {
+      id: user.id,
+      role: user.role,
+    },
+    accessToken: newAccessToken,
+    refreshToken: newRefreshToken,
+  };
+},
+
  
 /* --------------------------------------------------
    Login via Phone (OTP-based)

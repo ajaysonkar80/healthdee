@@ -42,23 +42,28 @@ async function handleResponse<T>(
 
 export const authService = {
   /* --------------------------------------------------
-     Login
-  --------------------------------------------------- */
-  async login(input: {
-    email: string;
-    password: string;
-  }): Promise<AuthUser> {
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(input),
-    });
+   Login
+--------------------------------------------------- */
+async login(input: {
+  email: string;
+  password: string;
+}): Promise<AuthUser> {
+  const response = await fetch("/api/auth/login", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      type: "email",
+      email: input.email,
+      password: input.password,
+    }),
+  });
 
-    return handleResponse<AuthUser>(response);
-  },
+  return handleResponse<AuthUser>(response);
+},
+
 
   /* --------------------------------------------------
      Logout
@@ -74,9 +79,10 @@ export const authService = {
     }
   },
 
+  
   /* --------------------------------------------------
-     Refresh Token
-  --------------------------------------------------- */
+   Refresh Token
+--------------------------------------------------- */
   /* --------------------------------------------------
    Refresh Token
 --------------------------------------------------- */
@@ -86,22 +92,9 @@ async refresh(): Promise<AuthUser> {
     credentials: "include",
   });
 
-  if (response.status === 401) {
-    throw new Error("UNAUTHORIZED");
-  }
-
-  if (response.status === 403) {
-    throw new Error("FORBIDDEN");
-  }
-
-  if (!response.ok) {
-    throw new Error("Session expired");
-  }
-
-  const json: ApiResponse<AuthUser> = await response.json();
-
-  return json.data;
+  return handleResponse<AuthUser>(response);
 },
+
 
 
   /* --------------------------------------------------
