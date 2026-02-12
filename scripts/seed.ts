@@ -4,102 +4,186 @@ import {
   authCredentials,
   doctors,
   appointments,
+  consultations,
+  prescriptions,
+  prescriptionItems,
 } from "../db/schema";
 
+import { hash } from "../server/utils/password";
+
 async function main() {
+  console.log("🧹 Clearing existing data...");
+  await db.delete(prescriptionItems);
+  await db.delete(prescriptions);
+  await db.delete(consultations);
+  await db.delete(appointments);
+  await db.delete(doctors);
+  await db.delete(authCredentials);
+  await db.delete(users);
+
   console.log("🌱 Seeding database...");
 
+  const now = new Date();
 
-  
-  /* -----------------------------------------------------
-     0. Admin User
-  ----------------------------------------------------- */
+  /* =====================================================
+     1️⃣ ADMIN
+  ===================================================== */
+
   const [admin] = await db
     .insert(users)
     .values({
       role: "admin",
       status: "active",
-      createdAt: new Date(),
+      createdAt: now,
     })
     .returning({ id: users.id });
 
   await db.insert(authCredentials).values({
     userId: admin.id,
     email: "admin@healthdee.com",
-    whatsappPhone: "7777777777",
-    createdAt: new Date(),
+    passwordHash: await hash("Admin@123"),
+    emailVerifiedAt: now,
+    createdAt: now,
   });
 
-  /* -----------------------------------------------------
-     1. Create Patient User
-  ----------------------------------------------------- */
+  /* =====================================================
+     2️⃣ PATIENT
+  ===================================================== */
+
   const [patient] = await db
     .insert(users)
     .values({
       role: "patient",
       status: "active",
-      createdAt: new Date(),
+      createdAt: now,
     })
     .returning({ id: users.id });
 
   await db.insert(authCredentials).values({
     userId: patient.id,
     email: "patient@demo.com",
-    whatsappPhone: "1234567890",
-    createdAt: new Date(),
+    passwordHash: await hash("Patient@123"),
+    emailVerifiedAt: now,
+    createdAt: now,
   });
 
-  /* -----------------------------------------------------
-     2. Create Doctor User
-  ----------------------------------------------------- */
+  /* =====================================================
+     3️⃣ DOCTOR
+  ===================================================== */
+
   const [doctorUser] = await db
     .insert(users)
     .values({
       role: "doctor",
       status: "active",
-      createdAt: new Date(),
+      createdAt: now,
     })
     .returning({ id: users.id });
 
   await db.insert(authCredentials).values({
     userId: doctorUser.id,
     email: "doctor@healthdee.com",
-    whatsappPhone: "9876543210",
-    createdAt: new Date(),
+    passwordHash: await hash("Doctor@123"),
+    emailVerifiedAt: now,
+    createdAt: now,
   });
 
-  /* -----------------------------------------------------
-     3. Create Doctor Profile
-  ----------------------------------------------------- */
   const [doctor] = await db
     .insert(doctors)
     .values({
       userId: doctorUser.id,
       publicId: crypto.randomUUID(),
       specialty: "Cardiology",
-      experienceYears: 10,
+      experienceYears: 12,
       rating: 5,
-      profileImageUrl: null,
       rmpRegistrationNumber: "CARDIO-999",
       rmpStateMedicalCouncil: "Maharashtra",
       verificationStatus: "verified",
-      verifiedAt: new Date(),
-      createdAt: new Date(),
+      verifiedAt: now,
+      createdAt: now,
     })
     .returning({ id: doctors.id });
 
-  /* -----------------------------------------------------
-     4. Create Appointment
-  ----------------------------------------------------- */
+  /* =====================================================
+     4️⃣ APPOINTMENTS
+  ===================================================== */
+
+  // Scheduled
   await db.insert(appointments).values({
     patientId: patient.id,
     doctorId: doctor.id,
-    scheduledAt: new Date(Date.now() + 60 * 60 * 1000), // +1 hour
+    scheduledAt: new Date(Date.now() + 3600000),
     status: "scheduled",
-    createdAt: new Date(),
+    createdAt: now,
   });
 
-  console.log("✅ Database populated with dummy data!");
+  // Completed
+  const [completedAppointment] = await db
+    .insert(appointments)
+    .values({
+      patientId: patient.id,
+      doctorId: doctor.id,
+      scheduledAt: new Date(Date.now() - 86400000),
+      status: "completed",
+      createdAt: now,
+    })
+    .returning({ id: appointments.id });
+
+  // Cancelled
+  await db.insert(appointments).values({
+    patientId: patient.id,
+    doctorId: doctor.id,
+    scheduledAt: new Date(Date.now() - 3600000),
+    status: "cancelled",
+    createdAt: now,
+  });
+
+  /* =====================================================
+     5️⃣ CONSULTATION + PRESCRIPTION
+  ===================================================== */
+
+  const [consultation] = await db
+    .insert(consultations)
+    .values({
+      appointmentId: completedAppointment.id,
+      mode: "video",
+      startedAt: new Date(Date.now() - 86400000),
+      endedAt: new Date(Date.now() - 86000000),
+      summary: "Patient reported mild chest discomfort.",
+      createdAt: now,
+    })
+    .returning({ id: consultations.id });
+
+  const [prescription] = await db
+    .insert(prescriptions)
+    .values({
+      consultationId: consultation.id,
+      doctorId: doctor.id,
+      patientId: patient.id,
+      createdAt: now,
+    })
+    .returning({ id: prescriptions.id });
+
+  await db.insert(prescriptionItems).values([
+    {
+      prescriptionId: prescription.id,
+      drugName: "Aspirin",
+      dosage: "75mg",
+      frequency: "Once daily",
+      durationDays: 30,
+      scheduleClass: "G",
+    },
+    {
+      prescriptionId: prescription.id,
+      drugName: "Atorvastatin",
+      dosage: "10mg",
+      frequency: "Once daily",
+      durationDays: 30,
+      scheduleClass: "H",
+    },
+  ]);
+
+  console.log("✅ Demo data created successfully!");
   process.exit(0);
 }
 
