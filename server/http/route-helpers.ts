@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+import { verifyAccessToken } from "@/server/utils/jwt";
 import { NextRequest } from "next/server";
 import { ZodSchema } from "zod";
 import { error } from "./response";
@@ -40,18 +42,62 @@ export function withErrorHandling(handler: RouteHandler): RouteHandler {
 --------------------------------------------------- */
 export function withAuth(handler: RouteHandler): RouteHandler {
   return async (req, context) => {
-    const authReq = req as NextRequest & {
-      auth?: { userId?: string };
-    };
+    let token: string | undefined;
 
-    if (!authReq.auth?.userId) {
+    // 1️⃣ Try Authorization header
+    const authHeader = req.headers.get("authorization");
+    if (authHeader?.startsWith("Bearer ")) {
+      token = authHeader.slice(7);
+    }
+
+    // 2️⃣ Fallback to access_token cookie
+    if (!token) {
+      const cookieStore = await cookies();
+      token = cookieStore.get("access_token")?.value;
+    }
+
+    if (!token) {
       return error({
         message: "Unauthorized",
         status: 401,
       });
     }
 
-    return handler(req, context);
+    try {
+      const payload = verifyAccessToken(token);
+
+      if (
+        typeof payload !== "object" ||
+        payload === null ||
+        typeof payload.sub !== "string" ||
+        (payload.role !== "admin" &&
+          payload.role !== "doctor" &&
+          payload.role !== "patient")
+      ) {
+        return error({
+          message: "Unauthorized",
+          status: 401,
+        });
+      }
+
+      const authContext = {
+        userId: payload.sub,
+        role: payload.role,
+      };
+
+      const authedReq = Object.assign(req, {
+        auth: authContext,
+      }) as NextRequest & {
+        auth: { userId: string; role: string };
+      };
+
+      return handler(authedReq, context);
+    } catch {
+      return error({
+        message: "Unauthorized",
+        status: 401,
+      });
+    }
   };
 }
 

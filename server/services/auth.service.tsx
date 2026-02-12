@@ -1,7 +1,8 @@
 import { userRepo } from "@/server/repositories/user.repo";
 import { patientRepo } from "@/server/repositories/patient.repo";
 import { auditRepo } from "@/server/repositories/audit.repo";
-
+import { hashToken } from "../utils/hash";
+import { refreshTokenRepo } from "../repositories/refreshToken.repo";
 import { hash, verify } from "@/server/utils/password";
 import {
   signAccessToken,
@@ -206,6 +207,12 @@ async loginWithEmail(input: unknown) {
 
   const refreshToken = signRefreshToken({
     sub: user.id,
+  });
+
+  await refreshTokenRepo.create({
+    userId: user.id,
+    tokenHash: hashToken(refreshToken),
+    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
   });
 
   // ✅ Return correct structure for route layer
@@ -447,9 +454,30 @@ async loginWithPhone(phone: string, input: unknown) {
 },
 
   /* --------------------------------------------------
-     Logout
-  --------------------------------------------------- */
-  async logout() {
+   Logout
+--------------------------------------------------- */
+async logout(refreshToken?: string) {
+  if (!refreshToken) {
     return { success: true };
-  },
+  }
+
+  try {
+    // 1️⃣ Verify token structure
+    const payload = verifyRefreshToken(refreshToken);
+
+    // 2️⃣ Remove this specific refresh token from DB
+    await refreshTokenRepo.deleteByHash(refreshToken);
+
+    // OPTIONAL:
+    // If you want "logout from all devices" instead:
+    // await refreshTokenRepo.deleteAllForUser(payload.sub);
+
+  } catch {
+    // If token invalid or already deleted,
+    // we still succeed — logout should be idempotent.
+  }
+
+  return { success: true };
+}
+
 };
