@@ -51,6 +51,7 @@ export const emailSignupSchema = z
   .refine((d) => d.password === d.confirmPassword, {
     path: ["confirmPassword"],
   });
+export type EmailSignupInput = z.infer<typeof emailSignupSchema>;
 
 export const phoneSignupSchema = z.object({
   name: z.string().min(2),
@@ -96,23 +97,15 @@ export const otpVerifySchema = z.object({
 /* -----------------------------------------------------
    Reset password
 ----------------------------------------------------- */
-
 export const resetPasswordSchema = z
   .object({
+    otp: z.string().min(4, "OTP is required"),
     password: strongPassword,
     confirmPassword: z.string(),
   })
-  .refine((d) => d.password === d.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
+    message: "Passwords do not match",
   });
 
-export const resetPasswordWithOtpSchema = z
-  .object({
-    email: emailSchema,
-    otp: z.string().regex(/^\d{4}$/, "OTP must be 4 digits"),
-    password: strongPassword,
-    confirmPassword: z.string(),
-  })
-  .refine((d) => d.password === d.confirmPassword, {
-    path: ["confirmPassword"],
-  });
+export type ResetPasswordData = z.infer<typeof resetPasswordSchema>;

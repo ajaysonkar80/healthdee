@@ -3,6 +3,7 @@ import { verifyAccessToken } from "@/server/utils/jwt";
 import { NextRequest } from "next/server";
 import { ZodSchema } from "zod";
 import { error } from "./response";
+import { BaseAppError } from "@/server/utils/errors";
 
 /**
  * Next.js-compatible route handler.
@@ -16,16 +17,20 @@ type RouteHandler = (
 
 /* --------------------------------------------------
    Error Handling
---------------------------------------------------- */
+--------------------------------------------------- 
 export function withErrorHandling(handler: RouteHandler): RouteHandler {
   return async (req, context) => {
     try {
       return await handler(req, context);
     } catch (err) {
       if (err instanceof Error) {
+        const appStatus =
+          err instanceof BaseAppError
+            ? err.statusCode
+            : (err as Error & { status?: number }).status;
         return error({
           message: err.message,
-          status: (err as Error & { status?: number }).status ?? 500,
+          status: appStatus ?? 500,
         });
       }
 
@@ -33,6 +38,18 @@ export function withErrorHandling(handler: RouteHandler): RouteHandler {
         message: "Internal Server Error",
         status: 500,
       });
+    }
+  };
+}
+*/
+
+export function withErrorHandling(handler: any) {
+  return async (req: Request) => {
+    try {
+      return await handler(req);
+    } catch (err) {
+      console.error("🔥 AUTH ERROR:", err);
+      throw err; // temporarily rethrow
     }
   };
 }

@@ -15,11 +15,12 @@ import {
 } from "@/server/utils/errors";
 
 import {
-  emailSignupSchema,
   phoneSignupSchema,
   emailLoginSchema,
   otpVerifySchema,
 } from "@/server/validators/auth";
+
+import type { EmailSignupInput } from "@/server/validators/auth";
 
 import {
   assertHasAtLeastOneCredential,
@@ -36,6 +37,7 @@ import {
 import { UserRole } from "@/server/constants/user-role";
 import { UserStatus } from "@/server/constants/user-status";
 import { OtpChannel } from "@/server/constants/otp-channel";
+import { authCredentials } from "@/db/schema";
 
 /* ======================================================
    Helpers
@@ -83,7 +85,8 @@ export const authService = {
      Register via Email
   --------------------------------------------------- */
   async registerWithEmail(input: unknown) {
-    const data = emailSignupSchema.parse(input);
+    const data = input as EmailSignupInput;
+
 
     const existing = await userRepo
       .getAuthByEmail(data.email)
@@ -177,7 +180,7 @@ async loginWithEmail(input: unknown) {
 
   // Get user
   const user = await userRepo.getUserById(auth.userId);
-
+  //const auth=await authCredentials
   const authState = toAuthDomainState(auth);
 
   // Domain validations
@@ -185,6 +188,7 @@ async loginWithEmail(input: unknown) {
   assertLoginAllowed(authState, "email");
 
   // Verify password
+  
   const ok = await verify(data.password, auth.passwordHash!);
   if (!ok) {
     throw new ValidationError("Invalid credentials");

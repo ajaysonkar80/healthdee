@@ -9,7 +9,7 @@ import {
   prescriptionItems,
 } from "../db/schema";
 
-import { hash } from "../server/utils/password";
+import { hash} from "@/server/utils/password";
 
 async function main() {
   console.log("🧹 Clearing existing data...");

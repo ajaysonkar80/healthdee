@@ -35,24 +35,27 @@ export function EmailSignupStep({
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include", // IMPORTANT
         body: JSON.stringify({
           type: "email",
           name: data.name,
           email: data.email,
           password: data.password,
+          confirmPassword: data.confirmPassword,
         }),
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
-        const error = await response.text();
-        throw new Error(error || "Registration failed");
+        throw new Error(result?.message || "Registration failed");
       }
 
-      // Move to email verification step
+      // Success → move to next step
       setStep("EMAIL_VERIFY");
-    } catch (error) {
-      console.error("Signup error:", error);
-      alert("Registration failed. Please try again.");
+    } catch (err: any) {
+      console.error("Signup error:", err);
+      alert(err.message || "Registration failed. Please try again.");
     }
   }
 

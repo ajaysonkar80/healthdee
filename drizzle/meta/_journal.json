@@ -15,6 +15,13 @@
       "when": 1770624099084,
       "tag": "0001_exotic_dakota_north",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1770922553231,
+      "tag": "0002_breezy_shape",
+      "breakpoints": true
     }
   ]
 }
