@@ -2,7 +2,8 @@
 
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Avatar,AvatarFallback } from "../ui/avatar";
+import { Avatar, AvatarFallback } from "../ui/avatar";
+import { LogoutButton } from "../auth/LogoutButton";
 
 export default function AdminTopBar() {
   return (
@@ -12,20 +13,28 @@ export default function AdminTopBar() {
 
       {/* Right section */}
       <div className="flex items-center gap-4">
+        {/* Search */}
         <Input
-                  placeholder="Search records..."
-                  className="w-64 bg-pink-50" label={""}        />
+          placeholder="Search records..."
+          className="w-64 bg-pink-50"
+          label=""
+        />
 
+        {/* Notification */}
         <Button variant="ghost" size="icon">
           🔔
         </Button>
 
+        {/* Admin Info */}
         <div className="flex items-center gap-2">
           <Avatar>
             <AvatarFallback>A</AvatarFallback>
           </Avatar>
           <span className="text-sm font-medium">Admin</span>
         </div>
+
+        {/* Logout */}
+        <LogoutButton variant="destructive" />
       </div>
     </header>
   );

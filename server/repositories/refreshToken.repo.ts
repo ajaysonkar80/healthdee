@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { refreshTokens } from "@/db/schema";
-import { eq, and, lt } from "drizzle-orm";
+import { eq, lt } from "drizzle-orm";
 
 /* --------------------------------------------------
    Refresh Token Repository

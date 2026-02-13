@@ -13,7 +13,7 @@ import {
 const NAV_ITEMS = [
   {
     label: 'Dashboard',
-    href: '/doctor/dashboard',
+    href: '/doctor',
     icon: LayoutDashboard,
   },
   {

@@ -3,6 +3,7 @@
 import { Bell, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { LogoutButton } from '@/components/auth/LogoutButton';
 
 function formatDateTime(date: Date) {
   const datePart = date.toLocaleDateString('en-IN', {
@@ -65,6 +66,9 @@ export default function Header() {
 
         {/* Profile Avatar */}
         <div className="h-8 w-8 rounded-full bg-pink-100" />
+
+        {/* Logout */}
+        <LogoutButton />
       </div>
     </header>
   );

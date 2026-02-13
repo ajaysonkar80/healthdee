@@ -185,7 +185,7 @@ export const userRepo = {
   userId: string,
   passwordHash: string
 ) {
-  const now = new Date();
+  //const now = new Date();
 
   const result = await db
     .update(schema.authCredentials)

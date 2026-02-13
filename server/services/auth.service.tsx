@@ -37,7 +37,7 @@ import {
 import { UserRole } from "@/server/constants/user-role";
 import { UserStatus } from "@/server/constants/user-status";
 import { OtpChannel } from "@/server/constants/otp-channel";
-import { authCredentials } from "@/db/schema";
+
 
 /* ======================================================
    Helpers
@@ -470,7 +470,7 @@ async logout(refreshToken?: string) {
 
   try {
     // 1️⃣ Verify token structure
-    const payload = verifyRefreshToken(refreshToken);
+    //const payload = verifyRefreshToken(refreshToken);
 
     // 2️⃣ Remove this specific refresh token from DB
     await refreshTokenRepo.deleteByHash(refreshToken);

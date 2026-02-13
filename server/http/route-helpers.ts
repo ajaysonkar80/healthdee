@@ -17,7 +17,7 @@ type RouteHandler = (
 
 /* --------------------------------------------------
    Error Handling
---------------------------------------------------- 
+--------------------------------------------------- */
 export function withErrorHandling(handler: RouteHandler): RouteHandler {
   return async (req, context) => {
     try {
@@ -41,8 +41,8 @@ export function withErrorHandling(handler: RouteHandler): RouteHandler {
     }
   };
 }
-*/
 
+/* for quick debugging without losing the stack trace - can be removed later 
 export function withErrorHandling(handler: any) {
   return async (req: Request) => {
     try {
@@ -52,8 +52,8 @@ export function withErrorHandling(handler: any) {
       throw err; // temporarily rethrow
     }
   };
-}
-
+} 
+*/
 /* --------------------------------------------------
    Auth Guard
 --------------------------------------------------- */
