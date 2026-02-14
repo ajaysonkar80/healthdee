@@ -18,8 +18,13 @@ type RouteHandler = (
 /* --------------------------------------------------
    Error Handling
 --------------------------------------------------- */
-export function withErrorHandling(handler: RouteHandler): RouteHandler {
-  return async (req, context) => {
+export function withErrorHandling(
+  handler: RouteHandler
+): RouteHandler {
+  return async (
+    req: NextRequest,
+    context?: unknown
+  ): Promise<Response> => {
     try {
       return await handler(req, context);
     } catch (err) {
@@ -28,6 +33,7 @@ export function withErrorHandling(handler: RouteHandler): RouteHandler {
           err instanceof BaseAppError
             ? err.statusCode
             : (err as Error & { status?: number }).status;
+
         return error({
           message: err.message,
           status: appStatus ?? 500,
@@ -54,9 +60,11 @@ export function withErrorHandling(handler: any) {
   };
 } 
 */
+
 /* --------------------------------------------------
    Auth Guard
---------------------------------------------------- */
+--------------------------------------------------- 
+previuos working withAuth
 export function withAuth(handler: RouteHandler): RouteHandler {
   return async (req, context) => {
     let token: string | undefined;
@@ -117,6 +125,7 @@ export function withAuth(handler: RouteHandler): RouteHandler {
     }
   };
 }
+*/
 
 /* --------------------------------------------------
    Validation
@@ -128,7 +137,7 @@ export function withValidation<T>(
     context?: unknown
   ) => Promise<Response>
 ): RouteHandler {
-  return async (req, context) => {
+  return async (req: NextRequest, context?: unknown) => {
     const input =
       req.method === "GET"
         ? Object.fromEntries(req.nextUrl.searchParams)
@@ -149,5 +158,79 @@ export function withValidation<T>(
     }) as NextRequest & { validated: T };
 
     return handler(validatedReq, context);
+  };
+}
+
+/* --------------------------------------------------
+   Auth Guard (Current Generic-Safe Version)
+--------------------------------------------------- */
+export function withAuth(
+  handler: (
+    req: NextRequest & {
+      auth: { userId: string; role: string };
+    },
+    context?: unknown
+  ) => Promise<Response>
+): RouteHandler {
+  return async (
+    req: NextRequest,
+    context?: unknown
+  ): Promise<Response> => {
+    let token: string | undefined;
+
+    // 1️⃣ Try Authorization header
+    const authHeader = req.headers.get("authorization");
+    if (authHeader?.startsWith("Bearer ")) {
+      token = authHeader.slice(7);
+    }
+
+    // 2️⃣ Fallback to access_token cookie
+    if (!token) {
+      const cookieStore = await cookies();
+      token = cookieStore.get("access_token")?.value;
+    }
+
+    if (!token) {
+      return error({
+        message: "Unauthorized",
+        status: 401,
+      });
+    }
+
+    try {
+      const payload = verifyAccessToken(token);
+
+      if (
+        typeof payload !== "object" ||
+        payload === null ||
+        typeof payload.sub !== "string" ||
+        (payload.role !== "admin" &&
+          payload.role !== "doctor" &&
+          payload.role !== "patient")
+      ) {
+        return error({
+          message: "Unauthorized",
+          status: 401,
+        });
+      }
+
+      const authContext = {
+        userId: payload.sub,
+        role: payload.role,
+      };
+
+      const authedReq = Object.assign(req, {
+        auth: authContext,
+      }) as NextRequest & {
+        auth: { userId: string; role: string };
+      };
+
+      return handler(authedReq, context);
+    } catch {
+      return error({
+        message: "Unauthorized",
+        status: 401,
+      });
+    }
   };
 }

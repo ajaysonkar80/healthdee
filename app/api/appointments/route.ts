@@ -7,80 +7,117 @@ import { success } from "@/server/http/response";
 import { appointmentService } from "@/server/services/appointment.service";
 import { ForbiddenError, ValidationError } from "@/server/utils/errors";
 
-/* ---------------- GET ---------------- */
-/**
- * List appointments
- *
- * Admin   → all appointments
- * Doctor  → their appointments
- * Patient → their appointments
- */
-export const GET = withErrorHandling(
-  withAuth(async (req: NextRequest) => {
-    if (!req.auth) {
-      throw new ForbiddenError("Unauthorized");
-    }
+import { isAdmin } from "@/server/policies/guards/isAdmin";
+import { isDoctor } from "@/server/policies/guards/isDoctor";
+import { isPatient } from "@/server/policies/guards/isPatient";
 
-    const { userId, role } = req.auth;
+import type { AuthUser } from "@/server/policies/roles";
+import { z } from "zod";
 
-    if (role === "admin") {
-      const result =
-        await appointmentService.listAllAppointments();
+import { AppointmentStatus } from "@/db/schema";
 
-      return success(result.data);
-    }
+/* ======================================================
+   Validators
+====================================================== */
 
-    if (role === "doctor") {
-      const result =
-        await appointmentService.listAppointmentsByDoctor(userId);
+const createAppointmentSchema = z.object({
+  doctorId: z.string().min(1),
+  scheduledAt: z.string().datetime(),
+});
 
-      return success(result.data);
-    }
+/* ======================================================
+   POST — Create appointment (patient only)
+====================================================== */
 
-    if (role === "patient") {
-      const result =
-        await appointmentService.listAppointmentsByPatient(userId);
-
-      return success(result.data);
-    }
-
-    throw new ForbiddenError("Unsupported role");
-  })
-);
-
-/* ---------------- POST ---------------- */
-/**
- * Create appointment
- *
- * Patient → allowed
- * Doctor  → forbidden
- * Admin   → forbidden
- */
 export const POST = withErrorHandling(
   withAuth(async (req: NextRequest) => {
     if (!req.auth) {
       throw new ForbiddenError("Unauthorized");
     }
 
-    const { userId, role } = req.auth;
+    const actor: AuthUser = {
+      id: req.auth.userId,
+      role: req.auth.role,
+    };
 
-    if (role !== "patient") {
+    if (!isPatient(actor)) {
       throw new ForbiddenError("Only patients can create appointments");
     }
 
     const body = await req.json();
+    const parsed = createAppointmentSchema.parse(body);
 
-    if (
-      !body ||
-      typeof body.doctorId !== "string" ||
-      typeof body.scheduledAt !== "string"
-    ) {
-      throw new ValidationError("Invalid appointment payload");
-    }
-
-    const appointment =
-      await appointmentService.createAppointment(userId, body);
+    const appointment = await appointmentService.createAppointment(
+      actor.id,
+      {
+        doctorId: parsed.doctorId,
+        scheduledAt: new Date(parsed.scheduledAt),
+      }
+    );
 
     return success(appointment);
+  })
+);
+
+/* ======================================================
+   GET — List appointments (role based)
+====================================================== */
+
+export const GET = withErrorHandling(
+  withAuth(async (req: NextRequest) => {
+    if (!req.auth) {
+      throw new ForbiddenError("Unauthorized");
+    }
+
+    const actor: AuthUser = {
+      id: req.auth.userId,
+      role: req.auth.role,
+    };
+
+    const { searchParams } = new URL(req.url);
+
+    const querySchema = z.object({
+      limit: z.coerce.number().optional(),
+      offset: z.coerce.number().optional(),
+      status: z
+        .enum(["scheduled", "completed", "cancelled"])
+        .optional(),
+      from: z.coerce.date().optional(),
+      to: z.coerce.date().optional(),
+    });
+
+  const parsedQuery = querySchema.parse(
+    Object.fromEntries(searchParams)
+  );
+
+  const params = parsedQuery;
+
+
+
+    if (isPatient(actor)) {
+      const data =
+        await appointmentService.listAppointmentsByPatient(
+          actor.id,
+          params
+        );
+      return success(data);
+    }
+
+    if (isDoctor(actor)) {
+      const data =
+        await appointmentService.listAppointmentsByDoctor(
+          actor.id,
+          params
+        );
+      return success(data);
+    }
+
+    if (isAdmin(actor)) {
+      const data =
+        await appointmentService.listAllAppointments(params);
+      return success(data);
+    }
+
+    throw new ForbiddenError("Access denied");
   })
 );
