@@ -90,7 +90,7 @@ export function LoginForm() {
           href="/signup"
           className="font-medium text-pink-600"
         >
-          Register as Doctor/Clinic
+          Signup
         </Link>
 
         <div className="mt-3 flex justify-center gap-4 text-xs">
