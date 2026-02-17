@@ -44,6 +44,7 @@ export const userRepo = {
   ----------------------------- */
 
   async createUser(input: {
+    name:string;
     role: schema.UserRole;
     status?: schema.UserStatus;
   }) {
@@ -52,6 +53,7 @@ export const userRepo = {
     const [user] = await db
       .insert(schema.users)
       .values({
+        name:input.name,
         role: input.role,
         status: input.status ?? "active",
         createdAt: now,
@@ -109,6 +111,7 @@ export const userRepo = {
       db
         .select({
           id: schema.users.id,
+          name:schema.users.name,
           role: schema.users.role,
           status: schema.users.status,
           createdAt: schema.users.createdAt,

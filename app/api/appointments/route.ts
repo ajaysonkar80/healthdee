@@ -5,7 +5,7 @@ import { withAuth, withErrorHandling } from "@/server/http/route-helpers";
 import { success } from "@/server/http/response";
 
 import { appointmentService } from "@/server/services/appointment.service";
-import { ForbiddenError, ValidationError } from "@/server/utils/errors";
+import { ForbiddenError } from "@/server/utils/errors";
 
 import { isAdmin } from "@/server/policies/guards/isAdmin";
 import { isDoctor } from "@/server/policies/guards/isDoctor";
@@ -13,8 +13,6 @@ import { isPatient } from "@/server/policies/guards/isPatient";
 
 import type { AuthUser } from "@/server/policies/roles";
 import { z } from "zod";
-
-import { AppointmentStatus } from "@/db/schema";
 
 /* ======================================================
    Validators
@@ -80,7 +78,10 @@ export const GET = withErrorHandling(
       limit: z.coerce.number().optional(),
       offset: z.coerce.number().optional(),
       status: z
-        .enum(["scheduled", "completed", "cancelled"])
+        .enum(["PENDING",
+  "CONFIRMED",
+  "COMPLETED",
+  "CANCELLED",])
         .optional(),
       from: z.coerce.date().optional(),
       to: z.coerce.date().optional(),

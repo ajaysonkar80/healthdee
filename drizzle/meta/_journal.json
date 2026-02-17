@@ -36,6 +36,20 @@
       "when": 1771059296174,
       "tag": "0004_melodic_toad_men",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1771328073872,
+      "tag": "0005_military_otto_octavius",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1771330267769,
+      "tag": "0006_many_arachne",
+      "breakpoints": true
     }
   ]
 }

@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { authService } from "@/server/services/auth.service";
 
 export const POST = withErrorHandling(
-  withAuth(async (req) => {
+  withAuth(async () => {
     const cookieStore = await cookies();
 
     const refreshToken = cookieStore.get("refresh_token")?.value;

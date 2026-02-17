@@ -16,11 +16,11 @@ export function SignupForm() {
   function handleOtpVerified() {
     setStep("EMAIL_VERIFY");
   }
-
+  /*
   function handleEmailSignupDone() {
     setStep("EMAIL_VERIFY");
   }
-
+*/
   return (
     <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg">
       <div className="mb-4 text-center">

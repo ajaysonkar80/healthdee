@@ -11,15 +11,14 @@ import { Button } from "@/components/ui/button";
 
 type EmailSignupFormData = z.infer<typeof emailSignupSchema>;
 
-export function EmailSignupStep({
-  setStep,
-}: {
-  setStep: React.Dispatch<
-    React.SetStateAction<
-      "EMAIL" | "PHONE" | "OTP" | "EMAIL_VERIFY"
-    >
-  >;
-}) {
+// Extracting types for better readability
+type Step = "EMAIL" | "PHONE" | "OTP" | "EMAIL_VERIFY";
+
+interface EmailSignupStepProps {
+  setStep: React.Dispatch<React.SetStateAction<Step>>;
+}
+
+export function EmailSignupStep({ setStep }: EmailSignupStepProps) {
   const {
     register,
     handleSubmit,
@@ -35,7 +34,7 @@ export function EmailSignupStep({
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", // IMPORTANT
+        credentials: "include",
         body: JSON.stringify({
           type: "email",
           name: data.name,
@@ -48,24 +47,28 @@ export function EmailSignupStep({
       const result = await response.json();
 
       if (!response.ok) {
+        // Safe access using optional chaining on the parsed JSON
         throw new Error(result?.message || "Registration failed");
       }
 
-      // Success → move to next step
       setStep("EMAIL_VERIFY");
-    } catch (err: any) {
+    } catch (err: unknown) {
+      // ✅ Refactored: Use 'unknown' and narrow the type
       console.error("Signup error:", err);
-      alert(err.message || "Registration failed. Please try again.");
+      
+      const errorMessage = err instanceof Error 
+        ? err.message 
+        : "Registration failed. Please try again.";
+
+      alert(errorMessage);
     }
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <Input label="Full Name" {...register("name")} />
-      {errors.name && (
-        <p className="text-xs text-red-500">
-          {errors.name.message}
-        </p>
+      {errors.name?.message && (
+        <p className="text-xs text-red-500">{errors.name.message}</p>
       )}
 
       <Input
@@ -73,34 +76,28 @@ export function EmailSignupStep({
         type="email"
         {...register("email")}
       />
-      {errors.email && (
-        <p className="text-xs text-red-500">
-          {errors.email.message}
-        </p>
+      {errors.email?.message && (
+        <p className="text-xs text-red-500">{errors.email.message}</p>
       )}
 
       <PasswordInput
         label="Password"
         {...register("password")}
       />
-      {errors.password && (
-        <p className="text-xs text-red-500">
-          {errors.password.message}
-        </p>
+      {errors.password?.message && (
+        <p className="text-xs text-red-500">{errors.password.message}</p>
       )}
 
       <PasswordInput
         label="Confirm Password"
         {...register("confirmPassword")}
       />
-      {errors.confirmPassword && (
-        <p className="text-xs text-red-500">
-          {errors.confirmPassword.message}
-        </p>
+      {errors.confirmPassword?.message && (
+        <p className="text-xs text-red-500">{errors.confirmPassword.message}</p>
       )}
 
       <div className="pt-4">
-        <Button type="submit" disabled={isSubmitting}>
+        <Button type="submit" disabled={isSubmitting} className="w-full">
           {isSubmitting ? "Please wait..." : "Continue"}
         </Button>
       </div>

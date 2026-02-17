@@ -1,3 +1,4 @@
+//Appointments table
 import {
   Table,
   TableBody,
@@ -6,7 +7,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent } from "@/components/ui/card";
-import { AppointmentTableRow, AppointmentRowData } from "./AppointmentTableRow";
+import {
+  AppointmentTableRow,
+  AppointmentRowData,
+} from "./AppointmentTableRow";
 
 interface AppointmentTableProps {
   data: AppointmentRowData[];
@@ -28,9 +32,20 @@ export function AppointmentTable({ data }: AppointmentTableProps) {
           </TableHeader>
 
           <TableBody>
-            {data.map((item) => (
-              <AppointmentTableRow key={item.id} data={item} />
-            ))}
+            {data.length === 0 ? (
+              <TableRow>
+                <td
+                  colSpan={5}
+                  className="text-center py-6 text-muted-foreground"
+                >
+                  No appointments found.
+                </td>
+              </TableRow>
+            ) : (
+              data.map((item) => (
+                <AppointmentTableRow key={item.id} data={item} />
+              ))
+            )}
           </TableBody>
         </Table>
       </CardContent>

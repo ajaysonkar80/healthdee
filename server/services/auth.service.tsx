@@ -20,7 +20,7 @@ import {
   otpVerifySchema,
 } from "@/server/validators/auth";
 
-import type { EmailSignupInput } from "@/server/validators/auth";
+import { emailSignupSchema } from "@/lib/validators";
 
 import {
   assertHasAtLeastOneCredential,
@@ -37,7 +37,6 @@ import {
 import { UserRole } from "@/server/constants/user-role";
 import { UserStatus } from "@/server/constants/user-status";
 import { OtpChannel } from "@/server/constants/otp-channel";
-
 
 /* ======================================================
    Helpers
@@ -85,8 +84,7 @@ export const authService = {
      Register via Email
   --------------------------------------------------- */
   async registerWithEmail(input: unknown) {
-    const data = input as EmailSignupInput;
-
+    const data = emailSignupSchema.parse(input);
 
     const existing = await userRepo
       .getAuthByEmail(data.email)
@@ -97,6 +95,7 @@ export const authService = {
     }
 
     const user = await userRepo.createUser({
+      name: data.name,
       role: UserRole.patient,
       status: UserStatus.active,
     });
@@ -125,7 +124,9 @@ export const authService = {
         sub: user.id,
         role: user.role,
       }),
-      refreshToken: signRefreshToken({ sub: user.id }),
+      refreshToken: signRefreshToken({
+        sub: user.id,
+      }),
     };
   },
 
@@ -144,6 +145,7 @@ export const authService = {
     }
 
     const user = await userRepo.createUser({
+      name: data.name,
       role: UserRole.patient,
       status: UserStatus.active,
     });
@@ -169,125 +171,111 @@ export const authService = {
     return { success: true };
   },
 
-/* --------------------------------------------------
-   Login via Email
---------------------------------------------------- */
-async loginWithEmail(input: unknown) {
-  const data = emailLoginSchema.parse(input);
+  /* --------------------------------------------------
+     Login via Email
+  --------------------------------------------------- */
+  async loginWithEmail(input: unknown) {
+    const data = emailLoginSchema.parse(input);
 
-  // Get auth record
-  const auth = await userRepo.getAuthByEmail(data.email);
+    const auth = await userRepo.getAuthByEmail(data.email);
+    const user = await userRepo.getUserById(auth.userId);
 
-  // Get user
-  const user = await userRepo.getUserById(auth.userId);
-  //const auth=await authCredentials
-  const authState = toAuthDomainState(auth);
+    const authState = toAuthDomainState(auth);
 
-  // Domain validations
-  assertHasAtLeastOneCredential(authState);
-  assertLoginAllowed(authState, "email");
+    assertHasAtLeastOneCredential(authState);
+    assertLoginAllowed(authState, "email");
 
-  // Verify password
-  
-  const ok = await verify(data.password, auth.passwordHash!);
-  if (!ok) {
-    throw new ValidationError("Invalid credentials");
-  }
+    const ok = await verify(data.password, auth.passwordHash!);
+    if (!ok) {
+      throw new ValidationError("Invalid credentials");
+    }
 
-  // Ensure user active
-  if (user.status !== UserStatus.active) {
-    throw new ForbiddenError("User is not active");
-  }
+    if (user.status !== UserStatus.active) {
+      throw new ForbiddenError("User is not active");
+    }
 
-  // Update last login timestamp
-  await userRepo.updateLastLogin(user.id);
+    await userRepo.updateLastLogin(user.id);
 
-  // Generate tokens
-  const accessToken = signAccessToken({
-    sub: user.id,
-    role: user.role,
-  });
-
-  const refreshToken = signRefreshToken({
-    sub: user.id,
-  });
-
-  await refreshTokenRepo.create({
-    userId: user.id,
-    tokenHash: hash(refreshToken),
-    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
-  });
-
-  // ✅ Return correct structure for route layer
-  return {
-    user: {
-      id: user.id,
+    const accessToken = signAccessToken({
+      sub: user.id,
       role: user.role,
-    },
-    accessToken,
-    refreshToken,
-  };
-},
+    });
+
+    const refreshToken = signRefreshToken({
+      sub: user.id,
+    });
+
+    await refreshTokenRepo.create({
+      userId: user.id,
+      tokenHash: await hash(refreshToken),
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    });
+
+    return {
+      user: {
+        id: user.id,
+        role: user.role,
+      },
+      accessToken,
+      refreshToken,
+    };
+  },
 
   /* --------------------------------------------------
-   Request Password Reset (Email OTP)
---------------------------------------------------- */
-async requestPasswordReset(email: string) {
-  const auth = await userRepo.getAuthByEmail(email);
+     Request Password Reset
+  --------------------------------------------------- */
+  async requestPasswordReset(email: string) {
+    const auth = await userRepo.getAuthByEmail(email);
 
-  const otp = generateOtp();
+    const otp = generateOtp();
 
-  await userRepo.createOtpSession({
-    userId: auth.userId,
-    channel: OtpChannel.email,
-    destination: email,
-    otpHash: await hash(otp),
-    expiresAt: otpExpiresAt(10),
-  });
+    await userRepo.createOtpSession({
+      userId: auth.userId,
+      channel: OtpChannel.email,
+      destination: email,
+      otpHash: await hash(otp),
+      expiresAt: otpExpiresAt(10),
+    });
 
-  // For development — remove in production
-  console.log("PASSWORD RESET OTP:", otp);
+    console.log("PASSWORD RESET OTP:", otp);
 
-  return { sent: true };
-},
+    return { sent: true };
+  },
 
-/* --------------------------------------------------
-   Reset Password Using OTP
---------------------------------------------------- */
-async resetPassword(input: {
-  email: string;
-  otp: string;
-  password: string;
-}) {
-  const auth = await userRepo.getAuthByEmail(input.email);
+  /* --------------------------------------------------
+     Reset Password
+  --------------------------------------------------- */
+  async resetPassword(input: {
+    email: string;
+    otp: string;
+    password: string;
+  }) {
+    const auth = await userRepo.getAuthByEmail(input.email);
 
-  const session = await userRepo.getValidOtpSession(
-    input.email,
-    OtpChannel.email
-  );
+    const session = await userRepo.getValidOtpSession(
+      input.email,
+      OtpChannel.email
+    );
 
-  const ok = await verify(input.otp, session.otpHash);
+    const ok = await verify(input.otp, session.otpHash);
 
-  if (!ok) {
-    throw new ValidationError("Invalid or expired OTP");
-  }
+    if (!ok) {
+      throw new ValidationError("Invalid or expired OTP");
+    }
 
-  await userRepo.markOtpVerified(session.id);
+    await userRepo.markOtpVerified(session.id);
 
-  // 4️⃣ Hash new password
-  const newPasswordHash = await hash(input.password);
+    const newPasswordHash = await hash(input.password);
 
-  // 5️⃣ UPDATE password instead of creating new row
-  await userRepo.updatePasswordHashByUserId(
-    auth.userId,
-    newPasswordHash
-  );
+    await userRepo.updatePasswordHashByUserId(
+      auth.userId,
+      newPasswordHash
+    );
 
-  // 6️⃣ Invalidate all active refresh tokens
-  await userRepo.deleteAllUserRefreshTokens(auth.userId);
-  return { success: true };
-},
+    await userRepo.deleteAllUserRefreshTokens(auth.userId);
 
+    return { success: true };
+  },
 
   /* --------------------------------------------------
      Request OTP
@@ -306,7 +294,7 @@ async resetPassword(input: {
   },
 
   /* --------------------------------------------------
-     Verify OTP
+     Verify OTP (Signup or Login)
   --------------------------------------------------- */
   async verifyOtp(phone: string, input: unknown) {
     const { otp } = otpVerifySchema.parse(input);
@@ -331,6 +319,7 @@ async resetPassword(input: {
 
     if (!auth) {
       const user = await userRepo.createUser({
+        name: `User-${phone}`,
         role: UserRole.patient,
         status: UserStatus.active,
       });
@@ -365,126 +354,106 @@ async resetPassword(input: {
         sub: user.id,
         role: user.role,
       }),
-      refreshToken: signRefreshToken({ sub: user.id }),
+      refreshToken: signRefreshToken({
+        sub: user.id,
+      }),
     };
   },
 
   /* --------------------------------------------------
      Refresh Token
   --------------------------------------------------- */
-  /* --------------------------------------------------
-   Refresh Token
---------------------------------------------------- */
-async refresh(refreshToken: string) {
-  const payload = verifyRefreshToken(refreshToken);
+  async refresh(refreshToken: string) {
+    const payload = verifyRefreshToken(refreshToken);
 
-  const user = await userRepo.getUserById(payload.sub);
+    const user = await userRepo.getUserById(payload.sub);
 
-  if (!user) {
-    throw new ForbiddenError("Invalid refresh token");
-  }
+    if (user.status !== UserStatus.active) {
+      throw new ForbiddenError("User is not active");
+    }
 
-  if (user.status !== UserStatus.active) {
-    throw new ForbiddenError("User is not active");
-  }
-
-  const newAccessToken = signAccessToken({
-    sub: user.id,
-    role: user.role,
-  });
-
-  const newRefreshToken = signRefreshToken({
-    sub: user.id,
-  });
-
-  return {
-    user: {
-      id: user.id,
+    const newAccessToken = signAccessToken({
+      sub: user.id,
       role: user.role,
-    },
-    accessToken: newAccessToken,
-    refreshToken: newRefreshToken,
-  };
-},
+    });
 
- 
-/* --------------------------------------------------
-   Login via Phone (OTP-based)
---------------------------------------------------- */
-async loginWithPhone(phone: string, input: unknown) {
-  const { otp } = otpVerifySchema.parse(input);
+    const newRefreshToken = signRefreshToken({
+      sub: user.id,
+    });
 
-  const session = await userRepo.getValidOtpSession(
-    phone,
-    OtpChannel.whatsapp
-  );
-
-  const ok = await verify(otp, session.otpHash);
-  if (!ok) {
-    throw new ValidationError("Invalid or expired OTP");
-  }
-
-  await userRepo.markOtpVerified(session.id);
-
-  const auth = await userRepo.getAuthByWhatsapp(phone);
-
-  const user = await userRepo.getUserById(auth.userId);
-
-  const authState = toAuthDomainState(auth);
-
-  assertHasAtLeastOneCredential(authState);
-  assertLoginAllowed(authState, "whatsapp");
-
-  if (user.status !== UserStatus.active) {
-    throw new ForbiddenError("User is not active");
-  }
-
-  await userRepo.updateLastLogin(user.id);
-
-  const accessToken = signAccessToken({
-    sub: user.id,
-    role: user.role,
-  });
-
-  const refreshToken = signRefreshToken({
-    sub: user.id,
-  });
-
-  return {
-    user: {
-      id: user.id,
-      role: user.role,
-    },
-    accessToken,
-    refreshToken,
-  };
-},
+    return {
+      user: {
+        id: user.id,
+        role: user.role,
+      },
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
+    };
+  },
 
   /* --------------------------------------------------
-   Logout
---------------------------------------------------- */
-async logout(refreshToken?: string) {
-  if (!refreshToken) {
+     Login via Phone
+  --------------------------------------------------- */
+  async loginWithPhone(phone: string, input: unknown) {
+    const { otp } = otpVerifySchema.parse(input);
+
+    const session = await userRepo.getValidOtpSession(
+      phone,
+      OtpChannel.whatsapp
+    );
+
+    const ok = await verify(otp, session.otpHash);
+    if (!ok) {
+      throw new ValidationError("Invalid or expired OTP");
+    }
+
+    await userRepo.markOtpVerified(session.id);
+
+    const auth = await userRepo.getAuthByWhatsapp(phone);
+    const user = await userRepo.getUserById(auth.userId);
+
+    const authState = toAuthDomainState(auth);
+
+    assertHasAtLeastOneCredential(authState);
+    assertLoginAllowed(authState, "whatsapp");
+
+    if (user.status !== UserStatus.active) {
+      throw new ForbiddenError("User is not active");
+    }
+
+    await userRepo.updateLastLogin(user.id);
+
+    const accessToken = signAccessToken({
+      sub: user.id,
+      role: user.role,
+    });
+
+    const refreshToken = signRefreshToken({
+      sub: user.id,
+    });
+
+    return {
+      user: {
+        id: user.id,
+        role: user.role,
+      },
+      accessToken,
+      refreshToken,
+    };
+  },
+
+  /* --------------------------------------------------
+     Logout
+  --------------------------------------------------- */
+  async logout(refreshToken?: string) {
+    if (!refreshToken) {
+      return { success: true };
+    }
+
+    try {
+      await refreshTokenRepo.deleteByHash(refreshToken);
+    } catch {}
+
     return { success: true };
-  }
-
-  try {
-    // 1️⃣ Verify token structure
-    //const payload = verifyRefreshToken(refreshToken);
-
-    // 2️⃣ Remove this specific refresh token from DB
-    await refreshTokenRepo.deleteByHash(refreshToken);
-
-    // OPTIONAL:
-    // If you want "logout from all devices" instead:
-    // await refreshTokenRepo.deleteAllForUser(payload.sub);
-
-  } catch {
-    // If token invalid or already deleted,
-    // we still succeed — logout should be idempotent.
-  }
-
-  return { success: true };
-}
-
+  },
 };

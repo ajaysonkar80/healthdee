@@ -14,9 +14,9 @@ export function LoginForm() {
   const [step, setStep] = useState<Step>("PHONE");
   const [phone, setPhone] = useState("");
 
-  const { login, loading } = useAuth();
+  const { loading } = useAuth();
 
-  async function handleOtpVerified(role: "admin" | "doctor" | "patient") {
+  async function handleOtpVerified() {
     // After OTP verification backend should return role
     // For now redirect logic handled in AuthContext
   }

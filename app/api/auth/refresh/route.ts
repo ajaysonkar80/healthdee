@@ -1,10 +1,9 @@
 import { withErrorHandling } from "@/server/http/route-helpers";
 import { success, error } from "@/server/http/response";
 import { authService } from "@/server/services/auth.service";
-import { NextRequest } from "next/server";
 import { cookies } from "next/headers";
 
-export const POST = withErrorHandling(async (_req: NextRequest) => {
+export const POST = withErrorHandling(async () => {
   const cookieStore = await cookies();
 
   const refreshToken = cookieStore.get("refresh_token")?.value;

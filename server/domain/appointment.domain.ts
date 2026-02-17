@@ -31,9 +31,10 @@ const APPOINTMENT_STATUS_TRANSITIONS: Record<
   AppointmentStatus,
   AppointmentStatus[]
 > = {
-  scheduled: ["completed", "cancelled"],
-  completed: [],
-  cancelled: [],
+  PENDING: ["PENDING", "CONFIRMED"],
+  CONFIRMED:[],
+  COMPLETED: [],
+  CANCELLED: [],
 };
 
 export function assertValidAppointmentStatusTransition(
@@ -90,9 +91,9 @@ export function assertPatientIsNotDoctor(
 export function assertAppointmentIsMutable(
   appointment: AppointmentState
 ) {
-  if (appointment.status !== "scheduled") {
+  if (appointment.status !== "PENDING") {
     throw new AppointmentDomainError(
-      "Only scheduled appointments can be modified"
+      "Only PENDING appointments can be modified"
     );
   }
 }

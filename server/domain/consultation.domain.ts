@@ -35,14 +35,14 @@ export type AppointmentSnapshot = {
 ====================================================== */
 
 /**
- * Consultation can only be created for scheduled appointments
+ * Consultation can only be created for PENDING appointments
  */
 export function assertConsultationCreationAllowed(
   appointment: AppointmentSnapshot
 ) {
-  if (appointment.status !== "scheduled") {
+  if (appointment.status !== "PENDING") {
     throw new ConsultationDomainError(
-      "Consultation can only be created for scheduled appointments"
+      "Consultation can only be created for PENDING appointments"
     );
   }
 }

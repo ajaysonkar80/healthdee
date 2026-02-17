@@ -1,8 +1,15 @@
 // server/repositories/appointment.repo.ts
+
 import { db } from "@/db";
 import * as schema from "@/db/schema";
-import { sql } from "drizzle-orm";
+import {
+  eq,
+  and,
+  gte,
+  lte,
+} from "drizzle-orm";
 import { RepositoryError, PaginationParams } from "./user.repo";
+import { alias } from "drizzle-orm/sqlite-core";
 
 /* -----------------------------------------------------
    Helpers
@@ -50,7 +57,7 @@ export const appointmentRepo = {
 
   async getAppointmentById(appointmentId: string) {
     const appointment = await db.query.appointments.findFirst({
-      where: sql`${schema.appointments.id} = ${appointmentId}`,
+      where: eq(schema.appointments.id, appointmentId),
     });
 
     if (!appointment) {
@@ -73,36 +80,44 @@ export const appointmentRepo = {
   ) {
     const { limit, offset } = getPagination(params);
 
-    let where = sql`${schema.appointments.patientId} = ${patientId}`;
+    const conditions = [eq(schema.appointments.patientId, patientId)];
 
     if (params?.status) {
-      where = sql`${where} AND ${schema.appointments.status} = ${params.status}`;
+      conditions.push(
+        eq(schema.appointments.status, params.status)
+      );
     }
 
     if (params?.from) {
-      where = sql`${where} AND ${schema.appointments.scheduledAt} >= ${params.from}`;
+      conditions.push(
+        gte(schema.appointments.scheduledAt, params.from)
+      );
     }
 
     if (params?.to) {
-      where = sql`${where} AND ${schema.appointments.scheduledAt} <= ${params.to}`;
+      conditions.push(
+        lte(schema.appointments.scheduledAt, params.to)
+      );
     }
 
-    const [data, [{ count }]] = await Promise.all([
+    const whereClause =
+      conditions.length > 1
+        ? and(...conditions)
+        : conditions[0];
+
+    const [data, total] = await Promise.all([
       db
         .select()
         .from(schema.appointments)
-        .where(where)
+        .where(whereClause)
         .orderBy(schema.appointments.scheduledAt)
         .limit(limit)
         .offset(offset),
 
-      db
-        .select({ count: sql<number>`count(*)` })
-        .from(schema.appointments)
-        .where(where),
+      db.$count(schema.appointments, whereClause),
     ]);
 
-    return { data, total: count };
+    return { data, total };
   },
 
   async listAppointmentsByDoctor(
@@ -115,39 +130,51 @@ export const appointmentRepo = {
   ) {
     const { limit, offset } = getPagination(params);
 
-    let where = sql`${schema.appointments.doctorId} = ${doctorId}`;
+    const conditions = [eq(schema.appointments.doctorId, doctorId)];
 
     if (params?.status) {
-      where = sql`${where} AND ${schema.appointments.status} = ${params.status}`;
+      conditions.push(
+        eq(schema.appointments.status, params.status)
+      );
     }
 
     if (params?.from) {
-      where = sql`${where} AND ${schema.appointments.scheduledAt} >= ${params.from}`;
+      conditions.push(
+        gte(schema.appointments.scheduledAt, params.from)
+      );
     }
 
     if (params?.to) {
-      where = sql`${where} AND ${schema.appointments.scheduledAt} <= ${params.to}`;
+      conditions.push(
+        lte(schema.appointments.scheduledAt, params.to)
+      );
     }
 
-    const [data, [{ count }]] = await Promise.all([
+    const whereClause =
+      conditions.length > 1
+        ? and(...conditions)
+        : conditions[0];
+
+    const [data, total] = await Promise.all([
       db
         .select()
         .from(schema.appointments)
-        .where(where)
+        .where(whereClause)
         .orderBy(schema.appointments.scheduledAt)
         .limit(limit)
         .offset(offset),
 
-      db
-        .select({ count: sql<number>`count(*)` })
-        .from(schema.appointments)
-        .where(where),
+      db.$count(schema.appointments, whereClause),
     ]);
 
-    return { data, total: count };
+    return { data, total };
   },
 
-    async listAllAppointments(
+  /* -----------------------------
+     List All Appointments (Admin)
+  ----------------------------- */
+
+  async listAllAppointments(
     params?: PaginationParams & {
       status?: schema.AppointmentStatus;
       from?: Date;
@@ -156,36 +183,48 @@ export const appointmentRepo = {
   ) {
     const { limit, offset } = getPagination(params);
 
-    let where = sql`1 = 1`;
+    // Create aliases so we can join the 'users' table twice in the same query
+    const patientUser = alias(schema.users, "patientUser");
+    const doctorUser = alias(schema.users, "doctorUser");
 
-    if (params?.status) {
-      where = sql`${where} AND ${schema.appointments.status} = ${params.status}`;
-    }
+    const conditions = [];
+    if (params?.status) conditions.push(eq(schema.appointments.status, params.status));
+    if (params?.from) conditions.push(gte(schema.appointments.scheduledAt, params.from));
+    if (params?.to) conditions.push(lte(schema.appointments.scheduledAt, params.to));
 
-    if (params?.from) {
-      where = sql`${where} AND ${schema.appointments.scheduledAt} >= ${params.from}`;
-    }
+    const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
 
-    if (params?.to) {
-      where = sql`${where} AND ${schema.appointments.scheduledAt} <= ${params.to}`;
-    }
-
-    const [data, [{ count }]] = await Promise.all([
+    const [data, total] = await Promise.all([
       db
-        .select()
+        .select({
+          id: schema.appointments.id,
+          scheduledAt: schema.appointments.scheduledAt,
+          status: schema.appointments.status,
+
+          // Pulling names from the aliased users tables
+          patientName: patientUser.name,
+      
+          doctorName: doctorUser.name,
+        })
         .from(schema.appointments)
-        .where(where)
+        // 1. Join for Patient details
+        .innerJoin(patientUser, eq(patientUser.id, schema.appointments.patientId))
+        // 2. Join for Patient email (via authCredentials)
+        
+        // 3. Join for Doctor details
+        // Note: We join Appointments -> Doctors -> Users
+        .innerJoin(schema.doctors, eq(schema.doctors.id, schema.appointments.doctorId))
+        .innerJoin(doctorUser, eq(doctorUser.id, schema.doctors.userId))
+        
+        .where(whereClause)
         .orderBy(schema.appointments.scheduledAt)
         .limit(limit)
         .offset(offset),
 
-      db
-        .select({ count: sql<number>`count(*)` })
-        .from(schema.appointments)
-        .where(where),
+      db.$count(schema.appointments, whereClause),
     ]);
 
-    return { data, total: count };
+    return { data, total };
   },
 
   async updateAppointmentStatus(
@@ -195,7 +234,7 @@ export const appointmentRepo = {
     const result = await db
       .update(schema.appointments)
       .set({ status })
-      .where(sql`${schema.appointments.id} = ${appointmentId}`)
+      .where(eq(schema.appointments.id, appointmentId))
       .returning();
 
     if (result.length === 0) {
@@ -213,16 +252,18 @@ export const appointmentRepo = {
     patientUserId: string
   ): Promise<boolean> {
     const result = await db
-      .select({ count: sql<number>`count(*)` })
+      .select()
       .from(schema.appointments)
       .where(
-        sql`${schema.appointments.doctorId} = ${doctorId}
-            AND ${schema.appointments.patientId} = ${patientUserId}`
-      );
+        and(
+          eq(schema.appointments.doctorId, doctorId),
+          eq(schema.appointments.patientId, patientUserId)
+        )
+      )
+      .limit(1);
 
-    return result[0].count > 0;
+    return result.length > 0;
   },
-
 
   /* -----------------------------
      Consultations
@@ -249,9 +290,13 @@ export const appointmentRepo = {
   },
 
   async getConsultationByAppointment(appointmentId: string) {
-    const consultation = await db.query.consultations.findFirst({
-      where: sql`${schema.consultations.appointmentId} = ${appointmentId}`,
-    });
+    const consultation =
+      await db.query.consultations.findFirst({
+        where: eq(
+          schema.consultations.appointmentId,
+          appointmentId
+        ),
+      });
 
     if (!consultation) {
       throw new RepositoryError(
@@ -276,7 +321,7 @@ export const appointmentRepo = {
         endedAt: input.endedAt,
         summary: input.summary,
       })
-      .where(sql`${schema.consultations.id} = ${consultationId}`)
+      .where(eq(schema.consultations.id, consultationId))
       .returning();
 
     if (result.length === 0) {
@@ -321,27 +366,39 @@ export const appointmentRepo = {
   ) {
     const { limit, offset } = getPagination(params);
 
-    let where = sql`${schema.consultationLogs.consultationId} = ${consultationId}`;
+    const conditions = [
+      eq(
+        schema.consultationLogs.consultationId,
+        consultationId
+      ),
+    ];
 
     if (params?.logType) {
-      where = sql`${where} AND ${schema.consultationLogs.logType} = ${params.logType}`;
+      conditions.push(
+        eq(
+          schema.consultationLogs.logType,
+          params.logType
+        )
+      );
     }
 
-    const [data, [{ count }]] = await Promise.all([
+    const whereClause =
+      conditions.length > 1
+        ? and(...conditions)
+        : conditions[0];
+
+    const [data, total] = await Promise.all([
       db
         .select()
         .from(schema.consultationLogs)
-        .where(where)
+        .where(whereClause)
         .orderBy(schema.consultationLogs.storedAt)
         .limit(limit)
         .offset(offset),
 
-      db
-        .select({ count: sql<number>`count(*)` })
-        .from(schema.consultationLogs)
-        .where(where),
+      db.$count(schema.consultationLogs, whereClause),
     ]);
 
-    return { data, total: count };
+    return { data, total };
   },
 };

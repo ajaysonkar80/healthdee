@@ -1,6 +1,5 @@
 // app/api/appointments/[id]/route.ts 
 
-import { NextRequest } from "next/server";
 import { withAuth, withErrorHandling } from "@/server/http/route-helpers";
 import { success } from "@/server/http/response";
 
@@ -15,7 +14,10 @@ import { z } from "zod";
 ====================================================== */
 
 const updateStatusSchema = z.object({
-  status: z.enum(["scheduled", "cancelled", "completed"]),
+  status: z.enum(["PENDING",
+  "CONFIRMED",
+  "COMPLETED",
+  "CANCELLED",]),
 });
 
 /* ======================================================

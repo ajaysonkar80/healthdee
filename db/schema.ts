@@ -58,9 +58,10 @@ export type DoctorVerificationStatus = z.infer<
 >;
 
 export const AppointmentStatusSchema = z.enum([
-  "scheduled",
-  "completed",
-  "cancelled",
+  "PENDING",
+  "CONFIRMED",
+  "COMPLETED",
+  "CANCELLED",
 ]);
 export type AppointmentStatus = z.infer<
   typeof AppointmentStatusSchema
@@ -106,6 +107,7 @@ export type ScheduleClass = z.infer<
 
 export const users = sqliteTable("users", {
   id: uuid(),
+  name: text("name").notNull(), // Add this for Patient names
   role: text("role").$type<UserRole>().notNull(),
   status: text("status").$type<UserStatus>().notNull().default("active"),
   createdAt: integer("created_at", { mode: "timestamp" })

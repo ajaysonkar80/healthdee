@@ -1,23 +1,25 @@
-import { cookies } from "next/headers";
-import { verifyAccessToken } from "@/server/utils/jwt";
 import { NextRequest } from "next/server";
 import { ZodSchema } from "zod";
+import { verifyAccessToken } from "@/server/utils/jwt";
 import { error } from "./response";
 import { BaseAppError } from "@/server/utils/errors";
 
-/**
- * Next.js-compatible route handler.
- * We intentionally do NOT type the context,
- * because Next.js owns it and may change it.
- */
+/* ======================================================
+   Types
+====================================================== */
+
 type RouteHandler = (
   req: NextRequest,
   context?: unknown
 ) => Promise<Response>;
 
-/* --------------------------------------------------
+/* ======================================================
    Error Handling
---------------------------------------------------- */
+====================================================== */
+/* ======================================================
+   Error Handling (Dev + Prod Safe)
+====================================================== */
+
 export function withErrorHandling(
   handler: RouteHandler
 ): RouteHandler {
@@ -28,108 +30,45 @@ export function withErrorHandling(
     try {
       return await handler(req, context);
     } catch (err) {
+      const isDev = process.env.NODE_ENV === "development";
+      
+      if (isDev) {
+        console.error("🔥 FULL ERROR STACK:");
+        console.error(err);
+}
+
+      if (err instanceof BaseAppError) {
+        return error({
+          message: err.message,
+          status: err.statusCode,
+          ...(isDev && { stack: err.stack }),
+        });
+      }
+
       if (err instanceof Error) {
-        const appStatus =
-          err instanceof BaseAppError
-            ? err.statusCode
-            : (err as Error & { status?: number }).status;
+        if (isDev) {
+          console.error("🔥 DEV ERROR:", err);
+        }
 
         return error({
           message: err.message,
-          status: appStatus ?? 500,
+          status: 500,
+          ...(isDev && { stack: err.stack }),
         });
       }
 
       return error({
         message: "Internal Server Error",
         status: 500,
+        ...(isDev && { stack: "Unknown error type" }),
       });
     }
   };
 }
+/* ======================================================
+   Validation Middleware
+====================================================== */
 
-/* for quick debugging without losing the stack trace - can be removed later 
-export function withErrorHandling(handler: any) {
-  return async (req: Request) => {
-    try {
-      return await handler(req);
-    } catch (err) {
-      console.error("🔥 AUTH ERROR:", err);
-      throw err; // temporarily rethrow
-    }
-  };
-} 
-*/
-
-/* --------------------------------------------------
-   Auth Guard
---------------------------------------------------- 
-previuos working withAuth
-export function withAuth(handler: RouteHandler): RouteHandler {
-  return async (req, context) => {
-    let token: string | undefined;
-
-    // 1️⃣ Try Authorization header
-    const authHeader = req.headers.get("authorization");
-    if (authHeader?.startsWith("Bearer ")) {
-      token = authHeader.slice(7);
-    }
-
-    // 2️⃣ Fallback to access_token cookie
-    if (!token) {
-      const cookieStore = await cookies();
-      token = cookieStore.get("access_token")?.value;
-    }
-
-    if (!token) {
-      return error({
-        message: "Unauthorized",
-        status: 401,
-      });
-    }
-
-    try {
-      const payload = verifyAccessToken(token);
-
-      if (
-        typeof payload !== "object" ||
-        payload === null ||
-        typeof payload.sub !== "string" ||
-        (payload.role !== "admin" &&
-          payload.role !== "doctor" &&
-          payload.role !== "patient")
-      ) {
-        return error({
-          message: "Unauthorized",
-          status: 401,
-        });
-      }
-
-      const authContext = {
-        userId: payload.sub,
-        role: payload.role,
-      };
-
-      const authedReq = Object.assign(req, {
-        auth: authContext,
-      }) as NextRequest & {
-        auth: { userId: string; role: string };
-      };
-
-      return handler(authedReq, context);
-    } catch {
-      return error({
-        message: "Unauthorized",
-        status: 401,
-      });
-    }
-  };
-}
-*/
-
-/* --------------------------------------------------
-   Validation
---------------------------------------------------- */
 export function withValidation<T>(
   schema: ZodSchema<T>,
   handler: (
@@ -161,9 +100,10 @@ export function withValidation<T>(
   };
 }
 
-/* --------------------------------------------------
-   Auth Guard (Current Generic-Safe Version)
---------------------------------------------------- */
+/* ======================================================
+   Auth Guard (Stable Version)
+====================================================== */
+
 export function withAuth(
   handler: (
     req: NextRequest & {
@@ -178,16 +118,15 @@ export function withAuth(
   ): Promise<Response> => {
     let token: string | undefined;
 
-    // 1️⃣ Try Authorization header
+    // 1️⃣ Authorization header
     const authHeader = req.headers.get("authorization");
     if (authHeader?.startsWith("Bearer ")) {
       token = authHeader.slice(7);
     }
 
-    // 2️⃣ Fallback to access_token cookie
+    // 2️⃣ Cookie fallback (CRITICAL FIX: use req.cookies)
     if (!token) {
-      const cookieStore = await cookies();
-      token = cookieStore.get("access_token")?.value;
+      token = req.cookies.get("access_token")?.value;
     }
 
     if (!token) {
@@ -214,13 +153,11 @@ export function withAuth(
         });
       }
 
-      const authContext = {
-        userId: payload.sub,
-        role: payload.role,
-      };
-
       const authedReq = Object.assign(req, {
-        auth: authContext,
+        auth: {
+          userId: payload.sub,
+          role: payload.role,
+        },
       }) as NextRequest & {
         auth: { userId: string; role: string };
       };

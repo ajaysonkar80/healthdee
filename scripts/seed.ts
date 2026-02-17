@@ -7,9 +7,15 @@ import {
   consultations,
   prescriptions,
   prescriptionItems,
+  abhaProfiles,
+  auditLogs,
+  otpSessions,
+  fhirResources,
+  consents,
+  refreshTokens,
+  consentNotices
 } from "../db/schema";
-
-import { hash} from "@/server/utils/password";
+import { hash } from "@/server/utils/password";
 
 async function main() {
   console.log("🧹 Clearing existing data...");
@@ -19,19 +25,25 @@ async function main() {
   await db.delete(appointments);
   await db.delete(doctors);
   await db.delete(authCredentials);
+  await db.delete(auditLogs);        // Missing in your original script
+  await db.delete(otpSessions);      // Missing in your original script
+  await db.delete(abhaProfiles);     // Missing in your original script
+  await db.delete(fhirResources);    // Missing in your original script
+  await db.delete(consentNotices)
+  await db.delete(consents);         // Missing in your original script
+  await db.delete(refreshTokens);    // Missing in your original script
   await db.delete(users);
 
   console.log("🌱 Seeding database...");
-
   const now = new Date();
 
   /* =====================================================
      1️⃣ ADMIN
   ===================================================== */
-
   const [admin] = await db
     .insert(users)
     .values({
+      name: "System Admin",
       role: "admin",
       status: "active",
       createdAt: now,
@@ -49,10 +61,10 @@ async function main() {
   /* =====================================================
      2️⃣ PATIENT
   ===================================================== */
-
   const [patient] = await db
     .insert(users)
     .values({
+      name: "John Doe",
       role: "patient",
       status: "active",
       createdAt: now,
@@ -70,10 +82,10 @@ async function main() {
   /* =====================================================
      3️⃣ DOCTOR
   ===================================================== */
-
   const [doctorUser] = await db
     .insert(users)
     .values({
+      name: "Dr. Sarah Smith",
       role: "doctor",
       status: "active",
       createdAt: now,
@@ -107,41 +119,36 @@ async function main() {
   /* =====================================================
      4️⃣ APPOINTMENTS
   ===================================================== */
-
-  // Scheduled
-  await db.insert(appointments).values({
-    patientId: patient.id,
-    doctorId: doctor.id,
-    scheduledAt: new Date(Date.now() + 3600000),
-    status: "scheduled",
-    createdAt: now,
-  });
-
-  // Completed
   const [completedAppointment] = await db
     .insert(appointments)
-    .values({
-      patientId: patient.id,
-      doctorId: doctor.id,
-      scheduledAt: new Date(Date.now() - 86400000),
-      status: "completed",
-      createdAt: now,
-    })
+    .values([
+      {
+        patientId: patient.id,
+        doctorId: doctor.id,
+        scheduledAt: new Date(Date.now() + 3600000),
+        status: "PENDING",
+        createdAt: now,
+      },
+      {
+        patientId: patient.id,
+        doctorId: doctor.id,
+        scheduledAt: new Date(Date.now() - 86400000),
+        status: "COMPLETED",
+        createdAt: now,
+      },
+      {
+        patientId: patient.id,
+        doctorId: doctor.id,
+        scheduledAt: new Date(Date.now() - 3600000),
+        status: "CANCELLED",
+        createdAt: now,
+      }
+    ])
     .returning({ id: appointments.id });
-
-  // Cancelled
-  await db.insert(appointments).values({
-    patientId: patient.id,
-    doctorId: doctor.id,
-    scheduledAt: new Date(Date.now() - 3600000),
-    status: "cancelled",
-    createdAt: now,
-  });
 
   /* =====================================================
      5️⃣ CONSULTATION + PRESCRIPTION
   ===================================================== */
-
   const [consultation] = await db
     .insert(consultations)
     .values({

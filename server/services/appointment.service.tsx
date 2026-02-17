@@ -87,7 +87,7 @@ export const appointmentService = {
       patientId: patient.id,
       doctorId: doctor.id,
       scheduledAt: input.scheduledAt,
-      status: "scheduled",
+      status: "PENDING",
     });
 
     await persistAudit({
@@ -225,7 +225,7 @@ export const appointmentService = {
     await persistAudit({
       actorUserId,
       action:
-        nextStatus === "cancelled"
+        nextStatus === "CANCELLED"
           ? "APPOINTMENT_CANCELLED"
           : "APPOINTMENT_COMPLETED",
       targetType: "appointment",
