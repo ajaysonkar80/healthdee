@@ -10,9 +10,9 @@ import { Button } from "@/components/ui/button";
 type FormData = z.infer<typeof phoneLoginSchema>;
 
 export function PhoneLoginStep({
-  onOtpSent,
+  onOtpSentAction,
 }: {
-  onOtpSent: (phone: string) => void;
+  onOtpSentAction: (phone: string) => void;
 }) {
   const {
     register,
@@ -24,7 +24,7 @@ export function PhoneLoginStep({
 
   function onSubmit(data: FormData) {
     console.log("SEND LOGIN OTP TO:", data.phone);
-    onOtpSent(data.phone);
+    onOtpSentAction(data.phone);
   }
 
   return (

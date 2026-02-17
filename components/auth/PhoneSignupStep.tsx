@@ -10,9 +10,9 @@ import { z } from "zod";
 type PhoneSignupFormData = z.infer<typeof phoneSignupSchema>;
 
 export function PhoneSignupStep({
-  onOtpSent,
+  onOtpSentAction,
 }: {
-  onOtpSent: (phone: string) => void;
+  onOtpSentAction: (data: { name: string; phone: string }) => void;
 }) {
   const {
     register,
@@ -23,17 +23,43 @@ export function PhoneSignupStep({
   });
 
   async function onSubmit(data: PhoneSignupFormData) {
-    console.log("SEND OTP TO:", data.phone);
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          type: "phone",
+          name: data.name,
+          phone: data.phone,
+        }),
+      });
 
-    // No backend yet — directly proceed
-    onOtpSent(data.phone);
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result?.message || "Failed to send OTP");
+      }
+
+      onOtpSentAction({
+        name: data.name,
+        phone: data.phone,
+      });
+    } catch (err: unknown) {
+      console.error("Phone signup error:", err);
+
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.";
+
+      alert(message);
+    }
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <Input label="Full Name" {...register("name")} />
       {errors.name && (
         <p className="text-xs text-red-500">
@@ -52,9 +78,8 @@ export function PhoneSignupStep({
         </p>
       )}
 
-      {/* ✅ ALWAYS VISIBLE */}
       <div className="pt-4">
-        <Button type="submit" disabled={isSubmitting}>
+        <Button type="submit" disabled={isSubmitting} className="w-full">
           {isSubmitting ? "Sending OTP..." : "Send OTP on WhatsApp"}
         </Button>
       </div>

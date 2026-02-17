@@ -9,7 +9,7 @@ import WhyHealthDeeSection from "@/components/home/WhyHealthDeeSection";
 import TopRatedDoctorsSection from "@/components/home/TopRatedDoctors"; 
 export default function HomePage() {
   return (
-    <main className="bg-[#FFF7F9]">
+    <main className="bg-[rgb(255,247,249)]">
       <Header />
       <HeroSection />
       <SpecialtiesSection />

@@ -47,7 +47,6 @@ export const phoneSignupSchema = z.object({
 export const otpSchema = z.object({
   otp: z.string().regex(/^\d{4}$/, "OTP must be exactly 4 digits"),
 });
-
 /* ======================================================
    LOGIN VALIDATION
 ====================================================== */
@@ -63,6 +62,9 @@ export const phoneLoginSchema = z.object({
     .regex(/^\d+$/, "Phone number must contain only numbers")
     .length(10, "Phone number must be exactly 10 digits"),
 });
+
+export type PhoneLoginInput = z.infer<typeof phoneLoginSchema>;
+
 
 /* =========================
    RESET PASSWORD

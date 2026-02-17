@@ -19,11 +19,22 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
   const data = parsed.data;
 
   switch (data.type) {
+    /* ===============================================
+       EMAIL SIGNUP (unchanged)
+    =============================================== */
     case "email":
-      return success(await authService.registerWithEmail(data));
+      return success(
+        await authService.registerWithEmail(data)
+      );
 
+    /* ===============================================
+       PHONE SIGNUP - STEP 1 (Send OTP only)
+       Does NOT create user yet
+    =============================================== */
     case "phone":
-      return success(await authService.registerWithPhone(data));
+      return success(
+        await authService.startPhoneSignup(data)
+      );
 
     default: {
       const _exhaustive: never = data;

@@ -19,34 +19,20 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
 
   const data = parsed.data;
 
-  let result:
-    | {
-        user: { id: string; role: string };
-        accessToken: string;
-        refreshToken: string;
-      };
-
-  switch (data.type) {
-    case "email":
-      result = await authService.loginWithEmail(data);
-      break;
-
-    case "phone":
-      result = await authService.loginWithPhone(
-        data.phone,
-        { otp: data.otp }
-      );
-      break;
-
-    default: {
-      const _exhaustive: never = data;
-      throw _exhaustive;
-    }
+  // 🔐 EMAIL LOGIN ONLY
+  if (data.type !== "email") {
+    return error({
+      message:
+        "Phone login now requires OTP flow. Use /api/auth/phone/login/start",
+      status: 400,
+      code: "INVALID_FLOW",
+    });
   }
+
+  const result = await authService.loginWithEmail(data);
 
   const cookieStore = await cookies();
 
-  // Set Access Token Cookie
   cookieStore.set("access_token", result.accessToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -54,7 +40,6 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
     path: "/",
   });
 
-  // Set Refresh Token Cookie
   cookieStore.set("refresh_token", result.refreshToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -62,6 +47,5 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
     path: "/",
   });
 
-  // Only return safe user info to frontend
   return success(result.user);
 });

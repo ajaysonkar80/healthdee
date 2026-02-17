@@ -58,7 +58,7 @@ export function LoginForm() {
       <div className="mt-6">
         {step === "PHONE" && (
           <PhoneLoginStep
-            onOtpSent={(phone) => {
+            onOtpSentAction={(phone) => {
               setPhone(phone);
               setStep("OTP");
             }}

@@ -6,24 +6,26 @@ import { PhoneSignupStep } from "./PhoneSignupStep";
 import { OtpStep } from "./OtpStep";
 import { EmailVerificationStep } from "./EmailVerificationStep";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 type Step = "EMAIL" | "PHONE" | "OTP" | "EMAIL_VERIFY";
 
 export function SignupForm() {
   const [step, setStep] = useState<Step>("EMAIL");
-  const [phone, setPhone] = useState("");
+
+  // Store full signup data for phone flow
+  const [phoneSignupData, setPhoneSignupData] = useState<{
+    name: string;
+    phone: string;
+  } | null>(null);
 
   function handleOtpVerified() {
     setStep("EMAIL_VERIFY");
   }
-  /*
-  function handleEmailSignupDone() {
-    setStep("EMAIL_VERIFY");
-  }
-*/
+
   return (
     <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg">
-      <div className="mb-4 text-center">
+      <div className="mb-6 text-center">
         <h1 className="text-xl font-semibold text-gray-900">
           Sign up to continue
         </h1>
@@ -33,58 +35,55 @@ export function SignupForm() {
       </div>
 
       {(step === "EMAIL" || step === "PHONE") && (
-        <div className="flex gap-2">
-          <button
+        <div className="mb-6 flex gap-2">
+          <Button
             type="button"
+            variant={step === "EMAIL" ? "default" : "outline"}
+            className="flex-1"
             onClick={() => setStep("EMAIL")}
-            className={`flex-1 py-2 rounded-lg text-sm font-medium ${
-              step === "EMAIL"
-                ? "bg-pink-100 text-pink-600"
-                : "bg-gray-100 text-gray-600"
-            }`}
           >
             Email
-          </button>
+          </Button>
 
-          <button
+          <Button
             type="button"
+            variant={step === "PHONE" ? "default" : "outline"}
+            className="flex-1"
             onClick={() => setStep("PHONE")}
-            className={`flex-1 py-2 rounded-lg text-sm font-medium ${
-              step === "PHONE"
-                ? "bg-pink-100 text-pink-600"
-                : "bg-gray-100 text-gray-600"
-            }`}
           >
             Phone
-          </button>
+          </Button>
         </div>
       )}
 
       {step === "EMAIL" && (
         <EmailSignupStep setStep={setStep} />
-
       )}
 
       {step === "PHONE" && (
         <PhoneSignupStep
-          onOtpSent={(phone) => {
-            setPhone(phone);
+          onOtpSentAction={(data) => {
+            setPhoneSignupData(data);
             setStep("OTP");
           }}
         />
       )}
 
-      {step === "OTP" && (
-        <OtpStep phone={phone} onVerified={handleOtpVerified} />
+      {step === "OTP" && phoneSignupData && (
+        <OtpStep
+          name={phoneSignupData.name}
+          phone={phoneSignupData.phone}
+          onVerified={handleOtpVerified}
+        />
       )}
 
       {step === "EMAIL_VERIFY" && <EmailVerificationStep />}
 
-      <div className="mt-6 text-center text-sm text-gray-500">
+      <div className="mt-8 text-center text-sm text-muted-foreground">
         Already registered?{" "}
         <Link
           href="/login"
-          className="font-medium text-pink-600"
+          className="font-medium text-primary hover:underline"
         >
           Login here
         </Link>

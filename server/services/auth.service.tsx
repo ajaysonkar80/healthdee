@@ -80,9 +80,10 @@ function toAuthDomainState(auth: {
 ====================================================== */
 
 export const authService = {
-  /* --------------------------------------------------
-     Register via Email
-  --------------------------------------------------- */
+  /* ======================================================
+     EMAIL AUTH
+  ====================================================== */
+
   async registerWithEmail(input: unknown) {
     const data = emailSignupSchema.parse(input);
 
@@ -130,50 +131,6 @@ export const authService = {
     };
   },
 
-  /* --------------------------------------------------
-     Register via Phone
-  --------------------------------------------------- */
-  async registerWithPhone(input: unknown) {
-    const data = phoneSignupSchema.parse(input);
-
-    const existing = await userRepo
-      .getAuthByWhatsapp(data.phone)
-      .catch(() => null);
-
-    if (existing) {
-      throw new ValidationError("User already exists");
-    }
-
-    const user = await userRepo.createUser({
-      name: data.name,
-      role: UserRole.patient,
-      status: UserStatus.active,
-    });
-
-    await userRepo.createAuthCredentials({
-      userId: user.id,
-      whatsappPhone: data.phone,
-    });
-
-    await patientRepo.createAbhaProfile({
-      userId: user.id,
-      abhaNumber: `TEMP-${user.id}`,
-    });
-
-    await persistAudit({
-      actorUserId: user.id,
-      action: "USER_CREATED",
-      targetType: "user",
-      targetId: user.id,
-      metadata: { method: "whatsapp" },
-    });
-
-    return { success: true };
-  },
-
-  /* --------------------------------------------------
-     Login via Email
-  --------------------------------------------------- */
   async loginWithEmail(input: unknown) {
     const data = emailLoginSchema.parse(input);
 
@@ -215,15 +172,175 @@ export const authService = {
       user: {
         id: user.id,
         role: user.role,
+        name: user.name,
       },
       accessToken,
       refreshToken,
     };
   },
 
-  /* --------------------------------------------------
-     Request Password Reset
-  --------------------------------------------------- */
+  /* ======================================================
+     PHONE SIGNUP (STRICT)
+  ====================================================== */
+
+  async startPhoneSignup(input: unknown) {
+    const data = phoneSignupSchema.parse(input);
+
+    const existing = await userRepo
+      .getAuthByWhatsapp(data.phone)
+      .catch(() => null);
+
+    if (existing) {
+      throw new ValidationError("User already exists. Please login.");
+    }
+
+    const otp = generateOtp();
+
+    await userRepo.createOtpSession({
+      channel: OtpChannel.whatsapp,
+      destination: data.phone,
+      otpHash: await hash(otp),
+      expiresAt: otpExpiresAt(),
+    });
+
+    console.log("SIGNUP OTP:", otp);
+
+    return { sent: true };
+  },
+
+  async completePhoneSignup(input: {
+    name: string;
+    phone: string;
+    otp: string;
+  }) {
+    const session = await userRepo.getValidOtpSession(
+      input.phone,
+      OtpChannel.whatsapp
+    );
+
+    const ok = await verify(input.otp, session.otpHash);
+    if (!ok) {
+      throw new ValidationError("Invalid or expired OTP");
+    }
+
+    await userRepo.markOtpVerified(session.id);
+
+    const existing = await userRepo
+      .getAuthByWhatsapp(input.phone)
+      .catch(() => null);
+
+    if (existing) {
+      throw new ValidationError("User already exists. Please login.");
+    }
+
+    const user = await userRepo.createUser({
+      name: input.name,
+      role: UserRole.patient,
+      status: UserStatus.active,
+    });
+
+    await userRepo.createAuthCredentials({
+      userId: user.id,
+      whatsappPhone: input.phone,
+    });
+
+    await patientRepo.createAbhaProfile({
+      userId: user.id,
+      abhaNumber: `TEMP-${user.id}`,
+    });
+
+    await persistAudit({
+      actorUserId: user.id,
+      action: "USER_CREATED",
+      targetType: "user",
+      targetId: user.id,
+      metadata: { method: "phone_signup" },
+    });
+
+    return {
+      accessToken: signAccessToken({
+        sub: user.id,
+        role: user.role,
+      }),
+      refreshToken: signRefreshToken({
+        sub: user.id,
+      }),
+    };
+  },
+
+  /* ======================================================
+     PHONE LOGIN (STRICT)
+  ====================================================== */
+
+  async startPhoneLogin(phone: string) {
+    const auth = await userRepo
+      .getAuthByWhatsapp(phone)
+      .catch(() => null);
+
+    if (!auth) {
+      throw new ValidationError("Account not found. Please signup.");
+    }
+
+    const otp = generateOtp();
+
+    await userRepo.createOtpSession({
+      userId: auth.userId,
+      channel: OtpChannel.whatsapp,
+      destination: phone,
+      otpHash: await hash(otp),
+      expiresAt: otpExpiresAt(),
+    });
+
+    console.log("LOGIN OTP:", otp);
+
+    return { sent: true };
+  },
+
+  async completePhoneLogin(input: {
+    phone: string;
+    otp: string;
+  }) {
+    const session = await userRepo.getValidOtpSession(
+      input.phone,
+      OtpChannel.whatsapp
+    );
+
+    const ok = await verify(input.otp, session.otpHash);
+    if (!ok) {
+      throw new ValidationError("Invalid or expired OTP");
+    }
+
+    await userRepo.markOtpVerified(session.id);
+
+    const auth = await userRepo.getAuthByWhatsapp(input.phone);
+    const user = await userRepo.getUserById(auth.userId);
+
+    if (user.status !== UserStatus.active) {
+      throw new ForbiddenError("User is not active");
+    }
+
+    await userRepo.updateLastLogin(user.id);
+
+    return {
+      user: {
+        id: user.id,
+        role: user.role,
+        name: user.name,
+      },
+      accessToken: signAccessToken({
+        sub: user.id,
+        role: user.role,
+      }),
+      refreshToken: signRefreshToken({
+        sub: user.id,
+      }),
+    };
+  },
+
+  /* ======================================================
+     PASSWORD RESET
+  ====================================================== */
+
   async requestPasswordReset(email: string) {
     const auth = await userRepo.getAuthByEmail(email);
 
@@ -242,9 +359,6 @@ export const authService = {
     return { sent: true };
   },
 
-  /* --------------------------------------------------
-     Reset Password
-  --------------------------------------------------- */
   async resetPassword(input: {
     email: string;
     otp: string;
@@ -258,7 +372,6 @@ export const authService = {
     );
 
     const ok = await verify(input.otp, session.otpHash);
-
     if (!ok) {
       throw new ValidationError("Invalid or expired OTP");
     }
@@ -277,79 +390,25 @@ export const authService = {
     return { success: true };
   },
 
-  /* --------------------------------------------------
-     Request OTP
-  --------------------------------------------------- */
-  async requestOtp(phone: string) {
-    const otp = generateOtp();
+  /* ======================================================
+     REFRESH + LOGOUT
+  ====================================================== */
 
-    await userRepo.createOtpSession({
-      channel: OtpChannel.whatsapp,
-      destination: phone,
-      otpHash: await hash(otp),
-      expiresAt: otpExpiresAt(),
-    });
+  async refresh(refreshToken: string) {
+    const payload = verifyRefreshToken(refreshToken);
 
-    return { sent: true };
-  },
+    const user = await userRepo.getUserById(payload.sub);
 
-  /* --------------------------------------------------
-     Verify OTP (Signup or Login)
-  --------------------------------------------------- */
-  async verifyOtp(phone: string, input: unknown) {
-    const { otp } = otpVerifySchema.parse(input);
-
-    const session = await userRepo.getValidOtpSession(
-      phone,
-      OtpChannel.whatsapp
-    );
-
-    const ok = await verify(otp, session.otpHash);
-    if (!ok) {
-      throw new ValidationError("Invalid or expired OTP");
+    if (user.status !== UserStatus.active) {
+      throw new ForbiddenError("User is not active");
     }
-
-    await userRepo.markOtpVerified(session.id);
-
-    const auth = await userRepo
-      .getAuthByWhatsapp(phone)
-      .catch(() => null);
-
-    let userId: string;
-
-    if (!auth) {
-      const user = await userRepo.createUser({
-        name: `User-${phone}`,
-        role: UserRole.patient,
-        status: UserStatus.active,
-      });
-
-      await userRepo.createAuthCredentials({
-        userId: user.id,
-        whatsappPhone: phone,
-      });
-
-      await patientRepo.createAbhaProfile({
-        userId: user.id,
-        abhaNumber: `TEMP-${user.id}`,
-      });
-
-      await persistAudit({
-        actorUserId: user.id,
-        action: "USER_CREATED",
-        targetType: "user",
-        targetId: user.id,
-        metadata: { method: "otp" },
-      });
-
-      userId = user.id;
-    } else {
-      userId = auth.userId;
-    }
-
-    const user = await userRepo.getUserById(userId);
 
     return {
+      user: {
+        id: user.id,
+        role: user.role,
+        name: user.name,
+      },
       accessToken: signAccessToken({
         sub: user.id,
         role: user.role,
@@ -360,95 +419,8 @@ export const authService = {
     };
   },
 
-  /* --------------------------------------------------
-     Refresh Token
-  --------------------------------------------------- */
-  async refresh(refreshToken: string) {
-    const payload = verifyRefreshToken(refreshToken);
-
-    const user = await userRepo.getUserById(payload.sub);
-
-    if (user.status !== UserStatus.active) {
-      throw new ForbiddenError("User is not active");
-    }
-
-    const newAccessToken = signAccessToken({
-      sub: user.id,
-      role: user.role,
-    });
-
-    const newRefreshToken = signRefreshToken({
-      sub: user.id,
-    });
-
-    return {
-      user: {
-        id: user.id,
-        role: user.role,
-      },
-      accessToken: newAccessToken,
-      refreshToken: newRefreshToken,
-    };
-  },
-
-  /* --------------------------------------------------
-     Login via Phone
-  --------------------------------------------------- */
-  async loginWithPhone(phone: string, input: unknown) {
-    const { otp } = otpVerifySchema.parse(input);
-
-    const session = await userRepo.getValidOtpSession(
-      phone,
-      OtpChannel.whatsapp
-    );
-
-    const ok = await verify(otp, session.otpHash);
-    if (!ok) {
-      throw new ValidationError("Invalid or expired OTP");
-    }
-
-    await userRepo.markOtpVerified(session.id);
-
-    const auth = await userRepo.getAuthByWhatsapp(phone);
-    const user = await userRepo.getUserById(auth.userId);
-
-    const authState = toAuthDomainState(auth);
-
-    assertHasAtLeastOneCredential(authState);
-    assertLoginAllowed(authState, "whatsapp");
-
-    if (user.status !== UserStatus.active) {
-      throw new ForbiddenError("User is not active");
-    }
-
-    await userRepo.updateLastLogin(user.id);
-
-    const accessToken = signAccessToken({
-      sub: user.id,
-      role: user.role,
-    });
-
-    const refreshToken = signRefreshToken({
-      sub: user.id,
-    });
-
-    return {
-      user: {
-        id: user.id,
-        role: user.role,
-      },
-      accessToken,
-      refreshToken,
-    };
-  },
-
-  /* --------------------------------------------------
-     Logout
-  --------------------------------------------------- */
   async logout(refreshToken?: string) {
-    if (!refreshToken) {
-      return { success: true };
-    }
+    if (!refreshToken) return { success: true };
 
     try {
       await refreshTokenRepo.deleteByHash(refreshToken);
@@ -456,4 +428,111 @@ export const authService = {
 
     return { success: true };
   },
+
+  /* --------------------------------------------------
+   Request OTP
+--------------------------------------------------- */
+async requestOtp(phone: string): Promise<{ sent: boolean }> {
+  if (!phone) {
+    throw new ValidationError("Phone number is required");
+  }
+
+  // Generate 4-digit OTP (1000–9999)
+  const otp = Math.floor(1000 + Math.random() * 9000).toString();
+
+  await userRepo.createOtpSession({
+    channel: OtpChannel.whatsapp,
+    destination: phone,
+    otpHash: await hash(otp),
+    expiresAt: otpExpiresAt(), // should be +5 min ideally
+  });
+
+  // TODO: send OTP via WhatsApp provider here
+  // await whatsappProvider.send(phone, `Your OTP is ${otp}`);
+
+  return { sent: true };
+},
+
+/* --------------------------------------------------
+   Verify OTP (Signup or Login)
+--------------------------------------------------- */
+async verifyOtp(
+  phone: string,
+  input: unknown
+): Promise<{
+  accessToken: string;
+  refreshToken: string;
+}> {
+  if (!phone) {
+    throw new ValidationError("Phone number is required");
+  }
+
+  const { otp } = otpVerifySchema.parse(input);
+
+  const session = await userRepo.getValidOtpSession(
+    phone,
+    OtpChannel.whatsapp
+  );
+
+  if (!session) {
+    throw new ValidationError("Invalid or expired OTP");
+  }
+
+  const ok = await verify(otp, session.otpHash);
+
+  if (!ok) {
+    throw new ValidationError("Invalid or expired OTP");
+  }
+
+  await userRepo.markOtpVerified(session.id);
+
+  const auth = await userRepo
+    .getAuthByWhatsapp(phone)
+    .catch(() => null);
+
+  let userId: string;
+
+  if (!auth) {
+    const user = await userRepo.createUser({
+      name: `User-${phone}`,
+      role: UserRole.patient,
+      status: UserStatus.active,
+    });
+
+    await userRepo.createAuthCredentials({
+      userId: user.id,
+      whatsappPhone: phone,
+    });
+
+    await patientRepo.createAbhaProfile({
+      userId: user.id,
+      abhaNumber: `TEMP-${user.id}`,
+    });
+
+    await persistAudit({
+      actorUserId: user.id,
+      action: "USER_CREATED",
+      targetType: "user",
+      targetId: user.id,
+      metadata: { method: "otp" },
+    });
+
+    userId = user.id;
+  } else {
+    userId = auth.userId;
+  }
+
+  const user = await userRepo.getUserById(userId);
+
+  return {
+    accessToken: signAccessToken({
+      sub: user.id,
+      role: user.role,
+    }),
+    refreshToken: signRefreshToken({
+      sub: user.id,
+    }),
+  };
+},
+
 };

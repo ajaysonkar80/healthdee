@@ -47,7 +47,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           </p>
 
           {/* Image */}
-          <div className="relative mt-10 h-[300px] w-full max-w-xl overflow-hidden rounded-2xl">
+          <div className="relative mt-10 h-75 w-full max-w-xl overflow-hidden rounded-2xl">
             <Image
               src="/clinic.jpg"
               alt="Modern healthcare clinic interior"

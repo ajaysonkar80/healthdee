@@ -1,64 +1,89 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { otpSchema } from "@/lib/validators";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { z } from "zod";
 
-type OtpFormData = z.infer<typeof otpSchema>;
-
-export function OtpStep({
-  phone,
-  onVerified,
-}: {
+interface OtpStepProps {
+  name: string;
   phone: string;
   onVerified: () => void;
-}) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<OtpFormData>({
-    resolver: zodResolver(otpSchema),
-  });
+}
 
-  function onSubmit(data: OtpFormData) {
-    // ✅ MOCK OTP CHECK
-    if (data.otp !== "1234") {
+export function OtpStep({
+  name,
+  phone,
+  onVerified,
+}: OtpStepProps) {
+  const [otp, setOtp] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleVerify() {
+    if (!otp || otp.length !== 4) {
+      alert("Enter valid 4-digit OTP");
       return;
     }
 
-    onVerified();
+    try {
+      setIsSubmitting(true);
+
+      const response = await fetch(
+        "/api/auth/phone/signup/complete",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            name,
+            phone,
+            otp,
+          }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result?.message || "OTP verification failed");
+      }
+
+      onVerified();
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Verification failed";
+
+      alert(message);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4"
-    >
-      <p className="text-sm text-gray-600">
-        OTP sent on WhatsApp to <strong>{phone}</strong>
-      </p>
+    <div className="space-y-4">
+      <div className="text-sm text-muted-foreground text-center">
+        Enter the OTP sent to <span className="font-medium">{phone}</span>
+      </div>
 
       <Input
-        label="Enter OTP"
+        value={otp}
+        onChange={(e) => setOtp(e.target.value)}
         inputMode="numeric"
         maxLength={4}
-        {...register("otp")}
+        placeholder="Enter 4-digit OTP"
+        label="otp input"
       />
-      {errors.otp && (
-        <p className="text-xs text-red-500">
-          {errors.otp.message}
-        </p>
-      )}
 
-      <div className="pt-4">
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Verifying..." : "Verify & Continue"}
-        </Button>
-      </div>
-    </form>
+      <Button
+        onClick={handleVerify}
+        disabled={isSubmitting}
+        className="w-full"
+      >
+        {isSubmitting ? "Verifying..." : "Verify OTP"}
+      </Button>
+    </div>
   );
 }
