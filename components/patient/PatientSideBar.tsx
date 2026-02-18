@@ -12,27 +12,37 @@ import {
   Bell,
   Shield,
   HelpCircle,
+  AlertTriangle,
+  Settings,
+  Calendar,
+  FileHeart,
+  TriangleAlert
 } from "lucide-react"
 
 const navItems = [
   {
     label: "Personal Details",
-    href: "/patient/settings",
+    href: "/patient",
     icon: User,
   },
   {
+    label: "Appointments",
+    href: "/patient/appointments",
+    icon: Calendar,
+  },
+  {
     label: "Emergency Contacts",
-    href: "/patient/settings/emergency",
+    href: "/patient/emergency-contacts",
     icon: Phone,
   },
   {
     label: "Notification Prefs",
-    href: "/patient/settings/notifications",
+    href: "/patient/notifications",
     icon: Bell,
   },
   {
     label: "Privacy & Security",
-    href: "/patient/settings/privacy",
+    href: "/patient/privacy",
     icon: Shield,
   },
   {
@@ -40,6 +50,21 @@ const navItems = [
     href: "/patient/help",
     icon: HelpCircle,
   },
+  {
+    label: "Medical Records",
+    href: "/patient/medical-records",
+    icon: FileHeart,
+  },
+  {
+    label: "Danger Zone",
+    href: "/patient/danger-zone",
+    icon: AlertTriangle,
+  },
+  {
+    label: "Settings",
+    href: "/patient/settings",
+    icon: Settings,
+  }
 ]
 
 export default function PatientSidebar() {

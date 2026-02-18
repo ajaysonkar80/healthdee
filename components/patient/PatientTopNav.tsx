@@ -8,36 +8,11 @@ export default function PatientTopNav() {
     <header className="border-b bg-background">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <div className="flex items-center gap-8">
-          <Link href="/patient/dashboard" className="text-lg font-bold">
-            HealthTrust
+          <Link href="/" className="text-lg font-bold">
+            HealthDee
           </Link>
 
-          <nav className="hidden items-center gap-6 md:flex">
-            <Link
-              href="/patient/dashboard"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground"
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="/patient/appointments"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground"
-            >
-              Appointments
-            </Link>
-            <Link
-              href="/patient/records"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground"
-            >
-              Medical Records
-            </Link>
-            <Link
-              href="/patient/settings"
-              className="text-sm font-medium text-primary"
-            >
-              Settings
-            </Link>
-          </nav>
+          
         </div>
 
         <div className="flex items-center gap-4">

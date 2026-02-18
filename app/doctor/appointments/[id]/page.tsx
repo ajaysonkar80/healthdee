@@ -1,121 +1,134 @@
-// app/doctor/appointments/[id]/page.tsx
-import Link from 'next/link';
+'use client';
 
-// ✅ Correct Next.js 15 Type Definition
-type Props = {
-  params: Promise<{ id: string }>;
+import { useEffect, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+
+type Appointment = {
+  id: string;
+  patientId: string;
+  doctorId: string;
+  scheduledAt: string;
+  status: 'PENDING' | 'CONFIRMED' | 'COMPLETED' | 'CANCELLED';
 };
 
-export default async function AppointmentDetailsPage({ params }: Props) {
-  // ✅ Correctly awaiting params for Next.js 15
-  const { id } = await params;
+export default function AppointmentDetailsPage() {
+  const { id } = useParams<{ id: string }>();
+  const router = useRouter();
 
-  // Dummy data (replace with API later)
-  const appointment = {
-    id: id,
-    patientName: 'Suman Verma',
-    age: 42,
-    gender: 'Female',
-    time: '10:45 AM',
-    status: 'In-Progress',
-    type: 'Follow-up',
-    symptoms: 'Headache, fatigue',
-    notes: 'Patient has a history of Type 2 Diabetes.',
-  };
+  const [appointment, setAppointment] = useState<Appointment | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [updating, setUpdating] = useState(false);
+
+  useEffect(() => {
+    async function fetchAppointment() {
+      try {
+        const res = await fetch(`/api/appointments/${id}`, {
+          credentials: 'include',
+        });
+
+        const data = await res.json();
+        setAppointment(data.data);
+      } catch (err) {
+        console.error('Failed to fetch appointment', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (id) fetchAppointment();
+  }, [id]);
+
+  async function updateStatus(status: Appointment['status']) {
+    try {
+      setUpdating(true);
+
+      await fetch(`/api/appointments/${id}`, {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status }),
+      });
+
+      // Refresh data
+      router.refresh();
+    } catch (err) {
+      console.error('Failed to update status', err);
+    } finally {
+      setUpdating(false);
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="p-6 text-sm text-gray-500">
+        Loading appointment...
+      </div>
+    );
+  }
+
+  if (!appointment) {
+    return (
+      <div className="p-6 text-sm text-red-500">
+        Appointment not found.
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6 p-6"> {/* Added p-6 for padding */}
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold text-gray-900">
-            Appointment Details
-          </h1>
-          <p className="mt-1 text-sm text-gray-500">
-            {appointment.patientName} • {appointment.time}
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <Link
-            href={`/doctor/patients/${appointment.id}`}
-            className="rounded-lg border border-pink-600 px-4 py-2 text-sm font-medium text-pink-600 hover:bg-pink-50 transition"
-          >
-            View File
-          </Link>
-
-          <Link
-            href="/doctor/prescriptions/new"
-            className="rounded-lg bg-pink-600 px-4 py-2 text-sm font-medium text-white hover:bg-pink-700 transition"
-          >
-            Write Prescription
-          </Link>
-        </div>
+    <div className="space-y-6 p-6">
+      <div>
+        <h1 className="text-2xl font-semibold text-gray-900">
+          Appointment Details
+        </h1>
+        <p className="mt-1 text-sm text-gray-500">
+          ID: {appointment.id}
+        </p>
       </div>
 
-      {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left: Patient Info */}
-        <div className="lg:col-span-2 space-y-6">
-          <Section title="Patient Information">
-            <InfoRow label="Name" value={appointment.patientName} />
-            <InfoRow label="Age" value={`${appointment.age} years`} />
-            <InfoRow label="Gender" value={appointment.gender} />
-            <InfoRow label="Appointment Type" value={appointment.type} />
-            <InfoRow label="Status" value={appointment.status} />
-          </Section>
-
-          <Section title="Symptoms">
-            <p className="text-sm text-gray-700 leading-relaxed">
-              {appointment.symptoms}
-            </p>
-          </Section>
-
-          <Section title="Doctor Notes">
-            <p className="text-sm text-gray-700 leading-relaxed">
-              {appointment.notes}
-            </p>
-          </Section>
-        </div>
-
-        {/* Right: Actions */}
-        <div className="space-y-6">
-          <Section title="Quick Actions">
-            <button className="w-full rounded-lg bg-pink-600 px-4 py-2 text-sm font-medium text-white hover:bg-pink-700 transition">
-              Resume Consultation
-            </button>
-
-            <button className="mt-3 w-full rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
-              Mark as Completed
-            </button>
-          </Section>
-
-          <Section title="Appointment Time">
-            <p className="text-sm text-gray-700">
-              Scheduled at <span className="font-medium">{appointment.time}</span>
-            </p>
-          </Section>
-        </div>
+      <div className="rounded-xl border bg-white p-6 shadow-sm space-y-4">
+        <InfoRow label="Patient ID" value={appointment.patientId} />
+        <InfoRow
+          label="Scheduled At"
+          value={new Date(appointment.scheduledAt).toLocaleString()}
+        />
+        <InfoRow label="Status" value={appointment.status} />
       </div>
-    </div>
-  );
-}
 
-/* ---------------- Helper Components ---------------- */
+      {/* Action Buttons */}
+      <div className="flex gap-4">
+        {appointment.status === 'PENDING' && (
+          <button
+            disabled={updating}
+            onClick={() => updateStatus('CONFIRMED')}
+            className="rounded-lg bg-pink-600 px-4 py-2 text-sm font-medium text-white hover:bg-pink-700 disabled:opacity-50"
+          >
+            Confirm Appointment
+          </button>
+        )}
 
-function Section({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h2 className="mb-4 font-semibold text-gray-900 border-b border-gray-100 pb-2">
-        {title}
-      </h2>
-      {children}
+        {appointment.status === 'CONFIRMED' && (
+          <button
+            disabled={updating}
+            onClick={() => updateStatus('COMPLETED')}
+            className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
+          >
+            Mark as Completed
+          </button>
+        )}
+
+        {appointment.status !== 'CANCELLED' &&
+          appointment.status !== 'COMPLETED' && (
+            <button
+              disabled={updating}
+              onClick={() => updateStatus('CANCELLED')}
+              className="rounded-lg border border-red-500 px-4 py-2 text-sm font-medium text-red-500 hover:bg-red-50 disabled:opacity-50"
+            >
+              Cancel Appointment
+            </button>
+          )}
+      </div>
     </div>
   );
 }
@@ -128,7 +141,7 @@ function InfoRow({
   value: string;
 }) {
   return (
-    <div className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
+    <div className="flex items-center justify-between border-b border-gray-100 py-2 last:border-0">
       <span className="text-sm text-gray-500">{label}</span>
       <span className="text-sm font-medium text-gray-900">
         {value}

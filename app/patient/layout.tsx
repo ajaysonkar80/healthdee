@@ -1,9 +1,8 @@
 import type { ReactNode } from "react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
+import PatientTopNav from "@/components/patient/PatientTopNav";
 import PatientSidebar from "@/components/patient/PatientSideBar";
-import PatientHeader from "@/components/patient/PatientSideBar";
 import { verifyAccessToken } from "@/server/utils/jwt";
 
 /* ======================================================
@@ -18,7 +17,6 @@ export default async function PatientLayout({
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
 
-  // 🚫 No token → redirect
   if (!token) {
     redirect("/login");
   }
@@ -26,28 +24,33 @@ export default async function PatientLayout({
   try {
     const payload = verifyAccessToken(token);
 
-    // 🚫 Not patient → redirect
     if (payload.role !== "patient") {
       redirect("/login");
     }
   } catch {
-    // 🚫 Invalid / expired token
     redirect("/login");
   }
 
-  // ✅ Authorized patient → render layout
   return (
-    <div className="flex h-screen bg-gray-50">
-      {/* Sidebar */}
-      <PatientSidebar />
+    <div className="min-h-screen bg-gray-50">
+      {/* 🔵 Top Navbar */}
+      <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
+        <div className="mx-auto max-w-screen-2xl px-6 py-4">
+          <PatientTopNav />
+        </div>
+      </header>
 
-      {/* Right Column */}
-      <div className="flex flex-1 flex-col bg-gray-50 border-l border-gray-200">
-        {/* Header */}
-        <PatientHeader />
+      {/* 🟢 Dashboard Body */}
+      <div className="mx-auto flex max-w-screen-2xl">
+        {/* 🧱 Sticky Sidebar */}
+        <aside className="hidden md:block w-72 border-r border-gray-200 bg-white">
+          <div className="sticky top-18 h-[calc(100vh-72px)] overflow-y-auto p-6">
+            <PatientSidebar />
+          </div>
+        </aside>
 
-        {/* Content */}
-        <main className="flex-1 overflow-y-auto p-6 bg-gray-50">
+        {/* 📄 Main Content */}
+        <main className="flex-1 p-8">
           {children}
         </main>
       </div>
