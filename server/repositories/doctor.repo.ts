@@ -27,34 +27,39 @@ export const doctorRepo = {
   ----------------------------- */
 
   async createDoctor(input: {
-    userId: string;
-    publicId: string;
-    specialty: string;
-    experienceYears?: number;
-    profileImageUrl?: string;
-    rmpRegistrationNumber: string;
-    rmpStateMedicalCouncil: string;
-    verificationStatus: schema.DoctorVerificationStatus;
-  }) {
-    const now = new Date();
+  userId: string;
+  publicId: string;
+  specialty: string;
+  experienceYears?: number;
+  bio?: string;
+  consultationFee?: number;
+  profileImageUrl?: string;
+  rmpRegistrationNumber: string;
+  rmpStateMedicalCouncil: string;
+  verificationStatus: schema.DoctorVerificationStatus;
+}) {
+  const now = new Date();
 
-    const [doctor] = await db
-      .insert(schema.doctors)
-      .values({
-        userId: input.userId,
-        publicId: input.publicId,
-        specialty: input.specialty,
-        experienceYears: input.experienceYears ?? 0,
-        profileImageUrl: input.profileImageUrl,
-        rmpRegistrationNumber: input.rmpRegistrationNumber,
-        rmpStateMedicalCouncil: input.rmpStateMedicalCouncil,
-        verificationStatus: input.verificationStatus,
-        createdAt: now,
-      })
-      .returning();
+  const [doctor] = await db
+    .insert(schema.doctors)
+    .values({
+      userId: input.userId,
+      publicId: input.publicId,
+      specialty: input.specialty,
+      experienceYears: input.experienceYears ?? 0,
+      bio: input.bio,
+      consultationFee: input.consultationFee ?? 0,
+      profileImageUrl: input.profileImageUrl,
+      rmpRegistrationNumber: input.rmpRegistrationNumber,
+      rmpStateMedicalCouncil: input.rmpStateMedicalCouncil,
+      verificationStatus: input.verificationStatus,
+      createdAt: now,
+    })
+    .returning();
 
-    return doctor;
-  },
+  return doctor;
+},
+
 
   /* -----------------------------
      Getters
@@ -159,6 +164,8 @@ export const doctorRepo = {
           publicId: schema.doctors.publicId,
           specialty: schema.doctors.specialty,
           experienceYears: schema.doctors.experienceYears,
+          bio: schema.doctors.bio,
+          consultationFee: schema.doctors.consultationFee,
           rating: schema.doctors.rating,
           profileImageUrl: schema.doctors.profileImageUrl,
           verificationStatus: schema.doctors.verificationStatus,
@@ -166,6 +173,7 @@ export const doctorRepo = {
           userId: schema.users.id,
           userStatus: schema.users.status,
         })
+
         .from(schema.doctors)
         .innerJoin(
           schema.users,
@@ -193,32 +201,52 @@ export const doctorRepo = {
   ----------------------------- */
 
   async updateDoctorProfile(
-    doctorId: string,
-    input: {
-      specialty?: string;
-      experienceYears?: number;
-      profileImageUrl?: string;
-    }
-  ) {
-    const result = await db
-      .update(schema.doctors)
-      .set({
-        specialty: input.specialty,
-        experienceYears: input.experienceYears,
-        profileImageUrl: input.profileImageUrl,
-      })
-      .where(eq(schema.doctors.id, doctorId))
-      .returning();
+  doctorId: string,
+  input: {
+    specialty?: string;
+    experienceYears?: number;
+    bio?: string;
+    consultationFee?: number;
+    profileImageUrl?: string | null;
+  }
+) {
+  const updateData: Partial<typeof schema.doctors.$inferInsert> = {};
 
-    if (result.length === 0) {
-      throw new RepositoryError(
-        "NOT_FOUND",
-        `Doctor not found: ${doctorId}`
-      );
-    }
+  if (input.specialty !== undefined) {
+    updateData.specialty = input.specialty;
+  }
 
-    return result[0];
-  },
+  if (input.experienceYears !== undefined) {
+    updateData.experienceYears = input.experienceYears;
+  }
+
+  if (input.bio !== undefined) {
+    updateData.bio = input.bio;
+  }
+
+  if (input.consultationFee !== undefined) {
+    updateData.consultationFee = input.consultationFee;
+  }
+
+  if (input.profileImageUrl !== undefined) {
+    updateData.profileImageUrl = input.profileImageUrl;
+  }
+
+  const result = await db
+    .update(schema.doctors)
+    .set(updateData)
+    .where(eq(schema.doctors.id, doctorId))
+    .returning();
+
+  if (result.length === 0) {
+    throw new RepositoryError(
+      "NOT_FOUND",
+      `Doctor not found: ${doctorId}`
+    );
+  }
+
+  return result[0];
+},
 
   async updateVerificationStatus(
     doctorId: string,

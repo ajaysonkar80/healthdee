@@ -16,6 +16,8 @@ export class AuditDomainError extends Error {
 export type AuditAction =
   | "USER_CREATED"
   | "USER_STATUS_CHANGED"
+  | "DOCTOR_PROFILE_CREATED"      // ✅ add
+  | "DOCTOR_PROFILE_UPDATED"      // ✅ add
   | "DOCTOR_VERIFIED"
   | "DOCTOR_REJECTED"
   | "APPOINTMENT_CREATED"
@@ -50,6 +52,7 @@ const ACTIONS_REQUIRING_ACTOR: AuditAction[] = [
   "USER_STATUS_CHANGED",
   "DOCTOR_VERIFIED",
   "DOCTOR_REJECTED",
+  "DOCTOR_PROFILE_UPDATED",  // ✅ add
   "APPOINTMENT_CANCELLED",
   "APPOINTMENT_COMPLETED",
   "CONSULTATION_STARTED",

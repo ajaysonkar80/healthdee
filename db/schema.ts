@@ -286,6 +286,10 @@ export const doctors = sqliteTable(
     profileImageUrl: text("profile_image_url"),
     rmpRegistrationNumber: text("rmp_registration_number").notNull(),
     rmpStateMedicalCouncil: text("rmp_state_medical_council").notNull(),
+    bio: text("bio"),
+    consultationFee: integer("consultation_fee"),
+    isActive: integer("is_active", { mode: "boolean" }).default(true),
+    updatedAt: integer("updated_at", { mode: "timestamp" }),
     verificationStatus: text("verification_status")
       .$type<DoctorVerificationStatus>()
       .notNull(),

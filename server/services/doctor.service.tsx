@@ -37,7 +37,7 @@ async function persistAudit(log: AuditLogInput) {
 }
 
 /* ======================================================
-   Doctor Service
+   Doctor Profile Service
 ====================================================== */
 
 export const doctorService = {
@@ -50,6 +50,8 @@ export const doctorService = {
       publicId: string;
       specialty: string;
       experienceYears?: number;
+      bio?: string;
+      consultationFee?: number;
       profileImageUrl?: string;
       rmpRegistrationNumber: string;
       rmpStateMedicalCouncil: string;
@@ -58,11 +60,11 @@ export const doctorService = {
     const user = await userRepo.getUserById(actorUserId);
 
     if (user.role !== UserRole.doctor) {
-      throw new ForbiddenError("Only doctors can create doctor profiles");
+      throw new ForbiddenError("Only doctors can create profiles");
     }
 
     if (user.status !== UserStatus.active) {
-      throw new ForbiddenError("Inactive users cannot create doctor profiles");
+      throw new ForbiddenError("Inactive users cannot create profiles");
     }
 
     const existing = await doctorRepo
@@ -78,6 +80,8 @@ export const doctorService = {
       publicId: input.publicId,
       specialty: input.specialty,
       experienceYears: input.experienceYears,
+      bio: input.bio,
+      consultationFee: input.consultationFee,
       profileImageUrl: input.profileImageUrl,
       rmpRegistrationNumber: input.rmpRegistrationNumber,
       rmpStateMedicalCouncil: input.rmpStateMedicalCouncil,
@@ -86,10 +90,12 @@ export const doctorService = {
 
     await persistAudit({
       actorUserId,
-      action: "USER_CREATED",
+      action: "DOCTOR_PROFILE_CREATED",
       targetType: "doctor",
       targetId: doctor.id,
-      metadata: { specialty: doctor.specialty },
+      metadata: {
+        specialty: doctor.specialty,
+      },
     });
 
     return doctor;
@@ -104,14 +110,31 @@ export const doctorService = {
     input: {
       specialty?: string;
       experienceYears?: number;
-      profileImageUrl?: string;
+      bio?: string;
+      consultationFee?: number;
+      profileImageUrl?: string | null;
     }
   ) {
     const doctor = await doctorRepo.getDoctorById(doctorId);
 
     assertDoctorBelongsToUser(doctor.userId, actorUserId);
 
-    return doctorRepo.updateDoctorProfile(doctorId, input);
+    const updated = await doctorRepo.updateDoctorProfile(
+      doctorId,
+      input
+    );
+
+    await persistAudit({
+      actorUserId,
+      action: "DOCTOR_PROFILE_UPDATED",
+      targetType: "doctor",
+      targetId: doctorId,
+      metadata: {
+        updatedFields: Object.keys(input),
+      },
+    });
+
+    return updated;
   },
 
   /* --------------------------------------------------
@@ -129,7 +152,7 @@ export const doctorService = {
   },
 
   /* --------------------------------------------------
-     List doctors
+     List doctors (Admin / Internal)
   --------------------------------------------------- */
   async listDoctors(params?: {
     limit?: number;
@@ -141,48 +164,56 @@ export const doctorService = {
   }) {
     return doctorRepo.listDoctors(params);
   },
+  
+  /* --------------------------------------------------
+   Verify / Reject doctor (admin only)
+--------------------------------------------------- */
+async setDoctorVerificationStatus(
+  actorUserId: string,
+  doctorId: string,
+  nextStatus: DoctorVerificationStatus
+) {
+  const actor = await userRepo.getUserById(actorUserId);
+
+  if (actor.role !== UserRole.admin) {
+    throw new ForbiddenError("Only admins can verify doctors");
+  }
+
+  const doctor = await doctorRepo.getDoctorById(doctorId);
+
+  assertValidDoctorVerificationTransition(
+    doctor.verificationStatus,
+    nextStatus
+  );
+
+  const verifiedAt =
+    nextStatus === "verified" ? Date.now() : null;
+
+  assertDoctorVerificationFields(nextStatus, verifiedAt);
+
+  await doctorRepo.updateVerificationStatus(
+    doctorId,
+    nextStatus
+  );
 
   /* --------------------------------------------------
-     Verify / Reject doctor (admin only)
+     Explicit audit action (type-safe)
   --------------------------------------------------- */
-  async setDoctorVerificationStatus(
-    actorUserId: string,
-    doctorId: string,
-    nextStatus: DoctorVerificationStatus
-  ) {
-    const actor = await userRepo.getUserById(actorUserId);
 
-    if (actor.role !== UserRole.admin) {
-      throw new ForbiddenError("Only admins can verify doctors");
-    }
+  const action =
+    nextStatus === "verified"
+      ? "DOCTOR_VERIFIED"
+      : "DOCTOR_REJECTED";
 
-    const doctor = await doctorRepo.getDoctorById(doctorId);
+  await persistAudit({
+    actorUserId,
+    action,
+    targetType: "doctor",
+    targetId: doctorId,
+  });
 
-    assertValidDoctorVerificationTransition(
-      doctor.verificationStatus,
-      nextStatus
-    );
+  return { success: true };
+}
 
-    const verifiedAt =
-      nextStatus === "verified" ? Date.now() : null;
-
-    assertDoctorVerificationFields(nextStatus, verifiedAt);
-
-    await doctorRepo.updateVerificationStatus(
-      doctorId,
-      nextStatus
-    );
-
-    await persistAudit({
-      actorUserId,
-      action:
-        nextStatus === "verified"
-          ? "DOCTOR_VERIFIED"
-          : "DOCTOR_REJECTED",
-      targetType: "doctor",
-      targetId: doctorId,
-    });
-
-    return { success: true };
-  },
 };
+
