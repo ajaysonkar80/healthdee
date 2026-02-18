@@ -1,5 +1,12 @@
 # AI Codebase Map & 2-Week Prioritized Completion Plan
 
+> Update note (2026-02-18): Restored full map content and preserved the detailed per-file analysis section; only incremental refreshes should be made going forward.
+
+## Incremental Refresh Notes (2026-02-18)
+- Auth route inventory now includes `app/api/auth/password/forgot/route.ts` and `app/api/auth/password/reset/route.ts`.
+- Documentation set under `docs/` now includes: `api-spec.md`, `architecture.md`, `auth-flow.md`, `roadmap.md`, `tasks.md`, `decisions.md`, and `changelog.md`.
+- `docs/folder-structure.md` remains the source of truth for current tracked tree output.
+
 ## 2-Week Prioritized Completion Plan
 
 ### Week 1 (Foundations + High-Risk Gaps)

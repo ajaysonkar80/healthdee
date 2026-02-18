@@ -1,11 +1,22 @@
 # Folder Structure for AI Navigation
 
-Generated from `git ls-files` to provide a complete, deterministic map.
+Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic map.
 
 ```text
 .
 ├── .vscode
 │   └── settings.json
+├── .VSCodeCounter
+│   └── 2026-02-11_18-50-40
+│       ├── details.md
+│       ├── diff-details.md
+│       ├── diff.csv
+│       ├── diff.md
+│       ├── diff.txt
+│       ├── results.csv
+│       ├── results.json
+│       ├── results.md
+│       └── results.txt
 ├── ai-tree
 │   ├── tree-app.txt
 │   ├── tree-db.txt
@@ -37,11 +48,6 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 │   │   │   └── page.tsx
 │   │   └── page.tsx
 │   ├── admin
-│   │   ├── api
-│   │   │   └── doctors
-│   │   │       ├── [id]
-│   │   │       │   └── route.ts
-│   │   │       └── route.ts
 │   │   ├── appointment-requests
 │   │   │   └── page.tsx
 │   │   ├── clinics
@@ -82,6 +88,11 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 │   │   │   │   ├── request
 │   │   │   │   │   └── route.ts
 │   │   │   │   └── verify
+│   │   │   │       └── route.ts
+│   │   │   ├── password
+│   │   │   │   ├── forgot
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── reset
 │   │   │   │       └── route.ts
 │   │   │   ├── refresh
 │   │   │   │   └── route.ts
@@ -135,7 +146,8 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 │   │   │   └── page.tsx
 │   │   ├── verification
 │   │   │   └── page.tsx
-│   │   └── layout.tsx
+│   │   ├── layout.tsx
+│   │   └── page.tsx
 │   ├── doctors
 │   │   └── booking
 │   │       ├── confirmation
@@ -158,10 +170,10 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 │   │   └── auth.service.ts
 │   ├── types
 │   │   └── auth.tsx
-│   ├── Header.tsx
 │   ├── error.tsx
 │   ├── favicon.ico
 │   ├── globals.css
+│   ├── Header.tsx
 │   ├── layout.tsx
 │   ├── loading.tsx
 │   ├── notfound.tsx
@@ -214,10 +226,10 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 │   │   │   ├── DoctorsInfoCell.tsx
 │   │   │   ├── VerificationFilters.tsx
 │   │   │   ├── VerificationPagination.tsx
+│   │   │   ├── VerificationsActionsMenu.tsx
 │   │   │   ├── VerificationStatusBadge.tsx
 │   │   │   ├── VerificationTable.tsx
-│   │   │   ├── VerificationTableRow.tsx
-│   │   │   └── VerificationsActionsMenu.tsx
+│   │   │   └── VerificationTableRow.tsx
 │   │   ├── AdminSidebar.tsx
 │   │   ├── AdminTopBar.tsx
 │   │   ├── RecentActivity.tsx
@@ -230,6 +242,7 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 │   │   ├── ForgetPasswordForm.tsx
 │   │   ├── LoginForm.tsx
 │   │   ├── LoginOtpStep.tsx
+│   │   ├── LogoutButton.tsx
 │   │   ├── OtpStep.tsx
 │   │   ├── PhoneLoginStep.tsx
 │   │   ├── PhoneSignupStep.tsx
@@ -303,8 +316,6 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 │   │   ├── ProfileHeader.tsx
 │   │   └── ToggleSettingsItem.tsx
 │   └── ui
-│       ├── PasswordInput.tsx
-│       ├── RadioGroup.tsx
 │       ├── alert.tsx
 │       ├── avatar.tsx
 │       ├── badge.tsx
@@ -314,6 +325,8 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 │       ├── dropdown-menu.tsx
 │       ├── input.tsx
 │       ├── pagination.tsx
+│       ├── PasswordInput.tsx
+│       ├── RadioGroup.tsx
 │       ├── select.tsx
 │       ├── switch.tsx
 │       ├── table.tsx
@@ -322,13 +335,33 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 │   ├── index.ts
 │   ├── schema.ts
 │   └── turso.tsx
+├── docs
+│   ├── ai-codebase-map.md
+│   ├── api-spec.md
+│   ├── architecture.md
+│   ├── auth-flow.md
+│   ├── changelog.md
+│   ├── decisions.md
+│   ├── folder-structure.md
+│   ├── roadmap.md
+│   └── tasks.md
 ├── drizzle
 │   ├── meta
 │   │   ├── 0000_snapshot.json
 │   │   ├── 0001_snapshot.json
+│   │   ├── 0002_snapshot.json
+│   │   ├── 0003_snapshot.json
+│   │   ├── 0004_snapshot.json
+│   │   ├── 0005_snapshot.json
+│   │   ├── 0006_snapshot.json
 │   │   └── _journal.json
 │   ├── 0000_purple_tiger_shark.sql
-│   └── 0001_exotic_dakota_north.sql
+│   ├── 0001_exotic_dakota_north.sql
+│   ├── 0002_breezy_shape.sql
+│   ├── 0003_easy_omega_flight.sql
+│   ├── 0004_melodic_toad_men.sql
+│   ├── 0005_military_otto_octavius.sql
+│   └── 0006_many_arachne.sql
 ├── hooks
 │   ├── useAppointment.tsx
 │   ├── useAuth.tsx
@@ -354,7 +387,8 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 │   ├── hospital.jpg
 │   └── water-flask.png
 ├── scripts
-│   └── seed.ts
+│   ├── seed.ts
+│   └── wifi-network-warning.js
 ├── server
 │   ├── constants
 │   │   ├── otp-channel.ts
@@ -378,7 +412,6 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 │   │   ├── response.ts
 │   │   └── route-helpers.ts
 │   ├── middleware
-│   │   ├── auth.ts
 │   │   └── rate-limit.ts
 │   ├── policies
 │   │   ├── access
@@ -409,6 +442,7 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 │   │   ├── doctor.repo.ts
 │   │   ├── patient.repo.ts
 │   │   ├── prescription.repo.ts
+│   │   ├── refreshToken.repo.ts
 │   │   └── user.repo.ts
 │   ├── services
 │   │   ├── admin.service.tsx
@@ -423,6 +457,7 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 │   │   └── next-request.d.ts
 │   ├── utils
 │   │   ├── errors.ts
+│   │   ├── hash.ts
 │   │   ├── jwt.ts
 │   │   ├── logger.ts
 │   │   ├── logger_test.ts
@@ -443,7 +478,6 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 ├── .eslintrc.json
 ├── .gitignore
 ├── AGENTS.md
-├── README.md
 ├── ajaygit.txt
 ├── ajaygit.txt.pub
 ├── components.json
@@ -453,7 +487,9 @@ Generated from `git ls-files` to provide a complete, deterministic map.
 ├── next.config.ts
 ├── package-lock.json
 ├── package.json
+├── planning.md
 ├── postcss.config.mjs
+├── README.md
 ├── tailwind.config.ts
 ├── tsconfig.json
 ├── vitest.config.ts
