@@ -7,6 +7,7 @@ import {
   and,
   gte,
   lte,
+  inArray,
 } from "drizzle-orm";
 import { RepositoryError, PaginationParams } from "./user.repo";
 import { alias } from "drizzle-orm/sqlite-core";
@@ -246,6 +247,82 @@ export const appointmentRepo = {
 
     return result[0];
   },
+
+  async updateScheduledAt(
+  appointmentId: string,
+  scheduledAt: Date
+) {
+  const result = await db
+    .update(schema.appointments)
+    .set({ scheduledAt })
+    .where(eq(schema.appointments.id, appointmentId))
+    .returning();
+
+  if (result.length === 0) {
+    throw new RepositoryError(
+      "NOT_FOUND",
+      `Appointment not found: ${appointmentId}`
+    );
+  }
+
+  return result[0];
+},
+
+  /* --------------------------------------------------
+   Check overlapping appointment (30 min fixed)
+--------------------------------------------------- */
+async existsOverlappingAppointment(input: {
+  doctorId?: string;
+  patientId?: string;
+  scheduledAt: Date;
+  excludeAppointmentId?: string;
+}) {
+  const start = input.scheduledAt;
+  const end = new Date(
+    start.getTime() + 30 * 60 * 1000
+  );
+
+  const conditions = [];
+
+  if (input.doctorId) {
+    conditions.push(eq(schema.appointments.doctorId, input.doctorId));
+  }
+
+  if (input.patientId) {
+    conditions.push(eq(schema.appointments.patientId, input.patientId));
+  }
+
+  // Only active appointments block slots
+  conditions.push(
+  inArray(schema.appointments.status, [
+    "PENDING",
+    "CONFIRMED",
+  ])
+);
+
+
+  const appointments = await db
+    .select()
+    .from(schema.appointments)
+    .where(and(...conditions));
+
+  return appointments.some((appt) => {
+    if (
+      input.excludeAppointmentId &&
+      appt.id === input.excludeAppointmentId
+    ) {
+      return false;
+    }
+
+    const apptStart = appt.scheduledAt;
+    const apptEnd = new Date(
+      apptStart.getTime() + 30 * 60 * 1000
+    );
+
+    return start < apptEnd && end > apptStart;
+  });
+},
+
 
   async existsForDoctorAndPatient(
     doctorId: string,

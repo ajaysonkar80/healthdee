@@ -13,3 +13,6 @@ abhi mein db schema mein users column dala tha. toh ab mujhe uss auth.service.ts
 8. testing layer. 
 9. domain layer
 10. policy layer. 
+
+
+to do abhi doctors ka page ko kar leta hun. 

@@ -83,6 +83,35 @@ export const appointmentService = {
 
     assertAppointmentScheduledInFuture(scheduledAtSeconds);
 
+    
+/* --------------------------------------------------
+   Overlap Protection (30 min fixed)
+--------------------------------------------------- */
+
+const doctorConflict =
+  await appointmentRepo.existsOverlappingAppointment({
+    doctorId: doctor.id,
+    scheduledAt: input.scheduledAt,
+  });
+
+if (doctorConflict) {
+  throw new ValidationError(
+    "Doctor already has an appointment at this time"
+  );
+}
+
+const patientConflict =
+  await appointmentRepo.existsOverlappingAppointment({
+    patientId: patient.id,
+    scheduledAt: input.scheduledAt,
+  });
+
+if (patientConflict) {
+  throw new ValidationError(
+    "You already have an appointment at this time"
+  );
+}
+
     const appointment = await appointmentRepo.createAppointment({
       patientId: patient.id,
       doctorId: doctor.id,
@@ -192,6 +221,8 @@ export const appointmentService = {
     return appointmentRepo.listAllAppointments(params);
   },
 
+  
+
   /* --------------------------------------------------
      Update appointment status
   --------------------------------------------------- */
@@ -238,6 +269,118 @@ export const appointmentService = {
 
     return { success: true };
   },
+
+  /* --------------------------------------------------
+   Reschedule appointment
+--------------------------------------------------- */
+/* --------------------------------------------------
+   Reschedule appointment (30 min fixed duration)
+--------------------------------------------------- */
+async rescheduleAppointment(
+  actorUserId: string,
+  appointmentId: string,
+  newScheduledAt: Date
+) {
+  const actor = await userRepo.getUserById(actorUserId);
+  const appointment =
+    await appointmentRepo.getAppointmentById(appointmentId);
+
+  /* --------------------------------------------------
+     Authorization
+  --------------------------------------------------- */
+
+  if (
+    actor.role !== UserRole.admin &&
+    appointment.patientId !== actorUserId &&
+    appointment.doctorId !== actorUserId
+  ) {
+    throw new ForbiddenError("Not allowed to reschedule");
+  }
+
+  /* --------------------------------------------------
+     Ensure appointment is mutable
+  --------------------------------------------------- */
+
+  assertAppointmentIsMutable({
+    id: appointment.id,
+    patientId: appointment.patientId,
+    doctorId: appointment.doctorId,
+    status: appointment.status,
+    scheduledAt: Math.floor(
+      appointment.scheduledAt.getTime() / 1000
+    ),
+  });
+
+  /* --------------------------------------------------
+     Ensure new date is in the future
+  --------------------------------------------------- */
+
+  const scheduledAtSeconds = Math.floor(
+    newScheduledAt.getTime() / 1000
+  );
+
+  assertAppointmentScheduledInFuture(scheduledAtSeconds);
+
+  /* --------------------------------------------------
+     Overlap Protection (30 minutes fixed)
+     Block only PENDING & CONFIRMED
+  --------------------------------------------------- */
+
+  const doctorConflict =
+    await appointmentRepo.existsOverlappingAppointment({
+      doctorId: appointment.doctorId,
+      scheduledAt: newScheduledAt,
+      excludeAppointmentId: appointment.id,
+    });
+
+  if (doctorConflict) {
+    throw new ValidationError(
+      "Doctor already has an appointment at this time"
+    );
+  }
+
+  const patientConflict =
+    await appointmentRepo.existsOverlappingAppointment({
+      patientId: appointment.patientId,
+      scheduledAt: newScheduledAt,
+      excludeAppointmentId: appointment.id,
+    });
+
+  if (patientConflict) {
+    throw new ValidationError(
+      "You already have an appointment at this time"
+    );
+  }
+
+  /* --------------------------------------------------
+     Update scheduled time
+  --------------------------------------------------- */
+
+  const updated =
+    await appointmentRepo.updateScheduledAt(
+      appointmentId,
+      newScheduledAt
+    );
+
+  /* --------------------------------------------------
+     Audit log
+  --------------------------------------------------- */
+
+  await persistAudit({
+    actorUserId,
+    action: "APPOINTMENT_RESCHEDULED",
+    targetType: "appointment",
+    targetId: appointmentId,
+    metadata: {
+      from: appointment.scheduledAt.toISOString(),
+      to: newScheduledAt.toISOString(),
+    },
+  });
+
+  return updated;
+},
+
+
 
   /* --------------------------------------------------
      Consultation lifecycle
