@@ -15,8 +15,8 @@ import {
   AlertTriangle,
   Settings,
   Calendar,
+  Search,
   FileHeart,
-  TriangleAlert
 } from "lucide-react"
 
 const navItems = [
@@ -24,6 +24,11 @@ const navItems = [
     label: "Personal Details",
     href: "/patient",
     icon: User,
+  },
+  {
+    label: "Find Doctors",
+    href: "/doctors",
+    icon: Search,
   },
   {
     label: "Appointments",
