@@ -1,10 +1,20 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FiHeart, FiLogIn } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 
 export default function Header() {
+  const pathname = usePathname();
+
   const primaryColor = "#F26A8D"; // Pink
   const secondaryColor = "#587CFF"; // Blue
+
+  const isLegalPage =
+    pathname.includes("privacy-policy") ||
+    pathname.includes("terms-and-conditions") ||
+    pathname.includes("healthcare-provider-terms");
 
   return (
     <header className="w-full bg-white border-b border-gray-100">
@@ -24,43 +34,45 @@ export default function Header() {
             </span>
           </Link>
 
-          {/* Center: Navigation */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-            <Link
-              href="/"
-              className="px-5 py-2 rounded-full transition-colors"
-              style={{
-                backgroundColor: `${primaryColor}15`,
-                color: primaryColor,
-              }}
-            >
-              Home
-            </Link>
+          {/* Center: Navigation (Hidden on Legal Pages) */}
+          {!isLegalPage && (
+            <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+              <Link
+                href="/"
+                className="px-5 py-2 rounded-full transition-colors"
+                style={{
+                  backgroundColor: `${primaryColor}15`,
+                  color: primaryColor,
+                }}
+              >
+                Home
+              </Link>
 
-            <Link
-              href="/doctors"
-              className="hover:opacity-80 transition-colors"
-              style={{ color: secondaryColor }}
-            >
-              Find Doctors
-            </Link>
+              <Link
+                href="/doctors"
+                className="hover:opacity-80 transition-colors"
+                style={{ color: secondaryColor }}
+              >
+                Find Doctors
+              </Link>
 
-            <Link
-              href="/hospitals"
-              className="hover:opacity-80 transition-colors"
-              style={{ color: secondaryColor }}
-            >
-              Hospitals
-            </Link>
+              <Link
+                href="/hospitals"
+                className="hover:opacity-80 transition-colors"
+                style={{ color: secondaryColor }}
+              >
+                Hospitals
+              </Link>
 
-            <Link
-              href="/about"
-              className="hover:opacity-80 transition-colors"
-              style={{ color: secondaryColor }}
-            >
-              About
-            </Link>
-          </nav>
+              <Link
+                href="/about"
+                className="hover:opacity-80 transition-colors"
+                style={{ color: secondaryColor }}
+              >
+                About
+              </Link>
+            </nav>
+          )}
 
           {/* Right: Actions */}
           <div className="flex items-center gap-6">
@@ -72,14 +84,16 @@ export default function Header() {
               Sign In
             </Link>
 
-            {/* ✅ Get Started Button using shadcn + Link */}
-            <Button
-              asChild
-              className="text-white font-bold px-6 py-2.5 rounded-lg shadow-sm hover:shadow-md active:scale-95"
-              style={{ backgroundColor: primaryColor }}
-            >
-              <Link href="/signup">Get Started</Link>
-            </Button>
+            {/* Hide CTA on Legal Pages */}
+            {!isLegalPage && (
+              <Button
+                asChild
+                className="text-white font-bold px-6 py-2.5 rounded-lg shadow-sm hover:shadow-md active:scale-95"
+                style={{ backgroundColor: primaryColor }}
+              >
+                <Link href="/signup">Get Started</Link>
+              </Button>
+            )}
           </div>
         </div>
       </div>

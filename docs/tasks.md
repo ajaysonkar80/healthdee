@@ -12,7 +12,7 @@
 ## P1 — Core Product
 - [ ] Replace static/mock doctor/clinic data with repository-backed API data in all patient-facing pages.
 - [ ] Complete doctor workflow pages (appointments, prescriptions, earnings, settings).
-- [ ] Complete patient records/profile workflows including ABHA update UX polish.
+- [ ] Complete patient records/profile workflows including UX polish.
 - [ ] Expand admin dashboard with actionable operational widgets and pagination/filter consistency.
 
 ## P2 — Hardening & Observability
@@ -24,3 +24,24 @@
 - [ ] Keep `docs/api-spec.md` updated whenever route contracts change.
 - [ ] Keep `docs/decisions.md` updated with new architecture/security decisions.
 - [ ] Add release checklist execution logs per milestone.
+
+
+## Completed Tasks
+Auth (OTP-based)
+
+Roles (patient / doctor / admin)
+
+Doctor verification
+
+Appointments API
+
+Dashboard layouts
+
+Database Schema
+
+Repository Layer
+
+Service Layer
+
+Domain Layer
+
