@@ -27,21 +27,14 @@
 
 
 ## Completed Tasks
-Auth (OTP-based)
+- [x] Auth (OTP-based)
+- [x] Roles (patient / doctor / admin)
+- [x] Doctor verification
+- [x] Appointments API
+- [x] Dashboard layouts
+- [x] Database schema
+- [x] Repository layer
+- [x] Service layer
+- [x] Domain layer
 
-Roles (patient / doctor / admin)
-
-Doctor verification
-
-Appointments API
-
-Dashboard layouts
-
-Database Schema
-
-Repository Layer
-
-Service Layer
-
-Domain Layer
-
+For a fuller completion inventory, see `docs/completed-tasks.md`.
