@@ -3,7 +3,7 @@ import { db } from "@/db";
 import * as schema from "@/db/schema";
 import { and, eq, like, or, sql } from "drizzle-orm";
 import { RepositoryError, PaginationParams } from "./user.repo";
-
+import { doctorAvailability } from "@/db/schema";
 /* -----------------------------------------------------
    Helpers
 ----------------------------------------------------- */
@@ -271,5 +271,121 @@ export const doctorRepo = {
     }
 
     return result[0];
+  },/* --------------------------------------------------
+     Get availability for specific doctor + weekday
+  --------------------------------------------------- */
+  async getByDoctorAndDay(doctorId: string, dayOfWeek: number) {
+    const result = await db
+      .select()
+      .from(doctorAvailability)
+      .where(
+        and(
+          eq(doctorAvailability.doctorId, doctorId),
+          eq(doctorAvailability.dayOfWeek, dayOfWeek)
+        )
+      )
+      .limit(1);
+
+    return result[0] ?? null;
   },
+
+  /* --------------------------------------------------
+     Get all availability rows for doctor
+  --------------------------------------------------- */
+  async getAllByDoctor(doctorId: string) {
+    return db
+      .select()
+      .from(doctorAvailability)
+      .where(eq(doctorAvailability.doctorId, doctorId));
+  },
+
+  /* --------------------------------------------------
+     Upsert availability (Single block per weekday)
+     If exists → update
+     If not → insert
+  --------------------------------------------------- */
+  async upsertAvailability(input: {
+    doctorId: string;
+    dayOfWeek: number;
+    startTime: string; // "09:00"
+    endTime: string;   // "17:00"
+    slotDurationMinutes?: number;
+    isActive?: boolean;
+  }) {
+    const existing = await this.getByDoctorAndDay(
+      input.doctorId,
+      input.dayOfWeek
+    );
+
+    if (existing) {
+      await db
+        .update(doctorAvailability)
+        .set({
+          startTime: input.startTime,
+          endTime: input.endTime,
+          slotDurationMinutes:
+            input.slotDurationMinutes ?? 30,
+          isActive: input.isActive ?? true,
+        })
+        .where(eq(doctorAvailability.id, existing.id));
+
+      return this.getByDoctorAndDay(
+        input.doctorId,
+        input.dayOfWeek
+      );
+    }
+
+    await db.insert(doctorAvailability).values({
+      doctorId: input.doctorId,
+      dayOfWeek: input.dayOfWeek,
+      startTime: input.startTime,
+      endTime: input.endTime,
+      slotDurationMinutes:
+        input.slotDurationMinutes ?? 30,
+      isActive: input.isActive ?? true,
+    });
+
+    return this.getByDoctorAndDay(
+      input.doctorId,
+      input.dayOfWeek
+    );
+  },
+
+  /* --------------------------------------------------
+     Disable availability for a specific weekday
+  --------------------------------------------------- */
+  async disableDay(doctorId: string, dayOfWeek: number) {
+    await db
+      .update(doctorAvailability)
+      .set({ isActive: false })
+      .where(
+        and(
+          eq(doctorAvailability.doctorId, doctorId),
+          eq(doctorAvailability.dayOfWeek, dayOfWeek)
+        )
+      );
+
+    return { success: true };
+  },
+
+  /* --------------------------------------------------
+     Delete availability (rare use)
+  --------------------------------------------------- */
+  async deleteByDoctorAndDay(
+    doctorId: string,
+    dayOfWeek: number
+  ) {
+    await db
+      .delete(doctorAvailability)
+      .where(
+        and(
+          eq(doctorAvailability.doctorId, doctorId),
+          eq(doctorAvailability.dayOfWeek, dayOfWeek)
+        )
+      );
+
+    return { success: true };
+  },
+
+
 };

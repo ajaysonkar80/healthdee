@@ -27,14 +27,106 @@
 
 
 ## Completed Tasks
-- [x] Auth (OTP-based)
-- [x] Roles (patient / doctor / admin)
-- [x] Doctor verification
-- [x] Appointments API
-- [x] Dashboard layouts
-- [x] Database schema
-- [x] Repository layer
-- [x] Service layer
-- [x] Domain layer
+Auth (OTP-based)
 
-For a fuller completion inventory, see `docs/completed-tasks.md`.
+Roles (patient / doctor / admin)
+
+Doctor verification
+
+Appointments API
+
+Dashboard layouts
+
+Database Schema
+
+Repository Layer
+
+Service Layer
+
+Domain Layer
+# 📋 Product Requirements — Healthcare Platform
+
+---
+
+# 🛠️ Admin Panel
+
+## Settings
+- `PATCH` — Change settings
+
+## Admin View Patients
+- `GET` — Fetch patients data
+
+## Doctors
+- `GET` — Fetch doctors data
+
+## Clinics
+- `GET` — Fetch clinics data
+
+## Doctor Verification
+- `PATCH` — Update doctor verified status
+
+---
+
+# 👤 Patient Panel
+
+## Profile
+- `GET` — Fetch profile
+- `UPDATE` — Update profile
+
+## Emergency Contacts
+- `GET` — Fetch emergency contacts
+- `PATCH` — Update emergency contacts
+- Repo function — Emergency contacts repository logic
+- Service function — Emergency contacts business logic
+
+## Danger Zone
+- `POST` — Request data erasure
+- `GET` — Download data via worker and send to email/WhatsApp
+
+## Doctors
+- `GET` — Consultation history & prescriptions from previously consulted doctors
+- Consultation Service function
+- Consultation Repo function
+
+---
+
+# 🩺 Doctor Panel
+
+## Doctor Onboarding
+- Request doctor verification
+- Doctor fills verification forms and submits
+- Lock other components until verification completed
+
+## Prescription (Optional)
+- `POST` — Create new prescription
+
+## Earnings
+- `GET` — Fetch doctor earnings
+- `POST` — Add/update doctor earnings
+
+## Appointment Management
+- `PATCH` — Accept / Reject / Cancel appointment
+
+---
+
+# 🔎 Doctor Browsing Features
+- `GET` — Fetch doctors
+  - Filter/search by:
+    - Location
+    - Specialization
+
+---
+
+# 🏥 Clinic Page
+- `GET` — Clinic detail
+- `POST` — Create new clinic
+- `PATCH` — Update clinic
+- `POST` — Add doctor to clinic
+
+---
+
+# 🔐 Auth
+- OTP Login
+- OTP Signup
+
+---

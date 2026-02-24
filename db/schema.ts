@@ -67,6 +67,27 @@ export type AppointmentStatus = z.infer<
   typeof AppointmentStatusSchema
 >;
 
+export const doctorAvailability = sqliteTable("doctor_availability", {
+  id: uuid(),
+  doctorId: text("doctor_id")
+    .references(() => doctors.id, { onDelete: "cascade" })
+    .notNull(),
+
+  dayOfWeek: integer("day_of_week").notNull(), // 0 = Sunday
+  startTime: text("start_time").notNull(), // "09:00"
+  endTime: text("end_time").notNull(), // "17:00"
+  slotDurationMinutes: integer("slot_duration_minutes")
+    .notNull()
+    .default(30),
+
+  isActive: integer("is_active", { mode: "boolean" })
+    .notNull()
+    .default(true),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
 export const ConsultationModeSchema = z.enum([
   "video",
   "audio",

@@ -52,85 +52,147 @@ export const appointmentService = {
      Create appointment (patient only)
   --------------------------------------------------- */
   async createAppointment(
-    actorUserId: string,
-    input: {
-      doctorId: string;
-      scheduledAt: Date;
-    }
-  ) {
-    const user = await userRepo.getUserById(actorUserId);
+  actorUserId: string,
+  input: {
+    doctorId: string;
+    scheduledAt: Date;
+  }
+) {
+  /* --------------------------------------------------
+     Basic User Validation
+  --------------------------------------------------- */
 
-    if (user.role !== UserRole.patient) {
-      throw new ForbiddenError("Only patients can create appointments");
-    }
+  const user = await userRepo.getUserById(actorUserId);
 
-    if (user.status !== UserStatus.active) {
-      throw new ForbiddenError("Inactive users cannot create appointments");
-    }
+  if (user.role !== UserRole.patient) {
+    throw new ForbiddenError("Only patients can create appointments");
+  }
 
-    const patient = await patientRepo.getPatientByUserId(actorUserId);
-    const doctor = await doctorRepo.getDoctorById(input.doctorId);
+  if (user.status !== UserStatus.active) {
+    throw new ForbiddenError("Inactive users cannot create appointments");
+  }
 
-    if (doctor.verificationStatus !== "verified") {
-      throw new ValidationError("Doctor is not verified");
-    }
+  const patient = await patientRepo.getPatientByUserId(actorUserId);
+  const doctor = await doctorRepo.getDoctorById(input.doctorId);
 
-    assertPatientIsNotDoctor(actorUserId, doctor.userId);
+  if (doctor.verificationStatus !== "verified") {
+    throw new ValidationError("Doctor is not verified");
+  }
 
-    const scheduledAtSeconds = Math.floor(
-      input.scheduledAt.getTime() / 1000
+  assertPatientIsNotDoctor(actorUserId, doctor.userId);
+
+  /* --------------------------------------------------
+     Ensure appointment is in future
+  --------------------------------------------------- */
+
+  const scheduledAtSeconds = Math.floor(
+    input.scheduledAt.getTime() / 1000
+  );
+
+  assertAppointmentScheduledInFuture(scheduledAtSeconds);
+
+  /* --------------------------------------------------
+     30-Day Booking Window Limit
+  --------------------------------------------------- */
+
+  const now = new Date();
+  const maxDate = new Date();
+  maxDate.setDate(now.getDate() + 30);
+
+  if (input.scheduledAt > maxDate) {
+    throw new ValidationError(
+      "Appointments can only be booked within 30 days"
+    );
+  }
+
+  /* --------------------------------------------------
+     Doctor Weekly Availability Validation
+  --------------------------------------------------- */
+
+  const dayOfWeek = input.scheduledAt.getDay(); // 0 = Sunday
+
+  const availability =
+    await doctorRepo.getByDoctorAndDay(
+      doctor.id,
+      dayOfWeek
     );
 
-    assertAppointmentScheduledInFuture(scheduledAtSeconds);
+  if (!availability || !availability.isActive) {
+    throw new ValidationError(
+      "Doctor is not available on selected day"
+    );
+  }
 
-    
-/* --------------------------------------------------
-   Overlap Protection (30 min fixed)
---------------------------------------------------- */
+  // Convert selected time to HH:mm (local time safe)
+  const hours = input.scheduledAt.getHours().toString().padStart(2, "0");
+  const minutes = input.scheduledAt.getMinutes().toString().padStart(2, "0");
+  const selectedTime = `${hours}:${minutes}`;
 
-const doctorConflict =
-  await appointmentRepo.existsOverlappingAppointment({
-    doctorId: doctor.id,
-    scheduledAt: input.scheduledAt,
-  });
+  if (
+    selectedTime < availability.startTime ||
+    selectedTime >= availability.endTime
+  ) {
+    throw new ValidationError(
+      "Selected time is outside doctor's working hours"
+    );
+  }
 
-if (doctorConflict) {
-  throw new ValidationError(
-    "Doctor already has an appointment at this time"
-  );
-}
+  /* --------------------------------------------------
+     Overlap Protection (30 min fixed)
+     Blocks only PENDING + CONFIRMED
+  --------------------------------------------------- */
 
-const patientConflict =
-  await appointmentRepo.existsOverlappingAppointment({
-    patientId: patient.id,
-    scheduledAt: input.scheduledAt,
-  });
-
-if (patientConflict) {
-  throw new ValidationError(
-    "You already have an appointment at this time"
-  );
-}
-
-    const appointment = await appointmentRepo.createAppointment({
-      patientId: patient.id,
+  const doctorConflict =
+    await appointmentRepo.existsOverlappingAppointment({
       doctorId: doctor.id,
       scheduledAt: input.scheduledAt,
-      status: "PENDING",
     });
 
-    await persistAudit({
-      actorUserId,
-      action: "APPOINTMENT_CREATED",
-      targetType: "appointment",
-      targetId: appointment.id,
-      metadata: {
-        scheduledAt: input.scheduledAt.toISOString(),
-      },
+  if (doctorConflict) {
+    throw new ValidationError(
+      "Doctor already has an appointment at this time"
+    );
+  }
+
+  const patientConflict =
+    await appointmentRepo.existsOverlappingAppointment({
+      patientId: patient.id,
+      scheduledAt: input.scheduledAt,
     });
 
-    return appointment;
-  },
+  if (patientConflict) {
+    throw new ValidationError(
+      "You already have an appointment at this time"
+    );
+  }
+
+  /* --------------------------------------------------
+     Create Appointment (Doctor Approval Required)
+  --------------------------------------------------- */
+
+  const appointment = await appointmentRepo.createAppointment({
+    patientId: patient.id,
+    doctorId: doctor.id,
+    scheduledAt: input.scheduledAt,
+    status: "PENDING",
+  });
+
+  /* --------------------------------------------------
+     Audit Log
+  --------------------------------------------------- */
+
+  await persistAudit({
+    actorUserId,
+    action: "APPOINTMENT_CREATED",
+    targetType: "appointment",
+    targetId: appointment.id,
+    metadata: {
+      scheduledAt: input.scheduledAt.toISOString(),
+    },
+  });
+
+  return appointment;
+},
 
   /* --------------------------------------------------
      Get appointment by ID (patient / doctor / admin)
