@@ -57,6 +57,13 @@
       "when": 1771398998283,
       "tag": "0007_ambiguous_shadow_king",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1771949863008,
+      "tag": "0008_amusing_toad",
+      "breakpoints": true
     }
   ]
 }

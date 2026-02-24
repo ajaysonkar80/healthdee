@@ -228,6 +228,58 @@ export const appointmentRepo = {
     return { data, total };
   },
 
+  async getAppointmentWithDoctorById(appointmentId: string) {
+  const result = await db
+    .select({
+      id: schema.appointments.id,
+      scheduledAt: schema.appointments.scheduledAt,
+      status: schema.appointments.status,
+      patientId: schema.appointments.patientId,
+      doctorId: schema.doctors.id,
+
+      doctorName: schema.users.name,
+      specialty: schema.doctors.specialty,
+      experienceYears: schema.doctors.experienceYears,
+      profileImageUrl: schema.doctors.profileImageUrl,
+      rating: schema.doctors.rating,
+    })
+    .from(schema.appointments)
+    .innerJoin(
+      schema.doctors,
+      eq(schema.doctors.id, schema.appointments.doctorId)
+    )
+    .innerJoin(
+      schema.users,
+      eq(schema.users.id, schema.doctors.userId)
+    )
+    .where(eq(schema.appointments.id, appointmentId))
+    .limit(1);
+
+  if (!result.length) {
+    throw new RepositoryError(
+      "NOT_FOUND",
+      `Appointment not found: ${appointmentId}`
+    );
+  }
+
+  const row = result[0];
+
+  return {
+    id: row.id,
+    scheduledAt: row.scheduledAt,
+    status: row.status,
+    patientId: row.patientId,
+    doctor: {
+      id: row.doctorId,
+      name: row.doctorName,
+      specialty: row.specialty,
+      experienceYears: row.experienceYears,
+      profileImageUrl: row.profileImageUrl,
+      rating: row.rating,
+    },
+  };
+},
+
   async updateAppointmentStatus(
     appointmentId: string,
     status: schema.AppointmentStatus

@@ -215,6 +215,25 @@ export const appointmentService = {
 
     return appointment;
   },
+  
+  async getAppointmentDetailsForConfirmation(
+  actorUserId: string,
+  appointmentId: string
+) {
+  const appointment =
+    await appointmentRepo.getAppointmentWithDoctorById(
+      appointmentId
+    );
+
+  if (
+    appointment.patientId !== actorUserId &&
+    appointment.doctor.id !== actorUserId
+  ) {
+    throw new ForbiddenError("Access denied");
+  }
+
+  return appointment;
+},
 
   /* --------------------------------------------------
      List appointments (patient)

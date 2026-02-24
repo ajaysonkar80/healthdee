@@ -21,7 +21,7 @@ export default function DoctorBookingPage() {
           <ClinicInfo />
         </div>
 
-        <BookingPanel />
+        <BookingPanel doctorId="6a8a7510bdf2228d70a4f7d0bdbb476a" />
       </main>
 
       <Footer />
