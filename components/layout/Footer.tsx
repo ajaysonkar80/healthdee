@@ -20,10 +20,10 @@ const Footer: React.FC = () => {
   ];
 
   const quickLinks = [
-    { label: 'Find Doctors', href: '/find-doctors' },
-    { label: 'Hospitals', href: '/hospitals' },
-    { label: 'About Us', href: '/about-us' },
-    { label: 'Contact', href: '/contact' },
+    { label: 'Find Doctors', href: '/doctors' },
+    { label: 'Clinics', href: '/clinics' },
+    { label: 'About Us', href: '/about' },
+    { label: 'Contact', href: '/help' },
   ];
 
   const specialties = [
@@ -136,6 +136,12 @@ const Footer: React.FC = () => {
           </p>
 
           <div className="flex gap-8">
+            <Link
+              href="/doctor-privacy-policy"
+              className="text-gray-500 hover:text-white text-sm transition-colors"
+            >
+              Doctor Privacy Policy
+            </Link>
             <Link
               href="/privacy-policy"
               className="text-gray-500 hover:text-white text-sm transition-colors"
