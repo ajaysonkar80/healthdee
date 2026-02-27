@@ -1,11 +1,9 @@
 # Folder Structure for AI Navigation
 
-Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic map.
+Generated from `git ls-files` on 2026-02-27 to provide a complete, deterministic map.
 
 ```text
 .
-├── .vscode
-│   └── settings.json
 ├── .VSCodeCounter
 │   └── 2026-02-11_18-50-40
 │       ├── details.md
@@ -17,6 +15,8 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │       ├── results.json
 │       ├── results.md
 │       └── results.txt
+├── .vscode
+│   └── settings.json
 ├── ai-tree
 │   ├── tree-app.txt
 │   ├── tree-db.txt
@@ -40,11 +40,19 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │   │   │   └── layout.tsx
 │   │   ├── about
 │   │   │   └── page.tsx
+│   │   ├── doctor-privacy-policy
+│   │   │   └── page.tsx
+│   │   ├── healthcare-provider-terms
+│   │   │   └── page.tsx
 │   │   ├── help
 │   │   │   └── page.tsx
 │   │   ├── policies
 │   │   │   └── page.tsx
+│   │   ├── privacy-policy
+│   │   │   └── page.tsx
 │   │   ├── select-role
+│   │   │   └── page.tsx
+│   │   ├── terms-and-conditions
 │   │   │   └── page.tsx
 │   │   └── page.tsx
 │   ├── admin
@@ -75,6 +83,14 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │   │   │       └── route.ts
 │   │   ├── appointments
 │   │   │   ├── [id]
+│   │   │   │   ├── cancel
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── complete
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── confirm
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── reschedule
+│   │   │   │   │   └── route.ts
 │   │   │   │   └── route.ts
 │   │   │   └── route.ts
 │   │   ├── auth
@@ -98,8 +114,15 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │   │   │   │   └── route.ts
 │   │   │   └── register
 │   │   │       └── route.ts
+│   │   ├── doctor
+│   │   │   └── availability
+│   │   │       └── route.ts
 │   │   ├── doctors
 │   │   │   ├── [id]
+│   │   │   │   ├── appointments-public
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── availability-public
+│   │   │   │   │   └── route.ts
 │   │   │   │   ├── verify
 │   │   │   │   │   └── route.ts
 │   │   │   │   └── route.ts
@@ -132,6 +155,8 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │   │   │   ├── [id]
 │   │   │   │   └── page.tsx
 │   │   │   └── page.tsx
+│   │   ├── availability
+│   │   │   └── page.tsx
 │   │   ├── dashboard
 │   │   │   ├── error.tsx
 │   │   │   ├── loading.tsx
@@ -158,22 +183,28 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │   │   ├── appointments
 │   │   │   ├── book
 │   │   │   │   └── page.tsx
+│   │   │   ├── loading.tsx
 │   │   │   └── page.tsx
-│   │   ├── dashboard
+│   │   ├── danger-zone
+│   │   │   └── page.tsx
+│   │   ├── emergency-contacts
+│   │   │   └── page.tsx
+│   │   ├── notifications
 │   │   │   └── page.tsx
 │   │   ├── profile
 │   │   │   └── page.tsx
 │   │   ├── records
 │   │   │   └── page.tsx
-│   │   └── layout.tsx
+│   │   ├── layout.tsx
+│   │   └── page.tsx
 │   ├── services
 │   │   └── auth.service.ts
 │   ├── types
 │   │   └── auth.tsx
+│   ├── Header.tsx
 │   ├── error.tsx
 │   ├── favicon.ico
 │   ├── globals.css
-│   ├── Header.tsx
 │   ├── layout.tsx
 │   ├── loading.tsx
 │   ├── notfound.tsx
@@ -226,10 +257,10 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │   │   │   ├── DoctorsInfoCell.tsx
 │   │   │   ├── VerificationFilters.tsx
 │   │   │   ├── VerificationPagination.tsx
-│   │   │   ├── VerificationsActionsMenu.tsx
 │   │   │   ├── VerificationStatusBadge.tsx
 │   │   │   ├── VerificationTable.tsx
-│   │   │   └── VerificationTableRow.tsx
+│   │   │   ├── VerificationTableRow.tsx
+│   │   │   └── VerificationsActionsMenu.tsx
 │   │   ├── AdminSidebar.tsx
 │   │   ├── AdminTopBar.tsx
 │   │   ├── RecentActivity.tsx
@@ -308,7 +339,6 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │   │   ├── EmergencyContactSection.tsx
 │   │   ├── NotificationPrivacySection.tsx
 │   │   ├── PatientInfoCard.tsx
-│   │   ├── PatientSettingsLayout.tsx
 │   │   ├── PatientSideBar.tsx
 │   │   ├── PatientTopNav.tsx
 │   │   ├── PersonalInfoFieldCard.tsx
@@ -316,6 +346,8 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │   │   ├── ProfileHeader.tsx
 │   │   └── ToggleSettingsItem.tsx
 │   └── ui
+│       ├── PasswordInput.tsx
+│       ├── RadioGroup.tsx
 │       ├── alert.tsx
 │       ├── avatar.tsx
 │       ├── badge.tsx
@@ -325,8 +357,6 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │       ├── dropdown-menu.tsx
 │       ├── input.tsx
 │       ├── pagination.tsx
-│       ├── PasswordInput.tsx
-│       ├── RadioGroup.tsx
 │       ├── select.tsx
 │       ├── switch.tsx
 │       ├── table.tsx
@@ -341,8 +371,10 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │   ├── architecture.md
 │   ├── auth-flow.md
 │   ├── changelog.md
+│   ├── completed-tasks.md
 │   ├── decisions.md
 │   ├── folder-structure.md
+│   ├── product-requirements-completed.md
 │   ├── roadmap.md
 │   └── tasks.md
 ├── drizzle
@@ -354,6 +386,8 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │   │   ├── 0004_snapshot.json
 │   │   ├── 0005_snapshot.json
 │   │   ├── 0006_snapshot.json
+│   │   ├── 0007_snapshot.json
+│   │   ├── 0008_snapshot.json
 │   │   └── _journal.json
 │   ├── 0000_purple_tiger_shark.sql
 │   ├── 0001_exotic_dakota_north.sql
@@ -361,13 +395,17 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │   ├── 0003_easy_omega_flight.sql
 │   ├── 0004_melodic_toad_men.sql
 │   ├── 0005_military_otto_octavius.sql
-│   └── 0006_many_arachne.sql
+│   ├── 0006_many_arachne.sql
+│   ├── 0007_ambiguous_shadow_king.sql
+│   └── 0008_amusing_toad.sql
 ├── hooks
 │   ├── useAppointment.tsx
 │   ├── useAuth.tsx
 │   ├── useDebounce.tsx
 │   └── useRole.tsx
 ├── lib
+│   ├── utils
+│   │   └── slot.ts
 │   ├── auth.ts
 │   ├── constant.tsx
 │   ├── routes.tsx
@@ -388,6 +426,7 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 │   └── water-flask.png
 ├── scripts
 │   ├── seed.ts
+│   ├── seedAvailability.ts
 │   └── wifi-network-warning.js
 ├── server
 │   ├── constants
@@ -478,9 +517,11 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 ├── .eslintrc.json
 ├── .gitignore
 ├── AGENTS.md
+├── README.md
 ├── ajaygit.txt
 ├── ajaygit.txt.pub
 ├── components.json
+├── currentlyWorking.md
 ├── drizzle.config.ts
 ├── eslint.config.mjs
 ├── export-tree-for-ai.ps1
@@ -489,7 +530,6 @@ Generated from `git ls-files` on 2026-02-18 to provide a complete, deterministic
 ├── package.json
 ├── planning.md
 ├── postcss.config.mjs
-├── README.md
 ├── tailwind.config.ts
 ├── tsconfig.json
 ├── vitest.config.ts
