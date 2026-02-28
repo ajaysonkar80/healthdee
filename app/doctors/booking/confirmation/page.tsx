@@ -1,4 +1,7 @@
-import { notFound } from "next/navigation";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -9,40 +12,80 @@ import BookingActions from "@/components/doctor/booking/confirmation/BookingActi
 import WhatToExpect from "@/components/doctor/booking/confirmation/WhatToExpect";
 import SupportFooter from "@/components/doctor/booking/confirmation/SupportFooter";
 
-type AppointmentResponse = {
+import { useAuth } from "@/app/context/AuthContext";
+
+type AppointmentWithDoctor = {
   id: string;
   scheduledAt: string;
   status: "PENDING" | "CONFIRMED" | "COMPLETED" | "CANCELLED";
-  doctorId: string;
+  doctor: {
+    id: string;
+    name: string;
+    specialty: string;
+    experienceYears: number | null;
+    profileImageUrl: string | null;
+    rating: number;
+  };
 };
 
-async function getAppointment(id: string) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL}/api/appointments/${id}`,
-    { cache: "no-store" }
-  );
+export default function BookingConfirmedPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { user, loading } = useAuth();
 
-  if (!res.ok) {
-    notFound();
+  const [appointment, setAppointment] =
+  useState<AppointmentWithDoctor | null>(null);
+  const [pageLoading, setPageLoading] = useState(true);
+
+  const appointmentId = searchParams.get("appointmentId");
+
+  useEffect(() => {
+    async function loadAppointment() {
+      if (!appointmentId) {
+        router.replace("/");
+        return;
+      }
+
+      if (!user) {
+        router.replace("/login");
+        return;
+      }
+
+      try {
+        const res = await fetch(
+          `/api/appointments/${appointmentId}`,
+          {
+            credentials: "include",
+          }
+        );
+
+        if (!res.ok) {
+          router.replace("/");
+          return;
+        }
+
+        const json = await res.json();
+        setAppointment(json.data);
+      } catch (error) {
+        console.error("Failed to load appointment:", error);
+        router.replace("/");
+      } finally {
+        setPageLoading(false);
+      }
+    }
+
+    if (!loading) {
+      loadAppointment();
+    }
+  }, [appointmentId, user, loading, router]);
+
+  if (loading || pageLoading) {
+    return <div className="p-10">Loading...</div>;
   }
 
-  const data = await res.json();
-  return data.data as AppointmentResponse;
-}
-
-export default async function BookingConfirmedPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ appointmentId?: string }>;
-}) {
-  // ✅ Await searchParams (Next 15 requirement)
-  const { appointmentId } = await searchParams;
-
-  if (!appointmentId) {
-    notFound();
+  if (!appointment) {
+    return null;
   }
-
-  const appointment = await getAppointment(appointmentId);
 
   const date = new Date(appointment.scheduledAt);
 
@@ -53,45 +96,44 @@ export default async function BookingConfirmedPage({
     year: "numeric",
   });
 
-  const formattedTime = `${date.toLocaleTimeString([], {
+  const formattedTime = date.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
-  })} - ${new Date(
-    date.getTime() + 30 * 60000
-  ).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  })}`;
-
-  const bookingData = {
-    doctor: {
-      name: "Doctor",
-      specialty: "Specialist",
-      experience: "",
-      rating: 0,
-      reviews: 0,
-      avatar: "/doctor-placeholder.jpg",
-    },
-    appointment: {
-      date: formattedDate,
-      time: formattedTime,
-      location: "Clinic Location",
-    },
-  };
+  });
 
   return (
     <>
       <Header />
 
       <main className="px-6">
-        <BookingConfirmationHero doctorName={bookingData.doctor.name} />
-
-        <BookingSummaryCard
-          doctor={bookingData.doctor}
-          appointment={bookingData.appointment}
+        <BookingConfirmationHero
+          doctorName={appointment.doctor.name}
+          status={appointment.status}
         />
 
-        <BookingActions />
+        <BookingSummaryCard
+          doctor={{
+            name: appointment.doctor.name,
+            specialty: appointment.doctor.specialty,
+            experience: `${appointment.doctor.experienceYears ?? 0}+ Years`,
+            rating: appointment.doctor.rating,
+            reviews: 0,
+            avatar:
+              appointment.doctor.profileImageUrl ??
+              "/doctor-placeholder.jpg",
+          }}
+          appointment={{
+            date: formattedDate,
+            time: formattedTime,
+            location: "Clinic",
+          }}
+        />
+
+        <BookingActions
+          appointmentId={appointment.id}
+          status={appointment.status}
+        />
+
         <WhatToExpect />
         <SupportFooter />
       </main>

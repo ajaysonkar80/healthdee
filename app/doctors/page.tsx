@@ -8,83 +8,56 @@ import DoctorCard, {
   DoctorListItem,
 } from "@/components/doctors/DoctorsCard";
 
-type ApiResponse = {
+import { doctorService } from "@/server/services/doctor.service";
+
+type DoctorsResponse = {
   data: DoctorListItem[];
   pagination: {
     page: number;
-    totalPages: number;
+    limit: number;
     total: number;
+    totalPages: number;
   };
 };
 
 const PAGE_SIZE = 9;
 
-async function getDoctors(
-  searchParams: {
-    search?: string;
-    minFee?: string;
-    maxFee?: string;
-    page?: string;
-  }
-): Promise<ApiResponse> {
-  const params = new URLSearchParams();
-
-  if (searchParams.search) {
-    params.set("search", searchParams.search);
-  }
-
-  if (searchParams.minFee) {
-    params.set("minFee", searchParams.minFee);
-  }
-
-  if (searchParams.maxFee) {
-    params.set("maxFee", searchParams.maxFee);
-  }
-
-  params.set("page", searchParams.page ?? "1");
-  params.set("limit", PAGE_SIZE.toString());
-
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL ?? ""}/api/doctors?${params.toString()}`,
-      { cache: "no-store" }
-    );
-
-    if (!res.ok) {
-      return {
-        data: [],
-        pagination: {
-          page: 1,
-          totalPages: 1,
-          total: 0,
-        },
-      };
-    }
-
-    return (await res.json()) as ApiResponse;
-  } catch {
-    return {
-      data: [],
-      pagination: {
-        page: 1,
-        totalPages: 1,
-        total: 0,
-      },
-    };
-  }
-}
-
 export default async function DoctorsPage({
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     search?: string;
     minFee?: string;
     maxFee?: string;
     page?: string;
-  };
+  }>;
 }) {
-  const { data, pagination } = await getDoctors(searchParams);
+  // ✅ Next 15 requires unwrapping searchParams
+  const resolvedSearchParams = await searchParams;
+
+  let result: DoctorsResponse;
+
+  try {
+    result = await doctorService.getPublicDoctors({
+      search: resolvedSearchParams.search,
+      minFee: resolvedSearchParams.minFee,
+      maxFee: resolvedSearchParams.maxFee,
+      page: resolvedSearchParams.page,
+      limit: PAGE_SIZE,
+    });
+  } catch {
+    result = {
+      data: [],
+      pagination: {
+        page: 1,
+        limit: PAGE_SIZE,
+        total: 0,
+        totalPages: 1,
+      },
+    };
+  }
+
+  const { data, pagination } = result;
 
   return (
     <>
@@ -98,9 +71,18 @@ export default async function DoctorsPage({
 
           <div className="flex-1 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {data.map((doctor) => (
-                <DoctorCard key={doctor.id} doctor={doctor} />
-              ))}
+              {data.length > 0 ? (
+                data.map((doctor) => (
+                  <DoctorCard
+                    key={doctor.id}
+                    doctor={doctor}
+                  />
+                ))
+              ) : (
+                <p className="text-muted-foreground">
+                  No doctors found.
+                </p>
+              )}
             </div>
 
             <DoctorsPagination

@@ -42,7 +42,47 @@ async function persistAudit(log: AuditLogInput) {
   assertAuditMetadataSerializable(log.metadata);
   await auditRepo.create(log);
 }
+async function assertAppointmentAccess(
+  actorUserId: string,
+  appointment: {
+    patientId: string;
+    doctorId?: string;
+    doctor?: { id: string };
+  }
+) {
+  const actor = await userRepo.getUserById(actorUserId);
 
+  if (actor.role === UserRole.admin) {
+    return;
+  }
+
+  if (actor.role === UserRole.patient) {
+    const patient =
+      await patientRepo.getPatientByUserId(actorUserId);
+
+    if (appointment.patientId !== patient.id) {
+      throw new ForbiddenError("Access denied");
+    }
+
+    return;
+  }
+
+  if (actor.role === UserRole.doctor) {
+    const doctor =
+      await doctorRepo.getDoctorByUserId(actorUserId);
+
+    const doctorId =
+      appointment.doctorId ?? appointment.doctor?.id;
+
+    if (!doctorId || doctorId !== doctor.id) {
+      throw new ForbiddenError("Access denied");
+    }
+
+    return;
+  }
+
+  throw new ForbiddenError("Access denied");
+}
 /* ======================================================
    Appointment Service
 ====================================================== */
@@ -201,17 +241,11 @@ export const appointmentService = {
     actorUserId: string,
     appointmentId: string
   ) {
-    const actor = await userRepo.getUserById(actorUserId);
+    
     const appointment =
       await appointmentRepo.getAppointmentById(appointmentId);
 
-    if (
-      actor.role !== UserRole.admin &&
-      appointment.patientId !== actorUserId &&
-      appointment.doctorId !== actorUserId
-    ) {
-      throw new ForbiddenError("Access denied");
-    }
+    await assertAppointmentAccess(actorUserId, appointment);
 
     return appointment;
   },
@@ -220,17 +254,18 @@ export const appointmentService = {
   actorUserId: string,
   appointmentId: string
 ) {
+  // Fetch appointment with doctor join
   const appointment =
     await appointmentRepo.getAppointmentWithDoctorById(
       appointmentId
     );
 
-  if (
-    appointment.patientId !== actorUserId &&
-    appointment.doctor.id !== actorUserId
-  ) {
-    throw new ForbiddenError("Access denied");
+  if (!appointment) {
+    throw new ValidationError("Appointment not found");
   }
+
+  // Centralized access control
+  await assertAppointmentAccess(actorUserId, appointment);
 
   return appointment;
 },
@@ -312,17 +347,11 @@ export const appointmentService = {
     appointmentId: string,
     nextStatus: AppointmentStatus
   ) {
-    const actor = await userRepo.getUserById(actorUserId);
+    
     const appointment =
       await appointmentRepo.getAppointmentById(appointmentId);
 
-    if (
-      actor.role !== UserRole.admin &&
-      appointment.patientId !== actorUserId &&
-      appointment.doctorId !== actorUserId
-    ) {
-      throw new ForbiddenError("Not allowed to modify appointment");
-    }
+    await assertAppointmentAccess(actorUserId, appointment);
 
     assertValidAppointmentStatusTransition(
       appointment.status,
@@ -362,7 +391,7 @@ async rescheduleAppointment(
   appointmentId: string,
   newScheduledAt: Date
 ) {
-  const actor = await userRepo.getUserById(actorUserId);
+  
   const appointment =
     await appointmentRepo.getAppointmentById(appointmentId);
 
@@ -370,13 +399,7 @@ async rescheduleAppointment(
      Authorization
   --------------------------------------------------- */
 
-  if (
-    actor.role !== UserRole.admin &&
-    appointment.patientId !== actorUserId &&
-    appointment.doctorId !== actorUserId
-  ) {
-    throw new ForbiddenError("Not allowed to reschedule");
-  }
+  await assertAppointmentAccess(actorUserId, appointment);
 
   /* --------------------------------------------------
      Ensure appointment is mutable

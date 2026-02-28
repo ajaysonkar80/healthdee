@@ -10,7 +10,7 @@ type DoctorSummaryProps = {
     specialty: string;
     experience: string;
     rating: number;
-    reviews: number;
+    reviews?: number;
     avatar: string;
   };
 };
@@ -45,7 +45,9 @@ export default function DoctorSummary({ doctor }: DoctorSummaryProps) {
             <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
             <span className="font-medium">{doctor.rating}</span>
             <span className="text-muted-foreground">
-              ({doctor.reviews}+ Reviews)
+              {doctor.reviews && (
+  <span>{doctor.reviews} reviews</span>
+)}
             </span>
           </div>
         </div>

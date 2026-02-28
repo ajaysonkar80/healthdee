@@ -8,13 +8,13 @@ type BookingSummaryCardProps = {
     specialty: string;
     experience: string;
     rating: number;
-    reviews: number;
+    reviews?: number; // optional
     avatar: string;
   };
   appointment: {
     date: string;
     time: string;
-    location: string;
+    location?: string; // optional
   };
 };
 

@@ -1,21 +1,30 @@
 import { Card } from "@/components/ui/card";
 
-export default function DoctorStats() {
+type DoctorStatsProps = {
+  consultationFee: number | null;
+  rating: number;
+};
+
+export default function DoctorStats({
+  consultationFee,
+  rating,
+}: DoctorStatsProps) {
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-2 gap-4">
       <Card className="p-4 text-center">
         <p className="text-sm text-muted-foreground">Fee</p>
-        <p className="text-lg font-semibold">₹500</p>
+        <p className="text-lg font-semibold">
+          {consultationFee
+            ? `₹${consultationFee}`
+            : "Not specified"}
+        </p>
       </Card>
 
       <Card className="p-4 text-center">
         <p className="text-sm text-muted-foreground">Rating</p>
-        <p className="text-lg font-semibold">4.8 / 5</p>
-      </Card>
-
-      <Card className="p-4 text-center">
-        <p className="text-sm text-muted-foreground">Patients</p>
-        <p className="text-lg font-semibold">10K+</p>
+        <p className="text-lg font-semibold">
+          {rating} / 5
+        </p>
       </Card>
     </div>
   );

@@ -52,7 +52,7 @@ export default function ClinicInformation() {
         </div>
 
         {/* Map Preview */}
-        <div className="w-full h-[220px] rounded-lg overflow-hidden border">
+        <div className="w-full h-55 rounded-lg overflow-hidden border">
       <iframe
         title="Clinic Location"
         src="https://www.google.com/maps?q=Vijay+Nagar+Indore+Madhya+Pradesh&output=embed"

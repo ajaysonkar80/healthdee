@@ -4,6 +4,7 @@ import * as schema from "@/db/schema";
 import { and, eq, like, or, sql } from "drizzle-orm";
 import { RepositoryError, PaginationParams } from "./user.repo";
 import { doctorAvailability } from "@/db/schema";
+//import { doctorReviews } from "@/db/schema";
 /* -----------------------------------------------------
    Helpers
 ----------------------------------------------------- */
@@ -26,7 +27,7 @@ export const doctorRepo = {
      Create
   ----------------------------- */
 
-  async createDoctor(input: {
+async createDoctor(input: {
   userId: string;
   publicId: string;
   specialty: string;
@@ -37,6 +38,13 @@ export const doctorRepo = {
   rmpRegistrationNumber: string;
   rmpStateMedicalCouncil: string;
   verificationStatus: schema.DoctorVerificationStatus;
+
+  /* NEW OPTIONAL FIELDS */
+  fullName?: string;
+  degrees?: string;
+  languages?: string;
+  tagline?: string;
+  isTopRated?: boolean;
 }) {
   const now = new Date();
 
@@ -53,6 +61,11 @@ export const doctorRepo = {
       rmpRegistrationNumber: input.rmpRegistrationNumber,
       rmpStateMedicalCouncil: input.rmpStateMedicalCouncil,
       verificationStatus: input.verificationStatus,
+      fullName: input.fullName,
+      degrees: input.degrees,
+      languages: input.languages,
+      tagline: input.tagline,
+      isTopRated: input.isTopRated ?? false,
       createdAt: now,
     })
     .returning();
@@ -60,6 +73,100 @@ export const doctorRepo = {
   return doctor;
 },
 
+/* -----------------------------------------------------
+   Public Listing (Drizzle + SQLite Safe)
+----------------------------------------------------- */
+
+async getPublicDoctors(params?: {
+  page?: number;
+  limit?: number;
+  search?: string;
+  minFee?: number;
+  maxFee?: number;
+}) {
+  const page = params?.page && params.page > 0 ? params.page : 1;
+  const limit = params?.limit ?? DEFAULT_LIMIT;
+  const offset = (page - 1) * limit;
+
+  const conditions = [];
+
+  // Always required conditions
+  conditions.push(eq(schema.doctors.isActive, true));
+  conditions.push(
+    eq(
+      schema.doctors.verificationStatus,
+      "verified" as schema.DoctorVerificationStatus
+    )
+  );
+
+  // Prefix search
+  if (params?.search && params.search.trim().length > 0) {
+    const search = params.search.trim();
+    conditions.push(
+      or(
+        like(schema.doctors.publicId, `${search}%`),
+        like(schema.doctors.specialty, `${search}%`)
+      )
+    );
+  }
+
+  // Min fee
+  if (typeof params?.minFee === "number") {
+    conditions.push(
+      sql`${schema.doctors.consultationFee} >= ${params.minFee}`
+    );
+  }
+
+  // Max fee
+  if (typeof params?.maxFee === "number") {
+    conditions.push(
+      sql`${schema.doctors.consultationFee} <= ${params.maxFee}`
+    );
+  }
+
+  const whereClause = and(...conditions);
+
+  const dataQuery = db
+  .select({
+    id: schema.doctors.id,
+    publicId: schema.doctors.publicId,
+    fullName: schema.doctors.fullName,
+    specialty: schema.doctors.specialty,
+    experienceYears: schema.doctors.experienceYears,
+    rating: schema.doctors.rating,
+    profileImageUrl: schema.doctors.profileImageUrl,
+    consultationFee: schema.doctors.consultationFee,
+    isTopRated: schema.doctors.isTopRated,
+    tagline: schema.doctors.tagline,
+  })
+  .from(schema.doctors)
+  .where(whereClause)
+  .limit(limit)
+  .offset(offset);
+
+  const countQuery = db
+    .select({ count: sql<number>`count(*)` })
+    .from(schema.doctors)
+    .where(whereClause);
+
+  const [data, countResult] = await Promise.all([
+    dataQuery,
+    countQuery,
+  ]);
+
+  const total = Number(countResult[0]?.count ?? 0);
+  const totalPages = Math.ceil(total / limit);
+
+  return {
+    data,
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages,
+    },
+  };
+},
 
   /* -----------------------------
      Getters
@@ -80,20 +187,78 @@ export const doctorRepo = {
     return doctor;
   },
 
-  async getDoctorByPublicId(publicId: string) {
-    const doctor = await db.query.doctors.findFirst({
-      where: eq(schema.doctors.publicId, publicId),
-    });
+async getDoctorByPublicId(publicId: string) {
+  const doctor = await db
+    .select({
+      id: schema.doctors.id,
+      publicId: schema.doctors.publicId,
+      fullName: schema.doctors.fullName,
+      degrees: schema.doctors.degrees,
+      specialty: schema.doctors.specialty,
+      languages: schema.doctors.languages,
+      tagline: schema.doctors.tagline,
+      experienceYears: schema.doctors.experienceYears,
+      rating: schema.doctors.rating,
+      profileImageUrl: schema.doctors.profileImageUrl,
+      bio: schema.doctors.bio,
+      consultationFee: schema.doctors.consultationFee,
+      isTopRated: schema.doctors.isTopRated,
+      verificationStatus: schema.doctors.verificationStatus,
+      isActive: schema.doctors.isActive,
+    })
+    .from(schema.doctors)
+    .where(eq(schema.doctors.publicId, publicId))
+    .limit(1);
 
-    if (!doctor) {
-      throw new RepositoryError(
-        "NOT_FOUND",
-        `Doctor not found with publicId: ${publicId}`
-      );
-    }
+  if (!doctor[0]) {
+    throw new RepositoryError(
+      "NOT_FOUND",
+      `Doctor not found with publicId: ${publicId}`
+    );
+  }
 
-    return doctor;
-  },
+  return doctor[0];
+},
+
+  async getDoctorDetailByPublicId(publicId: string) {
+  const doctor = await db
+    .select({
+      id: schema.doctors.id,
+      publicId: schema.doctors.publicId,
+      fullName: schema.doctors.fullName,
+      degrees: schema.doctors.degrees,
+      specialty: schema.doctors.specialty,
+      languages: schema.doctors.languages,
+      tagline: schema.doctors.tagline,
+      experienceYears: schema.doctors.experienceYears,
+      rating: schema.doctors.rating,
+      profileImageUrl: schema.doctors.profileImageUrl,
+      bio: schema.doctors.bio,
+      consultationFee: schema.doctors.consultationFee,
+      isTopRated: schema.doctors.isTopRated,
+    })
+    .from(schema.doctors)
+    .where(
+      and(
+        eq(schema.doctors.publicId, publicId),
+        eq(schema.doctors.isActive, true),
+        eq(
+          schema.doctors.verificationStatus,
+          "verified" as schema.DoctorVerificationStatus
+        )
+      )
+    )
+    .limit(1);
+
+  if (!doctor[0]) {
+    throw new RepositoryError(
+      "NOT_FOUND",
+      `Doctor not found with publicId: ${publicId}`
+    );
+  }
+
+  return doctor[0];
+},
 
   async getDoctorByUserId(userId: string) {
     const doctor = await db.query.doctors.findFirst({
@@ -387,5 +552,50 @@ export const doctorRepo = {
     return { success: true };
   },
 
+  /* --------------------------------------------------
+   Get Reviews By Doctor ID
+--------------------------------------------------- */
+async getReviewsByDoctorId(
+  doctorId: string,
+  limit: number = 5
+) {
+  return db
+    .select({
+      id: schema.doctorReviews.id,
+      patientName: schema.doctorReviews.patientName,
+      rating: schema.doctorReviews.rating,
+      comment: schema.doctorReviews.comment,
+      isVerified: schema.doctorReviews.isVerified,
+      createdAt: schema.doctorReviews.createdAt,
+    })
+    .from(schema.doctorReviews)
+    .where(eq(schema.doctorReviews.doctorId, doctorId))
+    .orderBy(sql`${schema.doctorReviews.createdAt} DESC`)
+    .limit(limit);
+},
 
+  /* --------------------------------------------------
+   Create Doctor Review
+--------------------------------------------------- */
+async createDoctorReview(input: {
+  doctorId: string;
+  patientName: string;
+  rating: number;
+  comment: string;
+  isVerified?: boolean;
+}) {
+  const [review] = await db
+    .insert(schema.doctorReviews)
+    .values({
+      doctorId: input.doctorId,
+      patientName: input.patientName,
+      rating: input.rating,
+      comment: input.comment,
+      isVerified: input.isVerified ?? false,
+      createdAt: new Date(),
+    })
+    .returning();
+
+  return review;
+},
 };

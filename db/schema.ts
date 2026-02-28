@@ -292,29 +292,55 @@ export const fhirResources = sqliteTable("fhir_resources", {
 /* -----------------------------------------------------
    4) DOCTORS
 ----------------------------------------------------- */
-
 export const doctors = sqliteTable(
   "doctors",
   {
     id: uuid(),
+
     userId: text("user_id")
       .references(() => users.id, { onDelete: "cascade" })
       .notNull(),
+
     publicId: text("public_id").notNull(),
+
+    /* -----------------------------
+       NEW OPTIONAL FIELDS
+    ----------------------------- */
+
+    fullName: text("full_name"), // optional for now
+    degrees: text("degrees"), // MBBS, MD etc
+    languages: text("languages"), // comma-separated for now
+    tagline: text("tagline"), // e.g. Heart Specialist
+    isTopRated: integer("is_top_rated", { mode: "boolean" }).default(false),
+
+    /* -----------------------------
+       EXISTING FIELDS
+    ----------------------------- */
+
     specialty: text("specialty").notNull(),
     experienceYears: integer("experience_years").default(0),
+
     rating: integer("rating").notNull().default(0),
+
     profileImageUrl: text("profile_image_url"),
+
     rmpRegistrationNumber: text("rmp_registration_number").notNull(),
     rmpStateMedicalCouncil: text("rmp_state_medical_council").notNull(),
+
     bio: text("bio"),
+
     consultationFee: integer("consultation_fee"),
+
     isActive: integer("is_active", { mode: "boolean" }).default(true),
+
     updatedAt: integer("updated_at", { mode: "timestamp" }),
+
     verificationStatus: text("verification_status")
       .$type<DoctorVerificationStatus>()
       .notNull(),
+
     verifiedAt: integer("verified_at", { mode: "timestamp" }),
+
     createdAt: integer("created_at", { mode: "timestamp" })
       .notNull()
       .default(sql`(unixepoch())`),
@@ -323,6 +349,26 @@ export const doctors = sqliteTable(
     publicIdUnique: uniqueIndex("doctor_public_id_unique").on(t.publicId),
   })
 );
+
+/************************************************************
+ * DOCTORS REVIEWS TABLE
+ ************************************************************/
+
+export const doctorReviews = sqliteTable("doctor_reviews", {
+  id: uuid(),
+  doctorId: text("doctor_id")
+    .references(() => doctors.id, { onDelete: "cascade" })
+    .notNull(),
+
+  patientName: text("patient_name").notNull(),
+  rating: integer("rating").notNull(),
+  comment: text("comment").notNull(),
+  isVerified: integer("is_verified", { mode: "boolean" }).default(false),
+
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .default(sql`(unixepoch())`)
+    .notNull(),
+});
 
 /* -----------------------------------------------------
    5) CLINICS

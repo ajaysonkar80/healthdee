@@ -165,6 +165,93 @@ export const doctorService = {
     return doctorRepo.listDoctors(params);
   },
   
+/* --------------------------------------------------
+   Public Doctors Listing (Marketplace)
+--------------------------------------------------- */
+async getPublicDoctors(params?: {
+  page?: number | string;
+  limit?: number | string;
+  search?: string;
+  minFee?: number | string;
+  maxFee?: number | string;
+}) {
+  /* -----------------------------
+     Sanitize & Normalize Inputs
+  ----------------------------- */
+
+  const page =
+    typeof params?.page === "string"
+      ? parseInt(params.page, 10)
+      : params?.page;
+
+  const limit =
+    typeof params?.limit === "string"
+      ? parseInt(params.limit, 10)
+      : params?.limit;
+
+  const minFee =
+    typeof params?.minFee === "string"
+      ? parseInt(params.minFee, 10)
+      : params?.minFee;
+
+  const maxFee =
+    typeof params?.maxFee === "string"
+      ? parseInt(params.maxFee, 10)
+      : params?.maxFee;
+
+  /* -----------------------------
+     Validate Pagination
+  ----------------------------- */
+
+  const safePage = page && page > 0 ? page : 1;
+
+  const safeLimit =
+    limit && limit > 0 && limit <= 50 ? limit : 9;
+
+  /* -----------------------------
+     Business Rule:
+     Prevent negative fees
+  ----------------------------- */
+
+  const safeMinFee =
+    typeof minFee === "number" && minFee >= 0
+      ? minFee
+      : undefined;
+
+  const safeMaxFee =
+    typeof maxFee === "number" && maxFee >= 0
+      ? maxFee
+      : undefined;
+
+  /* -----------------------------
+     Delegate to Repository
+  ----------------------------- */
+
+  return doctorRepo.getPublicDoctors({
+    page: safePage,
+    limit: safeLimit,
+    search: params?.search?.trim() || undefined,
+    minFee: safeMinFee,
+    maxFee: safeMaxFee,
+  });
+},
+
+/* --------------------------------------------------
+   Public Doctor Detail (Marketplace Page)
+--------------------------------------------------- */
+async getDoctorDetailByPublicId(publicId: string) {
+  if (!publicId || publicId.trim().length === 0) {
+    throw new ValidationError("Invalid doctor public ID");
+  }
+
+  const doctor =
+    await doctorRepo.getDoctorDetailByPublicId(
+      publicId.trim()
+    );
+
+  return doctor;
+},
+
   /* --------------------------------------------------
    Verify / Reject doctor (admin only)
 --------------------------------------------------- */
@@ -213,7 +300,61 @@ async setDoctorVerificationStatus(
   });
 
   return { success: true };
-}
+},
+
+/* --------------------------------------------------
+   Get Doctor Reviews (Public)
+--------------------------------------------------- */
+async getDoctorReviews(
+  doctorId: string,
+  limit?: number
+) {
+  if (!doctorId) {
+    throw new ValidationError("Invalid doctor ID");
+  }
+
+  const safeLimit =
+    limit && limit > 0 && limit <= 20 ? limit : 5;
+
+  return doctorRepo.getReviewsByDoctorId(
+    doctorId,
+    safeLimit
+  );
+},
+
+/* --------------------------------------------------
+   Submit Doctor Review
+--------------------------------------------------- */
+async submitDoctorReview(input: {
+  doctorId: string;
+  patientName: string;
+  rating: number;
+  comment: string;
+}) {
+  if (!input.doctorId) {
+    throw new ValidationError("Doctor ID required");
+  }
+
+  if (!input.patientName || input.patientName.trim().length < 2) {
+    throw new ValidationError("Invalid patient name");
+  }
+
+  if (input.rating < 1 || input.rating > 5) {
+    throw new ValidationError("Rating must be between 1 and 5");
+  }
+
+  if (!input.comment || input.comment.trim().length < 5) {
+    throw new ValidationError("Comment too short");
+  }
+
+  return doctorRepo.createDoctorReview({
+    doctorId: input.doctorId,
+    patientName: input.patientName.trim(),
+    rating: input.rating,
+    comment: input.comment.trim(),
+    isVerified: false,
+  });
+},
 
 };
 

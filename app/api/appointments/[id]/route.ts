@@ -29,8 +29,11 @@ export const GET = withErrorHandling(
       throw new ForbiddenError("Unauthorized");
     }
 
-    const { params } = context as { params: { id: string } };
-    const { id } = params;
+    const { params } = context as {
+  params: Promise<{ id: string }>;
+};
+
+const { id } = await params;
 
     const actor: AuthUser = {
       id: req.auth.userId,
@@ -38,10 +41,10 @@ export const GET = withErrorHandling(
     };
 
     const appointment =
-      await appointmentService.getAppointmentById(
-        actor.id,
-        id
-      );
+  await appointmentService.getAppointmentDetailsForConfirmation(
+    actor.id,
+    id
+  );
 
     return success(appointment);
   })

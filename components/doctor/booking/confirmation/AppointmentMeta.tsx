@@ -4,7 +4,7 @@ type AppointmentMetaProps = {
   appointment: {
     date: string;
     time: string;
-    location: string;
+    location?: string;
   };
 };
 
