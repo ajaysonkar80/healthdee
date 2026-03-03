@@ -17,8 +17,8 @@ export const PATCH = withErrorHandling(
       throw new ForbiddenError("Unauthorized");
     }
 
-    const { params } = context as { params: { id: string } };
-    const appointmentId = params.id;
+     const { id: appointmentId } =
+  await (context as { params: Promise<{ id: string }> }).params;
 
     if (!appointmentId) {
       throw new ForbiddenError("Invalid appointment ID");

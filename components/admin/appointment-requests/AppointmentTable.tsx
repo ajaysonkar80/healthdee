@@ -1,4 +1,3 @@
-//Appointments table
 import {
   Table,
   TableBody,
@@ -14,9 +13,17 @@ import {
 
 interface AppointmentTableProps {
   data: AppointmentRowData[];
+  onAccept?: (id: string) => void;
+  onReject?: (id: string) => void;
+  loadingId?: string | null;
 }
 
-export function AppointmentTable({ data }: AppointmentTableProps) {
+export function AppointmentTable({
+  data,
+  onAccept,
+  onReject,
+  loadingId,
+}: AppointmentTableProps) {
   return (
     <Card>
       <CardContent className="p-0">
@@ -43,7 +50,13 @@ export function AppointmentTable({ data }: AppointmentTableProps) {
               </TableRow>
             ) : (
               data.map((item) => (
-                <AppointmentTableRow key={item.id} data={item} />
+                <AppointmentTableRow
+                  key={item.id}
+                  data={item}
+                  onAccept={onAccept}
+                  onReject={onReject}
+                  loadingId={loadingId}
+                />
               ))
             )}
           </TableBody>

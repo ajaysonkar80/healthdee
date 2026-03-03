@@ -38,27 +38,39 @@ export default function AppointmentDetailsPage() {
     if (id) fetchAppointment();
   }, [id]);
 
-  async function updateStatus(status: Appointment['status']) {
-    try {
-      setUpdating(true);
+  async function updateStatus(
+  action: 'confirm' | 'complete' | 'cancel'
+) {
+  try {
+    setUpdating(true);
 
-      await fetch(`/api/appointments/${id}`, {
+    const res = await fetch(
+      `/api/appointments/${id}/${action}`,
+      {
         method: 'PATCH',
         credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status }),
-      });
+      }
+    );
 
-      // Refresh data
-      router.refresh();
-    } catch (err) {
-      console.error('Failed to update status', err);
-    } finally {
-      setUpdating(false);
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error?.error ?? 'Update failed');
     }
+
+    // Re-fetch updated appointment
+    const refreshed = await fetch(`/api/appointments/${id}`, {
+      credentials: 'include',
+    });
+
+    const data = await refreshed.json();
+    setAppointment(data.data);
+
+  } catch (err) {
+    console.error('Failed to update status', err);
+  } finally {
+    setUpdating(false);
   }
+}
 
   if (loading) {
     return (
@@ -101,7 +113,7 @@ export default function AppointmentDetailsPage() {
         {appointment.status === 'PENDING' && (
           <button
             disabled={updating}
-            onClick={() => updateStatus('CONFIRMED')}
+            onClick={() => updateStatus('confirm')}
             className="rounded-lg bg-pink-600 px-4 py-2 text-sm font-medium text-white hover:bg-pink-700 disabled:opacity-50"
           >
             Confirm Appointment
@@ -111,7 +123,7 @@ export default function AppointmentDetailsPage() {
         {appointment.status === 'CONFIRMED' && (
           <button
             disabled={updating}
-            onClick={() => updateStatus('COMPLETED')}
+            onClick={() => updateStatus('complete')}
             className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
           >
             Mark as Completed
@@ -122,7 +134,7 @@ export default function AppointmentDetailsPage() {
           appointment.status !== 'COMPLETED' && (
             <button
               disabled={updating}
-              onClick={() => updateStatus('CANCELLED')}
+              onClick={() => updateStatus('cancel')}
               className="rounded-lg border border-red-500 px-4 py-2 text-sm font-medium text-red-500 hover:bg-red-50 disabled:opacity-50"
             >
               Cancel Appointment

@@ -3,7 +3,7 @@ import { doctorRepo } from "@/server/repositories/doctor.repo";
 import { patientRepo } from "@/server/repositories/patient.repo";
 import { userRepo } from "@/server/repositories/user.repo";
 import { auditRepo } from "@/server/repositories/audit.repo";
-
+import type { AuditAction } from "@/server/domain/audit.domain";
 import {
   assertAuditActorPresent,
   assertAuditTargetValid,
@@ -342,43 +342,111 @@ export const appointmentService = {
   /* --------------------------------------------------
      Update appointment status
   --------------------------------------------------- */
-  async updateAppointmentStatus(
-    actorUserId: string,
-    appointmentId: string,
-    nextStatus: AppointmentStatus
+    async updateAppointmentStatus(
+  actorUserId: string,
+  appointmentId: string,
+  nextStatus: AppointmentStatus
+) {
+  /* --------------------------------------------------
+     Fetch Appointment
+  --------------------------------------------------- */
+
+  const appointment =
+    await appointmentRepo.getAppointmentById(appointmentId);
+
+  if (!appointment) {
+    throw new ValidationError("Appointment not found");
+  }
+
+  /* --------------------------------------------------
+     Access Control (patient/doctor/admin ownership)
+  --------------------------------------------------- */
+
+  await assertAppointmentAccess(actorUserId, appointment);
+
+  const actor = await userRepo.getUserById(actorUserId);
+
+  /* --------------------------------------------------
+     Role-Based Restrictions
+  --------------------------------------------------- */
+
+  // Only doctor/admin can CONFIRM or COMPLETE
+  if (
+    (nextStatus === "CONFIRMED" ||
+      nextStatus === "COMPLETED") &&
+    actor.role === UserRole.patient
   ) {
-    
-    const appointment =
-      await appointmentRepo.getAppointmentById(appointmentId);
-
-    await assertAppointmentAccess(actorUserId, appointment);
-
-    assertValidAppointmentStatusTransition(
-      appointment.status,
-      nextStatus
+    throw new ForbiddenError(
+      "Patients cannot confirm or complete appointments"
     );
+  }
 
-    await appointmentRepo.updateAppointmentStatus(
-      appointmentId,
-      nextStatus
+  // Only doctor/admin can COMPLETE
+  if (
+    nextStatus === "COMPLETED" &&
+    actor.role === UserRole.patient
+  ) {
+    throw new ForbiddenError(
+      "Patients cannot complete appointments"
     );
+  }
 
-    await persistAudit({
-      actorUserId,
-      action:
-        nextStatus === "CANCELLED"
-          ? "APPOINTMENT_CANCELLED"
-          : "APPOINTMENT_COMPLETED",
-      targetType: "appointment",
-      targetId: appointmentId,
-      metadata: {
-        from: appointment.status,
-        to: nextStatus,
-      },
-    });
+  /* --------------------------------------------------
+     State Transition Validation
+  --------------------------------------------------- */
 
-    return { success: true };
-  },
+  assertValidAppointmentStatusTransition(
+    appointment.status,
+    nextStatus
+  );
+
+  /* --------------------------------------------------
+     Update Status
+  --------------------------------------------------- */
+
+  await appointmentRepo.updateAppointmentStatus(
+    appointmentId,
+    nextStatus
+  );
+
+  /* --------------------------------------------------
+     Audit Logging
+  --------------------------------------------------- */
+
+  let action: AuditAction;
+
+  switch (nextStatus) {
+    case "CONFIRMED":
+      action = "APPOINTMENT_CONFIRMED";
+      break;
+    case "CANCELLED":
+      action = "APPOINTMENT_CANCELLED";
+      break;
+    case "COMPLETED":
+      action = "APPOINTMENT_COMPLETED";
+      break;
+    default:
+      action = "APPOINTMENT_RESCHEDULED";
+  }
+
+  await persistAudit({
+    actorUserId,
+    action,
+    targetType: "appointment",
+    targetId: appointmentId,
+    metadata: {
+      from: appointment.status,
+      to: nextStatus,
+    },
+  });
+
+  return {
+    success: true,
+    appointmentId,
+    previousStatus: appointment.status,
+    currentStatus: nextStatus,
+  };
+},
 
   /* --------------------------------------------------
    Reschedule appointment

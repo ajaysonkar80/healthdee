@@ -34,25 +34,29 @@ export default function PatientAppointmentsPage() {
   }, []);
 
   async function cancelAppointment(id: string) {
-    try {
-      setUpdatingId(id);
+  try {
+    setUpdatingId(id);
 
-      await fetch(`/api/appointments/${id}`, {
+    const res = await fetch(
+      `/api/appointments/${id}/cancel`,
+      {
         method: 'PATCH',
         credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status: 'CANCELLED' }),
-      });
+      }
+    );
 
-      await fetchAppointments();
-    } catch (err) {
-      console.error('Failed to cancel appointment', err);
-    } finally {
-      setUpdatingId(null);
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error?.error ?? 'Cancel failed');
     }
+
+    await fetchAppointments();
+  } catch (err) {
+    console.error('Failed to cancel appointment', err);
+  } finally {
+    setUpdatingId(null);
   }
+}
 
   if (loading) {
     return (

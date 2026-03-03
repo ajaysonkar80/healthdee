@@ -31,8 +31,8 @@ const APPOINTMENT_STATUS_TRANSITIONS: Record<
   AppointmentStatus,
   AppointmentStatus[]
 > = {
-  PENDING: ["PENDING", "CONFIRMED"],
-  CONFIRMED:[],
+  PENDING: ["CONFIRMED", "CANCELLED"],
+  CONFIRMED: ["COMPLETED", "CANCELLED"],
   COMPLETED: [],
   CANCELLED: [],
 };
