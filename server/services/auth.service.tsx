@@ -203,7 +203,7 @@ export const authService = {
       expiresAt: otpExpiresAt(),
     });
 
-    console.log("SIGNUP OTP:", otp);
+    //console.log("SIGNUP OTP:", otp);
 
     return { sent: true };
   },
@@ -291,7 +291,7 @@ export const authService = {
       expiresAt: otpExpiresAt(),
     });
 
-    console.log("LOGIN OTP:", otp);
+    //console.log("LOGIN OTP:", otp);
 
     return { sent: true };
   },
@@ -354,7 +354,7 @@ export const authService = {
       expiresAt: otpExpiresAt(10),
     });
 
-    console.log("PASSWORD RESET OTP:", otp);
+    //console.log("PASSWORD RESET OTP:", otp);
 
     return { sent: true };
   },

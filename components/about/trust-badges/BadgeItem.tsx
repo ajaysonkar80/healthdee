@@ -1,5 +1,5 @@
 // app/about/_components/trust-badges/BadgeItem.tsx
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 type BadgeItemProps = {
   icon: ReactNode;

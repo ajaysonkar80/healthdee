@@ -4,9 +4,10 @@ import Footer from "@/components/layout/Footer";
 import DoctorsTopBar from "@/components/doctors/DoctorsTopBar";
 import DoctorsFilters from "@/components/doctors/DoctorsFilter";
 import DoctorsPagination from "@/components/doctors/DoctorsPagination";
-import DoctorCard, {
+import type {
   DoctorListItem,
 } from "@/components/doctors/DoctorsCard";
+import DoctorCard from "@/components/doctors/DoctorsCard";
 
 import { doctorService } from "@/server/services/doctor.service";
 

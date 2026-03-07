@@ -15,8 +15,8 @@ import {
 } from "@/server/domain/audit.domain";
 
 import { ForbiddenError } from "@/server/utils/errors";
-import { UserRole } from "@/server/constants/user-role";
-import { UserStatus } from "@/server/constants/user-status";
+import type { UserRole } from "@/server/constants/user-role";
+import type { UserStatus } from "@/server/constants/user-status";
 
 
 type UserRoleValue = typeof UserRole[keyof typeof UserRole];

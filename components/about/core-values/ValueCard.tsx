@@ -1,5 +1,5 @@
 // app/about/_components/core-values/ValueCard.tsx
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 type ValueCardProps = {
   icon: ReactNode;

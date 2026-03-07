@@ -10,7 +10,7 @@ export default function VerifyEmailPage() {
 
   useEffect(() => {
     async function verify() {
-      console.log("Verifying token:", token);
+      //console.log("Verifying token:", token);
 
       // DEV MODE: assume success
       await new Promise((r) => setTimeout(r, 1000));

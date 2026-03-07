@@ -1,4 +1,4 @@
-import { RateLimitStore } from "./store";
+import type { RateLimitStore } from "./store";
 
 type Entry = {
   count: number;

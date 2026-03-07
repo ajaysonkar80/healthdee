@@ -1,5 +1,5 @@
-import { ConsultationMode } from "@/db/schema";
-import { AppointmentStatus } from "@/db/schema";
+import type { ConsultationMode } from "@/db/schema";
+import type { AppointmentStatus } from "@/db/schema";
 
 /* ======================================================
    Errors

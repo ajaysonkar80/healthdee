@@ -1,4 +1,4 @@
-import { ConsentStatus } from "@/db/schema";
+import type { ConsentStatus } from "@/db/schema";
 
 /* ======================================================
    Errors

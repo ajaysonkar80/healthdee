@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 type Appointment = {
   id: string;
@@ -13,7 +13,7 @@ type Appointment = {
 
 export default function AppointmentDetailsPage() {
   const { id } = useParams<{ id: string }>();
-  const router = useRouter();
+  //const router = useRouter();
 
   const [appointment, setAppointment] = useState<Appointment | null>(null);
   const [loading, setLoading] = useState(true);

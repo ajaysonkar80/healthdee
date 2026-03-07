@@ -1,10 +1,10 @@
-import { AppointmentStatus } from "@/db/schema";
-
+import type { AppointmentStatus } from "@/db/schema";
+import { ValidationError } from "@/server/utils/errors";
 /* ======================================================
    Errors
 ====================================================== */
 
-export class AppointmentDomainError extends Error {
+export class AppointmentDomainError extends ValidationError {
   constructor(message: string) {
     super(message);
     this.name = "AppointmentDomainError";

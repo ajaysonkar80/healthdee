@@ -1,5 +1,6 @@
 import { TableCell, TableRow } from "@/components/ui/table";
-import { VerificationStatusBadge, VerificationStatus } from "./VerificationStatusBadge";
+import type { VerificationStatus } from "./VerificationStatusBadge";
+import { VerificationStatusBadge } from "./VerificationStatusBadge";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {

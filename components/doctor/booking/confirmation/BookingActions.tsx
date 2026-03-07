@@ -13,11 +13,11 @@ export default function BookingActions({
   status,
 }: BookingActionsProps) {
   const handleAddToCalendar = () => {
-    console.log("Add to calendar", appointmentId);
+    //console.log("Add to calendar", appointmentId);
   };
 
   const handleGetDirections = () => {
-    console.log("Get directions");
+    //console.log("Get directions");
   };
 
   if (status === "CANCELLED") return null;

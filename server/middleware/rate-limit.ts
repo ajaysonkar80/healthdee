@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { error } from "@/server/http/response";
 import { MemoryRateLimitStore } from "@/server/rate-limit/memory-store";
 import { SQLiteRateLimitStore } from "@/server/rate-limit/sqlite-store";

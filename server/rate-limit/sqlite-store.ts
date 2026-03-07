@@ -1,4 +1,4 @@
-import { RateLimitStore } from "./store";
+import type { RateLimitStore } from "./store";
 import { db } from "@/db";
 import { rateLimits } from "@/db/schema";
 import { eq } from "drizzle-orm";

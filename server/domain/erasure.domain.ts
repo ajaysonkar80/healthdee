@@ -1,4 +1,4 @@
-import { ErasureStatus } from "@/db/schema";
+import type { ErasureStatus } from "@/db/schema";
 
 /* ======================================================
    Errors

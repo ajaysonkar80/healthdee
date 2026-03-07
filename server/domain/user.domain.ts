@@ -1,4 +1,4 @@
-import { UserRole, UserStatus } from "@/db/schema";
+import type { UserRole, UserStatus } from "@/db/schema";
 
 /* ======================================================
    Errors

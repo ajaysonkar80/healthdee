@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, InputHTMLAttributes } from "react";
+import type { InputHTMLAttributes } from "react";
+import { useState } from "react";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label: string;

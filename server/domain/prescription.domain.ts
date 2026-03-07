@@ -1,4 +1,4 @@
-import { ScheduleClass } from "@/db/schema";
+import type { ScheduleClass } from "@/db/schema";
 
 /* ======================================================
    Errors

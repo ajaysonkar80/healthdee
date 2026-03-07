@@ -2,7 +2,8 @@
 import { db } from "@/db";
 import * as schema from "@/db/schema";
 import { sql } from "drizzle-orm";
-import { RepositoryError, PaginationParams } from "./user.repo";
+import type { PaginationParams } from "./user.repo";
+import { RepositoryError } from "./user.repo";
 
 /* -----------------------------------------------------
    Helpers

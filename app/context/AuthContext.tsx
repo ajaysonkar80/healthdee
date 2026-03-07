@@ -1,14 +1,16 @@
 "use client";
 
+import type {
+  ReactNode} from "react";
 import {
   createContext,
   useContext,
   useEffect,
-  useState,
-  ReactNode,
+  useState
 } from "react";
 import { useRouter } from "next/navigation";
-import { authService, AuthUser } from "@/app/services/auth.service";
+import type { AuthUser } from "@/app/services/auth.service";
+import { authService } from "@/app/services/auth.service";
 
 /* ======================================================
    Types

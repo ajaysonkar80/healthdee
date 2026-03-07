@@ -1,6 +1,6 @@
 // server/policies/fields/patient.fields.ts
 
-import { AuthUser } from '../roles';
+import type { AuthUser } from '../roles';
 import { isAdmin } from '../guards/isAdmin';
 
 /**

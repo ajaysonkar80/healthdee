@@ -5,7 +5,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ClinicTableRow, ClinicRowData } from "./ClinicTableRow";
+import type { ClinicRowData } from "./ClinicTableRow";
+import { ClinicTableRow } from "./ClinicTableRow";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface ClinicTableProps {

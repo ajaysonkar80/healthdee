@@ -1,6 +1,6 @@
 // app/api/appointments/route.ts
 
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { withAuth, withErrorHandling } from "@/server/http/route-helpers";
 import { success } from "@/server/http/response";
 

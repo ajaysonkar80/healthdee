@@ -5,257 +5,325 @@ import { generateSlots } from "@/lib/utils/slot";
 import { useRouter } from "next/navigation";
 
 type Availability = {
-  dayOfWeek: number;
-  startTime: string;
-  endTime: string;
-  isActive: boolean;
+dayOfWeek: number;
+startTime: string;
+endTime: string;
+isActive: boolean;
 };
 
 type Appointment = {
-  scheduledAt: string;
+scheduledAt: string;
 };
 
 type Props = {
-  doctorId: string;
+doctorId: string;
+mode?: "create" | "reschedule";
+appointmentId?: string;
+onSuccessAction?: () => void;
 };
 
-export default function BookingPanel({ doctorId }: Props) {
-  const router = useRouter();
-  console.log("DoctorId:", doctorId);
-  const [availability, setAvailability] = useState<Availability[]>([]);
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [booking, setBooking] = useState(false);
+export default function BookingPanel({
+doctorId,
+mode = "create",
+appointmentId,
+onSuccessAction,
+}: Props) {
 
-  /* =====================================================
-     Fetch availability + appointments
-  ====================================================== */
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const [availabilityRes, appointmentsRes] = await Promise.all([
-          fetch(`/api/doctors/${doctorId}/availability-public`),
-          fetch(`/api/doctors/${doctorId}/appointments-public`),
-        ]);
+const router = useRouter();
 
-        const availabilityJson = await availabilityRes.json();
-        const appointmentsJson = await appointmentsRes.json();
+const [availability, setAvailability] = useState<Availability[]>([]);
+const [appointments, setAppointments] = useState<Appointment[]>([]);
+const [selectedDate, setSelectedDate] = useState<string | null>(null);
+const [selectedTime, setSelectedTime] = useState<string | null>(null);
+const [loading, setLoading] = useState(true);
+const [booking, setBooking] = useState(false);
 
-        // IMPORTANT: Extract .data
-        setAvailability(
-          Array.isArray(availabilityJson.data)
-            ? availabilityJson.data
-            : []
-        );
+/* ================= FETCH DATA ================= */
 
-        setAppointments(
-          Array.isArray(appointmentsJson.data)
-            ? appointmentsJson.data
-            : []
-        );
-      } catch (error) {
-        console.error("Failed to load booking data:", error);
-        setAvailability([]);
-        setAppointments([]);
-      } finally {
-        setLoading(false);
-      }
-    }
+useEffect(() => {
+async function fetchData() {
+try {
+const [availabilityRes, appointmentsRes] = await Promise.all([
+fetch(`/api/doctors/${doctorId}/availability-public`),
+fetch(`/api/doctors/${doctorId}/appointments-public`),
+]);
 
-    fetchData();
-  }, [doctorId]);
+const availabilityJson = await availabilityRes.json();
+const appointmentsJson = await appointmentsRes.json();
 
-  /* =====================================================
-     Generate next 30 days
-  ====================================================== */
-  const next30Days = useMemo(() => {
-    const days: Date[] = [];
-    const now = new Date();
+setAvailability(
+Array.isArray(availabilityJson.data) ? availabilityJson.data : []
+);
 
-    for (let i = 0; i < 30; i++) {
-      const d = new Date();
-      d.setDate(now.getDate() + i);
-      days.push(d);
-    }
+setAppointments(
+Array.isArray(appointmentsJson.data) ? appointmentsJson.data : []
+);
+} catch (error) {
+console.error("Failed to load booking data:", error);
+} finally {
+setLoading(false);
+}
+}
 
-    return days;
-  }, []);
+fetchData();
+}, [doctorId]);
 
-  /* =====================================================
-     Check if day has availability
-  ====================================================== */
-  function isDayAvailable(date: Date) {
-    if (!Array.isArray(availability)) return false;
+/* ================= NEXT 30 DAYS ================= */
 
-    const dayOfWeek = date.getDay();
+const next30Days = useMemo(() => {
+const days: Date[] = [];
+const now = new Date();
 
-    const dayAvailability = availability.find(
-      (a) => a.dayOfWeek === dayOfWeek && a.isActive
-    );
+for (let i = 0; i < 30; i++) {
+const d = new Date();
+d.setDate(now.getDate() + i);
+days.push(d);
+}
 
-    return !!dayAvailability;
-  }
+return days;
+}, []);
 
-  /* =====================================================
-     Generate slots for selected day
-  ====================================================== */
-  const availableSlots = useMemo(() => {
-    if (!selectedDate) return [];
+/* ================= CHECK DAY AVAILABILITY ================= */
 
-    const date = new Date(selectedDate);
-    const dayOfWeek = date.getDay();
+function isDayAvailable(date: Date) {
+const dayOfWeek = date.getDay();
 
-    const dayAvailability = availability.find(
-      (a) => a.dayOfWeek === dayOfWeek && a.isActive
-    );
+const dayAvailability = availability.find(
+(a) => a.dayOfWeek === dayOfWeek && a.isActive
+);
 
-    if (!dayAvailability) return [];
+return !!dayAvailability;
+}
 
-    return generateSlots(
-      dayAvailability.startTime,
-      dayAvailability.endTime,
-      30
-    );
-  }, [selectedDate, availability]);
+/* ================= SLOT GENERATION ================= */
 
-  /* =====================================================
-     Disable logic
-  ====================================================== */
-  function isSlotDisabled(time: string) {
-    if (!selectedDate) return true;
+const availableSlots = useMemo(() => {
+if (!selectedDate) return [];
 
-    const now = new Date();
-    const slotDateTime = new Date(`${selectedDate}T${time}:00`);
+const date = new Date(selectedDate);
+const dayOfWeek = date.getDay();
 
-    // Disable past times
-    if (slotDateTime < now) return true;
+const dayAvailability = availability.find(
+(a) => a.dayOfWeek === dayOfWeek && a.isActive
+);
 
-    // Disable already booked times
-    const isBooked = appointments.some((a) => {
-      const booked = new Date(a.scheduledAt);
+if (!dayAvailability) return [];
 
-      return (
-        booked.toISOString().slice(0, 16) ===
-        slotDateTime.toISOString().slice(0, 16)
-      );
-    });
+return generateSlots(
+dayAvailability.startTime,
+dayAvailability.endTime,
+30
+);
+}, [selectedDate, availability]);
 
-    return isBooked;
-  }
+/* ================= DISABLE LOGIC ================= */
 
-  /* =====================================================
-     Booking
-  ====================================================== */
-  async function handleBooking() {
-    if (!selectedDate || !selectedTime) return;
+function isSlotDisabled(time: string) {
+if (!selectedDate) return true;
 
-    setBooking(true);
+const now = new Date();
+const slotDateTime = new Date(`${selectedDate}T${time}:00`);
 
-    try {
-      const scheduledAt = new Date(
-        `${selectedDate}T${selectedTime}:00`
-      ).toISOString();
+if (slotDateTime < now) return true;
 
-      const res = await fetch("/api/appointments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          doctorId,
-          scheduledAt,
-        }),
-      });
+const isBooked = appointments.some((a) => {
+const booked = new Date(a.scheduledAt);
 
-      const data = await res.json();
+return (
+booked.toISOString().slice(0, 16) ===
+slotDateTime.toISOString().slice(0, 16)
+);
+});
 
-      if (res.ok && data?.data?.id) {
-        router.push(
-          `/doctors/booking/confirmation?appointmentId=${data.data.id}`
-        );
-      } else {
-        alert("Booking failed");
-      }
-    } catch (error) {
-      console.error("Booking error:", error);
-      alert("Booking failed");
-    } finally {
-      setBooking(false);
-    }
-  }
+return isBooked;
+}
 
-  if (loading) {
-    return <div className="border p-6 rounded">Loading...</div>;
-  }
+/* ================= BOOK / RESCHEDULE ================= */
 
-  return (
-    <div className="border p-6 rounded-lg space-y-6 sticky top-6">
-      <h2 className="text-xl font-semibold">Book Appointment</h2>
+async function handleBooking() {
+if (!selectedDate || !selectedTime) return;
 
-      {/* ================= DATE SELECTOR ================= */}
-      <div className="flex gap-2 overflow-x-auto pb-2">
-        {next30Days.map((date) => {
-          const iso = date.toISOString().split("T")[0];
-          const disabled = !isDayAvailable(date);
+setBooking(true);
 
-          return (
-            <button
-              key={iso}
-              disabled={disabled}
-              onClick={() => {
-                setSelectedDate(iso);
-                setSelectedTime(null);
-              }}
-              className={`px-3 py-2 rounded border whitespace-nowrap ${
-                selectedDate === iso
-                  ? "bg-blue-600 text-white"
-                  : "bg-white"
-              } ${disabled ? "opacity-40 cursor-not-allowed" : ""}`}
-            >
-              {date.toDateString().slice(0, 10)}
-            </button>
-          );
-        })}
-      </div>
+try {
 
-      {/* ================= TIME SLOTS ================= */}
-      {selectedDate && (
-        <div className="grid grid-cols-3 gap-2">
-          {availableSlots.map((time) => {
-            const disabled = isSlotDisabled(time);
+const scheduledAt = new Date(
+`${selectedDate}T${selectedTime}:00`
+).toISOString();
 
-            return (
-              <button
-                key={time}
-                disabled={disabled}
-                onClick={() => setSelectedTime(time)}
-                className={`py-2 rounded border ${
-                  selectedTime === time
-                    ? "bg-blue-600 text-white"
-                    : "bg-white"
-                } ${
-                  disabled
-                    ? "opacity-40 cursor-not-allowed"
-                    : ""
-                }`}
-              >
-                {time}
-              </button>
-            );
-          })}
-        </div>
-      )}
+/* CREATE */
 
-      {/* ================= BOOK BUTTON ================= */}
-      <button
-        disabled={!selectedTime || booking}
-        onClick={handleBooking}
-        className="w-full bg-blue-600 text-white py-3 rounded disabled:opacity-50"
-      >
-        {booking ? "Booking..." : "Book Appointment"}
-      </button>
-    </div>
-  );
+if (mode === "create") {
+
+const res = await fetch("/api/appointments", {
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+},
+body: JSON.stringify({
+doctorId,
+scheduledAt,
+}),
+});
+
+const data = await res.json();
+
+if (res.ok && data?.data?.id) {
+router.push(
+`/doctors/booking/confirmation?appointmentId=${data.data.id}`
+);
+} else {
+alert("Booking failed");
+}
+
+return;
+}
+
+/* RESCHEDULE */
+
+const res = await fetch(
+`/api/appointments/${appointmentId}/reschedule`,
+{
+method: "PATCH",
+headers: {
+"Content-Type": "application/json",
+},
+body: JSON.stringify({
+scheduledAt,
+}),
+}
+);
+
+if (!res.ok) {
+const err = await res.json();
+throw new Error(err?.error?.message ?? "Reschedule failed");
+}
+
+onSuccessAction?.();
+
+} catch (error) {
+console.error("Booking error:", error);
+alert("Booking failed");
+} finally {
+setBooking(false);
+}
+}
+
+/* ================= LOADING ================= */
+
+if (loading) {
+return (
+
+<div className="flex justify-center py-10 text-sm text-gray-500">
+Loading available slots...
+</div>
+);
+}
+
+/* ================= PANEL STYLE ================= */
+
+const containerClass =
+mode === "create"
+? "border p-6 rounded-lg space-y-6 sticky top-6"
+: "space-y-6 max-w-md mx-auto";
+
+/* ================= UI ================= */
+
+return (
+
+<div className={containerClass}>
+
+<h2 className="text-lg font-semibold">
+{mode === "reschedule"
+? "Choose a new time slot"
+: "Book Appointment"}
+</h2>
+
+{/* DATE SELECTOR */}
+
+<div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+
+{next30Days.map((date) => {
+
+const iso = date.toISOString().split("T")[0];
+const disabled = !isDayAvailable(date);
+
+return (
+<button
+key={iso}
+disabled={disabled}
+onClick={() => {
+setSelectedDate(iso);
+setSelectedTime(null);
+}}
+className={`min-w-22.5 px-3 py-2 rounded-md border text-sm font-medium whitespace-nowrap transition
+${selectedDate === iso
+? "bg-blue-600 text-white border-blue-600"
+: "bg-white hover:bg-gray-50"}
+${disabled ? "opacity-40 cursor-not-allowed" : ""}
+`}
+
+>
+
+{date.toDateString().slice(0, 10)} </button>
+);
+})}
+
+</div>
+
+{/* TIME SLOTS */}
+
+{selectedDate && (
+
+<div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+
+{availableSlots.map((time) => {
+
+const disabled = isSlotDisabled(time);
+
+return (
+<button
+key={time}
+disabled={disabled}
+onClick={() => setSelectedTime(time)}
+className={`py-3 rounded-md border text-sm font-medium transition w-full
+${selectedTime === time
+? "bg-blue-600 text-white border-blue-600"
+: "bg-white hover:bg-gray-50"}
+${disabled
+? "opacity-40 cursor-not-allowed"
+: ""}
+`}
+
+>
+
+{time} </button>
+);
+})}
+
+</div>
+
+)}
+
+{/* CTA BUTTON */}
+
+<button
+disabled={!selectedTime || booking}
+onClick={handleBooking}
+className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition disabled:opacity-50"
+
+>
+
+{booking
+? mode === "reschedule"
+? "Rescheduling..."
+: "Booking..."
+: mode === "reschedule"
+? "Reschedule Appointment"
+: "Book Appointment"}
+
+</button>
+
+</div>
+);
 }

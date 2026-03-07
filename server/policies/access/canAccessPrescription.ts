@@ -1,8 +1,8 @@
 // server/policies/access/canAccessPrescription.ts
 
-import { AuthUser } from '../roles';
+import type { AuthUser } from '../roles';
 import { isAdmin } from '../guards/isAdmin';
-import {
+import type {
   PrescriptionRepository,
   DoctorRepository,
 } from '../repositories';

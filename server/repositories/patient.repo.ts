@@ -6,7 +6,8 @@ import {
   sql,
   isNotNull,
 } from "drizzle-orm";
-import { RepositoryError, PaginationParams } from "./user.repo";
+import type { PaginationParams } from "./user.repo";
+import { RepositoryError } from "./user.repo";
 
 /* -----------------------------------------------------
    Helpers

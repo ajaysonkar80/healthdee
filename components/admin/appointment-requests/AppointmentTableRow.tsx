@@ -1,9 +1,10 @@
 "use client";
 
 import { TableCell, TableRow } from "@/components/ui/table";
+import type {
+  AppointmentStatus} from "./AppointmentStatusBadge";
 import {
-  AppointmentStatusBadge,
-  AppointmentStatus,
+  AppointmentStatusBadge
 } from "./AppointmentStatusBadge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MoreHorizontal } from "lucide-react";

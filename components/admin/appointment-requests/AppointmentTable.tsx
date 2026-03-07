@@ -6,9 +6,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent } from "@/components/ui/card";
+import type {
+  AppointmentRowData} from "./AppointmentTableRow";
 import {
-  AppointmentTableRow,
-  AppointmentRowData,
+  AppointmentTableRow
 } from "./AppointmentTableRow";
 
 interface AppointmentTableProps {

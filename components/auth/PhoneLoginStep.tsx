@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import type { z } from "zod";
 import { phoneLoginSchema } from "@/lib/validators";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,7 @@ export function PhoneLoginStep({
   });
 
   function onSubmit(data: FormData) {
-    console.log("SEND LOGIN OTP TO:", data.phone);
+    //console.log("SEND LOGIN OTP TO:", data.phone);
     onOtpSentAction(data.phone);
   }
 

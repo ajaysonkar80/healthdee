@@ -1,6 +1,6 @@
 // server/policies/repositories.ts
 
-import {
+import type {
   DoctorIdentity,
   AppointmentIdentity,
   PrescriptionIdentity,

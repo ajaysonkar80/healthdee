@@ -1,9 +1,9 @@
 // server/policies/access/canAccessUser.ts
 
-import { AuthUser } from '../roles';
+import type { AuthUser } from '../roles';
 import { isAdmin } from '../guards/isAdmin';
 import { isDoctor } from '../guards/isDoctor';
-import {
+import type {
   DoctorRepository,
   AppointmentRepository,
 } from '../repositories';

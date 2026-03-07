@@ -2,7 +2,7 @@
 
 import type { InferSelectModel } from 'drizzle-orm';
 
-import { doctors,users,appointments,prescriptions } from '@/db/schema';
+import type { doctors,users,appointments,prescriptions } from '@/db/schema';
 
 /**
  * Core row types (exactly match DB schema)

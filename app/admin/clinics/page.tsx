@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ClinicStats } from "@/components/admin/clinic/ClinicStats";
 import { ClinicTable } from "@/components/admin/clinic/ClinicTable";
 import { ClinicPagination } from "@/components/admin/clinic/ClinicPagination";
-import { ClinicRowData } from "@/components/admin/clinic/ClinicTableRow";
+import type { ClinicRowData } from "@/components/admin/clinic/ClinicTableRow";
 
 const clinics: ClinicRowData[] = [
   {

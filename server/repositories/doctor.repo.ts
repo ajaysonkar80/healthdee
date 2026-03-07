@@ -2,7 +2,8 @@
 import { db } from "@/db";
 import * as schema from "@/db/schema";
 import { and, eq, like, or, sql } from "drizzle-orm";
-import { RepositoryError, PaginationParams } from "./user.repo";
+import type { PaginationParams } from "./user.repo";
+import { RepositoryError } from "./user.repo";
 import { doctorAvailability } from "@/db/schema";
 //import { doctorReviews } from "@/db/schema";
 /* -----------------------------------------------------

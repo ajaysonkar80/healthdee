@@ -1,4 +1,4 @@
-import { DoctorVerificationStatus } from "@/db/schema";
+import type { DoctorVerificationStatus } from "@/db/schema";
 
 /* ======================================================
    Errors

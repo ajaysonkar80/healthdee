@@ -1,7 +1,8 @@
 // server/policies/ability.ts
 
-import { ACTIONS, Action, Subject, getRolePermissions } from './permissions'
-import { AuthUser } from './roles';
+import type { Action, Subject} from './permissions';
+import { ACTIONS, getRolePermissions } from './permissions'
+import type { AuthUser } from './roles';
 
 export class Ability {
   private readonly permissions;

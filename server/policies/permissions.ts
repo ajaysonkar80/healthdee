@@ -1,6 +1,7 @@
 // server/policies/permissions.ts
 
-import { ROLES, Role, assertValidRole } from './roles';
+import type { Role} from './roles';
+import { ROLES, assertValidRole } from './roles';
 
 /**
  * Actions supported by the system

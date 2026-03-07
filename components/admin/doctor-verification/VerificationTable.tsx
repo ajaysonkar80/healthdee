@@ -6,7 +6,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent } from "@/components/ui/card";
-import { VerificationTableRow, VerificationRowData } from "./VerificationTableRow";
+import type { VerificationRowData } from "./VerificationTableRow";
+import { VerificationTableRow } from "./VerificationTableRow";
 
 interface VerificationTableProps {
   data: VerificationRowData[];

@@ -1,6 +1,6 @@
 import { Card,CardContent,CardHeader } from "../ui/card";
 import { Badge } from "../ui/badge";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 type StatsCardProps = {
   title: string;

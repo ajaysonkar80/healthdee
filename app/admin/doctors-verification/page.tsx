@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { VerificationFilters } from "@/components/admin/doctor-verification/VerificationFilters";
 import { VerificationTable } from "@/components/admin/doctor-verification/VerificationTable";
 import { VerificationPagination } from "@/components/admin/doctor-verification/VerificationPagination";
-import { VerificationRowData } from "@/components/admin/doctor-verification/VerificationTableRow";
+import type { VerificationRowData } from "@/components/admin/doctor-verification/VerificationTableRow";
 import { Download } from "lucide-react";
 
 const verificationRequests: VerificationRowData[] = [
