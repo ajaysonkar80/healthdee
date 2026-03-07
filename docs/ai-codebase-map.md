@@ -1,10 +1,10 @@
 # AI Codebase Map & 2-Week Prioritized Completion Plan
 
-> Update note (2026-02-27): Refreshed structure references and regenerated the per-file index to match the current tracked repository state.
+> Update note (2026-03-07): Refreshed structure references and regenerated the per-file index to match the current tracked repository state.
 
-## Incremental Refresh Notes (2026-02-27)
+## Incremental Refresh Notes (2026-03-07)
 - Regenerated `docs/folder-structure.md` from the current `git ls-files` output.
-- Rebuilt the per-file analysis index in this document to remove stale entries and include current files.
+- Rebuilt the per-file analysis index in this document for all 397 tracked files.
 - Kept implementation guidance (flows, extension rules, and priorities) aligned with the present App Router + server-layer architecture.
 
 ## 2-Week Prioritized Completion Plan
@@ -295,28 +295,6 @@ Side effects:
 
 ---
 
-FILE: .eslintrc.json
-
-Purpose:
-- Project configuration, lockfile, or workspace metadata.
-
-Inputs:
-- Determined by imports/callers for this file within its module boundary.
-
-Outputs:
-- Exposes behavior, UI, or configuration consumed by adjacent layers.
-
-Dependencies:
-- See direct imports/usages in `.eslintrc.json`.
-
-Invariants:
-- Must remain consistent with the repository architecture and coding conventions.
-
-Side effects:
-- Depends on implementation in `.eslintrc.json` (pure rendering, IO, DB access, or runtime setup).
-
----
-
 FILE: .gitignore
 
 Purpose:
@@ -408,7 +386,7 @@ Side effects:
 FILE: ai-tree/tree-app.txt
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -430,7 +408,7 @@ Side effects:
 FILE: ai-tree/tree-db.txt
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -452,7 +430,7 @@ Side effects:
 FILE: ai-tree/tree-hooks.txt
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -474,7 +452,7 @@ Side effects:
 FILE: ai-tree/tree-lib.txt
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -496,7 +474,7 @@ Side effects:
 FILE: ai-tree/tree-root.txt
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -518,7 +496,7 @@ Side effects:
 FILE: ai-tree/tree-server.txt
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -540,7 +518,7 @@ Side effects:
 FILE: ajaygit.txt
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -562,7 +540,7 @@ Side effects:
 FILE: ajaygit.txt.pub
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -584,7 +562,7 @@ Side effects:
 FILE: app/(public)/(login-signup)/forgot-password/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -606,7 +584,7 @@ Side effects:
 FILE: app/(public)/(login-signup)/layout.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -628,7 +606,7 @@ Side effects:
 FILE: app/(public)/(login-signup)/login/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -650,7 +628,7 @@ Side effects:
 FILE: app/(public)/(login-signup)/reset-password/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -672,7 +650,7 @@ Side effects:
 FILE: app/(public)/(login-signup)/signup/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -694,7 +672,7 @@ Side effects:
 FILE: app/(public)/(login-signup)/verify-email/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -716,7 +694,7 @@ Side effects:
 FILE: app/(public)/about/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -738,7 +716,7 @@ Side effects:
 FILE: app/(public)/doctor-privacy-policy/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -760,7 +738,7 @@ Side effects:
 FILE: app/(public)/healthcare-provider-terms/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -782,7 +760,7 @@ Side effects:
 FILE: app/(public)/help/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -804,7 +782,7 @@ Side effects:
 FILE: app/(public)/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -826,7 +804,7 @@ Side effects:
 FILE: app/(public)/policies/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -848,7 +826,7 @@ Side effects:
 FILE: app/(public)/privacy-policy/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -870,7 +848,7 @@ Side effects:
 FILE: app/(public)/select-role/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -892,7 +870,7 @@ Side effects:
 FILE: app/(public)/terms-and-conditions/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -914,7 +892,7 @@ Side effects:
 FILE: app/Header.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -933,10 +911,32 @@ Side effects:
 
 ---
 
+FILE: app/admin/appointment-requests/AppointmentRequestsClient.tsx
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/admin/appointment-requests/AppointmentRequestsClient.tsx`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `app/admin/appointment-requests/AppointmentRequestsClient.tsx` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: app/admin/appointment-requests/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -958,7 +958,7 @@ Side effects:
 FILE: app/admin/clinics/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -980,7 +980,7 @@ Side effects:
 FILE: app/admin/dashboard/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1002,7 +1002,7 @@ Side effects:
 FILE: app/admin/doctor/[doctorId]/edit/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1024,7 +1024,7 @@ Side effects:
 FILE: app/admin/doctor/create/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1046,7 +1046,7 @@ Side effects:
 FILE: app/admin/doctor/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1068,7 +1068,7 @@ Side effects:
 FILE: app/admin/doctors-verification/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1090,7 +1090,7 @@ Side effects:
 FILE: app/admin/layout.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1112,7 +1112,7 @@ Side effects:
 FILE: app/admin/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1134,7 +1134,7 @@ Side effects:
 FILE: app/admin/settings/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1156,7 +1156,7 @@ Side effects:
 FILE: app/admin/users/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1178,7 +1178,7 @@ Side effects:
 FILE: app/api/admin/metrics/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1200,7 +1200,7 @@ Side effects:
 FILE: app/api/appointments/[id]/cancel/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1222,7 +1222,7 @@ Side effects:
 FILE: app/api/appointments/[id]/complete/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1244,7 +1244,7 @@ Side effects:
 FILE: app/api/appointments/[id]/confirm/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1266,7 +1266,7 @@ Side effects:
 FILE: app/api/appointments/[id]/reschedule/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1288,7 +1288,7 @@ Side effects:
 FILE: app/api/appointments/[id]/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1310,7 +1310,7 @@ Side effects:
 FILE: app/api/appointments/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1332,7 +1332,7 @@ Side effects:
 FILE: app/api/auth/login/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1354,7 +1354,7 @@ Side effects:
 FILE: app/api/auth/logout/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1376,7 +1376,7 @@ Side effects:
 FILE: app/api/auth/me/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1398,7 +1398,7 @@ Side effects:
 FILE: app/api/auth/otp/request/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1420,7 +1420,7 @@ Side effects:
 FILE: app/api/auth/otp/verify/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1442,7 +1442,7 @@ Side effects:
 FILE: app/api/auth/password/forgot/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1464,7 +1464,7 @@ Side effects:
 FILE: app/api/auth/password/reset/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1486,7 +1486,7 @@ Side effects:
 FILE: app/api/auth/refresh/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1508,7 +1508,7 @@ Side effects:
 FILE: app/api/auth/register/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1530,7 +1530,7 @@ Side effects:
 FILE: app/api/doctor/availability/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1552,7 +1552,7 @@ Side effects:
 FILE: app/api/doctors/[id]/appointments-public/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1574,7 +1574,7 @@ Side effects:
 FILE: app/api/doctors/[id]/availability-public/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1596,7 +1596,7 @@ Side effects:
 FILE: app/api/doctors/[id]/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1618,7 +1618,7 @@ Side effects:
 FILE: app/api/doctors/[id]/verify/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1640,7 +1640,7 @@ Side effects:
 FILE: app/api/doctors/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1662,7 +1662,7 @@ Side effects:
 FILE: app/api/health/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1684,7 +1684,7 @@ Side effects:
 FILE: app/api/patients/[id]/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1706,7 +1706,7 @@ Side effects:
 FILE: app/api/patients/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1728,7 +1728,7 @@ Side effects:
 FILE: app/api/users/[id]/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1750,7 +1750,7 @@ Side effects:
 FILE: app/api/users/route.ts
 
 Purpose:
-- API route handler for HTTP request/response orchestration.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1772,7 +1772,7 @@ Side effects:
 FILE: app/clinics/[id]/ClinicDetails.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1794,7 +1794,7 @@ Side effects:
 FILE: app/clinics/[id]/ClinicDoctors.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1816,7 +1816,7 @@ Side effects:
 FILE: app/clinics/[id]/ClinicHero.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1838,7 +1838,7 @@ Side effects:
 FILE: app/clinics/[id]/ClinicPageLayout.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1860,7 +1860,7 @@ Side effects:
 FILE: app/clinics/[id]/ClinicServices.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1882,7 +1882,7 @@ Side effects:
 FILE: app/clinics/[id]/ClinicSidebar.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1904,7 +1904,7 @@ Side effects:
 FILE: app/clinics/[id]/ClinicSummary.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1926,7 +1926,7 @@ Side effects:
 FILE: app/clinics/[id]/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1948,7 +1948,7 @@ Side effects:
 FILE: app/clinics/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1970,7 +1970,7 @@ Side effects:
 FILE: app/context/AuthContext.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1992,7 +1992,7 @@ Side effects:
 FILE: app/doctor/appointments/[id]/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2014,7 +2014,7 @@ Side effects:
 FILE: app/doctor/appointments/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2036,7 +2036,7 @@ Side effects:
 FILE: app/doctor/availability/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2058,7 +2058,7 @@ Side effects:
 FILE: app/doctor/dashboard/error.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2080,7 +2080,7 @@ Side effects:
 FILE: app/doctor/dashboard/loading.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2102,7 +2102,7 @@ Side effects:
 FILE: app/doctor/dashboard/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2124,7 +2124,7 @@ Side effects:
 FILE: app/doctor/earnings/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2146,7 +2146,7 @@ Side effects:
 FILE: app/doctor/layout.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2168,7 +2168,7 @@ Side effects:
 FILE: app/doctor/onboarding/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2190,7 +2190,7 @@ Side effects:
 FILE: app/doctor/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2212,7 +2212,7 @@ Side effects:
 FILE: app/doctor/prescriptions/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2234,7 +2234,7 @@ Side effects:
 FILE: app/doctor/settings/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2256,7 +2256,7 @@ Side effects:
 FILE: app/doctor/verification/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2275,10 +2275,32 @@ Side effects:
 
 ---
 
+FILE: app/doctors/[publicId]/page.tsx
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/doctors/[publicId]/page.tsx`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `app/doctors/[publicId]/page.tsx` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: app/doctors/booking/confirmation/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2300,7 +2322,7 @@ Side effects:
 FILE: app/doctors/booking/layout.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2319,10 +2341,10 @@ Side effects:
 
 ---
 
-FILE: app/doctors/booking/page.tsx
+FILE: app/doctors/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2331,20 +2353,20 @@ Outputs:
 - Exposes behavior, UI, or configuration consumed by adjacent layers.
 
 Dependencies:
-- See direct imports/usages in `app/doctors/booking/page.tsx`.
+- See direct imports/usages in `app/doctors/page.tsx`.
 
 Invariants:
 - Must remain consistent with the repository architecture and coding conventions.
 
 Side effects:
-- Depends on implementation in `app/doctors/booking/page.tsx` (pure rendering, IO, DB access, or runtime setup).
+- Depends on implementation in `app/doctors/page.tsx` (pure rendering, IO, DB access, or runtime setup).
 
 ---
 
 FILE: app/error.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2366,7 +2388,7 @@ Side effects:
 FILE: app/favicon.ico
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2388,7 +2410,7 @@ Side effects:
 FILE: app/globals.css
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2410,7 +2432,7 @@ Side effects:
 FILE: app/layout.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2432,7 +2454,7 @@ Side effects:
 FILE: app/loading.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2454,7 +2476,7 @@ Side effects:
 FILE: app/notfound.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2476,7 +2498,7 @@ Side effects:
 FILE: app/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2498,7 +2520,7 @@ Side effects:
 FILE: app/patient/appointments/book/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2520,7 +2542,7 @@ Side effects:
 FILE: app/patient/appointments/loading.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2542,7 +2564,7 @@ Side effects:
 FILE: app/patient/appointments/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2564,7 +2586,7 @@ Side effects:
 FILE: app/patient/danger-zone/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2586,7 +2608,7 @@ Side effects:
 FILE: app/patient/emergency-contacts/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2608,7 +2630,7 @@ Side effects:
 FILE: app/patient/layout.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2630,7 +2652,7 @@ Side effects:
 FILE: app/patient/notifications/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2652,7 +2674,7 @@ Side effects:
 FILE: app/patient/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2674,7 +2696,7 @@ Side effects:
 FILE: app/patient/profile/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2696,7 +2718,7 @@ Side effects:
 FILE: app/patient/records/page.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2718,7 +2740,7 @@ Side effects:
 FILE: app/services/auth.service.ts
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2740,7 +2762,7 @@ Side effects:
 FILE: app/types/auth.tsx
 
 Purpose:
-- Next.js App Router page/layout/component entry point.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2784,7 +2806,7 @@ Side effects:
 FILE: components/about/about-hero/AboutHero.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2806,7 +2828,7 @@ Side effects:
 FILE: components/about/about-hero/HeroContent.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2828,7 +2850,7 @@ Side effects:
 FILE: components/about/core-values/CoreValues.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2850,7 +2872,7 @@ Side effects:
 FILE: components/about/core-values/ValueCard.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2872,7 +2894,7 @@ Side effects:
 FILE: components/about/final-cta/FinalCTA.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2894,7 +2916,7 @@ Side effects:
 FILE: components/about/impact-stats/ImpactCard.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2916,7 +2938,7 @@ Side effects:
 FILE: components/about/impact-stats/StatCard.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2938,7 +2960,7 @@ Side effects:
 FILE: components/about/our-story/ImpactInlineStats.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2960,7 +2982,7 @@ Side effects:
 FILE: components/about/our-story/OurStory.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2982,7 +3004,7 @@ Side effects:
 FILE: components/about/our-story/StoryContent.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3004,7 +3026,7 @@ Side effects:
 FILE: components/about/our-story/StoryImageCard.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3026,7 +3048,7 @@ Side effects:
 FILE: components/about/trust-badges/BadgeItem.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3048,7 +3070,7 @@ Side effects:
 FILE: components/about/trust-badges/TrustBadges.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3070,7 +3092,7 @@ Side effects:
 FILE: components/admin/AdminSidebar.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3092,7 +3114,7 @@ Side effects:
 FILE: components/admin/AdminTopBar.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3114,7 +3136,7 @@ Side effects:
 FILE: components/admin/RecentActivity.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3136,7 +3158,7 @@ Side effects:
 FILE: components/admin/StatsCard.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3158,7 +3180,7 @@ Side effects:
 FILE: components/admin/StatsGrid.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3180,7 +3202,7 @@ Side effects:
 FILE: components/admin/appointment-requests/AppointmentActionsMenu.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3202,7 +3224,7 @@ Side effects:
 FILE: components/admin/appointment-requests/AppointmentFilters.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3224,7 +3246,7 @@ Side effects:
 FILE: components/admin/appointment-requests/AppointmentPagination.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3246,7 +3268,7 @@ Side effects:
 FILE: components/admin/appointment-requests/AppointmentStatusBadge.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3268,7 +3290,7 @@ Side effects:
 FILE: components/admin/appointment-requests/AppointmentTable.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3290,7 +3312,7 @@ Side effects:
 FILE: components/admin/appointment-requests/AppointmentTableRow.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3312,7 +3334,7 @@ Side effects:
 FILE: components/admin/appointment-requests/PatientInfoCell.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3334,7 +3356,7 @@ Side effects:
 FILE: components/admin/clinic/ClinicPagination.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3356,7 +3378,7 @@ Side effects:
 FILE: components/admin/clinic/ClinicStatCard.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3378,7 +3400,7 @@ Side effects:
 FILE: components/admin/clinic/ClinicStats.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3400,7 +3422,7 @@ Side effects:
 FILE: components/admin/clinic/ClinicStatusBadge.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3422,7 +3444,7 @@ Side effects:
 FILE: components/admin/clinic/ClinicTable.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3444,7 +3466,7 @@ Side effects:
 FILE: components/admin/clinic/ClinicTableRow.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3466,7 +3488,7 @@ Side effects:
 FILE: components/admin/doctor-verification/DoctorsInfoCell.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3488,7 +3510,7 @@ Side effects:
 FILE: components/admin/doctor-verification/VerificationFilters.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3510,7 +3532,7 @@ Side effects:
 FILE: components/admin/doctor-verification/VerificationPagination.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3532,7 +3554,7 @@ Side effects:
 FILE: components/admin/doctor-verification/VerificationStatusBadge.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3554,7 +3576,7 @@ Side effects:
 FILE: components/admin/doctor-verification/VerificationTable.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3576,7 +3598,7 @@ Side effects:
 FILE: components/admin/doctor-verification/VerificationTableRow.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3598,7 +3620,7 @@ Side effects:
 FILE: components/admin/doctor-verification/VerificationsActionsMenu.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3620,7 +3642,7 @@ Side effects:
 FILE: components/admin/doctor/BulkHelpCards.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3642,7 +3664,7 @@ Side effects:
 FILE: components/admin/doctor/DoctorDeleteModal.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3664,7 +3686,7 @@ Side effects:
 FILE: components/admin/doctor/DoctorForm.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3686,7 +3708,7 @@ Side effects:
 FILE: components/admin/doctor/DoctorRowAction.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3708,7 +3730,7 @@ Side effects:
 FILE: components/admin/doctor/DoctorTable.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3730,7 +3752,7 @@ Side effects:
 FILE: components/admin/doctor/StatsCard.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3752,7 +3774,7 @@ Side effects:
 FILE: components/auth/EmailLoginStep.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3774,7 +3796,7 @@ Side effects:
 FILE: components/auth/EmailSignupStep.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3796,7 +3818,7 @@ Side effects:
 FILE: components/auth/EmailVerificationStep.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3818,7 +3840,7 @@ Side effects:
 FILE: components/auth/ForgetPasswordForm.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3840,7 +3862,7 @@ Side effects:
 FILE: components/auth/LoginForm.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3862,7 +3884,7 @@ Side effects:
 FILE: components/auth/LoginOtpStep.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3884,7 +3906,7 @@ Side effects:
 FILE: components/auth/LogoutButton.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3906,7 +3928,7 @@ Side effects:
 FILE: components/auth/OtpStep.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3928,7 +3950,7 @@ Side effects:
 FILE: components/auth/PhoneLoginStep.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3950,7 +3972,7 @@ Side effects:
 FILE: components/auth/PhoneSignupStep.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3972,7 +3994,7 @@ Side effects:
 FILE: components/auth/ResetPasswordForm.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3994,7 +4016,7 @@ Side effects:
 FILE: components/auth/SelectRoleForm.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4016,7 +4038,7 @@ Side effects:
 FILE: components/auth/SignupForm.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4038,7 +4060,7 @@ Side effects:
 FILE: components/doctor/DoctorCard.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4060,7 +4082,7 @@ Side effects:
 FILE: components/doctor/PrescriptionForm.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4082,7 +4104,7 @@ Side effects:
 FILE: components/doctor/appointment/AppointmentQueue.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4104,7 +4126,7 @@ Side effects:
 FILE: components/doctor/appointment/appointmentSlot.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4126,7 +4148,7 @@ Side effects:
 FILE: components/doctor/booking/AboutDoctor.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4148,7 +4170,7 @@ Side effects:
 FILE: components/doctor/booking/BookingPanel.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4170,7 +4192,7 @@ Side effects:
 FILE: components/doctor/booking/ClinicInfo.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4192,7 +4214,7 @@ Side effects:
 FILE: components/doctor/booking/DoctorProfile.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4214,7 +4236,7 @@ Side effects:
 FILE: components/doctor/booking/DoctorStats.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4236,7 +4258,7 @@ Side effects:
 FILE: components/doctor/booking/Reviews.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4258,7 +4280,7 @@ Side effects:
 FILE: components/doctor/booking/confirmation/AppointmentMeta.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4280,7 +4302,7 @@ Side effects:
 FILE: components/doctor/booking/confirmation/BookingActions.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4302,7 +4324,7 @@ Side effects:
 FILE: components/doctor/booking/confirmation/BookingConfirmationHero.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4324,7 +4346,7 @@ Side effects:
 FILE: components/doctor/booking/confirmation/BookingSummaryCard.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4346,7 +4368,7 @@ Side effects:
 FILE: components/doctor/booking/confirmation/DoctorSummary.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4368,7 +4390,7 @@ Side effects:
 FILE: components/doctor/booking/confirmation/ExpectationStep.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4390,7 +4412,7 @@ Side effects:
 FILE: components/doctor/booking/confirmation/SupportFooter.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4412,7 +4434,7 @@ Side effects:
 FILE: components/doctor/booking/confirmation/WhatToExpect.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4434,7 +4456,7 @@ Side effects:
 FILE: components/doctor/dashboard/CurrentlyConsulting.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4456,7 +4478,7 @@ Side effects:
 FILE: components/doctor/dashboard/Header.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4478,7 +4500,7 @@ Side effects:
 FILE: components/doctor/dashboard/Sidebar.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4500,7 +4522,7 @@ Side effects:
 FILE: components/doctor/dashboard/StatCard.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4522,7 +4544,7 @@ Side effects:
 FILE: components/doctor/dashboard/StatsSection.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4544,7 +4566,7 @@ Side effects:
 FILE: components/doctor/dashboard/UrgentNotifications.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4566,7 +4588,7 @@ Side effects:
 FILE: components/doctor/earnings/EarningsSummary.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4588,7 +4610,7 @@ Side effects:
 FILE: components/doctor/earnings/EarningsTable.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4610,7 +4632,7 @@ Side effects:
 FILE: components/doctor/prescriptions/PrescriptionsTable.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4632,7 +4654,7 @@ Side effects:
 FILE: components/doctor/settings/ClinicSettings.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4654,7 +4676,7 @@ Side effects:
 FILE: components/doctor/settings/NotificationSettings.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4676,7 +4698,7 @@ Side effects:
 FILE: components/doctor/settings/ProfileSettings.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4698,7 +4720,7 @@ Side effects:
 FILE: components/doctor/settings/SecuritySettings.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4717,10 +4739,120 @@ Side effects:
 
 ---
 
+FILE: components/doctors/DoctorsCard.tsx
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/doctors/DoctorsCard.tsx`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `components/doctors/DoctorsCard.tsx` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: components/doctors/DoctorsFilter.tsx
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/doctors/DoctorsFilter.tsx`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `components/doctors/DoctorsFilter.tsx` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: components/doctors/DoctorsList.tsx
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/doctors/DoctorsList.tsx`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `components/doctors/DoctorsList.tsx` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: components/doctors/DoctorsPagination.tsx
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/doctors/DoctorsPagination.tsx`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `components/doctors/DoctorsPagination.tsx` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: components/doctors/DoctorsTopBar.tsx
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/doctors/DoctorsTopBar.tsx`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `components/doctors/DoctorsTopBar.tsx` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: components/help/FAQAccordion.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4742,7 +4874,7 @@ Side effects:
 FILE: components/help/HelpTopicCard.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4764,7 +4896,7 @@ Side effects:
 FILE: components/home/CTASection.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4786,7 +4918,7 @@ Side effects:
 FILE: components/home/HeroSection.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4808,7 +4940,7 @@ Side effects:
 FILE: components/home/HowItWorksSection.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4830,7 +4962,7 @@ Side effects:
 FILE: components/home/SpecialtiesSection.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4852,7 +4984,7 @@ Side effects:
 FILE: components/home/TopRatedDoctors.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4874,7 +5006,7 @@ Side effects:
 FILE: components/home/TrustStatsSection.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4896,7 +5028,7 @@ Side effects:
 FILE: components/home/WhyHealthDeeSection.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4918,7 +5050,7 @@ Side effects:
 FILE: components/layout/Footer.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4940,7 +5072,7 @@ Side effects:
 FILE: components/layout/Header.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4962,7 +5094,7 @@ Side effects:
 FILE: components/patient/DangerZone.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4984,7 +5116,7 @@ Side effects:
 FILE: components/patient/EmergencyContactItem.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5006,7 +5138,7 @@ Side effects:
 FILE: components/patient/EmergencyContactSection.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5028,7 +5160,7 @@ Side effects:
 FILE: components/patient/NotificationPrivacySection.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5050,7 +5182,7 @@ Side effects:
 FILE: components/patient/PatientInfoCard.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5072,7 +5204,7 @@ Side effects:
 FILE: components/patient/PatientSideBar.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5094,7 +5226,7 @@ Side effects:
 FILE: components/patient/PatientTopNav.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5116,7 +5248,7 @@ Side effects:
 FILE: components/patient/PersonalInfoFieldCard.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5138,7 +5270,7 @@ Side effects:
 FILE: components/patient/PersonalInformationSection.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5160,7 +5292,7 @@ Side effects:
 FILE: components/patient/ProfileHeader.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5182,7 +5314,7 @@ Side effects:
 FILE: components/patient/ToggleSettingsItem.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5204,7 +5336,7 @@ Side effects:
 FILE: components/ui/PasswordInput.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5226,7 +5358,7 @@ Side effects:
 FILE: components/ui/RadioGroup.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5248,7 +5380,7 @@ Side effects:
 FILE: components/ui/alert.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5270,7 +5402,7 @@ Side effects:
 FILE: components/ui/avatar.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5292,7 +5424,7 @@ Side effects:
 FILE: components/ui/badge.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5314,7 +5446,7 @@ Side effects:
 FILE: components/ui/button.test.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5336,7 +5468,7 @@ Side effects:
 FILE: components/ui/button.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5358,7 +5490,7 @@ Side effects:
 FILE: components/ui/card.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5377,10 +5509,32 @@ Side effects:
 
 ---
 
+FILE: components/ui/dialog.tsx
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/ui/dialog.tsx`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `components/ui/dialog.tsx` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: components/ui/dropdown-menu.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5402,7 +5556,7 @@ Side effects:
 FILE: components/ui/input.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5424,7 +5578,7 @@ Side effects:
 FILE: components/ui/pagination.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5446,7 +5600,7 @@ Side effects:
 FILE: components/ui/select.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5468,7 +5622,7 @@ Side effects:
 FILE: components/ui/switch.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5490,7 +5644,7 @@ Side effects:
 FILE: components/ui/table.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5512,7 +5666,7 @@ Side effects:
 FILE: components/ui/tooltip.tsx
 
 Purpose:
-- Reusable UI component supporting route-level features.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5556,7 +5710,7 @@ Side effects:
 FILE: db/index.ts
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5578,7 +5732,7 @@ Side effects:
 FILE: db/schema.ts
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5600,7 +5754,7 @@ Side effects:
 FILE: db/turso.tsx
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5622,7 +5776,7 @@ Side effects:
 FILE: docs/ai-codebase-map.md
 
 Purpose:
-- Project documentation and planning artifact.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5644,7 +5798,7 @@ Side effects:
 FILE: docs/api-spec.md
 
 Purpose:
-- Project documentation and planning artifact.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5666,7 +5820,7 @@ Side effects:
 FILE: docs/architecture.md
 
 Purpose:
-- Project documentation and planning artifact.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5688,7 +5842,7 @@ Side effects:
 FILE: docs/auth-flow.md
 
 Purpose:
-- Project documentation and planning artifact.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5710,7 +5864,7 @@ Side effects:
 FILE: docs/changelog.md
 
 Purpose:
-- Project documentation and planning artifact.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5732,7 +5886,7 @@ Side effects:
 FILE: docs/completed-tasks.md
 
 Purpose:
-- Project documentation and planning artifact.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5754,7 +5908,7 @@ Side effects:
 FILE: docs/decisions.md
 
 Purpose:
-- Project documentation and planning artifact.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5776,7 +5930,7 @@ Side effects:
 FILE: docs/folder-structure.md
 
 Purpose:
-- Project documentation and planning artifact.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5798,7 +5952,7 @@ Side effects:
 FILE: docs/product-requirements-completed.md
 
 Purpose:
-- Project documentation and planning artifact.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5820,7 +5974,7 @@ Side effects:
 FILE: docs/roadmap.md
 
 Purpose:
-- Project documentation and planning artifact.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5842,7 +5996,7 @@ Side effects:
 FILE: docs/tasks.md
 
 Purpose:
-- Project documentation and planning artifact.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5864,7 +6018,7 @@ Side effects:
 FILE: drizzle.config.ts
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5886,7 +6040,7 @@ Side effects:
 FILE: drizzle/0000_purple_tiger_shark.sql
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5908,7 +6062,7 @@ Side effects:
 FILE: drizzle/0001_exotic_dakota_north.sql
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5930,7 +6084,7 @@ Side effects:
 FILE: drizzle/0002_breezy_shape.sql
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5952,7 +6106,7 @@ Side effects:
 FILE: drizzle/0003_easy_omega_flight.sql
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5974,7 +6128,7 @@ Side effects:
 FILE: drizzle/0004_melodic_toad_men.sql
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5996,7 +6150,7 @@ Side effects:
 FILE: drizzle/0005_military_otto_octavius.sql
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6018,7 +6172,7 @@ Side effects:
 FILE: drizzle/0006_many_arachne.sql
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6040,7 +6194,7 @@ Side effects:
 FILE: drizzle/0007_ambiguous_shadow_king.sql
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6062,7 +6216,7 @@ Side effects:
 FILE: drizzle/0008_amusing_toad.sql
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6081,10 +6235,32 @@ Side effects:
 
 ---
 
+FILE: drizzle/0009_overconfident_pandemic.sql
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `drizzle/0009_overconfident_pandemic.sql`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `drizzle/0009_overconfident_pandemic.sql` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: drizzle/meta/0000_snapshot.json
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6106,7 +6282,7 @@ Side effects:
 FILE: drizzle/meta/0001_snapshot.json
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6128,7 +6304,7 @@ Side effects:
 FILE: drizzle/meta/0002_snapshot.json
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6150,7 +6326,7 @@ Side effects:
 FILE: drizzle/meta/0003_snapshot.json
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6172,7 +6348,7 @@ Side effects:
 FILE: drizzle/meta/0004_snapshot.json
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6194,7 +6370,7 @@ Side effects:
 FILE: drizzle/meta/0005_snapshot.json
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6216,7 +6392,7 @@ Side effects:
 FILE: drizzle/meta/0006_snapshot.json
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6238,7 +6414,7 @@ Side effects:
 FILE: drizzle/meta/0007_snapshot.json
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6260,7 +6436,7 @@ Side effects:
 FILE: drizzle/meta/0008_snapshot.json
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6279,10 +6455,32 @@ Side effects:
 
 ---
 
+FILE: drizzle/meta/0009_snapshot.json
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `drizzle/meta/0009_snapshot.json`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `drizzle/meta/0009_snapshot.json` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: drizzle/meta/_journal.json
 
 Purpose:
-- Database schema, migrations, and persistence metadata.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6304,7 +6502,7 @@ Side effects:
 FILE: eslint.config.mjs
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6326,7 +6524,7 @@ Side effects:
 FILE: export-tree-for-ai.ps1
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6348,7 +6546,7 @@ Side effects:
 FILE: hooks/useAppointment.tsx
 
 Purpose:
-- Reusable React hook for stateful behavior.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6370,7 +6568,7 @@ Side effects:
 FILE: hooks/useAuth.tsx
 
 Purpose:
-- Reusable React hook for stateful behavior.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6392,7 +6590,7 @@ Side effects:
 FILE: hooks/useDebounce.tsx
 
 Purpose:
-- Reusable React hook for stateful behavior.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6414,7 +6612,7 @@ Side effects:
 FILE: hooks/useRole.tsx
 
 Purpose:
-- Reusable React hook for stateful behavior.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6436,7 +6634,7 @@ Side effects:
 FILE: lib/auth.ts
 
 Purpose:
-- Shared utility/constants/validation logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6458,7 +6656,7 @@ Side effects:
 FILE: lib/constant.tsx
 
 Purpose:
-- Shared utility/constants/validation logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6480,7 +6678,7 @@ Side effects:
 FILE: lib/routes.tsx
 
 Purpose:
-- Shared utility/constants/validation logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6502,7 +6700,7 @@ Side effects:
 FILE: lib/utils.test.ts
 
 Purpose:
-- Shared utility/constants/validation logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6524,7 +6722,7 @@ Side effects:
 FILE: lib/utils.ts
 
 Purpose:
-- Shared utility/constants/validation logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6546,7 +6744,7 @@ Side effects:
 FILE: lib/utils/slot.ts
 
 Purpose:
-- Shared utility/constants/validation logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6568,7 +6766,7 @@ Side effects:
 FILE: lib/validators.tsx
 
 Purpose:
-- Shared utility/constants/validation logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6590,7 +6788,7 @@ Side effects:
 FILE: next.config.ts
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6678,7 +6876,7 @@ Side effects:
 FILE: postcss.config.mjs
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6700,7 +6898,7 @@ Side effects:
 FILE: public/clinic-logo.jpg
 
 Purpose:
-- Static asset served by Next.js runtime.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6722,7 +6920,7 @@ Side effects:
 FILE: public/clinic.jpg
 
 Purpose:
-- Static asset served by Next.js runtime.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6744,7 +6942,7 @@ Side effects:
 FILE: public/doctor-1.jpg
 
 Purpose:
-- Static asset served by Next.js runtime.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6766,7 +6964,7 @@ Side effects:
 FILE: public/doctor-2.jpg
 
 Purpose:
-- Static asset served by Next.js runtime.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6788,7 +6986,7 @@ Side effects:
 FILE: public/doctors.jpg
 
 Purpose:
-- Static asset served by Next.js runtime.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6810,7 +7008,7 @@ Side effects:
 FILE: public/fonts/Geist-Bold.ttf
 
 Purpose:
-- Static asset served by Next.js runtime.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6832,7 +7030,7 @@ Side effects:
 FILE: public/fonts/Geist-Regular.ttf
 
 Purpose:
-- Static asset served by Next.js runtime.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6854,7 +7052,7 @@ Side effects:
 FILE: public/fonts/GeistMono-Regular.ttf
 
 Purpose:
-- Static asset served by Next.js runtime.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6876,7 +7074,7 @@ Side effects:
 FILE: public/hospital.jpg
 
 Purpose:
-- Static asset served by Next.js runtime.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6898,7 +7096,7 @@ Side effects:
 FILE: public/water-flask.png
 
 Purpose:
-- Static asset served by Next.js runtime.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6920,7 +7118,7 @@ Side effects:
 FILE: scripts/seed.ts
 
 Purpose:
-- Automation/helper script for development workflows.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6942,7 +7140,7 @@ Side effects:
 FILE: scripts/seedAvailability.ts
 
 Purpose:
-- Automation/helper script for development workflows.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6964,7 +7162,7 @@ Side effects:
 FILE: scripts/wifi-network-warning.js
 
 Purpose:
-- Automation/helper script for development workflows.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6986,7 +7184,7 @@ Side effects:
 FILE: server/constants/otp-channel.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7008,7 +7206,7 @@ Side effects:
 FILE: server/constants/user-role.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7030,7 +7228,7 @@ Side effects:
 FILE: server/constants/user-status.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7052,7 +7250,7 @@ Side effects:
 FILE: server/db/types.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7074,7 +7272,7 @@ Side effects:
 FILE: server/domain/appointment.domain.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7096,7 +7294,7 @@ Side effects:
 FILE: server/domain/audit.domain.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7118,7 +7316,7 @@ Side effects:
 FILE: server/domain/auth.domain.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7140,7 +7338,7 @@ Side effects:
 FILE: server/domain/clinic.domain.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7162,7 +7360,7 @@ Side effects:
 FILE: server/domain/consent.domain.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7184,7 +7382,7 @@ Side effects:
 FILE: server/domain/consultation.domain.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7206,7 +7404,7 @@ Side effects:
 FILE: server/domain/doctor.domain.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7228,7 +7426,7 @@ Side effects:
 FILE: server/domain/erasure.domain.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7250,7 +7448,7 @@ Side effects:
 FILE: server/domain/index.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7272,7 +7470,7 @@ Side effects:
 FILE: server/domain/prescription.domain.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7294,7 +7492,7 @@ Side effects:
 FILE: server/domain/user.domain.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7316,7 +7514,7 @@ Side effects:
 FILE: server/http/response.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7338,7 +7536,7 @@ Side effects:
 FILE: server/http/route-helpers.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7360,7 +7558,7 @@ Side effects:
 FILE: server/middleware/rate-limit.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7382,7 +7580,7 @@ Side effects:
 FILE: server/policies/ability.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7404,7 +7602,7 @@ Side effects:
 FILE: server/policies/access/canAccess.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7426,7 +7624,7 @@ Side effects:
 FILE: server/policies/access/canAccessAppointment.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7448,7 +7646,7 @@ Side effects:
 FILE: server/policies/access/canAccessPatient.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7470,7 +7668,7 @@ Side effects:
 FILE: server/policies/access/canAccessPrescription.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7492,7 +7690,7 @@ Side effects:
 FILE: server/policies/access/canAccessUser.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7514,7 +7712,7 @@ Side effects:
 FILE: server/policies/fields/patient.fields.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7536,7 +7734,7 @@ Side effects:
 FILE: server/policies/guards/isAdmin.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7558,7 +7756,7 @@ Side effects:
 FILE: server/policies/guards/isDoctor.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7580,7 +7778,7 @@ Side effects:
 FILE: server/policies/guards/isPatient.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7602,7 +7800,7 @@ Side effects:
 FILE: server/policies/permissions.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7624,7 +7822,7 @@ Side effects:
 FILE: server/policies/rbac-deps.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7646,7 +7844,7 @@ Side effects:
 FILE: server/policies/repositories.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7668,7 +7866,7 @@ Side effects:
 FILE: server/policies/roles.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7690,7 +7888,7 @@ Side effects:
 FILE: server/policies/types.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7712,7 +7910,7 @@ Side effects:
 FILE: server/rate-limit/memory-store.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7734,7 +7932,7 @@ Side effects:
 FILE: server/rate-limit/sqlite-store.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7756,7 +7954,7 @@ Side effects:
 FILE: server/rate-limit/store.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7778,7 +7976,7 @@ Side effects:
 FILE: server/repositories/appointment.repo.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7800,7 +7998,7 @@ Side effects:
 FILE: server/repositories/audit.repo.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7822,7 +8020,7 @@ Side effects:
 FILE: server/repositories/doctor.repo.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7844,7 +8042,7 @@ Side effects:
 FILE: server/repositories/patient.repo.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7866,7 +8064,7 @@ Side effects:
 FILE: server/repositories/prescription.repo.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7888,7 +8086,7 @@ Side effects:
 FILE: server/repositories/refreshToken.repo.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7910,7 +8108,7 @@ Side effects:
 FILE: server/repositories/user.repo.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7932,7 +8130,7 @@ Side effects:
 FILE: server/services/admin.service.tsx
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7954,7 +8152,7 @@ Side effects:
 FILE: server/services/api.tsx
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7976,7 +8174,7 @@ Side effects:
 FILE: server/services/appointment.service.tsx
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7998,7 +8196,7 @@ Side effects:
 FILE: server/services/auth.service.tsx
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8020,7 +8218,7 @@ Side effects:
 FILE: server/services/doctor.service.tsx
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8042,7 +8240,7 @@ Side effects:
 FILE: server/services/patient.service.tsx
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8064,7 +8262,7 @@ Side effects:
 FILE: server/services/prescription.services.tsx
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8086,7 +8284,7 @@ Side effects:
 FILE: server/services/user.service.tsx
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8108,7 +8306,7 @@ Side effects:
 FILE: server/types/next-request.d.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8130,7 +8328,7 @@ Side effects:
 FILE: server/utils/errors.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8152,7 +8350,7 @@ Side effects:
 FILE: server/utils/hash.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8174,7 +8372,7 @@ Side effects:
 FILE: server/utils/jwt.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8196,7 +8394,7 @@ Side effects:
 FILE: server/utils/logger.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8218,7 +8416,7 @@ Side effects:
 FILE: server/utils/logger_test.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8240,7 +8438,7 @@ Side effects:
 FILE: server/utils/pagination.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8262,7 +8460,7 @@ Side effects:
 FILE: server/utils/pagination_test.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8284,7 +8482,7 @@ Side effects:
 FILE: server/utils/password.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8306,7 +8504,7 @@ Side effects:
 FILE: server/utils/password_test.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8328,7 +8526,7 @@ Side effects:
 FILE: server/validators/appointment.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8350,7 +8548,7 @@ Side effects:
 FILE: server/validators/audit.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8372,7 +8570,7 @@ Side effects:
 FILE: server/validators/auth.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8394,7 +8592,7 @@ Side effects:
 FILE: server/validators/clinic.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8416,7 +8614,7 @@ Side effects:
 FILE: server/validators/consent.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8438,7 +8636,7 @@ Side effects:
 FILE: server/validators/consultation.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8460,7 +8658,7 @@ Side effects:
 FILE: server/validators/doctor.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8482,7 +8680,7 @@ Side effects:
 FILE: server/validators/prescription.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8504,7 +8702,7 @@ Side effects:
 FILE: server/validators/user.ts
 
 Purpose:
-- Backend service/domain/repository/infra logic.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8526,7 +8724,7 @@ Side effects:
 FILE: tailwind.config.ts
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8542,6 +8740,28 @@ Invariants:
 
 Side effects:
 - Depends on implementation in `tailwind.config.ts` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: tests/appointment.api.test.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `tests/appointment.api.test.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `tests/appointment.api.test.ts` (pure rendering, IO, DB access, or runtime setup).
 
 ---
 
@@ -8570,7 +8790,7 @@ Side effects:
 FILE: vitest.config.ts
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8592,7 +8812,7 @@ Side effects:
 FILE: vitest.setup.ts
 
 Purpose:
-- Project source file.
+- Project configuration, lockfile, or workspace metadata.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
