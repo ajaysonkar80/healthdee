@@ -1,8 +1,10 @@
-// server/utils/logger.ts
+
 
 export type LogLevel = "debug" | "info" | "warn" | "error";
 
 export interface LogContext {
+  requestId?: string;
+  userId?: string;
   [key: string]: unknown;
 }
 
@@ -12,23 +14,31 @@ interface LogPayload {
   timestamp: string;
   context?: LogContext;
 }
-/** commented out isDev
+
 const isDev =
   process.env.NODE_ENV === "development" ||
   process.env.NODE_ENV === "test";
-**/
+
 /**
- * Color helpers (no dependencies)
+ * Terminal colors for dev logs
  */
 const colors = {
-  debug: "\x1b[90m", // gray
-  info: "\x1b[34m", // blue
-  warn: "\x1b[33m", // yellow
-  error: "\x1b[31m", // red
+  debug: "\x1b[90m",
+  info: "\x1b[34m",
+  warn: "\x1b[33m",
+  error: "\x1b[31m",
   reset: "\x1b[0m",
 };
 
 class Logger {
+  private writeStdout(message: string): void {
+    process.stdout.write(message + "\n");
+  }
+
+  private writeStderr(message: string): void {
+    process.stderr.write(message + "\n");
+  }
+
   private log(level: LogLevel, message: string, context?: LogContext): void {
     const payload: LogPayload = {
       level,
@@ -37,48 +47,42 @@ class Logger {
       ...(context && { context }),
     };
 
-    if (true) {
+    if (isDev) {
       this.prettyPrint(payload);
       return;
     }
 
-    // Production: structured JSON logs
-    switch (level) {
-      case "warn":
-        console.warn(payload);
-        break;
-      case "error":
-        console.error(payload);
-        break;
-      default:
-        console.log(payload);
+    // Production → structured JSON logs
+    const json = JSON.stringify(payload);
+
+    if (level === "error") {
+      this.writeStderr(json);
+    } else {
+      this.writeStdout(json);
     }
   }
 
+  /**
+   * Dev-friendly colored logs
+   */
   private prettyPrint(payload: LogPayload): void {
     const { level, message, timestamp, context } = payload;
+
     const color = colors[level];
     const time = new Date(timestamp).toLocaleTimeString();
 
     const header = `${color}[${level.toUpperCase()}]${colors.reset}`;
     const line = `${header} ${time} - ${message}`;
 
-    switch (level) {
-      case "warn":
-        console.warn(line);
-        break;
-      case "error":
-        console.error(line);
-        break;
-      default:
-        console.log(line);
+    if (level === "error") {
+      this.writeStderr(line);
+    } else {
+      this.writeStdout(line);
     }
 
     if (context && Object.keys(context).length > 0) {
-      console.log(
-        `${color}└─ context:${colors.reset}`,
-        context
-      );
+      const ctx = JSON.stringify(context, null, 2);
+      this.writeStdout(`${color}└─ context:${colors.reset} ${ctx}`);
     }
   }
 

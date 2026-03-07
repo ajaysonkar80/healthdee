@@ -132,52 +132,59 @@ export const authService = {
   },
 
   async loginWithEmail(input: unknown) {
-    const data = emailLoginSchema.parse(input);
+  const data = emailLoginSchema.parse(input);
 
-    const auth = await userRepo.getAuthByEmail(data.email);
-    const user = await userRepo.getUserById(auth.userId);
+  const auth = await userRepo.getAuthByEmail(data.email);
+  const user = await userRepo.getUserById(auth.userId);
 
-    const authState = toAuthDomainState(auth);
+  const authState = toAuthDomainState(auth);
 
-    assertHasAtLeastOneCredential(authState);
-    assertLoginAllowed(authState, "email");
+  assertHasAtLeastOneCredential(authState);
+  assertLoginAllowed(authState, "email");
 
-    const ok = await verify(data.password, auth.passwordHash!);
-    if (!ok) {
-      throw new ValidationError("Invalid credentials");
-    }
+  if (!auth.passwordHash) {
+    throw new ValidationError(
+      "Password login not available for this account"
+    );
+  }
 
-    if (user.status !== UserStatus.active) {
-      throw new ForbiddenError("User is not active");
-    }
+  const ok = await verify(data.password, auth.passwordHash);
 
-    await userRepo.updateLastLogin(user.id);
+  if (!ok) {
+    throw new ValidationError("Invalid credentials");
+  }
 
-    const accessToken = signAccessToken({
-      sub: user.id,
+  if (user.status !== UserStatus.active) {
+    throw new ForbiddenError("User is not active");
+  }
+
+  await userRepo.updateLastLogin(user.id);
+
+  const accessToken = signAccessToken({
+    sub: user.id,
+    role: user.role,
+  });
+
+  const refreshToken = signRefreshToken({
+    sub: user.id,
+  });
+
+  await refreshTokenRepo.create({
+    userId: user.id,
+    tokenHash: await hash(refreshToken),
+    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+  });
+
+  return {
+    user: {
+      id: user.id,
       role: user.role,
-    });
-
-    const refreshToken = signRefreshToken({
-      sub: user.id,
-    });
-
-    await refreshTokenRepo.create({
-      userId: user.id,
-      tokenHash: await hash(refreshToken),
-      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-    });
-
-    return {
-      user: {
-        id: user.id,
-        role: user.role,
-        name: user.name,
-      },
-      accessToken,
-      refreshToken,
-    };
-  },
+      name: user.name,
+    },
+    accessToken,
+    refreshToken,
+  };
+},
 
   /* ======================================================
      PHONE SIGNUP (STRICT)

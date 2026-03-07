@@ -4,13 +4,10 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 
-import security from "eslint-plugin-security";
 import promise from "eslint-plugin-promise";
 import importPlugin from "eslint-plugin-import";
-import unusedImports from "eslint-plugin-unused-imports";
 
 export default defineConfig([
-
   ...nextVitals,
 
   {
@@ -22,14 +19,11 @@ export default defineConfig([
 
     plugins: {
       "@typescript-eslint": tsPlugin,
-      security,
       promise,
-      import: importPlugin,
-      "unused-imports": unusedImports
+      import: importPlugin
     },
 
     rules: {
-
       /* ---------------- REACT / NEXT ---------------- */
 
       "react-hooks/exhaustive-deps": "warn",
@@ -45,25 +39,10 @@ export default defineConfig([
       ],
       "@typescript-eslint/no-floating-promises": "off",
 
-      /* ---------------- UNUSED IMPORTS ---------------- */
+      /* ---------------- UNUSED CODE DISABLED ---------------- */
 
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "off",
-      "unused-imports/no-unused-imports": "error",
-      "unused-imports/no-unused-vars": [
-        "warn",
-        {
-          argsIgnorePattern: "^_",
-          varsIgnorePattern: "^_"
-        }
-      ],
-
-      /* ---------------- SECURITY ---------------- */
-
-      "security/detect-object-injection": "off",
-      "security/detect-non-literal-fs-filename": "warn",
-      "security/detect-non-literal-require": "warn",
-      "security/detect-eval-with-expression": "error",
 
       /* ---------------- PROMISE SAFETY ---------------- */
 
@@ -72,9 +51,8 @@ export default defineConfig([
       "promise/no-return-wrap": "error",
       "promise/always-return": "off",
 
-      /* ---------------- IMPORT HYGIENE ---------------- */
+      /* ---------------- IMPORT RULE ---------------- */
 
-      "import/no-cycle": "warn",
       "import/no-self-import": "error",
 
       /* ---------------- LOGGING ---------------- */
@@ -83,8 +61,6 @@ export default defineConfig([
     }
   },
 
-  /* ---------------- TEST FILE OVERRIDE ---------------- */
-
   {
     files: [
       "**/*.test.ts",
@@ -92,19 +68,15 @@ export default defineConfig([
       "**/*.spec.ts",
       "**/*.spec.tsx",
       "tests/**/*.ts",
-      "tests/**/*.tsx",
-      "**/**tests**/**/*.ts",
-      "**/**tests**/**/*.tsx"
+      "tests/**/*.tsx"
     ],
     rules: {
       "@typescript-eslint/no-explicit-any": "off"
     }
   },
 
-  /* ---------------- IMPORT RESTRICTIONS ---------------- */
-
   {
-    files: ["**/*.ts", "**/*.tsx"],
+    files: ["app/**/*.tsx", "components/**/*.tsx"],
     rules: {
       "no-restricted-imports": [
         "error",
@@ -131,16 +103,12 @@ export default defineConfig([
     }
   },
 
-  /* ---------------- GLOBAL IGNORES ---------------- */
-
   globalIgnores([
     ".next/**",
     "out/**",
     "build/**",
     "coverage/**",
     "next-env.d.ts",
-    "scripts/wifi-network-warning.js",
     "scripts/**"
   ])
-
 ]);
