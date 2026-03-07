@@ -1,6 +1,6 @@
 # Folder Structure for AI Navigation
 
-Generated from `git ls-files` on 2026-02-27 to provide a complete, deterministic map.
+Generated from `git ls-files` on 2026-03-07 to provide a complete, deterministic map.
 
 ```text
 .
@@ -57,6 +57,7 @@ Generated from `git ls-files` on 2026-02-27 to provide a complete, deterministic
 │   │   └── page.tsx
 │   ├── admin
 │   │   ├── appointment-requests
+│   │   │   ├── AppointmentRequestsClient.tsx
 │   │   │   └── page.tsx
 │   │   ├── clinics
 │   │   │   └── page.tsx
@@ -174,11 +175,13 @@ Generated from `git ls-files` on 2026-02-27 to provide a complete, deterministic
 │   │   ├── layout.tsx
 │   │   └── page.tsx
 │   ├── doctors
-│   │   └── booking
-│   │       ├── confirmation
-│   │       │   └── page.tsx
-│   │       ├── layout.tsx
-│   │       └── page.tsx
+│   │   ├── [publicId]
+│   │   │   └── page.tsx
+│   │   ├── booking
+│   │   │   ├── confirmation
+│   │   │   │   └── page.tsx
+│   │   │   └── layout.tsx
+│   │   └── page.tsx
 │   ├── patient
 │   │   ├── appointments
 │   │   │   ├── book
@@ -319,6 +322,12 @@ Generated from `git ls-files` on 2026-02-27 to provide a complete, deterministic
 │   │   │   └── SecuritySettings.tsx
 │   │   ├── DoctorCard.tsx
 │   │   └── PrescriptionForm.tsx
+│   ├── doctors
+│   │   ├── DoctorsCard.tsx
+│   │   ├── DoctorsFilter.tsx
+│   │   ├── DoctorsList.tsx
+│   │   ├── DoctorsPagination.tsx
+│   │   └── DoctorsTopBar.tsx
 │   ├── help
 │   │   ├── FAQAccordion.tsx
 │   │   └── HelpTopicCard.tsx
@@ -354,6 +363,7 @@ Generated from `git ls-files` on 2026-02-27 to provide a complete, deterministic
 │       ├── button.test.tsx
 │       ├── button.tsx
 │       ├── card.tsx
+│       ├── dialog.tsx
 │       ├── dropdown-menu.tsx
 │       ├── input.tsx
 │       ├── pagination.tsx
@@ -388,6 +398,7 @@ Generated from `git ls-files` on 2026-02-27 to provide a complete, deterministic
 │   │   ├── 0006_snapshot.json
 │   │   ├── 0007_snapshot.json
 │   │   ├── 0008_snapshot.json
+│   │   ├── 0009_snapshot.json
 │   │   └── _journal.json
 │   ├── 0000_purple_tiger_shark.sql
 │   ├── 0001_exotic_dakota_north.sql
@@ -397,7 +408,8 @@ Generated from `git ls-files` on 2026-02-27 to provide a complete, deterministic
 │   ├── 0005_military_otto_octavius.sql
 │   ├── 0006_many_arachne.sql
 │   ├── 0007_ambiguous_shadow_king.sql
-│   └── 0008_amusing_toad.sql
+│   ├── 0008_amusing_toad.sql
+│   └── 0009_overconfident_pandemic.sql
 ├── hooks
 │   ├── useAppointment.tsx
 │   ├── useAuth.tsx
@@ -514,7 +526,8 @@ Generated from `git ls-files` on 2026-02-27 to provide a complete, deterministic
 │       ├── doctor.ts
 │       ├── prescription.ts
 │       └── user.ts
-├── .eslintrc.json
+├── tests
+│   └── appointment.api.test.ts
 ├── .gitignore
 ├── AGENTS.md
 ├── README.md
