@@ -4,6 +4,7 @@ import {
   integer,
   uniqueIndex,
   index,
+  check,
 } from "drizzle-orm/sqlite-core";
 import { sql } from "drizzle-orm";
 import { z } from "zod";
@@ -86,7 +87,10 @@ export const doctorAvailability = sqliteTable("doctor_availability", {
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .default(sql`(unixepoch())`),
-});
+},
+  (t) => ({
+    doctorIdx: index("doctor_availability_doctor_idx").on(t.doctorId),
+  }));
 
 export const ConsultationModeSchema = z.enum([
   "video",
@@ -304,20 +308,21 @@ export const doctors = sqliteTable(
     publicId: text("public_id").notNull(),
 
     /* -----------------------------
-       NEW OPTIONAL FIELDS
+       OPTIONAL PROFILE FIELDS
     ----------------------------- */
 
-    fullName: text("full_name"), // optional for now
-    degrees: text("degrees"), // MBBS, MD etc
-    languages: text("languages"), // comma-separated for now
-    tagline: text("tagline"), // e.g. Heart Specialist
+    fullName: text("full_name"),
+    degrees: text("degrees"),
+    languages: text("languages"),
+    tagline: text("tagline"),
     isTopRated: integer("is_top_rated", { mode: "boolean" }).default(false),
 
     /* -----------------------------
-       EXISTING FIELDS
+       CORE FIELDS
     ----------------------------- */
 
     specialty: text("specialty").notNull(),
+
     experienceYears: integer("experience_years").default(0),
 
     rating: integer("rating").notNull().default(0),
@@ -325,6 +330,7 @@ export const doctors = sqliteTable(
     profileImageUrl: text("profile_image_url"),
 
     rmpRegistrationNumber: text("rmp_registration_number").notNull(),
+
     rmpStateMedicalCouncil: text("rmp_state_medical_council").notNull(),
 
     bio: text("bio"),
@@ -346,7 +352,13 @@ export const doctors = sqliteTable(
       .default(sql`(unixepoch())`),
   },
   (t) => ({
+    /* -----------------------------
+       UNIQUE CONSTRAINTS
+    ----------------------------- */
+
     publicIdUnique: uniqueIndex("doctor_public_id_unique").on(t.publicId),
+
+    userUnique: uniqueIndex("doctor_user_unique").on(t.userId),
   })
 );
 
@@ -368,7 +380,11 @@ export const doctorReviews = sqliteTable("doctor_reviews", {
   createdAt: integer("created_at", { mode: "timestamp" })
     .default(sql`(unixepoch())`)
     .notNull(),
-});
+},
+(t) => ({
+  doctorIdx: index("doctor_reviews_doctor_idx").on(t.doctorId)
+})
+);
 
 /* -----------------------------------------------------
    5) CLINICS
@@ -402,14 +418,19 @@ export const appointments = sqliteTable(
   "appointments",
   {
     id: uuid(),
+
     patientId: text("patient_id")
       .references(() => users.id, { onDelete: "cascade" })
       .notNull(),
+
     doctorId: text("doctor_id")
       .references(() => doctors.id, { onDelete: "cascade" })
       .notNull(),
+
     scheduledAt: integer("scheduled_at", { mode: "timestamp" }).notNull(),
+
     status: text("status").$type<AppointmentStatus>().notNull(),
+
     createdAt: integer("created_at", { mode: "timestamp" })
       .notNull()
       .default(sql`(unixepoch())`),
@@ -419,22 +440,42 @@ export const appointments = sqliteTable(
       t.doctorId,
       t.scheduledAt
     ),
+
+    doctorIdx: index("appointments_doctor_idx").on(t.doctorId),
+
+    patientIdx: index("appointments_patient_idx").on(t.patientId),
+    doctorStatusIdx: index("appointments_doctor_status_idx").on(
+    t.doctorId,
+    t.status
+    ),
   })
 );
 
-export const consultations = sqliteTable("consultations", {
-  id: uuid(),
-  appointmentId: text("appointment_id")
-    .references(() => appointments.id, { onDelete: "cascade" })
-    .notNull(),
-  mode: text("mode").$type<ConsultationMode>().notNull(),
-  startedAt: integer("started_at", { mode: "timestamp" }),
-  endedAt: integer("ended_at", { mode: "timestamp" }),
-  summary: text("summary"),
-  createdAt: integer("created_at", { mode: "timestamp" })
-    .notNull()
-    .default(sql`(unixepoch())`),
-});
+export const consultations = sqliteTable(
+  "consultations",
+  {
+    id: uuid(),
+
+    appointmentId: text("appointment_id")
+      .references(() => appointments.id, { onDelete: "cascade" })
+      .notNull(),
+
+    mode: text("mode").$type<ConsultationMode>().notNull(),
+
+    startedAt: integer("started_at", { mode: "timestamp" }),
+
+    endedAt: integer("ended_at", { mode: "timestamp" }),
+
+    summary: text("summary"),
+
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => ({
+    appointmentIdx: index("consultations_appointment_idx").on(t.appointmentId),
+  })
+);
 
 export const consultationLogs = sqliteTable("consultation_logs", {
   id: uuid(),
@@ -448,27 +489,53 @@ export const consultationLogs = sqliteTable("consultation_logs", {
   storedAt: integer("stored_at", { mode: "timestamp" })
     .notNull()
     .default(sql`(unixepoch())`),
-});
+},
+  (t) => ({
+    consultationIdx: index("consultation_logs_consultation_idx").on(
+      t.consultationId
+    ),
+  })
+);
 
 /* -----------------------------------------------------
    7) PRESCRIPTIONS
 ----------------------------------------------------- */
 
-export const prescriptions = sqliteTable("prescriptions", {
-  id: uuid(),
-  consultationId: text("consultation_id")
-    .references(() => consultations.id, { onDelete: "cascade" })
-    .notNull(),
-  doctorId: text("doctor_id")
-    .references(() => doctors.id, { onDelete: "cascade" })
-    .notNull(),
-  patientId: text("patient_id")
-    .references(() => users.id, { onDelete: "cascade" })
-    .notNull(),
-  createdAt: integer("created_at", { mode: "timestamp" })
-    .notNull()
-    .default(sql`(unixepoch())`),
-});
+export const prescriptions = sqliteTable(
+  "prescriptions",
+  {
+    id: uuid(),
+
+    consultationId: text("consultation_id")
+      .references(() => consultations.id, { onDelete: "cascade" })
+      .notNull(),
+
+    doctorId: text("doctor_id")
+      .references(() => doctors.id, { onDelete: "cascade" })
+      .notNull(),
+
+    patientId: text("patient_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => ({
+    /* --------------------------------
+       INDEXES
+    -------------------------------- */
+
+    consultationIdx: index("prescriptions_consultation_idx").on(
+      t.consultationId
+    ),
+
+    patientIdx: index("prescriptions_patient_idx").on(t.patientId),
+
+    doctorIdx: index("prescriptions_doctor_idx").on(t.doctorId),
+  })
+);
 
 export const prescriptionItems = sqliteTable("prescription_items", {
   id: uuid(),
@@ -482,7 +549,14 @@ export const prescriptionItems = sqliteTable("prescription_items", {
   scheduleClass: text("schedule_class")
     .$type<ScheduleClass>()
     .notNull(),
-});
+},
+(t) => ({
+  drugUnique: uniqueIndex("prescription_drug_unique").on(
+    t.prescriptionId,
+    t.drugName
+  )
+})
+);
 
 /* -----------------------------------------------------
    8) AUDIT & COMPLIANCE
@@ -512,5 +586,197 @@ export const rateLimits = sqliteTable(
   },
   (t) => ({
     resetAtIdx: index("rate_limits_reset_at_idx").on(t.resetAt),
+  })
+);
+
+/*###########################################################\
+PATIENTS PROFILE
+#############################################################*/
+export const patientProfiles = sqliteTable(
+  "patient_profiles",
+  {
+    id: uuid(),
+
+    userId: text("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+
+    /* --------------------------------
+       AGE / DOB
+    -------------------------------- */
+
+    age: integer("age"),
+
+    dateOfBirth: integer("date_of_birth", { mode: "timestamp" }),
+
+    /* --------------------------------
+       BASIC PROFILE
+    -------------------------------- */
+
+    fullName: text("full_name"),
+
+    profileImageUrl: text("profile_image_url"),
+
+    gender: text("gender"),
+
+    bloodGroup: text("blood_group"),
+
+    phone: text("phone"),
+
+    /* --------------------------------
+       ADDRESS
+    -------------------------------- */
+
+    addressLine1: text("address_line1"),
+    addressLine2: text("address_line2"),
+
+    city: text("city"),
+    state: text("state"),
+    postalCode: text("postal_code"),
+    country: text("country").default("IN"),
+
+    /* --------------------------------
+       MEDICAL BASICS
+    -------------------------------- */
+
+    heightCm: integer("height_cm"),
+    weightKg: integer("weight_kg"),
+
+    allergies: text("allergies"),
+    chronicConditions: text("chronic_conditions"),
+
+    /* --------------------------------
+       ABDM
+    -------------------------------- */
+
+    abhaLinked: integer("abha_linked", { mode: "boolean" })
+      .notNull()
+      .default(false),
+
+    /* --------------------------------
+       METADATA
+    -------------------------------- */
+
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+
+    updatedAt: integer("updated_at", { mode: "timestamp" }),
+  },
+  (t) => ({
+    userUnique: uniqueIndex("patient_profile_user_unique").on(t.userId),
+
+    
+
+    ageOrDobRequired: check(
+      "age_or_dob_required",
+      sql`age IS NOT NULL OR date_of_birth IS NOT NULL`
+    ),
+  })
+);
+
+/* -----------------------------------------------------
+   EMERGENCY CONTACTS
+----------------------------------------------------- */
+
+export const emergencyContacts = sqliteTable(
+  "emergency_contacts",
+  {
+    id: uuid(),
+
+    userId: text("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+
+    name: text("name").notNull(),
+
+    relationship: text("relationship"), // wife, brother etc
+
+    phone: text("phone").notNull(),
+
+    email: text("email"),
+
+    isPrimary: integer("is_primary", { mode: "boolean" })
+      .notNull()
+      .default(false),
+
+    notes: text("notes"),
+
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+
+    updatedAt: integer("updated_at", { mode: "timestamp" }),
+  },
+  (t) => ({
+    userIdx: index("emergency_contact_user_idx").on(t.userId),
+  })
+);
+
+/* -----------------------------------------------------
+   USER PREFERENCES
+----------------------------------------------------- */
+export const userPreferences = sqliteTable(
+  "user_preferences",
+  {
+    id: uuid(),
+
+    userId: text("user_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+
+    /* ------------------------------------------------
+       NOTIFICATION SETTINGS
+    ------------------------------------------------ */
+
+    whatsappAlerts: integer("whatsapp_alerts", { mode: "boolean" })
+      .notNull()
+      .default(true),
+
+    smsNotifications: integer("sms_notifications", { mode: "boolean" })
+      .notNull()
+      .default(false),
+
+    emailNotifications: integer("email_notifications", { mode: "boolean" })
+      .notNull()
+      .default(true),
+
+    appointmentReminders: integer("appointment_reminders", {
+      mode: "boolean",
+    })
+      .notNull()
+      .default(true),
+
+    /* ------------------------------------------------
+       PRIVACY SETTINGS
+    ------------------------------------------------ */
+
+    shareMedicalRecordsWithDoctors: integer(
+      "share_medical_records_with_doctors",
+      { mode: "boolean" }
+    )
+      .notNull()
+      .default(true),
+
+    allowResearchUse: integer("allow_research_use", {
+      mode: "boolean",
+    }).default(false),
+
+    /* ------------------------------------------------
+       DATA CONTROL
+    ------------------------------------------------ */
+
+    allowDataDownload: integer("allow_data_download", {
+      mode: "boolean",
+    }).default(true),
+
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+
+    updatedAt: integer("updated_at", { mode: "timestamp" }),
+  },
+  (t) => ({
+    userUnique: uniqueIndex("user_preferences_user_unique").on(t.userId),
   })
 );

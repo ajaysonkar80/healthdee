@@ -37,10 +37,14 @@ export default function ProfileHeader() {
 
         <div className="flex gap-3">
           <Button variant="outline">Change Photo</Button>
-          <Button className="gap-2">
-            <Download className="h-4 w-4" />
-            Download Health Card
-          </Button>
+          <Button
+  disabled
+  className="gap-2 cursor-not-allowed bg-gray-200 text-gray-500 hover:bg-gray-200"
+>
+  <Download className="h-4 w-4 opacity-60" />
+  <span>Download Health Card</span>
+  
+</Button>
         </div>
       </div>
     </Card>
