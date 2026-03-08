@@ -32,7 +32,11 @@ export type AuditAction =
   | "CONSENT_WITHDRAWN"
   | "DATA_ERASURE_REQUESTED"
   | "DATA_ERASURE_COMPLETED"
-  | "ABHA_PROFILE_UPDATED";
+  | "ABHA_PROFILE_UPDATED"
+  | "PATIENT_PROFILE_UPDATED"
+  | "EMERGENCY_CONTACT_CREATED"
+  | "EMERGENCY_CONTACT_DELETED"
+  ;
 
 export type AuditLogInput = {
   actorUserId?: string | null;

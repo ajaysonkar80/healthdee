@@ -50,6 +50,189 @@ export const patientRepo = {
   },
 
   /* -----------------------------
+   Patient Profile
+----------------------------- */
+
+async getPatientProfile(userId: string) {
+  const profile = await db.query.patientProfiles.findFirst({
+    where: eq(schema.patientProfiles.userId, userId),
+  });
+
+  return profile ?? null;
+},
+
+async updatePatientProfile(
+  userId: string,
+  input: Partial<{
+    fullName: string;
+    gender: string;
+    bloodGroup: string;
+    dateOfBirth: Date;
+    phone: string;
+    addressLine1: string;
+    addressLine2: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+    heightCm: number;
+    weightKg: number;
+    allergies: string;
+    chronicConditions: string;
+    profileImageUrl: string;
+  }>
+) {
+  const [profile] = await db
+    .update(schema.patientProfiles)
+    .set({
+      ...input,
+      updatedAt: new Date(),
+    })
+    .where(eq(schema.patientProfiles.userId, userId))
+    .returning();
+
+  if (!profile) {
+    throw new RepositoryError(
+      "NOT_FOUND",
+      `Patient profile not found for user: ${userId}`
+    );
+  }
+
+  return profile;
+},
+
+/* -----------------------------
+   Emergency Contacts
+----------------------------- */
+
+async getEmergencyContacts(userId: string) {
+  return db.query.emergencyContacts.findMany({
+    where: eq(schema.emergencyContacts.userId, userId),
+    orderBy: (c, { desc }) => [desc(c.isPrimary)],
+  });
+},
+
+async createEmergencyContact(input: {
+  userId: string;
+  name: string;
+  relationship?: string;
+  phone: string;
+  email?: string;
+  isPrimary?: boolean;
+  notes?: string;
+}) {
+  const [contact] = await db
+    .insert(schema.emergencyContacts)
+    .values({
+      ...input,
+      createdAt: new Date(),
+    })
+    .returning();
+
+  return contact;
+},
+
+async deleteEmergencyContact(contactId: string) {
+  const [contact] = await db
+    .delete(schema.emergencyContacts)
+    .where(eq(schema.emergencyContacts.id, contactId))
+    .returning();
+
+  if (!contact) {
+    throw new RepositoryError(
+      "NOT_FOUND",
+      `Emergency contact not found: ${contactId}`
+    );
+  }
+
+  return contact;
+},
+
+/* -----------------------------
+   User Preferences
+----------------------------- */
+
+async getUserPreferences(userId: string) {
+  const prefs = await db.query.userPreferences.findFirst({
+    where: eq(schema.userPreferences.userId, userId),
+  });
+
+  return prefs ?? null;
+},
+
+async updateUserPreferences(
+  userId: string,
+  input: Partial<{
+    whatsappAlerts: boolean;
+    smsNotifications: boolean;
+    emailNotifications: boolean;
+    appointmentReminders: boolean;
+    shareMedicalRecordsWithDoctors: boolean;
+    allowResearchUse: boolean;
+    allowDataDownload: boolean;
+  }>
+) {
+  const [prefs] = await db
+    .update(schema.userPreferences)
+    .set({
+      ...input,
+      updatedAt: new Date(),
+    })
+    .where(eq(schema.userPreferences.userId, userId))
+    .returning();
+
+  if (!prefs) {
+    throw new RepositoryError(
+      "NOT_FOUND",
+      `Preferences not found for user: ${userId}`
+    );
+  }
+
+  return prefs;
+},
+
+async createUserPreferences(userId: string) {
+  const [prefs] = await db
+    .insert(schema.userPreferences)
+    .values({
+      userId,
+      createdAt: new Date(),
+    })
+    .returning();
+
+  return prefs;
+},
+
+async createPatientProfile(userId: string) {
+  const [profile] = await db
+    .insert(schema.patientProfiles)
+    .values({
+      userId,
+      createdAt: new Date(),
+    })
+    .returning();
+
+  return profile;
+},
+
+/* -----------------------------
+   Full Patient Dashboard Profile
+----------------------------- */
+
+async getFullPatientProfile(userId: string) {
+  const [profile, contacts, preferences] = await Promise.all([
+    this.getPatientProfile(userId),
+    this.getEmergencyContacts(userId),
+    this.getUserPreferences(userId),
+  ]);
+
+  return {
+    profile,
+    emergencyContacts: contacts,
+    preferences,
+  };
+},
+  /* -----------------------------
      List Patients (FINAL FIX)
   ----------------------------- */
 

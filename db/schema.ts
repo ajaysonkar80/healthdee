@@ -612,7 +612,7 @@ export const patientProfiles = sqliteTable(
     /* --------------------------------
        BASIC PROFILE
     -------------------------------- */
-
+    
     fullName: text("full_name"),
 
     profileImageUrl: text("profile_image_url"),
