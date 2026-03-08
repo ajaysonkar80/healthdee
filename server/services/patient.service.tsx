@@ -277,12 +277,14 @@ async deleteEmergencyContact(
 /* --------------------------------------------------
    Get user preferences (self only)
 --------------------------------------------------- */
-async getUserPreferences(actorUserId: string) {
-  const prefs = await patientRepo.getUserPreferences(
-    actorUserId
-  );
+async getUserPreferences(userId: string) {
+  let prefs = await patientRepo.getUserPreferences(userId)
 
-  return prefs;
+  if (!prefs) {
+    prefs = await patientRepo.createUserPreferences(userId)
+  }
+
+  return prefs
 },
 
 /* --------------------------------------------------
@@ -308,8 +310,6 @@ async updateUserPreferences(
     actorUserId,
     input
   );
-
-  
 },
 
 /* --------------------------------------------------
