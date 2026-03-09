@@ -77,10 +77,7 @@ export default function PatientSidebar() {
 
   return (
     <Card className="h-fit p-4">
-      <div className="mb-4 space-y-1">
-        <p className="text-sm font-semibold">Rajesh Kumar</p>
-        <p className="text-xs text-muted-foreground">ID: #H-203921</p>
-      </div>
+      
 
       <Separator className="my-3" />
 
