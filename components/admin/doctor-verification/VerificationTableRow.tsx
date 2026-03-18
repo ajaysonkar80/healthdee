@@ -1,78 +1,82 @@
+// components/admin/doctor-verification/VerificationTableRow.tsx
+"use client";
+
 import { TableCell, TableRow } from "@/components/ui/table";
-import type { VerificationStatus } from "./VerificationStatusBadge";
 import { VerificationStatusBadge } from "./VerificationStatusBadge";
-import { MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { VerificationActionsMenu } from "./VerificationsActionsMenu";
+import { DoctorInfoCell } from "./DoctorsInfoCell";
 
 export interface VerificationRowData {
   id: string;
-  doctorName: string;
-  email: string;
-  avatarUrl?: string;
-  submittedAt: string;
-  status: VerificationStatus;
+  doctorName: string | null;
+  email: string | null;
+  avatarUrl?: string | null;
+  specialty: string;
+  rmpRegistrationNumber: string;
+  submittedAt: Date | null;
+  verificationStatus: "pending" | "verified" | "rejected";
 }
 
 interface VerificationTableRowProps {
   data: VerificationRowData;
+  isLoading: boolean;
+  onApprove: (id: string) => void;
+  onReject: (id: string) => void;
 }
 
-export function VerificationTableRow({ data }: VerificationTableRowProps) {
+export function VerificationTableRow({
+  data,
+  isLoading,
+  onApprove,
+  onReject,
+}: VerificationTableRowProps) {
+  const formattedDate = data.submittedAt
+    ? new Intl.DateTimeFormat("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(new Date(data.submittedAt))
+    : "—";
+
   return (
     <TableRow>
-      {/* Doctor Info */}
+      {/* Doctor info */}
       <TableCell>
-        <div className="flex items-center gap-3">
-          <Avatar className="h-9 w-9">
-            <AvatarImage src={data.avatarUrl} />
-            <AvatarFallback>
-              {data.doctorName.charAt(0)}
-            </AvatarFallback>
-          </Avatar>
-
-          <div>
-            <p className="font-medium">{data.doctorName}</p>
-            <p className="text-sm text-muted-foreground">{data.email}</p>
-          </div>
-        </div>
+        <DoctorInfoCell
+          name={data.doctorName ?? "Unknown Doctor"}
+          email={data.email ?? "—"}
+          avatarUrl={data.avatarUrl ?? undefined}
+        />
       </TableCell>
 
-      {/* Date */}
-      <TableCell className="text-muted-foreground">
-        {data.submittedAt}
+      {/* Specialty + RMP */}
+      <TableCell>
+        <p className="text-sm font-medium">{data.specialty}</p>
+        <p className="text-xs text-muted-foreground font-mono">
+          {data.rmpRegistrationNumber}
+        </p>
+      </TableCell>
+
+      {/* Submitted date */}
+      <TableCell className="text-sm text-muted-foreground">
+        {formattedDate}
       </TableCell>
 
       {/* Status */}
       <TableCell>
-        <VerificationStatusBadge status={data.status} />
+        <VerificationStatusBadge status={data.verificationStatus} />
       </TableCell>
 
       {/* Actions */}
       <TableCell className="text-right">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>View Details</DropdownMenuItem>
-            <DropdownMenuItem className="text-green-600">
-              Approve
-            </DropdownMenuItem>
-            <DropdownMenuItem className="text-red-600">
-              Reject
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <VerificationActionsMenu
+          verificationStatus={data.verificationStatus}
+          isLoading={isLoading}
+          onApprove={() => onApprove(data.id)}
+          onReject={() => onReject(data.id)}
+        />
       </TableCell>
     </TableRow>
   );

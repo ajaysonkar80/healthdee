@@ -584,4 +584,99 @@ export const doctorRepo = {
 
     return review;
   },
+
+  /* --------------------------------------------------
+     Verification listing — joins authCredentials for email.
+     Used by the admin doctors-verification page.
+  --------------------------------------------------- */
+  async listDoctorsForVerification(params?: {
+    limit?: number;
+    offset?: number;
+    search?: string;
+    verificationStatus?: schema.DoctorVerificationStatus;
+  }) {
+    const limit = params?.limit ?? 10;
+    const offset = params?.offset ?? 0;
+
+    const conditions = [];
+
+    if (params?.verificationStatus) {
+      conditions.push(
+        eq(schema.doctors.verificationStatus, params.verificationStatus)
+      );
+    }
+
+    if (params?.search) {
+      conditions.push(
+        or(
+          like(schema.doctors.fullName, `%${params.search}%`),
+          like(schema.doctors.specialty, `%${params.search}%`),
+          like(schema.doctors.rmpRegistrationNumber, `%${params.search}%`),
+          like(schema.authCredentials.email, `%${params.search}%`)
+        )
+      );
+    }
+
+    const whereClause =
+      conditions.length > 0 ? and(...conditions) : undefined;
+
+    const [data, [countRow]] = await Promise.all([
+      db
+        .select({
+          id: schema.doctors.id,
+          publicId: schema.doctors.publicId,
+          fullName: schema.doctors.fullName,
+          specialty: schema.doctors.specialty,
+          rmpRegistrationNumber: schema.doctors.rmpRegistrationNumber,
+          rmpStateMedicalCouncil: schema.doctors.rmpStateMedicalCouncil,
+          profileImageUrl: schema.doctors.profileImageUrl,
+          verificationStatus: schema.doctors.verificationStatus,
+          createdAt: schema.doctors.createdAt,
+          email: schema.authCredentials.email,
+        })
+        .from(schema.doctors)
+        .innerJoin(schema.users, eq(schema.users.id, schema.doctors.userId))
+        .leftJoin(
+          schema.authCredentials,
+          eq(schema.authCredentials.userId, schema.doctors.userId)
+        )
+        .where(whereClause)
+        .orderBy(sql`${schema.doctors.createdAt} DESC`)
+        .limit(limit)
+        .offset(offset),
+
+      db
+        .select({ count: sql<number>`count(*)` })
+        .from(schema.doctors)
+        .innerJoin(schema.users, eq(schema.users.id, schema.doctors.userId))
+        .leftJoin(
+          schema.authCredentials,
+          eq(schema.authCredentials.userId, schema.doctors.userId)
+        )
+        .where(whereClause),
+    ]);
+
+    return { data, total: Number(countRow?.count ?? 0) };
+  },
+
+  /* --------------------------------------------------
+     Verification stats — single round-trip CASE WHEN
+  --------------------------------------------------- */
+  async getVerificationStats() {
+    const [row] = await db
+      .select({
+        total:    sql<number>`count(*)`,
+        pending:  sql<number>`sum(case when ${schema.doctors.verificationStatus} = 'pending'  then 1 else 0 end)`,
+        verified: sql<number>`sum(case when ${schema.doctors.verificationStatus} = 'verified' then 1 else 0 end)`,
+        rejected: sql<number>`sum(case when ${schema.doctors.verificationStatus} = 'rejected' then 1 else 0 end)`,
+      })
+      .from(schema.doctors);
+
+    return {
+      total:    Number(row?.total    ?? 0),
+      pending:  Number(row?.pending  ?? 0),
+      verified: Number(row?.verified ?? 0),
+      rejected: Number(row?.rejected ?? 0),
+    };
+  },
 };

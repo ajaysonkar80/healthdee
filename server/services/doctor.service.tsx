@@ -326,4 +326,23 @@ export const doctorService = {
       isVerified: false,
     });
   },
+
+  /* --------------------------------------------------
+     Verification listing (admin only)
+  --------------------------------------------------- */
+  async listDoctorsForVerification(params?: {
+    limit?: number;
+    offset?: number;
+    search?: string;
+    verificationStatus?: DoctorVerificationStatus;
+  }) {
+    return doctorRepo.listDoctorsForVerification(params);
+  },
+
+  /* --------------------------------------------------
+     Verification stats (admin only)
+  --------------------------------------------------- */
+  async getVerificationStats() {
+    return doctorRepo.getVerificationStats();
+  },
 };

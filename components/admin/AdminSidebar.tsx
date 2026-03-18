@@ -4,19 +4,34 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
 
+interface NavItem {
+  label: string;
+  href: string;
+  badge?: number;
+}
 
-const navItems = [
-  { label: "Dashboard", href: "/admin" },
-  { label: "Clinics", href: "/admin/clinics" },
-  { label: "Doctors", href: "/admin/doctors" },
-  { label: "Doctors Verification", href: "/admin/doctors-verification", badge: 14 },
-  { label: "Patients", href: "/admin/patients" },
-  {label:"Appointment Requests",href:"/admin/appointment-requests"},
-  { label: "Settings", href: "/admin/settings" },
-];
+interface AdminSidebarProps {
+  pendingVerificationCount: number;
+}
 
-export default function AdminSidebar() {
+export default function AdminSidebar({
+  pendingVerificationCount,
+}: AdminSidebarProps) {
   const pathname = usePathname();
+
+  const navItems: NavItem[] = [
+    { label: "Dashboard",              href: "/admin" },
+    { label: "Clinics",                href: "/admin/clinics" },
+    { label: "Doctors",                href: "/admin/doctors" },
+    {
+      label: "Doctors Verification",
+      href: "/admin/doctors-verification",
+      badge: pendingVerificationCount,
+    },
+    { label: "Patients",               href: "/admin/patients" },
+    { label: "Appointment Requests",   href: "/admin/appointment-requests" },
+    { label: "Settings",               href: "/admin/settings" },
+  ];
 
   return (
     <aside className="flex w-64 flex-col border-r bg-white p-4">
@@ -43,12 +58,13 @@ export default function AdminSidebar() {
                 }`}
               >
                 <span>{item.label}</span>
-                {item.badge && (
-  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs font-semibold text-white">
-    {item.badge}
-  </span>
-)}
 
+                {/* Only render badge when count > 0 */}
+                {!!item.badge && item.badge > 0 && (
+                  <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-red-500 px-1 text-xs font-semibold text-white">
+                    {item.badge > 99 ? "99+" : item.badge}
+                  </span>
+                )}
               </div>
             </Link>
           );
