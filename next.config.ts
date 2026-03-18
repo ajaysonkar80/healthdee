@@ -13,6 +13,7 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "cloud.fsd1.gozunga.com",
+        port: "6780",
       },
     ],
   },
