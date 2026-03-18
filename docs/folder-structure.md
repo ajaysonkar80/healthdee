@@ -1,6 +1,6 @@
 # Folder Structure for AI Navigation
 
-Generated from `git ls-files` on 2026-03-07 to provide a complete, deterministic map.
+Generated from `git ls-files` on 2026-03-18 to provide a complete, deterministic map.
 
 ```text
 .
@@ -128,11 +128,17 @@ Generated from `git ls-files` on 2026-03-07 to provide a complete, deterministic
 │   │   │   │   │   └── route.ts
 │   │   │   │   └── route.ts
 │   │   │   └── route.ts
+│   │   ├── files
+│   │   │   └── [...path]
+│   │   │       └── route.ts
 │   │   ├── health
 │   │   │   └── route.ts
 │   │   ├── patients
 │   │   │   ├── [id]
 │   │   │   │   └── route.ts
+│   │   │   ├── me
+│   │   │   │   └── preferences
+│   │   │   │       └── route.ts
 │   │   │   └── route.ts
 │   │   └── users
 │   │       ├── [id]
@@ -343,7 +349,9 @@ Generated from `git ls-files` on 2026-03-07 to provide a complete, deterministic
 │   │   ├── Footer.tsx
 │   │   └── Header.tsx
 │   ├── patient
+│   │   ├── AddEmergencyContactForm.tsx
 │   │   ├── DangerZone.tsx
+│   │   ├── EditProfileModal.tsx
 │   │   ├── EmergencyContactItem.tsx
 │   │   ├── EmergencyContactSection.tsx
 │   │   ├── NotificationPrivacySection.tsx
@@ -354,23 +362,26 @@ Generated from `git ls-files` on 2026-03-07 to provide a complete, deterministic
 │   │   ├── PersonalInformationSection.tsx
 │   │   ├── ProfileHeader.tsx
 │   │   └── ToggleSettingsItem.tsx
-│   └── ui
-│       ├── PasswordInput.tsx
-│       ├── RadioGroup.tsx
-│       ├── alert.tsx
-│       ├── avatar.tsx
-│       ├── badge.tsx
-│       ├── button.test.tsx
-│       ├── button.tsx
-│       ├── card.tsx
-│       ├── dialog.tsx
-│       ├── dropdown-menu.tsx
-│       ├── input.tsx
-│       ├── pagination.tsx
-│       ├── select.tsx
-│       ├── switch.tsx
-│       ├── table.tsx
-│       └── tooltip.tsx
+│   ├── ui
+│   │   ├── PasswordInput.tsx
+│   │   ├── RadioGroup.tsx
+│   │   ├── alert.tsx
+│   │   ├── avatar.tsx
+│   │   ├── badge.tsx
+│   │   ├── button.test.tsx
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── dialog.tsx
+│   │   ├── dropdown-menu.tsx
+│   │   ├── input.tsx
+│   │   ├── pagination.tsx
+│   │   ├── select.tsx
+│   │   ├── switch.tsx
+│   │   ├── table.tsx
+│   │   └── tooltip.tsx
+│   └── upload
+│       ├── AvatarUploader.tsx
+│       └── ImageUploader.tsx
 ├── db
 │   ├── index.ts
 │   ├── schema.ts
@@ -399,6 +410,7 @@ Generated from `git ls-files` on 2026-03-07 to provide a complete, deterministic
 │   │   ├── 0007_snapshot.json
 │   │   ├── 0008_snapshot.json
 │   │   ├── 0009_snapshot.json
+│   │   ├── 0010_snapshot.json
 │   │   └── _journal.json
 │   ├── 0000_purple_tiger_shark.sql
 │   ├── 0001_exotic_dakota_north.sql
@@ -409,7 +421,8 @@ Generated from `git ls-files` on 2026-03-07 to provide a complete, deterministic
 │   ├── 0006_many_arachne.sql
 │   ├── 0007_ambiguous_shadow_king.sql
 │   ├── 0008_amusing_toad.sql
-│   └── 0009_overconfident_pandemic.sql
+│   ├── 0009_overconfident_pandemic.sql
+│   └── 0010_mushy_whirlwind.sql
 ├── hooks
 │   ├── useAppointment.tsx
 │   ├── useAuth.tsx
@@ -429,6 +442,7 @@ Generated from `git ls-files` on 2026-03-07 to provide a complete, deterministic
 │   │   ├── Geist-Bold.ttf
 │   │   ├── Geist-Regular.ttf
 │   │   └── GeistMono-Regular.ttf
+│   ├── avatar.jpg
 │   ├── clinic-logo.jpg
 │   ├── clinic.jpg
 │   ├── doctor-1.jpg
@@ -437,10 +451,20 @@ Generated from `git ls-files` on 2026-03-07 to provide a complete, deterministic
 │   ├── hospital.jpg
 │   └── water-flask.png
 ├── scripts
+│   ├── get-s3.ts
+│   ├── presigned.ts
 │   ├── seed.ts
 │   ├── seedAvailability.ts
+│   ├── test-s3.ts
+│   ├── test.txt
 │   └── wifi-network-warning.js
 ├── server
+│   ├── actions
+│   │   ├── emergencyContacts.actions.ts
+│   │   ├── patient.actions.ts
+│   │   ├── patientProfile.actions.ts
+│   │   ├── patientsProfile.actions.ts
+│   │   └── uploadAvatar.actions.ts
 │   ├── constants
 │   │   ├── otp-channel.ts
 │   │   ├── user-role.ts
@@ -504,6 +528,10 @@ Generated from `git ls-files` on 2026-03-07 to provide a complete, deterministic
 │   │   ├── patient.service.tsx
 │   │   ├── prescription.services.tsx
 │   │   └── user.service.tsx
+│   ├── storage
+│   │   ├── getFileStream.ts
+│   │   ├── imageUpload.ts
+│   │   └── s3.client.ts
 │   ├── types
 │   │   └── next-request.d.ts
 │   ├── utils

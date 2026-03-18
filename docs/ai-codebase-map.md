@@ -1,10 +1,10 @@
 # AI Codebase Map & 2-Week Prioritized Completion Plan
 
-> Update note (2026-03-07): Refreshed structure references and regenerated the per-file index to match the current tracked repository state.
+> Update note (2026-03-18): Refreshed structure references and regenerated the per-file index to match the current tracked repository state.
 
-## Incremental Refresh Notes (2026-03-07)
+## Incremental Refresh Notes (2026-03-18)
 - Regenerated `docs/folder-structure.md` from the current `git ls-files` output.
-- Rebuilt the per-file analysis index in this document for all 397 tracked files.
+- Rebuilt the per-file analysis index in this document for all 418 tracked files.
 - Kept implementation guidance (flows, extension rules, and priorities) aligned with the present App Router + server-layer architecture.
 
 ## 2-Week Prioritized Completion Plan
@@ -1659,6 +1659,28 @@ Side effects:
 
 ---
 
+FILE: app/api/files/[...path]/route.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/files/[...path]/route.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `app/api/files/[...path]/route.ts` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: app/api/health/route.ts
 
 Purpose:
@@ -1700,6 +1722,28 @@ Invariants:
 
 Side effects:
 - Depends on implementation in `app/api/patients/[id]/route.ts` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: app/api/patients/me/preferences/route.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/patients/me/preferences/route.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `app/api/patients/me/preferences/route.ts` (pure rendering, IO, DB access, or runtime setup).
 
 ---
 
@@ -5091,6 +5135,28 @@ Side effects:
 
 ---
 
+FILE: components/patient/AddEmergencyContactForm.tsx
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/patient/AddEmergencyContactForm.tsx`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `components/patient/AddEmergencyContactForm.tsx` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: components/patient/DangerZone.tsx
 
 Purpose:
@@ -5110,6 +5176,28 @@ Invariants:
 
 Side effects:
 - Depends on implementation in `components/patient/DangerZone.tsx` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: components/patient/EditProfileModal.tsx
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/patient/EditProfileModal.tsx`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `components/patient/EditProfileModal.tsx` (pure rendering, IO, DB access, or runtime setup).
 
 ---
 
@@ -5685,6 +5773,50 @@ Side effects:
 
 ---
 
+FILE: components/upload/AvatarUploader.tsx
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/upload/AvatarUploader.tsx`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `components/upload/AvatarUploader.tsx` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: components/upload/ImageUploader.tsx
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/upload/ImageUploader.tsx`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `components/upload/ImageUploader.tsx` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: currentlyWorking.md
 
 Purpose:
@@ -6257,6 +6389,28 @@ Side effects:
 
 ---
 
+FILE: drizzle/0010_mushy_whirlwind.sql
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `drizzle/0010_mushy_whirlwind.sql`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `drizzle/0010_mushy_whirlwind.sql` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: drizzle/meta/0000_snapshot.json
 
 Purpose:
@@ -6474,6 +6628,28 @@ Invariants:
 
 Side effects:
 - Depends on implementation in `drizzle/meta/0009_snapshot.json` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: drizzle/meta/0010_snapshot.json
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `drizzle/meta/0010_snapshot.json`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `drizzle/meta/0010_snapshot.json` (pure rendering, IO, DB access, or runtime setup).
 
 ---
 
@@ -6895,6 +7071,28 @@ Side effects:
 
 ---
 
+FILE: public/avatar.jpg
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `public/avatar.jpg`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `public/avatar.jpg` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: public/clinic-logo.jpg
 
 Purpose:
@@ -7115,6 +7313,50 @@ Side effects:
 
 ---
 
+FILE: scripts/get-s3.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `scripts/get-s3.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `scripts/get-s3.ts` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: scripts/presigned.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `scripts/presigned.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `scripts/presigned.ts` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: scripts/seed.ts
 
 Purpose:
@@ -7159,6 +7401,50 @@ Side effects:
 
 ---
 
+FILE: scripts/test-s3.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `scripts/test-s3.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `scripts/test-s3.ts` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: scripts/test.txt
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `scripts/test.txt`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `scripts/test.txt` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: scripts/wifi-network-warning.js
 
 Purpose:
@@ -7178,6 +7464,116 @@ Invariants:
 
 Side effects:
 - Depends on implementation in `scripts/wifi-network-warning.js` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: server/actions/emergencyContacts.actions.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/actions/emergencyContacts.actions.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `server/actions/emergencyContacts.actions.ts` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: server/actions/patient.actions.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/actions/patient.actions.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `server/actions/patient.actions.ts` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: server/actions/patientProfile.actions.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/actions/patientProfile.actions.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `server/actions/patientProfile.actions.ts` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: server/actions/patientsProfile.actions.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/actions/patientsProfile.actions.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `server/actions/patientsProfile.actions.ts` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: server/actions/uploadAvatar.actions.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/actions/uploadAvatar.actions.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `server/actions/uploadAvatar.actions.ts` (pure rendering, IO, DB access, or runtime setup).
 
 ---
 
@@ -8303,6 +8699,72 @@ Side effects:
 
 ---
 
+FILE: server/storage/getFileStream.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/storage/getFileStream.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `server/storage/getFileStream.ts` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: server/storage/imageUpload.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/storage/imageUpload.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `server/storage/imageUpload.ts` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
+FILE: server/storage/s3.client.ts
+
+Purpose:
+- Project configuration, lockfile, or workspace metadata.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/storage/s3.client.ts`.
+
+Invariants:
+- Must remain consistent with the repository architecture and coding conventions.
+
+Side effects:
+- Depends on implementation in `server/storage/s3.client.ts` (pure rendering, IO, DB access, or runtime setup).
+
+---
+
 FILE: server/types/next-request.d.ts
 
 Purpose:
@@ -8830,3 +9292,4 @@ Side effects:
 - Depends on implementation in `vitest.setup.ts` (pure rendering, IO, DB access, or runtime setup).
 
 ---
+
