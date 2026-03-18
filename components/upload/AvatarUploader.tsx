@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useState, useTransition } from "react"
+import Image from "next/image"
 import imageCompression from "browser-image-compression"
 import { uploadAvatarAction } from "@/server/actions/uploadAvatar.actions"
 import { Camera } from "lucide-react"
@@ -73,10 +74,11 @@ export default function AvatarUploader({ userId }: Props) {
       >
 
         {preview ? (
-          <img
+          <Image
             src={preview}
             alt="Avatar"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
           />
         ) : (
           <div className="flex items-center justify-center h-full text-sm text-gray-400">

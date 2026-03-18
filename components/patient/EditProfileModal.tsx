@@ -14,8 +14,22 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
+interface PatientProfile {
+  fullName?: string | null
+  dateOfBirth?: string | Date | null
+  gender?: string | null
+  bloodGroup?: string | null
+  phone?: string | null
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  country?: string | null
+}
+
 interface Props {
-  profile: any
+  profile: PatientProfile
 }
 
 export default function EditProfileModal({ profile }: Props) {

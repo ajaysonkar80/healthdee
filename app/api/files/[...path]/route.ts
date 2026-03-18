@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server"
+import type { NextRequest } from "next/server"
 import { GetObjectCommand } from "@aws-sdk/client-s3"
 import { s3Client } from "@/server/storage/s3.client"
 
@@ -17,8 +17,11 @@ export async function GET(
 
     const key = path.join("/")
 
+    const bucket = process.env.S3_BUCKET
+    if (!bucket) throw new Error("Missing S3_BUCKET environment variable")
+
     const command = new GetObjectCommand({
-      Bucket: process.env.S3_BUCKET!,
+      Bucket: bucket,
       Key: key,
     })
 
@@ -55,14 +58,14 @@ export async function GET(
       headers,
     })
 
-  } catch (error: any) {
+  } catch (error: unknown) {
 
     console.error("File proxy error:", error)
 
     /**
      * Graceful fallback for missing avatars
      */
-    if (error?.name === "NoSuchKey") {
+    if (error instanceof Error && error.name === "NoSuchKey") {
       return Response.redirect(
         new URL("/avatar.png", process.env.NEXT_PUBLIC_APP_URL),
         302
