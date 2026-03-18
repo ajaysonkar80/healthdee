@@ -1,0 +1,1 @@
+ALTER TABLE `appointments` ADD `appointment_type` text DEFAULT 'new' NOT NULL;

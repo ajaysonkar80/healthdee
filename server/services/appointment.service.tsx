@@ -673,4 +673,59 @@ async rescheduleAppointment(
       params
     );
   },
+
+  // ─── ADD THESE TWO METHODS to appointment.service.tsx ──────────────────────
+// Inside the `appointmentService` object, before the final closing `};`
+// These wire the new repo methods for the doctor appointments page.
+
+  /* --------------------------------------------------
+     List appointments (doctor) — with patient info
+     Used by doctor/appointments/page.tsx
+  --------------------------------------------------- */
+  async listAppointmentsByDoctorWithPatient(
+    actorUserId: string,
+    params?: {
+      limit?: number;
+      offset?: number;
+      status?: AppointmentStatus;
+      from?: Date;
+      to?: Date;
+    }
+  ) {
+    const user = await userRepo.getUserById(actorUserId);
+
+    if (user.role !== UserRole.doctor) {
+      throw new ForbiddenError("Only doctors can view appointments");
+    }
+
+    const doctor = await doctorRepo.getDoctorByUserId(actorUserId);
+
+    return appointmentRepo.listAppointmentsByDoctorWithPatient(
+      doctor.id,
+      params
+    );
+  },
+
+  /* --------------------------------------------------
+     Get full appointment detail — with patient + doctor info
+     Used by doctor/appointments/[id]/page.tsx
+  --------------------------------------------------- */
+  async getAppointmentWithFullDetails(
+    actorUserId: string,
+    appointmentId: string
+  ) {
+    const appointment =
+      await appointmentRepo.getAppointmentWithFullDetails(appointmentId);
+
+    // Pass only patientId + doctorId to assertAppointmentAccess.
+    // The full appointment includes `doctor: { specialty, profileImageUrl }`
+    // which does NOT have `id` — passing the whole object causes a type error
+    // because assertAppointmentAccess expects `doctor?: { id: string }`.
+    await assertAppointmentAccess(actorUserId, {
+      patientId: appointment.patientId,
+      doctorId:  appointment.doctorId,
+    });
+
+    return appointment;
+  },
 };

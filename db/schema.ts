@@ -68,6 +68,9 @@ export type AppointmentStatus = z.infer<
   typeof AppointmentStatusSchema
 >;
 
+export const AppointmentTypeSchema = z.enum(["new", "follow-up"]);
+export type AppointmentType = z.infer<typeof AppointmentTypeSchema>;
+
 export const doctorAvailability = sqliteTable("doctor_availability", {
   id: uuid(),
   doctorId: text("doctor_id")
@@ -430,6 +433,8 @@ export const appointments = sqliteTable(
     scheduledAt: integer("scheduled_at", { mode: "timestamp" }).notNull(),
 
     status: text("status").$type<AppointmentStatus>().notNull(),
+    
+    appointmentType: text("appointment_type").$type<"new" | "follow-up">().notNull().default("new"),
 
     createdAt: integer("created_at", { mode: "timestamp" })
       .notNull()
