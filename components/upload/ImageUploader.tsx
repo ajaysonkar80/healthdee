@@ -3,14 +3,13 @@ import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Download, Camera } from "lucide-react"
-import Image from "next/image"
+
 import AvatarUploader from "../upload/AvatarUploader"
 
 interface ProfileHeaderProps {
   profile: {
     id: string
     fullName?: string | null
-    profileImageUrl?: string | null
     createdAt?: Date | null
   }
 }
@@ -34,8 +33,7 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
     : "Unknown"
 
   /**
-   * Avatar source
-   * If profile image exists -> fetch through API proxy
+   * Avatar served through proxy
    */
   const avatarSrc = `/api/files/avatars/${profile.id}.webp`
 
@@ -46,7 +44,6 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
         {/* LEFT SECTION */}
         <div className="flex items-center gap-4">
 
-          {/* Avatar */}
           <div className="relative">
             <Avatar className="h-20 w-20">
 
@@ -55,13 +52,7 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
               />
 
               <AvatarFallback>
-                <Image
-                  src="/avatar.jpg"
-                  alt="Default avatar fallback"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 80px) 100vw"
-                />
+                {initials}
               </AvatarFallback>
 
             </Avatar>
@@ -97,7 +88,7 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
         {/* RIGHT ACTIONS */}
         <div className="flex gap-3">
 
-          <AvatarUploader userId={profile.profileImageUrl} />
+          <AvatarUploader userId={profile.id} />
 
           <Button
             disabled
