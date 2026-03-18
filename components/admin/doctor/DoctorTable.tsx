@@ -1,7 +1,8 @@
+// components/admin/doctor/DoctorTable.tsx
 "use client";
 
-import { useMemo, useState } from "react";
-
+import { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import {
   Table,
   TableBody,
@@ -11,199 +12,238 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { DoctorDeleteModal } from "@/components/admin/doctor/DoctorDeleteModal";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DoctorRowActions } from "@/components/admin/doctor/DoctorRowAction";
 
-interface Doctor {
+/* -------------------------------------------------------
+   Inline types (avoids module resolution issues)
+------------------------------------------------------- */
+
+export type DoctorRow = {
   id: string;
-  name: string;
-  npi: string;
+  publicId: string;
+  fullName: string | null;
   specialty: string;
-  city: string;
-  status: "active" | "inactive";
+  experienceYears: number | null;
+  consultationFee: number | null;
+  rating: number;
+  profileImageUrl: string | null;
+  rmpRegistrationNumber: string;
+  verificationStatus: "pending" | "verified" | "rejected";
+  isActive: boolean | null;
+  createdAt: Date | null;
+  userId: string;
+  userStatus: string;
+};
+
+/* -------------------------------------------------------
+   Helpers
+------------------------------------------------------- */
+
+function getInitials(fullName: string | null, publicId: string): string {
+  if (fullName) {
+    return fullName
+      .split(" ")
+      .map((w) => w[0])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase();
+  }
+  return publicId.slice(0, 2).toUpperCase();
 }
 
-const INITIAL_DOCTORS: Doctor[] = [
-  {
-    id: "1",
-    name: "Dr. Sarah Jenkins",
-    npi: "129304122",
-    specialty: "Cardiology",
-    city: "New York",
-    status: "active",
-  },
-  {
-    id: "2",
-    name: "Dr. Mark Sloan",
-    npi: "554210982",
-    specialty: "Pediatrics",
-    city: "London",
-    status: "active",
-  },
-  {
-    id: "3",
-    name: "Dr. Gregory House",
-    npi: "001928374",
-    specialty: "Diagnostics",
-    city: "Princeton",
-    status: "inactive",
-  },
-  {
-    id: "4",
-    name: "Dr. Meredith Grey",
-    npi: "887213445",
-    specialty: "Surgery",
-    city: "Seattle",
-    status: "active",
-  },
-  {
-    id: "5",
-    name: "Dr. Shaun Murphy",
-    npi: "443211090",
-    specialty: "Surgical Resident",
-    city: "San Jose",
-    status: "active",
-  },
-];
-
-export function DoctorTable() {
-  const [doctors, setDoctors] = useState<Doctor[]>(INITIAL_DOCTORS);
-  const [doctorToDelete, setDoctorToDelete] = useState<Doctor | null>(null);
-  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
-
-  const toggleStatus = (doctorId: string) => {
-    setDoctors((prev) =>
-      prev.map((doctor) =>
-        doctor.id === doctorId
-          ? {
-              ...doctor,
-              status: doctor.status === "active" ? "inactive" : "active",
-            }
-          : doctor
-      )
-    );
+function VerificationBadge({
+  status,
+}: {
+  status: "pending" | "verified" | "rejected";
+}) {
+  const classMap: Record<"pending" | "verified" | "rejected", string> = {
+    verified: "bg-green-100 text-green-700",
+    pending: "bg-orange-100 text-orange-700",
+    rejected: "bg-red-100 text-red-600",
   };
 
-  const avatarInitials = useMemo(
-    () =>
-      doctors.reduce<Record<string, string>>((acc, doctor) => {
-        acc[doctor.id] = doctor.name
-          .split(" ")
-          .map((part) => part[0])
-          .slice(0, 2)
-          .join("");
-        return acc;
-      }, {}),
-    [doctors]
+  return (
+    <Badge className={classMap[status]}>
+      {status.charAt(0).toUpperCase() + status.slice(1)}
+    </Badge>
+  );
+}
+
+/* -------------------------------------------------------
+   Component
+------------------------------------------------------- */
+
+interface DoctorTableProps {
+  data: DoctorRow[];
+}
+
+export function DoctorTable({ data }: DoctorTableProps) {
+  const router = useRouter();
+
+  // Map of doctorId → optimistic isActive value
+  // Only populated while a toggle is in-flight or immediately after
+  const [optimisticState, setOptimisticState] = useState<
+    Record<string, boolean>
+  >({});
+  const [togglingId, setTogglingId] = useState<string | null>(null);
+
+  const handleToggle = useCallback(
+    async (doctorId: string, currentIsActive: boolean) => {
+      if (togglingId) return; // prevent double-click
+
+      const nextValue = !currentIsActive;
+
+      // Optimistic update
+      setOptimisticState((prev) => ({ ...prev, [doctorId]: nextValue }));
+      setTogglingId(doctorId);
+
+      try {
+        const res = await fetch(`/api/doctors/${doctorId}`, {
+          method: "PATCH",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ isActive: nextValue }),
+        });
+
+        if (!res.ok) {
+          // Roll back
+          setOptimisticState((prev) => ({
+            ...prev,
+            [doctorId]: currentIsActive,
+          }));
+          console.error("Failed to update doctor status");
+          return;
+        }
+
+        // Trigger server component re-fetch so counts in StatsCards refresh too
+        router.refresh();
+      } catch (err) {
+        // Roll back on network error
+        setOptimisticState((prev) => ({
+          ...prev,
+          [doctorId]: currentIsActive,
+        }));
+        console.error("Toggle error:", err);
+      } finally {
+        setTogglingId(null);
+      }
+    },
+    [togglingId, router]
   );
 
-  const handleConfirmDelete = async () => {
-    if (!doctorToDelete) {
-      return;
-    }
-
-    const deletingDoctor = doctorToDelete;
-    setDoctorToDelete(null);
-
-    setDoctors((prev) =>
-      prev.filter((doctor) => doctor.id !== deletingDoctor.id)
+  if (data.length === 0) {
+    return (
+      <div className="rounded-lg border bg-background px-6 py-16 text-center">
+        <p className="text-sm text-muted-foreground">
+          No doctors found matching the current filters.
+        </p>
+      </div>
     );
-
-    setPendingDeleteId(deletingDoctor.id);
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-    } catch (error) {
-      console.error("Failed to delete doctor", error);
-      setDoctors((prev) => [deletingDoctor, ...prev]);
-    } finally {
-      setPendingDeleteId(null);
-    }
-  };
+  }
 
   return (
     <div className="rounded-lg border bg-background">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="text-center">Doctor Name</TableHead>
-            <TableHead>Speciality</TableHead>
-            <TableHead>City</TableHead>
+            <TableHead>Doctor</TableHead>
+            <TableHead>Specialty</TableHead>
+            <TableHead>RMP No.</TableHead>
+            <TableHead>Fee (₹)</TableHead>
+            <TableHead>Verification</TableHead>
             <TableHead>Status</TableHead>
             <TableHead className="text-center">Actions</TableHead>
           </TableRow>
         </TableHeader>
 
         <TableBody>
-          {doctors.map((doctor) => (
-            <TableRow key={doctor.id}>
-              <TableCell>
-                <div className="flex items-center justify-center gap-3">
-                  <Avatar>
-                    <AvatarFallback>
-                      {avatarInitials[doctor.id]}
-                    </AvatarFallback>
-                  </Avatar>
+          {data.map((doctor) => {
+            const doctorId = doctor.id;
+            const resolvedIsActive =
+              doctorId in optimisticState
+                ? optimisticState[doctorId]
+                : doctor.isActive ?? false;
 
-                  <div className="text-left">
-                    <div className="font-medium">{doctor.name}</div>
-                    <div className="text-xs text-muted-foreground">
-                      NPI: {doctor.npi}
+            return (
+              <TableRow key={doctorId}>
+                {/* Doctor name + avatar */}
+                <TableCell>
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-9 w-9">
+                      {doctor.profileImageUrl && (
+                        <AvatarImage
+                          src={doctor.profileImageUrl}
+                          alt={doctor.fullName ?? doctor.publicId}
+                        />
+                      )}
+                      <AvatarFallback className="text-xs">
+                        {getInitials(doctor.fullName, doctor.publicId)}
+                      </AvatarFallback>
+                    </Avatar>
+
+                    <div className="min-w-0">
+                      <p className="truncate font-medium">
+                        {doctor.fullName ?? "—"}
+                      </p>
+                      <p className="truncate text-xs text-muted-foreground">
+                        {doctor.publicId}
+                      </p>
                     </div>
                   </div>
-                </div>
-              </TableCell>
+                </TableCell>
 
-              <TableCell>{doctor.specialty}</TableCell>
-              <TableCell>{doctor.city}</TableCell>
+                {/* Specialty */}
+                <TableCell className="text-sm">{doctor.specialty}</TableCell>
 
-              <TableCell>
-                <Badge
-                  className={
-                    doctor.status === "active"
-                      ? "bg-green-100 text-green-700"
-                      : "bg-gray-100 text-gray-600"
-                  }
-                >
-                  {doctor.status === "active" ? "Active" : "Inactive"}
-                </Badge>
-              </TableCell>
+                {/* RMP registration */}
+                <TableCell className="font-mono text-xs">
+                  {doctor.rmpRegistrationNumber}
+                </TableCell>
 
-              <TableCell>
-                <div className="flex justify-center">
-                  <DoctorRowActions
-                    doctorId={doctor.id}
-                    isActive={doctor.status === "active"}
-                    isDeleting={pendingDeleteId === doctor.id}
-                    onDelete={() => setDoctorToDelete(doctor)}
-                    onToggle={() => toggleStatus(doctor.id)}
-                  />
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
+                {/* Consultation fee */}
+                <TableCell className="text-sm">
+                  {doctor.consultationFee != null
+                    ? `₹${doctor.consultationFee.toLocaleString("en-IN")}`
+                    : "—"}
+                </TableCell>
+
+                {/* Verification badge */}
+                <TableCell>
+                  <VerificationBadge status={doctor.verificationStatus} />
+                </TableCell>
+
+                {/* Active / inactive badge */}
+                <TableCell>
+                  <Badge
+                    className={
+                      resolvedIsActive
+                        ? "bg-green-100 text-green-700"
+                        : "bg-gray-100 text-gray-500"
+                    }
+                  >
+                    {resolvedIsActive ? "Active" : "Inactive"}
+                  </Badge>
+                </TableCell>
+
+                {/* Actions */}
+                <TableCell>
+                  <div className="flex justify-center">
+                    <DoctorRowActions
+                      doctorId={doctorId}
+                      isActive={resolvedIsActive}
+                      isToggling={togglingId === doctorId}
+                      onToggle={() =>
+                        handleToggle(doctorId, resolvedIsActive)
+                      }
+                    />
+                  </div>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
-
-      <div className="flex items-center justify-between px-4 py-3 text-sm text-muted-foreground">
-        <span>Showing 1 to {doctors.length} of 1,284 results</span>
-        <div className="flex gap-2">
-          <Badge variant="default">1</Badge>
-          <Badge variant="outline">2</Badge>
-          <Badge variant="outline">3</Badge>
-          <Badge variant="outline">…</Badge>
-          <Badge variant="outline">128</Badge>
-        </div>
-      </div>
-
-      <DoctorDeleteModal
-        doctorName={doctorToDelete?.name ?? "this doctor"}
-        isOpen={Boolean(doctorToDelete)}
-        isPending={Boolean(pendingDeleteId)}
-        onClose={() => setDoctorToDelete(null)}
-        onConfirm={handleConfirmDelete}
-      />
     </div>
   );
 }

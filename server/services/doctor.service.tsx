@@ -1,3 +1,4 @@
+// server/services/doctor.service.tsx
 import { doctorRepo } from "@/server/repositories/doctor.repo";
 import { userRepo } from "@/server/repositories/user.repo";
 import { auditRepo } from "@/server/repositories/audit.repo";
@@ -15,10 +16,7 @@ import {
   assertDoctorVerificationFields,
 } from "@/server/domain/doctor.domain";
 
-import {
-  ForbiddenError,
-  ValidationError,
-} from "@/server/utils/errors";
+import { ForbiddenError, ValidationError } from "@/server/utils/errors";
 
 import { UserRole } from "@/server/constants/user-role";
 import { UserStatus } from "@/server/constants/user-status";
@@ -93,9 +91,7 @@ export const doctorService = {
       action: "DOCTOR_PROFILE_CREATED",
       targetType: "doctor",
       targetId: doctor.id,
-      metadata: {
-        specialty: doctor.specialty,
-      },
+      metadata: { specialty: doctor.specialty },
     });
 
     return doctor;
@@ -119,19 +115,14 @@ export const doctorService = {
 
     assertDoctorBelongsToUser(doctor.userId, actorUserId);
 
-    const updated = await doctorRepo.updateDoctorProfile(
-      doctorId,
-      input
-    );
+    const updated = await doctorRepo.updateDoctorProfile(doctorId, input);
 
     await persistAudit({
       actorUserId,
       action: "DOCTOR_PROFILE_UPDATED",
       targetType: "doctor",
       targetId: doctorId,
-      metadata: {
-        updatedFields: Object.keys(input),
-      },
+      metadata: { updatedFields: Object.keys(input) },
     });
 
     return updated;
@@ -152,7 +143,7 @@ export const doctorService = {
   },
 
   /* --------------------------------------------------
-     List doctors (Admin / Internal)
+     List doctors (Admin)
   --------------------------------------------------- */
   async listDoctors(params?: {
     limit?: number;
@@ -164,197 +155,175 @@ export const doctorService = {
   }) {
     return doctorRepo.listDoctors(params);
   },
-  
-/* --------------------------------------------------
-   Public Doctors Listing (Marketplace)
---------------------------------------------------- */
-async getPublicDoctors(params?: {
-  page?: number | string;
-  limit?: number | string;
-  search?: string;
-  minFee?: number | string;
-  maxFee?: number | string;
-}) {
-  /* -----------------------------
-     Sanitize & Normalize Inputs
-  ----------------------------- */
 
-  const page =
-    typeof params?.page === "string"
-      ? parseInt(params.page, 10)
-      : params?.page;
+  /* --------------------------------------------------
+     Doctor stats for admin dashboard cards
+  --------------------------------------------------- */
+  async getDoctorStats() {
+    return doctorRepo.getDoctorStats();
+  },
 
-  const limit =
-    typeof params?.limit === "string"
-      ? parseInt(params.limit, 10)
-      : params?.limit;
+  /* --------------------------------------------------
+     Toggle doctor active status (admin only)
+     NOTE: This sets isActive on the doctor profile only.
+     It does NOT touch the users table status.
+     User-level soft-delete is a separate compliance
+     feature governed by DPDP / data erasure requests.
+  --------------------------------------------------- */
+  async updateDoctorActiveStatus(
+    actorUserId: string,
+    doctorId: string,
+    isActive: boolean
+  ) {
+    const actor = await userRepo.getUserById(actorUserId);
 
-  const minFee =
-    typeof params?.minFee === "string"
-      ? parseInt(params.minFee, 10)
-      : params?.minFee;
+    if (actor.role !== UserRole.admin) {
+      throw new ForbiddenError(
+        "Only admins can change doctor active status"
+      );
+    }
 
-  const maxFee =
-    typeof params?.maxFee === "string"
-      ? parseInt(params.maxFee, 10)
-      : params?.maxFee;
+    const result = await doctorRepo.updateActiveStatus(doctorId, isActive);
 
-  /* -----------------------------
-     Validate Pagination
-  ----------------------------- */
+    await persistAudit({
+      actorUserId,
+      action: isActive ? "DOCTOR_ACTIVATED" : "DOCTOR_DEACTIVATED",
+      targetType: "doctor",
+      targetId: doctorId,
+      metadata: { isActive },
+    });
 
-  const safePage = page && page > 0 ? page : 1;
+    return result;
+  },
 
-  const safeLimit =
-    limit && limit > 0 && limit <= 50 ? limit : 9;
+  /* --------------------------------------------------
+     Public Doctors Listing (Marketplace)
+  --------------------------------------------------- */
+  async getPublicDoctors(params?: {
+    page?: number | string;
+    limit?: number | string;
+    search?: string;
+    minFee?: number | string;
+    maxFee?: number | string;
+  }) {
+    const page =
+      typeof params?.page === "string"
+        ? parseInt(params.page, 10)
+        : params?.page;
+    const limit =
+      typeof params?.limit === "string"
+        ? parseInt(params.limit, 10)
+        : params?.limit;
+    const minFee =
+      typeof params?.minFee === "string"
+        ? parseInt(params.minFee, 10)
+        : params?.minFee;
+    const maxFee =
+      typeof params?.maxFee === "string"
+        ? parseInt(params.maxFee, 10)
+        : params?.maxFee;
 
-  /* -----------------------------
-     Business Rule:
-     Prevent negative fees
-  ----------------------------- */
+    const safePage = page && page > 0 ? page : 1;
+    const safeLimit = limit && limit > 0 && limit <= 50 ? limit : 9;
+    const safeMinFee =
+      typeof minFee === "number" && minFee >= 0 ? minFee : undefined;
+    const safeMaxFee =
+      typeof maxFee === "number" && maxFee >= 0 ? maxFee : undefined;
 
-  const safeMinFee =
-    typeof minFee === "number" && minFee >= 0
-      ? minFee
-      : undefined;
+    return doctorRepo.getPublicDoctors({
+      page: safePage,
+      limit: safeLimit,
+      search: params?.search?.trim() || undefined,
+      minFee: safeMinFee,
+      maxFee: safeMaxFee,
+    });
+  },
 
-  const safeMaxFee =
-    typeof maxFee === "number" && maxFee >= 0
-      ? maxFee
-      : undefined;
+  /* --------------------------------------------------
+     Public Doctor Detail (Marketplace Page)
+  --------------------------------------------------- */
+  async getDoctorDetailByPublicId(publicId: string) {
+    if (!publicId || publicId.trim().length === 0) {
+      throw new ValidationError("Invalid doctor public ID");
+    }
 
-  /* -----------------------------
-     Delegate to Repository
-  ----------------------------- */
+    return doctorRepo.getDoctorDetailByPublicId(publicId.trim());
+  },
 
-  return doctorRepo.getPublicDoctors({
-    page: safePage,
-    limit: safeLimit,
-    search: params?.search?.trim() || undefined,
-    minFee: safeMinFee,
-    maxFee: safeMaxFee,
-  });
-},
+  /* --------------------------------------------------
+     Verify / Reject doctor (admin only)
+  --------------------------------------------------- */
+  async setDoctorVerificationStatus(
+    actorUserId: string,
+    doctorId: string,
+    nextStatus: DoctorVerificationStatus
+  ) {
+    const actor = await userRepo.getUserById(actorUserId);
 
-/* --------------------------------------------------
-   Public Doctor Detail (Marketplace Page)
---------------------------------------------------- */
-async getDoctorDetailByPublicId(publicId: string) {
-  if (!publicId || publicId.trim().length === 0) {
-    throw new ValidationError("Invalid doctor public ID");
-  }
+    if (actor.role !== UserRole.admin) {
+      throw new ForbiddenError("Only admins can verify doctors");
+    }
 
-  const doctor =
-    await doctorRepo.getDoctorDetailByPublicId(
-      publicId.trim()
+    const doctor = await doctorRepo.getDoctorById(doctorId);
+
+    assertValidDoctorVerificationTransition(
+      doctor.verificationStatus,
+      nextStatus
     );
 
-  return doctor;
-},
+    const verifiedAt = nextStatus === "verified" ? Date.now() : null;
+    assertDoctorVerificationFields(nextStatus, verifiedAt);
+
+    await doctorRepo.updateVerificationStatus(doctorId, nextStatus);
+
+    const action =
+      nextStatus === "verified" ? "DOCTOR_VERIFIED" : "DOCTOR_REJECTED";
+
+    await persistAudit({
+      actorUserId,
+      action,
+      targetType: "doctor",
+      targetId: doctorId,
+    });
+
+    return { success: true };
+  },
 
   /* --------------------------------------------------
-   Verify / Reject doctor (admin only)
---------------------------------------------------- */
-async setDoctorVerificationStatus(
-  actorUserId: string,
-  doctorId: string,
-  nextStatus: DoctorVerificationStatus
-) {
-  const actor = await userRepo.getUserById(actorUserId);
-
-  if (actor.role !== UserRole.admin) {
-    throw new ForbiddenError("Only admins can verify doctors");
-  }
-
-  const doctor = await doctorRepo.getDoctorById(doctorId);
-
-  assertValidDoctorVerificationTransition(
-    doctor.verificationStatus,
-    nextStatus
-  );
-
-  const verifiedAt =
-    nextStatus === "verified" ? Date.now() : null;
-
-  assertDoctorVerificationFields(nextStatus, verifiedAt);
-
-  await doctorRepo.updateVerificationStatus(
-    doctorId,
-    nextStatus
-  );
-
-  /* --------------------------------------------------
-     Explicit audit action (type-safe)
+     Get Doctor Reviews (Public)
   --------------------------------------------------- */
+  async getDoctorReviews(doctorId: string, limit?: number) {
+    if (!doctorId) {
+      throw new ValidationError("Invalid doctor ID");
+    }
 
-  const action =
-    nextStatus === "verified"
-      ? "DOCTOR_VERIFIED"
-      : "DOCTOR_REJECTED";
+    const safeLimit = limit && limit > 0 && limit <= 20 ? limit : 5;
+    return doctorRepo.getReviewsByDoctorId(doctorId, safeLimit);
+  },
 
-  await persistAudit({
-    actorUserId,
-    action,
-    targetType: "doctor",
-    targetId: doctorId,
-  });
+  /* --------------------------------------------------
+     Submit Doctor Review
+  --------------------------------------------------- */
+  async submitDoctorReview(input: {
+    doctorId: string;
+    patientName: string;
+    rating: number;
+    comment: string;
+  }) {
+    if (!input.doctorId) throw new ValidationError("Doctor ID required");
+    if (!input.patientName || input.patientName.trim().length < 2)
+      throw new ValidationError("Invalid patient name");
+    if (input.rating < 1 || input.rating > 5)
+      throw new ValidationError("Rating must be between 1 and 5");
+    if (!input.comment || input.comment.trim().length < 5)
+      throw new ValidationError("Comment too short");
 
-  return { success: true };
-},
-
-/* --------------------------------------------------
-   Get Doctor Reviews (Public)
---------------------------------------------------- */
-async getDoctorReviews(
-  doctorId: string,
-  limit?: number
-) {
-  if (!doctorId) {
-    throw new ValidationError("Invalid doctor ID");
-  }
-
-  const safeLimit =
-    limit && limit > 0 && limit <= 20 ? limit : 5;
-
-  return doctorRepo.getReviewsByDoctorId(
-    doctorId,
-    safeLimit
-  );
-},
-
-/* --------------------------------------------------
-   Submit Doctor Review
---------------------------------------------------- */
-async submitDoctorReview(input: {
-  doctorId: string;
-  patientName: string;
-  rating: number;
-  comment: string;
-}) {
-  if (!input.doctorId) {
-    throw new ValidationError("Doctor ID required");
-  }
-
-  if (!input.patientName || input.patientName.trim().length < 2) {
-    throw new ValidationError("Invalid patient name");
-  }
-
-  if (input.rating < 1 || input.rating > 5) {
-    throw new ValidationError("Rating must be between 1 and 5");
-  }
-
-  if (!input.comment || input.comment.trim().length < 5) {
-    throw new ValidationError("Comment too short");
-  }
-
-  return doctorRepo.createDoctorReview({
-    doctorId: input.doctorId,
-    patientName: input.patientName.trim(),
-    rating: input.rating,
-    comment: input.comment.trim(),
-    isVerified: false,
-  });
-},
-
+    return doctorRepo.createDoctorReview({
+      doctorId: input.doctorId,
+      patientName: input.patientName.trim(),
+      rating: input.rating,
+      comment: input.comment.trim(),
+      isVerified: false,
+    });
+  },
 };
-

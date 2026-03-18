@@ -1,62 +1,63 @@
+// app/api/doctors/[id]/route.ts
 import type { NextRequest } from "next/server";
 import { withAuth, withErrorHandling } from "@/server/http/route-helpers";
 import { success } from "@/server/http/response";
-
 import { doctorService } from "@/server/services/doctor.service";
+import { defineAbilityFor } from "@/server/policies/ability";
+import { ForbiddenError, ValidationError } from "@/server/utils/errors";
 import type { AuthUser } from "@/server/policies/roles";
-import { ForbiddenError } from "@/server/utils/errors";
 
-/* ---------------- GET ---------------- */
+type RouteContext = { params: Promise<{ id: string }> };
+
+/* ---------------- GET /api/doctors/[id] ---------------- */
 export const GET = withErrorHandling(
-  withAuth(async (req: NextRequest, ctx) => {
-    if (!req.auth) {
-      throw new ForbiddenError("Unauthorized");
-    }
+  withAuth(async (req: NextRequest, context?: unknown) => {
+    if (!req.auth) throw new ForbiddenError("Unauthorized");
 
-    
+    const { id } = await (context as RouteContext).params;
+    const actor: AuthUser = { id: req.auth.userId, role: req.auth.role };
+    const ability = defineAbilityFor(actor);
 
-    const params = ctx as { params?: { id?: string } };
-    const doctorId = params.params?.id;
+    if (!ability.can("read", "Doctor")) throw new ForbiddenError("Forbidden");
 
-    if (!doctorId) {
-      throw new ForbiddenError("Invalid doctor id");
-    }
-
-    const doctor = await doctorService.getDoctorById(
-      doctorId
-    );
-
+    const doctor = await doctorService.getDoctorById(id);
     return success(doctor);
   })
 );
 
-/* ---------------- PATCH ---------------- */
+/* ---------------- PATCH /api/doctors/[id] ---------------- */
+/* Toggle isActive status (admin only).
+ *
+ * Body: { isActive: boolean }
+ *
+ * NOTE: This only changes the doctor profile's isActive flag.
+ * It does NOT soft-delete the user account. User-level account
+ * deactivation is a separate DPDP-compliant flow via
+ * POST /api/users/[id]/deactivate or data erasure requests.
+ */
 export const PATCH = withErrorHandling(
-  withAuth(async (req: NextRequest, ctx) => {
-    if (!req.auth) {
-      throw new ForbiddenError("Unauthorized");
-    }
+  withAuth(async (req: NextRequest, context?: unknown) => {
+    if (!req.auth) throw new ForbiddenError("Unauthorized");
 
-    const actor: AuthUser = {
-      id: req.auth.userId,
-      role: req.auth.role,
-    };
+    const actor: AuthUser = { id: req.auth.userId, role: req.auth.role };
+    const ability = defineAbilityFor(actor);
 
-    const params = ctx as { params?: { id?: string } };
-    const doctorId = params.params?.id;
+    if (!ability.can("update", "Doctor")) throw new ForbiddenError("Forbidden");
 
-    if (!doctorId) {
-      throw new ForbiddenError("Invalid doctor id");
-    }
+    const { id } = await (context as RouteContext).params;
 
     const body = await req.json();
 
-    const updated = await doctorService.updateDoctorProfile(
-      actor.id,
-      doctorId,
-      body
+    if (typeof body?.isActive !== "boolean") {
+      throw new ValidationError("isActive (boolean) is required");
+    }
+
+    const result = await doctorService.updateDoctorActiveStatus(
+      req.auth.userId,
+      id,
+      body.isActive
     );
 
-    return success(updated);
+    return success(result);
   })
 );

@@ -5,12 +5,12 @@ import { and, eq, like, or, sql } from "drizzle-orm";
 import type { PaginationParams } from "./user.repo";
 import { RepositoryError } from "./user.repo";
 import { doctorAvailability } from "@/db/schema";
-//import { doctorReviews } from "@/db/schema";
+
 /* -----------------------------------------------------
    Helpers
 ----------------------------------------------------- */
 
-const DEFAULT_LIMIT = 20;
+const DEFAULT_LIMIT = 10;
 
 function getPagination(params?: PaginationParams) {
   return {
@@ -28,146 +28,134 @@ export const doctorRepo = {
      Create
   ----------------------------- */
 
-async createDoctor(input: {
-  userId: string;
-  publicId: string;
-  specialty: string;
-  experienceYears?: number;
-  bio?: string;
-  consultationFee?: number;
-  profileImageUrl?: string;
-  rmpRegistrationNumber: string;
-  rmpStateMedicalCouncil: string;
-  verificationStatus: schema.DoctorVerificationStatus;
+  async createDoctor(input: {
+    userId: string;
+    publicId: string;
+    specialty: string;
+    experienceYears?: number;
+    bio?: string;
+    consultationFee?: number;
+    profileImageUrl?: string;
+    rmpRegistrationNumber: string;
+    rmpStateMedicalCouncil: string;
+    verificationStatus: schema.DoctorVerificationStatus;
+    fullName?: string;
+    degrees?: string;
+    languages?: string;
+    tagline?: string;
+    isTopRated?: boolean;
+  }) {
+    const now = new Date();
 
-  /* NEW OPTIONAL FIELDS */
-  fullName?: string;
-  degrees?: string;
-  languages?: string;
-  tagline?: string;
-  isTopRated?: boolean;
-}) {
-  const now = new Date();
+    const [doctor] = await db
+      .insert(schema.doctors)
+      .values({
+        userId: input.userId,
+        publicId: input.publicId,
+        specialty: input.specialty,
+        experienceYears: input.experienceYears ?? 0,
+        bio: input.bio,
+        consultationFee: input.consultationFee ?? 0,
+        profileImageUrl: input.profileImageUrl,
+        rmpRegistrationNumber: input.rmpRegistrationNumber,
+        rmpStateMedicalCouncil: input.rmpStateMedicalCouncil,
+        verificationStatus: input.verificationStatus,
+        fullName: input.fullName,
+        degrees: input.degrees,
+        languages: input.languages,
+        tagline: input.tagline,
+        isTopRated: input.isTopRated ?? false,
+        createdAt: now,
+      })
+      .returning();
 
-  const [doctor] = await db
-    .insert(schema.doctors)
-    .values({
-      userId: input.userId,
-      publicId: input.publicId,
-      specialty: input.specialty,
-      experienceYears: input.experienceYears ?? 0,
-      bio: input.bio,
-      consultationFee: input.consultationFee ?? 0,
-      profileImageUrl: input.profileImageUrl,
-      rmpRegistrationNumber: input.rmpRegistrationNumber,
-      rmpStateMedicalCouncil: input.rmpStateMedicalCouncil,
-      verificationStatus: input.verificationStatus,
-      fullName: input.fullName,
-      degrees: input.degrees,
-      languages: input.languages,
-      tagline: input.tagline,
-      isTopRated: input.isTopRated ?? false,
-      createdAt: now,
-    })
-    .returning();
+    return doctor;
+  },
 
-  return doctor;
-},
+  /* -----------------------------------------------------
+     Public Listing (Marketplace)
+  ----------------------------------------------------- */
 
-/* -----------------------------------------------------
-   Public Listing (Drizzle + SQLite Safe)
------------------------------------------------------ */
+  async getPublicDoctors(params?: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    minFee?: number;
+    maxFee?: number;
+  }) {
+    const page = params?.page && params.page > 0 ? params.page : 1;
+    const limit = params?.limit ?? DEFAULT_LIMIT;
+    const offset = (page - 1) * limit;
 
-async getPublicDoctors(params?: {
-  page?: number;
-  limit?: number;
-  search?: string;
-  minFee?: number;
-  maxFee?: number;
-}) {
-  const page = params?.page && params.page > 0 ? params.page : 1;
-  const limit = params?.limit ?? DEFAULT_LIMIT;
-  const offset = (page - 1) * limit;
-
-  const conditions = [];
-
-  // Always required conditions
-  conditions.push(eq(schema.doctors.isActive, true));
-  conditions.push(
-    eq(
-      schema.doctors.verificationStatus,
-      "verified" as schema.DoctorVerificationStatus
-    )
-  );
-
-  // Prefix search
-  if (params?.search && params.search.trim().length > 0) {
-    const search = params.search.trim();
+    const conditions = [];
+    conditions.push(eq(schema.doctors.isActive, true));
     conditions.push(
-      or(
-        like(schema.doctors.publicId, `${search}%`),
-        like(schema.doctors.specialty, `${search}%`)
+      eq(
+        schema.doctors.verificationStatus,
+        "verified" as schema.DoctorVerificationStatus
       )
     );
-  }
 
-  // Min fee
-  if (typeof params?.minFee === "number") {
-    conditions.push(
-      sql`${schema.doctors.consultationFee} >= ${params.minFee}`
-    );
-  }
+    if (params?.search && params.search.trim().length > 0) {
+      const search = params.search.trim();
+      conditions.push(
+        or(
+          like(schema.doctors.publicId, `${search}%`),
+          like(schema.doctors.specialty, `${search}%`)
+        )
+      );
+    }
 
-  // Max fee
-  if (typeof params?.maxFee === "number") {
-    conditions.push(
-      sql`${schema.doctors.consultationFee} <= ${params.maxFee}`
-    );
-  }
+    if (typeof params?.minFee === "number") {
+      conditions.push(
+        sql`${schema.doctors.consultationFee} >= ${params.minFee}`
+      );
+    }
 
-  const whereClause = and(...conditions);
+    if (typeof params?.maxFee === "number") {
+      conditions.push(
+        sql`${schema.doctors.consultationFee} <= ${params.maxFee}`
+      );
+    }
 
-  const dataQuery = db
-  .select({
-    id: schema.doctors.id,
-    publicId: schema.doctors.publicId,
-    fullName: schema.doctors.fullName,
-    specialty: schema.doctors.specialty,
-    experienceYears: schema.doctors.experienceYears,
-    rating: schema.doctors.rating,
-    profileImageUrl: schema.doctors.profileImageUrl,
-    consultationFee: schema.doctors.consultationFee,
-    isTopRated: schema.doctors.isTopRated,
-    tagline: schema.doctors.tagline,
-  })
-  .from(schema.doctors)
-  .where(whereClause)
-  .limit(limit)
-  .offset(offset);
+    const whereClause = and(...conditions);
 
-  const countQuery = db
-    .select({ count: sql<number>`count(*)` })
-    .from(schema.doctors)
-    .where(whereClause);
+    const dataQuery = db
+      .select({
+        id: schema.doctors.id,
+        publicId: schema.doctors.publicId,
+        fullName: schema.doctors.fullName,
+        specialty: schema.doctors.specialty,
+        experienceYears: schema.doctors.experienceYears,
+        rating: schema.doctors.rating,
+        profileImageUrl: schema.doctors.profileImageUrl,
+        consultationFee: schema.doctors.consultationFee,
+        isTopRated: schema.doctors.isTopRated,
+        tagline: schema.doctors.tagline,
+      })
+      .from(schema.doctors)
+      .where(whereClause)
+      .limit(limit)
+      .offset(offset);
 
-  const [data, countResult] = await Promise.all([
-    dataQuery,
-    countQuery,
-  ]);
+    const countQuery = db
+      .select({ count: sql<number>`count(*)` })
+      .from(schema.doctors)
+      .where(whereClause);
 
-  const total = Number(countResult[0]?.count ?? 0);
-  const totalPages = Math.ceil(total / limit);
+    const [data, countResult] = await Promise.all([dataQuery, countQuery]);
+    const total = Number(countResult[0]?.count ?? 0);
 
-  return {
-    data,
-    pagination: {
-      page,
-      limit,
-      total,
-      totalPages,
-    },
-  };
-},
+    return {
+      data,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
+  },
 
   /* -----------------------------
      Getters
@@ -179,87 +167,84 @@ async getPublicDoctors(params?: {
     });
 
     if (!doctor) {
-      throw new RepositoryError(
-        "NOT_FOUND",
-        `Doctor not found: ${doctorId}`
-      );
+      throw new RepositoryError("NOT_FOUND", `Doctor not found: ${doctorId}`);
     }
 
     return doctor;
   },
 
-async getDoctorByPublicId(publicId: string) {
-  const doctor = await db
-    .select({
-      id: schema.doctors.id,
-      publicId: schema.doctors.publicId,
-      fullName: schema.doctors.fullName,
-      degrees: schema.doctors.degrees,
-      specialty: schema.doctors.specialty,
-      languages: schema.doctors.languages,
-      tagline: schema.doctors.tagline,
-      experienceYears: schema.doctors.experienceYears,
-      rating: schema.doctors.rating,
-      profileImageUrl: schema.doctors.profileImageUrl,
-      bio: schema.doctors.bio,
-      consultationFee: schema.doctors.consultationFee,
-      isTopRated: schema.doctors.isTopRated,
-      verificationStatus: schema.doctors.verificationStatus,
-      isActive: schema.doctors.isActive,
-    })
-    .from(schema.doctors)
-    .where(eq(schema.doctors.publicId, publicId))
-    .limit(1);
+  async getDoctorByPublicId(publicId: string) {
+    const doctor = await db
+      .select({
+        id: schema.doctors.id,
+        publicId: schema.doctors.publicId,
+        fullName: schema.doctors.fullName,
+        degrees: schema.doctors.degrees,
+        specialty: schema.doctors.specialty,
+        languages: schema.doctors.languages,
+        tagline: schema.doctors.tagline,
+        experienceYears: schema.doctors.experienceYears,
+        rating: schema.doctors.rating,
+        profileImageUrl: schema.doctors.profileImageUrl,
+        bio: schema.doctors.bio,
+        consultationFee: schema.doctors.consultationFee,
+        isTopRated: schema.doctors.isTopRated,
+        verificationStatus: schema.doctors.verificationStatus,
+        isActive: schema.doctors.isActive,
+      })
+      .from(schema.doctors)
+      .where(eq(schema.doctors.publicId, publicId))
+      .limit(1);
 
-  if (!doctor[0]) {
-    throw new RepositoryError(
-      "NOT_FOUND",
-      `Doctor not found with publicId: ${publicId}`
-    );
-  }
+    if (!doctor[0]) {
+      throw new RepositoryError(
+        "NOT_FOUND",
+        `Doctor not found with publicId: ${publicId}`
+      );
+    }
 
-  return doctor[0];
-},
+    return doctor[0];
+  },
 
   async getDoctorDetailByPublicId(publicId: string) {
-  const doctor = await db
-    .select({
-      id: schema.doctors.id,
-      publicId: schema.doctors.publicId,
-      fullName: schema.doctors.fullName,
-      degrees: schema.doctors.degrees,
-      specialty: schema.doctors.specialty,
-      languages: schema.doctors.languages,
-      tagline: schema.doctors.tagline,
-      experienceYears: schema.doctors.experienceYears,
-      rating: schema.doctors.rating,
-      profileImageUrl: schema.doctors.profileImageUrl,
-      bio: schema.doctors.bio,
-      consultationFee: schema.doctors.consultationFee,
-      isTopRated: schema.doctors.isTopRated,
-    })
-    .from(schema.doctors)
-    .where(
-      and(
-        eq(schema.doctors.publicId, publicId),
-        eq(schema.doctors.isActive, true),
-        eq(
-          schema.doctors.verificationStatus,
-          "verified" as schema.DoctorVerificationStatus
+    const doctor = await db
+      .select({
+        id: schema.doctors.id,
+        publicId: schema.doctors.publicId,
+        fullName: schema.doctors.fullName,
+        degrees: schema.doctors.degrees,
+        specialty: schema.doctors.specialty,
+        languages: schema.doctors.languages,
+        tagline: schema.doctors.tagline,
+        experienceYears: schema.doctors.experienceYears,
+        rating: schema.doctors.rating,
+        profileImageUrl: schema.doctors.profileImageUrl,
+        bio: schema.doctors.bio,
+        consultationFee: schema.doctors.consultationFee,
+        isTopRated: schema.doctors.isTopRated,
+      })
+      .from(schema.doctors)
+      .where(
+        and(
+          eq(schema.doctors.publicId, publicId),
+          eq(schema.doctors.isActive, true),
+          eq(
+            schema.doctors.verificationStatus,
+            "verified" as schema.DoctorVerificationStatus
+          )
         )
       )
-    )
-    .limit(1);
+      .limit(1);
 
-  if (!doctor[0]) {
-    throw new RepositoryError(
-      "NOT_FOUND",
-      `Doctor not found with publicId: ${publicId}`
-    );
-  }
+    if (!doctor[0]) {
+      throw new RepositoryError(
+        "NOT_FOUND",
+        `Doctor not found with publicId: ${publicId}`
+      );
+    }
 
-  return doctor[0];
-},
+    return doctor[0];
+  },
 
   async getDoctorByUserId(userId: string) {
     const doctor = await db.query.doctors.findFirst({
@@ -277,7 +262,8 @@ async getDoctorByPublicId(publicId: string) {
   },
 
   /* -----------------------------
-     Listing / Search
+     Admin Listing / Search
+     – includes fullName, rmpRegistrationNumber, isActive
   ----------------------------- */
 
   async listDoctors(
@@ -314,8 +300,9 @@ async getDoctorByPublicId(publicId: string) {
     if (params?.search) {
       conditions.push(
         or(
-          like(schema.doctors.publicId, `%${params.search}%`),
-          like(schema.doctors.specialty, `%${params.search}%`)
+          like(schema.doctors.fullName, `%${params.search}%`),
+          like(schema.doctors.specialty, `%${params.search}%`),
+          like(schema.doctors.rmpRegistrationNumber, `%${params.search}%`)
         )
       );
     }
@@ -323,96 +310,124 @@ async getDoctorByPublicId(publicId: string) {
     const whereClause =
       conditions.length > 0 ? and(...conditions) : undefined;
 
-    const [data, [{ count }]] = await Promise.all([
+    const [data, [countRow]] = await Promise.all([
       db
         .select({
           id: schema.doctors.id,
           publicId: schema.doctors.publicId,
+          fullName: schema.doctors.fullName,
           specialty: schema.doctors.specialty,
           experienceYears: schema.doctors.experienceYears,
-          bio: schema.doctors.bio,
           consultationFee: schema.doctors.consultationFee,
           rating: schema.doctors.rating,
           profileImageUrl: schema.doctors.profileImageUrl,
+          rmpRegistrationNumber: schema.doctors.rmpRegistrationNumber,
           verificationStatus: schema.doctors.verificationStatus,
+          isActive: schema.doctors.isActive,
           createdAt: schema.doctors.createdAt,
-          userId: schema.users.id,
+          userId: schema.doctors.userId,
           userStatus: schema.users.status,
         })
-
         .from(schema.doctors)
-        .innerJoin(
-          schema.users,
-          eq(schema.users.id, schema.doctors.userId)
-        )
+        .innerJoin(schema.users, eq(schema.users.id, schema.doctors.userId))
         .where(whereClause)
         .limit(limit)
-        .offset(offset),
+        .offset(offset)
+        .orderBy(sql`${schema.doctors.createdAt} DESC`),
 
       db
         .select({ count: sql<number>`count(*)` })
         .from(schema.doctors)
-        .innerJoin(
-          schema.users,
-          eq(schema.users.id, schema.doctors.userId)
-        )
+        .innerJoin(schema.users, eq(schema.users.id, schema.doctors.userId))
         .where(whereClause),
     ]);
 
-    return { data, total: count };
+    return { data, total: Number(countRow?.count ?? 0) };
   },
 
   /* -----------------------------
-     Updates (Meaningful Only)
+     Admin Stats (4 counts, 1 round-trip)
+  ----------------------------- */
+
+  async getDoctorStats() {
+    // Single round-trip: conditional aggregation avoids 4 parallel Turso
+    // HTTP connections which cause ECONNRESET on the serverless pipeline.
+    const [row] = await db
+      .select({
+        total:    sql<number>`count(*)`,
+        verified: sql<number>`sum(case when ${schema.doctors.verificationStatus} = 'verified' then 1 else 0 end)`,
+        pending:  sql<number>`sum(case when ${schema.doctors.verificationStatus} = 'pending' then 1 else 0 end)`,
+        active:   sql<number>`sum(case when ${schema.doctors.isActive} = 1 then 1 else 0 end)`,
+      })
+      .from(schema.doctors);
+
+    return {
+      total:    Number(row?.total    ?? 0),
+      verified: Number(row?.verified ?? 0),
+      pending:  Number(row?.pending  ?? 0),
+      active:   Number(row?.active   ?? 0),
+    };
+  },
+
+
+  /* -----------------------------
+     Toggle Active Status (Admin)
+     NOTE: This is NOT a user-level delete.
+     Soft-delete of the user account is a separate
+     compliance feature (DPDP / erasure request flow).
+  ----------------------------- */
+
+  async updateActiveStatus(doctorId: string, isActive: boolean) {
+    const result = await db
+      .update(schema.doctors)
+      .set({ isActive, updatedAt: new Date() })
+      .where(eq(schema.doctors.id, doctorId))
+      .returning({ id: schema.doctors.id, isActive: schema.doctors.isActive });
+
+    if (result.length === 0) {
+      throw new RepositoryError("NOT_FOUND", `Doctor not found: ${doctorId}`);
+    }
+
+    return result[0];
+  },
+
+  /* -----------------------------
+     Profile Updates
   ----------------------------- */
 
   async updateDoctorProfile(
-  doctorId: string,
-  input: {
-    specialty?: string;
-    experienceYears?: number;
-    bio?: string;
-    consultationFee?: number;
-    profileImageUrl?: string | null;
-  }
-) {
-  const updateData: Partial<typeof schema.doctors.$inferInsert> = {};
+    doctorId: string,
+    input: {
+      specialty?: string;
+      experienceYears?: number;
+      bio?: string;
+      consultationFee?: number;
+      profileImageUrl?: string | null;
+    }
+  ) {
+    const updateData: Partial<typeof schema.doctors.$inferInsert> = {};
 
-  if (input.specialty !== undefined) {
-    updateData.specialty = input.specialty;
-  }
+    if (input.specialty !== undefined) updateData.specialty = input.specialty;
+    if (input.experienceYears !== undefined)
+      updateData.experienceYears = input.experienceYears;
+    if (input.bio !== undefined) updateData.bio = input.bio;
+    if (input.consultationFee !== undefined)
+      updateData.consultationFee = input.consultationFee;
+    if (input.profileImageUrl !== undefined)
+      updateData.profileImageUrl = input.profileImageUrl;
 
-  if (input.experienceYears !== undefined) {
-    updateData.experienceYears = input.experienceYears;
-  }
+    const result = await db
+      .update(schema.doctors)
+      .set(updateData)
+      .where(eq(schema.doctors.id, doctorId))
+      .returning();
 
-  if (input.bio !== undefined) {
-    updateData.bio = input.bio;
-  }
+    if (result.length === 0) {
+      throw new RepositoryError("NOT_FOUND", `Doctor not found: ${doctorId}`);
+    }
 
-  if (input.consultationFee !== undefined) {
-    updateData.consultationFee = input.consultationFee;
-  }
-
-  if (input.profileImageUrl !== undefined) {
-    updateData.profileImageUrl = input.profileImageUrl;
-  }
-
-  const result = await db
-    .update(schema.doctors)
-    .set(updateData)
-    .where(eq(schema.doctors.id, doctorId))
-    .returning();
-
-  if (result.length === 0) {
-    throw new RepositoryError(
-      "NOT_FOUND",
-      `Doctor not found: ${doctorId}`
-    );
-  }
-
-  return result[0];
-},
+    return result[0];
+  },
 
   async updateVerificationStatus(
     doctorId: string,
@@ -430,16 +445,16 @@ async getDoctorByPublicId(publicId: string) {
       .returning();
 
     if (result.length === 0) {
-      throw new RepositoryError(
-        "NOT_FOUND",
-        `Doctor not found: ${doctorId}`
-      );
+      throw new RepositoryError("NOT_FOUND", `Doctor not found: ${doctorId}`);
     }
 
     return result[0];
-  },/* --------------------------------------------------
-     Get availability for specific doctor + weekday
-  --------------------------------------------------- */
+  },
+
+  /* -----------------------------
+     Availability
+  ----------------------------- */
+
   async getByDoctorAndDay(doctorId: string, dayOfWeek: number) {
     const result = await db
       .select()
@@ -455,9 +470,6 @@ async getDoctorByPublicId(publicId: string) {
     return result[0] ?? null;
   },
 
-  /* --------------------------------------------------
-     Get all availability rows for doctor
-  --------------------------------------------------- */
   async getAllByDoctor(doctorId: string) {
     return db
       .select()
@@ -465,16 +477,11 @@ async getDoctorByPublicId(publicId: string) {
       .where(eq(doctorAvailability.doctorId, doctorId));
   },
 
-  /* --------------------------------------------------
-     Upsert availability (Single block per weekday)
-     If exists → update
-     If not → insert
-  --------------------------------------------------- */
   async upsertAvailability(input: {
     doctorId: string;
     dayOfWeek: number;
-    startTime: string; // "09:00"
-    endTime: string;   // "17:00"
+    startTime: string;
+    endTime: string;
     slotDurationMinutes?: number;
     isActive?: boolean;
   }) {
@@ -489,16 +496,12 @@ async getDoctorByPublicId(publicId: string) {
         .set({
           startTime: input.startTime,
           endTime: input.endTime,
-          slotDurationMinutes:
-            input.slotDurationMinutes ?? 30,
+          slotDurationMinutes: input.slotDurationMinutes ?? 30,
           isActive: input.isActive ?? true,
         })
         .where(eq(doctorAvailability.id, existing.id));
 
-      return this.getByDoctorAndDay(
-        input.doctorId,
-        input.dayOfWeek
-      );
+      return this.getByDoctorAndDay(input.doctorId, input.dayOfWeek);
     }
 
     await db.insert(doctorAvailability).values({
@@ -506,20 +509,13 @@ async getDoctorByPublicId(publicId: string) {
       dayOfWeek: input.dayOfWeek,
       startTime: input.startTime,
       endTime: input.endTime,
-      slotDurationMinutes:
-        input.slotDurationMinutes ?? 30,
+      slotDurationMinutes: input.slotDurationMinutes ?? 30,
       isActive: input.isActive ?? true,
     });
 
-    return this.getByDoctorAndDay(
-      input.doctorId,
-      input.dayOfWeek
-    );
+    return this.getByDoctorAndDay(input.doctorId, input.dayOfWeek);
   },
 
-  /* --------------------------------------------------
-     Disable availability for a specific weekday
-  --------------------------------------------------- */
   async disableDay(doctorId: string, dayOfWeek: number) {
     await db
       .update(doctorAvailability)
@@ -534,13 +530,7 @@ async getDoctorByPublicId(publicId: string) {
     return { success: true };
   },
 
-  /* --------------------------------------------------
-     Delete availability (rare use)
-  --------------------------------------------------- */
-  async deleteByDoctorAndDay(
-    doctorId: string,
-    dayOfWeek: number
-  ) {
+  async deleteByDoctorAndDay(doctorId: string, dayOfWeek: number) {
     await db
       .delete(doctorAvailability)
       .where(
@@ -553,50 +543,45 @@ async getDoctorByPublicId(publicId: string) {
     return { success: true };
   },
 
-  /* --------------------------------------------------
-   Get Reviews By Doctor ID
---------------------------------------------------- */
-async getReviewsByDoctorId(
-  doctorId: string,
-  limit: number = 5
-) {
-  return db
-    .select({
-      id: schema.doctorReviews.id,
-      patientName: schema.doctorReviews.patientName,
-      rating: schema.doctorReviews.rating,
-      comment: schema.doctorReviews.comment,
-      isVerified: schema.doctorReviews.isVerified,
-      createdAt: schema.doctorReviews.createdAt,
-    })
-    .from(schema.doctorReviews)
-    .where(eq(schema.doctorReviews.doctorId, doctorId))
-    .orderBy(sql`${schema.doctorReviews.createdAt} DESC`)
-    .limit(limit);
-},
+  /* -----------------------------
+     Reviews
+  ----------------------------- */
 
-  /* --------------------------------------------------
-   Create Doctor Review
---------------------------------------------------- */
-async createDoctorReview(input: {
-  doctorId: string;
-  patientName: string;
-  rating: number;
-  comment: string;
-  isVerified?: boolean;
-}) {
-  const [review] = await db
-    .insert(schema.doctorReviews)
-    .values({
-      doctorId: input.doctorId,
-      patientName: input.patientName,
-      rating: input.rating,
-      comment: input.comment,
-      isVerified: input.isVerified ?? false,
-      createdAt: new Date(),
-    })
-    .returning();
+  async getReviewsByDoctorId(doctorId: string, limit: number = 5) {
+    return db
+      .select({
+        id: schema.doctorReviews.id,
+        patientName: schema.doctorReviews.patientName,
+        rating: schema.doctorReviews.rating,
+        comment: schema.doctorReviews.comment,
+        isVerified: schema.doctorReviews.isVerified,
+        createdAt: schema.doctorReviews.createdAt,
+      })
+      .from(schema.doctorReviews)
+      .where(eq(schema.doctorReviews.doctorId, doctorId))
+      .orderBy(sql`${schema.doctorReviews.createdAt} DESC`)
+      .limit(limit);
+  },
 
-  return review;
-},
+  async createDoctorReview(input: {
+    doctorId: string;
+    patientName: string;
+    rating: number;
+    comment: string;
+    isVerified?: boolean;
+  }) {
+    const [review] = await db
+      .insert(schema.doctorReviews)
+      .values({
+        doctorId: input.doctorId,
+        patientName: input.patientName,
+        rating: input.rating,
+        comment: input.comment,
+        isVerified: input.isVerified ?? false,
+        createdAt: new Date(),
+      })
+      .returning();
+
+    return review;
+  },
 };

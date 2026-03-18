@@ -36,6 +36,8 @@ export type AuditAction =
   | "PATIENT_PROFILE_UPDATED"
   | "EMERGENCY_CONTACT_CREATED"
   | "EMERGENCY_CONTACT_DELETED"
+  | "DOCTOR_ACTIVATED"
+  | "DOCTOR_DEACTIVATED"
   ;
 
 export type AuditLogInput = {
