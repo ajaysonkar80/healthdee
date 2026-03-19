@@ -1,20 +1,11 @@
+// components/admin/appointment-requests/AppointmentTableRow.tsx
 "use client";
 
 import { TableCell, TableRow } from "@/components/ui/table";
-import type {
-  AppointmentStatus} from "./AppointmentStatusBadge";
-import {
-  AppointmentStatusBadge
-} from "./AppointmentStatusBadge";
+import type { AppointmentStatus } from "./AppointmentStatusBadge";
+import { AppointmentStatusBadge } from "./AppointmentStatusBadge";
+import { AppointmentActionsMenu } from "./AppointmentActionsMenu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export interface AppointmentRowData {
   id: string;
@@ -40,7 +31,11 @@ export function AppointmentTableRow({
 }: AppointmentTableRowProps) {
   const dateObj = new Date(data.scheduledAt);
 
-  const date = dateObj.toLocaleDateString();
+  const date = dateObj.toLocaleDateString(undefined, {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
   const time = dateObj.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
@@ -48,69 +43,48 @@ export function AppointmentTableRow({
 
   const isLoading = loadingId === data.id;
 
+  const canAccept = data.status === "PENDING";
+  const canReject =
+    data.status === "PENDING" || data.status === "CONFIRMED";
+
   return (
-    <TableRow>
+    <TableRow className={isLoading ? "opacity-50" : ""}>
+      {/* Patient */}
       <TableCell>
         <div className="flex items-center gap-3">
           <Avatar className="h-9 w-9">
             <AvatarImage src={data.patientAvatar} />
-            <AvatarFallback>
-              {data.patientName.charAt(0)}
-            </AvatarFallback>
+            <AvatarFallback>{data.patientName.charAt(0)}</AvatarFallback>
           </Avatar>
-
-          <div>
-            <p className="font-medium">{data.patientName}</p>
-          </div>
+          <p className="font-medium">{data.patientName}</p>
         </div>
       </TableCell>
 
-      <TableCell>{data.doctorName}</TableCell>
+      {/* Doctor */}
+      <TableCell className="text-muted-foreground">
+        {data.doctorName}
+      </TableCell>
 
+      {/* Date & Time */}
       <TableCell>
         <p className="font-medium">{date}</p>
         <p className="text-sm text-muted-foreground">{time}</p>
       </TableCell>
 
+      {/* Status */}
       <TableCell>
         <AppointmentStatusBadge status={data.status} />
       </TableCell>
 
+      {/* Actions */}
       <TableCell className="text-right">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>
-              View Details
-            </DropdownMenuItem>
-
-            {data.status === "PENDING" && (
-              <DropdownMenuItem
-                className="text-green-600"
-                disabled={isLoading}
-                onClick={() => onAccept?.(data.id)}
-              >
-                {isLoading ? "Processing..." : "Accept"}
-              </DropdownMenuItem>
-            )}
-
-            {(data.status === "PENDING" ||
-              data.status === "CONFIRMED") && (
-              <DropdownMenuItem
-                className="text-red-600"
-                disabled={isLoading}
-                onClick={() => onReject?.(data.id)}
-              >
-                {isLoading ? "Processing..." : "Reject"}
-              </DropdownMenuItem>
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <AppointmentActionsMenu
+          isLoading={isLoading}
+          canAccept={canAccept}
+          canReject={canReject}
+          onAccept={canAccept ? () => onAccept?.(data.id) : undefined}
+          onReject={canReject ? () => onReject?.(data.id) : undefined}
+        />
       </TableCell>
     </TableRow>
   );

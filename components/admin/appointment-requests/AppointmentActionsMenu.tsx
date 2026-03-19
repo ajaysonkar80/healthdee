@@ -1,19 +1,28 @@
+// components/admin/appointment-requests/AppointmentActionsMenu.tsx
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Eye, Check, X, MoreHorizontal } from "lucide-react";
+import { Eye, Check, X, MoreHorizontal, Loader2 } from "lucide-react";
 
 interface AppointmentActionsMenuProps {
+  isLoading?: boolean;
+  canAccept?: boolean;
+  canReject?: boolean;
   onView?: () => void;
   onAccept?: () => void;
   onReject?: () => void;
 }
 
 export function AppointmentActionsMenu({
+  isLoading = false,
+  canAccept = false,
+  canReject = false,
   onView,
   onAccept,
   onReject,
@@ -21,8 +30,12 @@ export function AppointmentActionsMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <MoreHorizontal className="h-4 w-4" />
+        <Button variant="ghost" size="icon" disabled={isLoading}>
+          {isLoading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <MoreHorizontal className="h-4 w-4" />
+          )}
         </Button>
       </DropdownMenuTrigger>
 
@@ -32,21 +45,29 @@ export function AppointmentActionsMenu({
           View Details
         </DropdownMenuItem>
 
-        <DropdownMenuItem
-          onClick={onAccept}
-          className="text-green-600 focus:text-green-600"
-        >
-          <Check className="mr-2 h-4 w-4" />
-          Accept
-        </DropdownMenuItem>
+        {(canAccept || canReject) && <DropdownMenuSeparator />}
 
-        <DropdownMenuItem
-          onClick={onReject}
-          className="text-red-600 focus:text-red-600"
-        >
-          <X className="mr-2 h-4 w-4" />
-          Reject
-        </DropdownMenuItem>
+        {canAccept && (
+          <DropdownMenuItem
+            onClick={onAccept}
+            className="text-green-600 focus:text-green-600"
+            disabled={isLoading}
+          >
+            <Check className="mr-2 h-4 w-4" />
+            Accept
+          </DropdownMenuItem>
+        )}
+
+        {canReject && (
+          <DropdownMenuItem
+            onClick={onReject}
+            className="text-red-600 focus:text-red-600"
+            disabled={isLoading}
+          >
+            <X className="mr-2 h-4 w-4" />
+            Reject
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
