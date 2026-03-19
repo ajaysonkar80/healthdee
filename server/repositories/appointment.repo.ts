@@ -347,6 +347,118 @@ export const appointmentRepo = {
     ]);
     return { data, total };
   },
+
+  // ─── ADD THIS METHOD to server/repositories/appointment.repo.ts ──────────────
+// Paste inside `appointmentRepo` object before the final `};`
+// Also ensure `desc` is in the drizzle-orm imports at the top.
+
+  /* --------------------------------------------------
+     Doctor dashboard stats — single round-trip.
+     Returns today's totals for the StatsSection cards
+     and the currently-consulting appointment.
+  --------------------------------------------------- */
+  async getDoctorDashboardStats(doctorId: string) {
+    const todayStart = sql`strftime('%s', date('now'))`;
+
+    const [statsRow] = await db
+      .select({
+        todayTotal: sql<number>`
+          sum(case when
+            cast(strftime('%s', date(${schema.appointments.scheduledAt}, 'unixepoch')) as integer)
+            = cast(strftime('%s', date('now')) as integer)
+            then 1 else 0 end)`,
+
+        todayCompleted: sql<number>`
+          sum(case when
+            cast(strftime('%s', date(${schema.appointments.scheduledAt}, 'unixepoch')) as integer)
+            = cast(strftime('%s', date('now')) as integer)
+            and ${schema.appointments.status} = 'COMPLETED'
+            then 1 else 0 end)`,
+
+        pendingCount: sql<number>`
+          sum(case when ${schema.appointments.status} = 'PENDING' then 1 else 0 end)`,
+      })
+      .from(schema.appointments)
+      .where(eq(schema.appointments.doctorId, doctorId));
+
+    // Currently consulting = the one CONFIRMED appointment right now
+    const confirmedRows = await db
+      .select({
+        id:          schema.appointments.id,
+        scheduledAt: schema.appointments.scheduledAt,
+        patientId:   schema.appointments.patientId,
+        patientUserName:        schema.users.name,
+        patientFullName:        schema.patientProfiles.fullName,
+        patientProfileImageUrl: schema.patientProfiles.profileImageUrl,
+        patientGender:          schema.patientProfiles.gender,
+        patientBloodGroup:      schema.patientProfiles.bloodGroup,
+        patientAllergies:       schema.patientProfiles.allergies,
+        patientCity:            schema.patientProfiles.city,
+      })
+      .from(schema.appointments)
+      .innerJoin(schema.users, eq(schema.users.id, schema.appointments.patientId))
+      .leftJoin(
+        schema.patientProfiles,
+        eq(schema.patientProfiles.userId, schema.appointments.patientId)
+      )
+      .where(
+        and(
+          eq(schema.appointments.doctorId, doctorId),
+          eq(schema.appointments.status,   "CONFIRMED")
+        )
+      )
+      .orderBy(schema.appointments.scheduledAt)
+      .limit(1);
+
+    // Oldest pending appointments (up to 5) for the notifications panel
+    const pendingRows = await db
+      .select({
+        id:          schema.appointments.id,
+        scheduledAt: schema.appointments.scheduledAt,
+        patientUserName:  schema.users.name,
+        patientFullName:  schema.patientProfiles.fullName,
+      })
+      .from(schema.appointments)
+      .innerJoin(schema.users, eq(schema.users.id, schema.appointments.patientId))
+      .leftJoin(
+        schema.patientProfiles,
+        eq(schema.patientProfiles.userId, schema.appointments.patientId)
+      )
+      .where(
+        and(
+          eq(schema.appointments.doctorId, doctorId),
+          eq(schema.appointments.status, "PENDING")
+        )
+      )
+      .orderBy(schema.appointments.scheduledAt)
+      .limit(5);
+
+    const current = confirmedRows[0] ?? null;
+
+    return {
+      todayTotal:     Number(statsRow?.todayTotal     ?? 0),
+      todayCompleted: Number(statsRow?.todayCompleted ?? 0),
+      pendingCount:   Number(statsRow?.pendingCount   ?? 0),
+      currentConsultation: current
+        ? {
+            id:          current.id,
+            scheduledAt: current.scheduledAt,
+            patientId:   current.patientId,
+            patientName:     current.patientFullName ?? current.patientUserName ?? "Unknown",
+            profileImageUrl: current.patientProfileImageUrl ?? null,
+            gender:          current.patientGender    ?? null,
+            bloodGroup:      current.patientBloodGroup ?? null,
+            allergies:       current.patientAllergies  ?? null,
+            city:            current.patientCity       ?? null,
+          }
+        : null,
+      pendingAppointments: pendingRows.map((r) => ({
+        id:          r.id,
+        scheduledAt: r.scheduledAt,
+        patientName: r.patientFullName ?? r.patientUserName ?? "Unknown",
+      })),
+    };
+  },
 };
 
 // AppointmentQueueRow is defined in the component to avoid server/client

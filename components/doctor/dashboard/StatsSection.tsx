@@ -1,24 +1,38 @@
-import StatCard from './StatCard';
+// components/doctor/dashboard/StatsSection.tsx
+import StatCard from "./StatCard";
 
-export default function StatsSection() {
+export type DashboardStats = {
+  todayTotal:     number;
+  todayCompleted: number;
+  pendingCount:   number;
+  todayEarnings:  number;
+};
+
+interface StatsSectionProps {
+  stats: DashboardStats;
+}
+
+export default function StatsSection({ stats }: StatsSectionProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
       <StatCard
-        title="Appointments"
-        value="24"
-        badge="+10% vs yesterday"
+        title="Today's Appointments"
+        value={String(stats.todayTotal)}
+        badge={`${stats.pendingCount} pending confirmation`}
       />
-
       <StatCard
-        title="Patients Seen"
-        value="14"
-        badge="+5% on track"
+        title="Patients Seen Today"
+        value={String(stats.todayCompleted)}
+        badge={
+          stats.todayTotal > 0
+            ? `${Math.round((stats.todayCompleted / stats.todayTotal) * 100)}% completion`
+            : "No appointments yet"
+        }
       />
-
       <StatCard
-        title="Earnings"
-        value="₹8,400"
-        badge="+12% highest this week"
+        title="Today's Earnings"
+        value={`₹${stats.todayEarnings.toLocaleString("en-IN")}`}
+        badge="Completed consultations"
         highlight
       />
     </div>

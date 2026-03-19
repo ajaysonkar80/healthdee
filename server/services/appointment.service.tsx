@@ -728,4 +728,22 @@ async rescheduleAppointment(
 
     return appointment;
   },
+
+  // ─── ADD THIS METHOD to server/services/appointment.service.tsx ──────────────
+// Paste inside `appointmentService` object before the final `};`
+
+  /* --------------------------------------------------
+     Doctor dashboard stats — today totals + current
+     consultation + pending list. Single DB round-trip.
+  --------------------------------------------------- */
+  async getDoctorDashboardStats(actorUserId: string) {
+    const user = await userRepo.getUserById(actorUserId);
+
+    if (user.role !== UserRole.doctor) {
+      throw new ForbiddenError("Only doctors can view dashboard stats");
+    }
+
+    const doctor = await doctorRepo.getDoctorByUserId(actorUserId);
+    return appointmentRepo.getDoctorDashboardStats(doctor.id);
+  },
 };
