@@ -1,6 +1,6 @@
 # Folder Structure for AI Navigation
 
-Generated from `git ls-files` on 2026-03-18 to provide a complete, deterministic map.
+Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic map.
 
 ```text
 .
@@ -63,14 +63,19 @@ Generated from `git ls-files` on 2026-03-18 to provide a complete, deterministic
 │   │   │   └── page.tsx
 │   │   ├── dashboard
 │   │   │   └── page.tsx
-│   │   ├── doctor
+│   │   ├── doctors
 │   │   │   ├── [doctorId]
 │   │   │   │   └── edit
 │   │   │   │       └── page.tsx
 │   │   │   ├── create
 │   │   │   │   └── page.tsx
+│   │   │   ├── DoctorsPageClient.tsx
 │   │   │   └── page.tsx
 │   │   ├── doctors-verification
+│   │   │   ├── DoctorsVerificationClient.tsx
+│   │   │   └── page.tsx
+│   │   ├── patients
+│   │   │   ├── PatientsClientPage.tsx
 │   │   │   └── page.tsx
 │   │   ├── settings
 │   │   │   └── page.tsx
@@ -160,7 +165,9 @@ Generated from `git ls-files` on 2026-03-18 to provide a complete, deterministic
 │   ├── doctor
 │   │   ├── appointments
 │   │   │   ├── [id]
+│   │   │   │   ├── AppointmentsDetailsSkeleton.tsx
 │   │   │   │   └── page.tsx
+│   │   │   ├── AppointmentQueueSkeleton.tsx
 │   │   │   └── page.tsx
 │   │   ├── availability
 │   │   │   └── page.tsx
@@ -258,10 +265,13 @@ Generated from `git ls-files` on 2026-03-18 to provide a complete, deterministic
 │   │   ├── doctor
 │   │   │   ├── BulkHelpCards.tsx
 │   │   │   ├── DoctorDeleteModal.tsx
+│   │   │   ├── DoctorFilters.tsx
 │   │   │   ├── DoctorForm.tsx
+│   │   │   ├── DoctorPagination.tsx
 │   │   │   ├── DoctorRowAction.tsx
 │   │   │   ├── DoctorTable.tsx
-│   │   │   └── StatsCard.tsx
+│   │   │   ├── StatsCard.tsx
+│   │   │   └── types.ts
 │   │   ├── doctor-verification
 │   │   │   ├── DoctorsInfoCell.tsx
 │   │   │   ├── VerificationFilters.tsx
@@ -270,6 +280,11 @@ Generated from `git ls-files` on 2026-03-18 to provide a complete, deterministic
 │   │   │   ├── VerificationTable.tsx
 │   │   │   ├── VerificationTableRow.tsx
 │   │   │   └── VerificationsActionsMenu.tsx
+│   │   ├── patient
+│   │   │   ├── PatientFilter.tsx
+│   │   │   ├── PatientPagination.tsx
+│   │   │   ├── PatientStatsCard.tsx
+│   │   │   └── PatientTable.tsx
 │   │   ├── AdminSidebar.tsx
 │   │   ├── AdminTopBar.tsx
 │   │   ├── RecentActivity.tsx
@@ -318,7 +333,9 @@ Generated from `git ls-files` on 2026-03-18 to provide a complete, deterministic
 │   │   │   └── UrgentNotifications.tsx
 │   │   ├── earnings
 │   │   │   ├── EarningsSummary.tsx
-│   │   │   └── EarningsTable.tsx
+│   │   │   ├── EarningsSummarySkeleton.tsx
+│   │   │   ├── EarningsTable.tsx
+│   │   │   └── EarningsTableSkeleton.tsx
 │   │   ├── prescriptions
 │   │   │   └── PrescriptionsTable.tsx
 │   │   ├── settings
@@ -411,6 +428,8 @@ Generated from `git ls-files` on 2026-03-18 to provide a complete, deterministic
 │   │   ├── 0008_snapshot.json
 │   │   ├── 0009_snapshot.json
 │   │   ├── 0010_snapshot.json
+│   │   ├── 0011_snapshot.json
+│   │   ├── 0012_snapshot.json
 │   │   └── _journal.json
 │   ├── 0000_purple_tiger_shark.sql
 │   ├── 0001_exotic_dakota_north.sql
@@ -422,7 +441,9 @@ Generated from `git ls-files` on 2026-03-18 to provide a complete, deterministic
 │   ├── 0007_ambiguous_shadow_king.sql
 │   ├── 0008_amusing_toad.sql
 │   ├── 0009_overconfident_pandemic.sql
-│   └── 0010_mushy_whirlwind.sql
+│   ├── 0010_mushy_whirlwind.sql
+│   ├── 0011_spotty_rage.sql
+│   └── 0012_slippery_lady_vermin.sql
 ├── hooks
 │   ├── useAppointment.tsx
 │   ├── useAuth.tsx
@@ -443,6 +464,7 @@ Generated from `git ls-files` on 2026-03-18 to provide a complete, deterministic
 │   │   ├── Geist-Regular.ttf
 │   │   └── GeistMono-Regular.ttf
 │   ├── avatar.jpg
+│   ├── avatar.png
 │   ├── clinic-logo.jpg
 │   ├── clinic.jpg
 │   ├── doctor-1.jpg
@@ -515,6 +537,7 @@ Generated from `git ls-files` on 2026-03-18 to provide a complete, deterministic
 │   │   ├── appointment.repo.ts
 │   │   ├── audit.repo.ts
 │   │   ├── doctor.repo.ts
+│   │   ├── doctor_earning.repo.ts
 │   │   ├── patient.repo.ts
 │   │   ├── prescription.repo.ts
 │   │   ├── refreshToken.repo.ts
@@ -525,6 +548,7 @@ Generated from `git ls-files` on 2026-03-18 to provide a complete, deterministic
 │   │   ├── appointment.service.tsx
 │   │   ├── auth.service.tsx
 │   │   ├── doctor.service.tsx
+│   │   ├── doctor_earning.service.tsx
 │   │   ├── patient.service.tsx
 │   │   ├── prescription.services.tsx
 │   │   └── user.service.tsx
