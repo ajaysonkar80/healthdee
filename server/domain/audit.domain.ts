@@ -38,6 +38,7 @@ export type AuditAction =
   | "EMERGENCY_CONTACT_DELETED"
   | "DOCTOR_ACTIVATED"
   | "DOCTOR_DEACTIVATED"
+  | "EARNING_RECORDED"
   ;
 
 export type AuditLogInput = {

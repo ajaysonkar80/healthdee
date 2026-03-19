@@ -456,6 +456,64 @@ export const appointments = sqliteTable(
   })
 );
 
+// ─── ADD THIS BLOCK to db/schema.ts ─────────────────────────────────────────
+// Place it after the `appointments` table definition (around line 240).
+// No other tables need to change.
+
+export const EarningStatusSchema = z.enum(["paid", "refunded"]);
+export type EarningStatus = z.infer<typeof EarningStatusSchema>;
+
+export const doctorEarnings = sqliteTable(
+  "doctor_earnings",
+  {
+    id: text("id")
+      .primaryKey()
+      .default(sql`(lower(hex(randomblob(16))))`),
+
+    doctorId: text("doctor_id")
+      .references(() => doctors.id, { onDelete: "cascade" })
+      .notNull(),
+
+    // UNIQUE — one earning record per appointment
+    appointmentId: text("appointment_id")
+      .references(() => appointments.id, { onDelete: "cascade" })
+      .notNull()
+      .unique(),
+
+    patientId: text("patient_id")
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+
+    // Snapshot of appointments.appointmentType at completion time
+    appointmentType: text("appointment_type")
+      .$type<"new" | "follow-up">()
+      .notNull()
+      .default("new"),
+
+    // Snapshot of doctors.consultationFee at completion time.
+    // Storing here avoids re-joining doctors on every stats query.
+    feeAmount: integer("fee_amount").notNull().default(0),
+
+    // "paid" on creation; "refunded" if a reversal is needed later
+    status: text("status")
+      .$type<EarningStatus>()
+      .notNull()
+      .default("paid"),
+
+    // Unix timestamp — when the appointment was completed
+    earnedAt: integer("earned_at", { mode: "timestamp" }).notNull(),
+
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (t) => ({
+    doctorIdx:   index("doctor_earnings_doctor_idx").on(t.doctorId),
+    earnedAtIdx: index("doctor_earnings_earned_at_idx").on(t.doctorId, t.earnedAt),
+  })
+);
+// ─── END OF ADDITION ─────────────────────────────────────────────────────────
+
 export const consultations = sqliteTable(
   "consultations",
   {
