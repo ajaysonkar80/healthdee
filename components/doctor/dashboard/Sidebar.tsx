@@ -22,6 +22,7 @@ const NAV_ITEMS = [
 interface SidebarProps {
   doctorName: string;
   specialty:  string;
+  isActive:boolean;
 }
 
 export default function Sidebar({ doctorName, specialty }: SidebarProps) {

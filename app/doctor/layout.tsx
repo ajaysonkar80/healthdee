@@ -24,8 +24,6 @@ export default async function DoctorLayout({
     redirect("/login");
   }
 
-  // Fetch doctor profile once at layout level — passed to Sidebar + Header.
-  // .catch() so a DB blip never breaks the entire doctor portal.
   const doctor = await doctorRepo
     .getDoctorByUserId(actorUserId)
     .catch(() => null);
@@ -33,10 +31,16 @@ export default async function DoctorLayout({
   const doctorName = doctor?.fullName ?? "Doctor";
   const specialty  = doctor?.specialty ?? "";
   const avatarUrl  = doctor?.profileImageUrl ?? null;
+  // Pass real isActive — sidebar dot and label reflect DB value live
+  const isActive   = doctor?.isActive ?? true;
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <Sidebar doctorName={doctorName} specialty={specialty} />
+      <Sidebar
+        doctorName={doctorName}
+        specialty={specialty}
+        isActive={isActive}
+      />
 
       <div className="flex flex-1 flex-col border-l border-gray-200 bg-gray-50">
         <Header doctorName={doctorName} avatarUrl={avatarUrl} />
