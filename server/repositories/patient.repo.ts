@@ -8,6 +8,7 @@ import {
   like,
   and,
   or,
+  desc,
 } from "drizzle-orm";
 import type { PaginationParams } from "./user.repo";
 import { RepositoryError } from "./user.repo";
@@ -35,21 +36,26 @@ export const patientRepo = {
   ----------------------------- */
 
   async getPatientByUserId(userId: string) {
-    const user = await db.query.users.findFirst({
-      where: sql`
-        ${schema.users.id} = ${userId}
-        AND ${schema.users.role} = 'patient'
-      `,
-    });
+    // FIX: was db.query.users.findFirst → ECONNRESET on Turso
+    const result = await db
+      .select()
+      .from(schema.users)
+      .where(
+        and(
+          eq(schema.users.id, userId),
+          eq(schema.users.role, "patient")
+        )
+      )
+      .limit(1);
 
-    if (!user) {
+    if (!result[0]) {
       throw new RepositoryError(
         "NOT_FOUND",
         `Patient not found for user: ${userId}`
       );
     }
 
-    return user;
+    return result[0];
   },
 
   /* -----------------------------
@@ -57,10 +63,14 @@ export const patientRepo = {
   ----------------------------- */
 
   async getPatientProfile(userId: string) {
-    const profile = await db.query.patientProfiles.findFirst({
-      where: eq(schema.patientProfiles.userId, userId),
-    });
-    return profile ?? null;
+    // FIX: was db.query.patientProfiles.findFirst → ECONNRESET on Turso
+    const result = await db
+      .select()
+      .from(schema.patientProfiles)
+      .where(eq(schema.patientProfiles.userId, userId))
+      .limit(1);
+
+    return result[0] ?? null;
   },
 
   async updatePatientProfile(
@@ -105,10 +115,12 @@ export const patientRepo = {
   ----------------------------- */
 
   async getEmergencyContacts(userId: string) {
-    return db.query.emergencyContacts.findMany({
-      where: eq(schema.emergencyContacts.userId, userId),
-      orderBy: (c, { desc }) => [desc(c.isPrimary)],
-    });
+    // FIX: was db.query.emergencyContacts.findMany → ECONNRESET on Turso
+    return db
+      .select()
+      .from(schema.emergencyContacts)
+      .where(eq(schema.emergencyContacts.userId, userId))
+      .orderBy(desc(schema.emergencyContacts.isPrimary));
   },
 
   async createEmergencyContact(input: {
@@ -147,10 +159,14 @@ export const patientRepo = {
   ----------------------------- */
 
   async getUserPreferences(userId: string) {
-    const prefs = await db.query.userPreferences.findFirst({
-      where: eq(schema.userPreferences.userId, userId),
-    });
-    return prefs ?? null;
+    // FIX: was db.query.userPreferences.findFirst → ECONNRESET on Turso
+    const result = await db
+      .select()
+      .from(schema.userPreferences)
+      .where(eq(schema.userPreferences.userId, userId))
+      .limit(1);
+
+    return result[0] ?? null;
   },
 
   async updateUserPreferences(
@@ -198,19 +214,20 @@ export const patientRepo = {
 
   /* -----------------------------
      Full Patient Dashboard Profile
+     FIX: was Promise.all → 3 parallel Turso connections
+     → sequential awaits to avoid ECONNRESET
   ----------------------------- */
 
   async getFullPatientProfile(userId: string) {
-    const [profile, contacts, preferences] = await Promise.all([
-      this.getPatientProfile(userId),
-      this.getEmergencyContacts(userId),
-      this.getUserPreferences(userId),
-    ]);
+    const profile     = await this.getPatientProfile(userId);
+    const contacts    = await this.getEmergencyContacts(userId);
+    const preferences = await this.getUserPreferences(userId);
+
     return { profile, emergencyContacts: contacts, preferences };
   },
 
   /* -----------------------------
-     List Patients (existing — kept for backward compat)
+     List Patients (backward compat)
   ----------------------------- */
 
   async listPatients(
@@ -241,42 +258,36 @@ export const patientRepo = {
       `;
     }
 
-    const [data, [{ count }]] = await Promise.all([
-      db
-        .select({
-          id: schema.users.id,
-          status: schema.users.status,
-          createdAt: schema.users.createdAt,
-          updatedAt: schema.users.updatedAt,
-        })
-        .from(schema.users)
-        .leftJoin(
-          schema.authCredentials,
-          eq(schema.authCredentials.userId, schema.users.id)
-        )
-        .where(where)
-        .limit(limit)
-        .offset(offset),
+    const data = await db
+      .select({
+        id:        schema.users.id,
+        status:    schema.users.status,
+        createdAt: schema.users.createdAt,
+        updatedAt: schema.users.updatedAt,
+      })
+      .from(schema.users)
+      .leftJoin(
+        schema.authCredentials,
+        eq(schema.authCredentials.userId, schema.users.id)
+      )
+      .where(where)
+      .limit(limit)
+      .offset(offset);
 
-      db
-        .select({ count: sql<number>`count(*)` })
-        .from(schema.users)
-        .leftJoin(
-          schema.authCredentials,
-          eq(schema.authCredentials.userId, schema.users.id)
-        )
-        .where(where),
-    ]);
+    const [{ count }] = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(schema.users)
+      .leftJoin(
+        schema.authCredentials,
+        eq(schema.authCredentials.userId, schema.users.id)
+      )
+      .where(where);
 
     return { data, total: count };
   },
 
   /* -----------------------------
      Admin Patient Listing
-     Joins patientProfiles + authCredentials so the
-     admin table has fullName, email, phone, city, etc.
-     Uses Drizzle column conditions (not raw SQL template
-     strings) so search is safe and typed.
   ----------------------------- */
 
   async listAdminPatients(
@@ -295,71 +306,63 @@ export const patientRepo = {
 
     if (params?.search) {
       const searchCondition = or(
-        like(schema.patientProfiles.fullName, `%${params.search}%`),
-        like(schema.authCredentials.email, `%${params.search}%`),
-        like(schema.patientProfiles.phone, `%${params.search}%`),
-        like(schema.patientProfiles.city, `%${params.search}%`)
+        like(schema.patientProfiles.fullName,  `%${params.search}%`),
+        like(schema.authCredentials.email,     `%${params.search}%`),
+        like(schema.patientProfiles.phone,     `%${params.search}%`),
+        like(schema.patientProfiles.city,      `%${params.search}%`)
       );
-      // or() only returns undefined when called with zero args,
-      // which can't happen here — cast is safe and avoids the ! operator.
       if (searchCondition) conditions.push(searchCondition);
     }
 
     const whereClause = and(...conditions);
 
-    const [data, [countRow]] = await Promise.all([
-      db
-        .select({
-          // user
-          id:              schema.users.id,
-          userStatus:      schema.users.status,
-          joinedAt:        schema.users.createdAt,
-          // auth
-          email:           schema.authCredentials.email,
-          phone:           schema.authCredentials.whatsappPhone,
-          // profile
-          fullName:        schema.patientProfiles.fullName,
-          profileImageUrl: schema.patientProfiles.profileImageUrl,
-          gender:          schema.patientProfiles.gender,
-          bloodGroup:      schema.patientProfiles.bloodGroup,
-          city:            schema.patientProfiles.city,
-          state:           schema.patientProfiles.state,
-          abhaLinked:      schema.patientProfiles.abhaLinked,
-        })
-        .from(schema.users)
-        .leftJoin(
-          schema.authCredentials,
-          eq(schema.authCredentials.userId, schema.users.id)
-        )
-        .leftJoin(
-          schema.patientProfiles,
-          eq(schema.patientProfiles.userId, schema.users.id)
-        )
-        .where(whereClause)
-        .orderBy(sql`${schema.users.createdAt} DESC`)
-        .limit(limit)
-        .offset(offset),
+    const data = await db
+      .select({
+        id:              schema.users.id,
+        userStatus:      schema.users.status,
+        joinedAt:        schema.users.createdAt,
+        email:           schema.authCredentials.email,
+        phone:           schema.authCredentials.whatsappPhone,
+        fullName:        schema.patientProfiles.fullName,
+        profileImageUrl: schema.patientProfiles.profileImageUrl,
+        gender:          schema.patientProfiles.gender,
+        bloodGroup:      schema.patientProfiles.bloodGroup,
+        city:            schema.patientProfiles.city,
+        state:           schema.patientProfiles.state,
+        abhaLinked:      schema.patientProfiles.abhaLinked,
+      })
+      .from(schema.users)
+      .leftJoin(
+        schema.authCredentials,
+        eq(schema.authCredentials.userId, schema.users.id)
+      )
+      .leftJoin(
+        schema.patientProfiles,
+        eq(schema.patientProfiles.userId, schema.users.id)
+      )
+      .where(whereClause)
+      .orderBy(sql`${schema.users.createdAt} DESC`)
+      .limit(limit)
+      .offset(offset);
 
-      db
-        .select({ count: sql<number>`count(*)` })
-        .from(schema.users)
-        .leftJoin(
-          schema.authCredentials,
-          eq(schema.authCredentials.userId, schema.users.id)
-        )
-        .leftJoin(
-          schema.patientProfiles,
-          eq(schema.patientProfiles.userId, schema.users.id)
-        )
-        .where(whereClause),
-    ]);
+    const [countRow] = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(schema.users)
+      .leftJoin(
+        schema.authCredentials,
+        eq(schema.authCredentials.userId, schema.users.id)
+      )
+      .leftJoin(
+        schema.patientProfiles,
+        eq(schema.patientProfiles.userId, schema.users.id)
+      )
+      .where(whereClause);
 
     return { data, total: Number(countRow?.count ?? 0) };
   },
 
   /* -----------------------------
      Patient stats — single round-trip CASE WHEN
-     (avoids multiple Turso connections / ECONNRESET)
   ----------------------------- */
 
   async getPatientStats() {
@@ -398,28 +401,31 @@ export const patientRepo = {
     const [profile] = await db
       .insert(schema.abhaProfiles)
       .values({
-        userId: input.userId,
-        abhaNumber: input.abhaNumber,
-        abhaAddress: input.abhaAddress,
-        verifiedAt: input.verifiedAt,
-        createdAt: new Date(),
+        userId:       input.userId,
+        abhaNumber:   input.abhaNumber,
+        abhaAddress:  input.abhaAddress,
+        verifiedAt:   input.verifiedAt,
+        createdAt:    new Date(),
       })
       .returning();
     return profile;
   },
 
   async getAbhaProfileByUserId(userId: string) {
-    const profile = await db.query.abhaProfiles.findFirst({
-      where: sql`${schema.abhaProfiles.userId} = ${userId}`,
-    });
+    // FIX: was db.query.abhaProfiles.findFirst → ECONNRESET on Turso
+    const result = await db
+      .select()
+      .from(schema.abhaProfiles)
+      .where(eq(schema.abhaProfiles.userId, userId))
+      .limit(1);
 
-    if (!profile) {
+    if (!result[0]) {
       throw new RepositoryError(
         "NOT_FOUND",
         `ABHA profile not found for user: ${userId}`
       );
     }
-    return profile;
+    return result[0];
   },
 
   async updateAbhaProfileByUserId(input: {
@@ -443,7 +449,7 @@ export const patientRepo = {
 };
 
 /* --------------------------------------------------
-   Inferred row type — consumed by admin components
+   Inferred row types
 --------------------------------------------------- */
 export type AdminPatientRow = Awaited<
   ReturnType<typeof patientRepo.listAdminPatients>
