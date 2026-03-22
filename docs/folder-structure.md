@@ -1,11 +1,21 @@
 # Folder Structure for AI Navigation
 
-Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic map.
+Generated from `git ls-files` on 2026-03-22 to provide a complete, deterministic map (479 tracked files).
 
 ```text
 .
 ├── .VSCodeCounter
-│   └── 2026-02-11_18-50-40
+│   ├── 2026-02-11_18-50-40
+│   │   ├── details.md
+│   │   ├── diff-details.md
+│   │   ├── diff.csv
+│   │   ├── diff.md
+│   │   ├── diff.txt
+│   │   ├── results.csv
+│   │   ├── results.json
+│   │   ├── results.md
+│   │   └── results.txt
+│   └── 2026-03-21_00-38-59
 │       ├── details.md
 │       ├── diff-details.md
 │       ├── diff.csv
@@ -33,9 +43,12 @@ Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic
 │   │   │   │   └── page.tsx
 │   │   │   ├── reset-password
 │   │   │   │   └── page.tsx
+│   │   │   ├── select-role
+│   │   │   │   └── page.tsx
 │   │   │   ├── signup
 │   │   │   │   └── page.tsx
 │   │   │   ├── verify-email
+│   │   │   │   ├── VerifyEmailClient.tsx
 │   │   │   │   └── page.tsx
 │   │   │   └── layout.tsx
 │   │   ├── about
@@ -49,8 +62,6 @@ Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic
 │   │   ├── policies
 │   │   │   └── page.tsx
 │   │   ├── privacy-policy
-│   │   │   └── page.tsx
-│   │   ├── select-role
 │   │   │   └── page.tsx
 │   │   ├── terms-and-conditions
 │   │   │   └── page.tsx
@@ -109,7 +120,11 @@ Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic
 │   │   │   ├── otp
 │   │   │   │   ├── request
 │   │   │   │   │   └── route.ts
-│   │   │   │   └── verify
+│   │   │   │   ├── resend-email
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── verify
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── verify-email
 │   │   │   │       └── route.ts
 │   │   │   ├── password
 │   │   │   │   ├── forgot
@@ -118,10 +133,18 @@ Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic
 │   │   │   │       └── route.ts
 │   │   │   ├── refresh
 │   │   │   │   └── route.ts
-│   │   │   └── register
+│   │   │   ├── register
+│   │   │   │   └── route.ts
+│   │   │   └── select-role
 │   │   │       └── route.ts
 │   │   ├── doctor
-│   │   │   └── availability
+│   │   │   ├── active
+│   │   │   │   └── route.ts
+│   │   │   ├── availability
+│   │   │   │   └── route.ts
+│   │   │   ├── preferences
+│   │   │   │   └── route.ts
+│   │   │   └── profile
 │   │   │       └── route.ts
 │   │   ├── doctors
 │   │   │   ├── [id]
@@ -182,6 +205,15 @@ Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic
 │   │   ├── prescriptions
 │   │   │   └── page.tsx
 │   │   ├── settings
+│   │   │   ├── clinic
+│   │   │   │   └── page.tsx
+│   │   │   ├── personal
+│   │   │   │   └── page.tsx
+│   │   │   ├── professional
+│   │   │   │   └── page.tsx
+│   │   │   ├── security
+│   │   │   │   └── page.tsx
+│   │   │   ├── layout.tsx
 │   │   │   └── page.tsx
 │   │   ├── verification
 │   │   │   └── page.tsx
@@ -340,9 +372,14 @@ Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic
 │   │   │   └── PrescriptionsTable.tsx
 │   │   ├── settings
 │   │   │   ├── ClinicSettings.tsx
+│   │   │   ├── ClinicSettingsForm.tsx
 │   │   │   ├── NotificationSettings.tsx
+│   │   │   ├── PersonalDetailsForm.tsx
+│   │   │   ├── ProfessionalDetailsForm.tsx
 │   │   │   ├── ProfileSettings.tsx
-│   │   │   └── SecuritySettings.tsx
+│   │   │   ├── SecuritySettings.tsx
+│   │   │   ├── SecuritySettingsForm.tsx
+│   │   │   └── SettingsTab.tsx
 │   │   ├── DoctorCard.tsx
 │   │   └── PrescriptionForm.tsx
 │   ├── doctors
@@ -450,6 +487,8 @@ Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic
 │   ├── useDebounce.tsx
 │   └── useRole.tsx
 ├── lib
+│   ├── config
+│   │   └── features.ts
 │   ├── utils
 │   │   └── slot.ts
 │   ├── auth.ts
@@ -482,6 +521,7 @@ Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic
 │   └── wifi-network-warning.js
 ├── server
 │   ├── actions
+│   │   ├── doctorSettings.actions.ts
 │   │   ├── emergencyContacts.actions.ts
 │   │   ├── patient.actions.ts
 │   │   ├── patientProfile.actions.ts
@@ -505,6 +545,16 @@ Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic
 │   │   ├── index.ts
 │   │   ├── prescription.domain.ts
 │   │   └── user.domain.ts
+│   ├── email
+│   │   ├── templates
+│   │   │   ├── appointment-cancelled.template.ts
+│   │   │   ├── appointment-confirmation.template.ts
+│   │   │   ├── appointment-reminder.template.ts
+│   │   │   ├── doctor-approved.template.ts
+│   │   │   ├── doctor-rejected.template.ts
+│   │   │   ├── otp.template.ts
+│   │   │   └── password-reset.template.ts
+│   │   └── transport.ts
 │   ├── http
 │   │   ├── response.ts
 │   │   └── route-helpers.ts
@@ -549,6 +599,7 @@ Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic
 │   │   ├── auth.service.tsx
 │   │   ├── doctor.service.tsx
 │   │   ├── doctor_earning.service.tsx
+│   │   ├── email.service.ts
 │   │   ├── patient.service.tsx
 │   │   ├── prescription.services.tsx
 │   │   └── user.service.tsx
@@ -567,7 +618,8 @@ Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic
 │   │   ├── pagination.ts
 │   │   ├── pagination_test.ts
 │   │   ├── password.ts
-│   │   └── password_test.ts
+│   │   ├── password_test.ts
+│   │   └── sessions.ts
 │   └── validators
 │       ├── appointment.ts
 │       ├── audit.ts
@@ -590,6 +642,7 @@ Generated from `git ls-files` on 2026-03-19 to provide a complete, deterministic
 ├── drizzle.config.ts
 ├── eslint.config.mjs
 ├── export-tree-for-ai.ps1
+├── middleware.ts
 ├── next.config.ts
 ├── package-lock.json
 ├── package.json

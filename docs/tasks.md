@@ -1,132 +1,46 @@
 # Tasks Backlog
 
-## P0 — Critical
-- [ ] Connect forgot/reset password UI to finalized backend contract and handle all validation codes.
-- [ ] Normalize auth flows so email/phone login and signup return consistent session behavior.
-- [ ] Add robust test coverage for:
-  - [ ] `/api/auth/*` happy + edge paths
-  - [ ] policy guards and access-control helpers
-  - [ ] appointment state transitions
-- [ ] Enforce rate limiting for OTP and login endpoints.
+_Last updated: 2026-03-22_
 
-## P1 — Core Product
-- [ ] Replace static/mock doctor/clinic data with repository-backed API data in all patient-facing pages.
-- [ ] Complete doctor workflow pages (appointments, prescriptions, earnings, settings).
-- [ ] Complete patient records/profile workflows including UX polish.
-- [ ] Expand admin dashboard with actionable operational widgets and pagination/filter consistency.
+## P0 — Critical (Do First)
+- [ ] Close auth reliability gaps:
+  - [ ] Connect forgot/reset UI flows to finalized API contracts.
+  - [ ] Align OTP/email login+signup session behavior and error semantics.
+  - [ ] Add endpoint-level rate limiting for OTP, login, and reset attempts.
+- [ ] Lock appointment state integrity across roles:
+  - [ ] Enforce allowed transitions (confirm/reschedule/cancel/complete) with policy checks.
+  - [ ] Ensure doctor and patient UI timelines reflect identical appointment status changes.
+- [ ] Expand tests for high-risk paths:
+  - [ ] `/api/auth/*` happy + edge cases.
+  - [ ] `/api/appointments/*` state transition and permission checks.
+  - [ ] authz policy guards and access helper coverage.
+
+## P1 — Core Product Completion
+- [ ] Replace remaining static/mock data with repository-backed API data (doctors/clinics/home discovery).
+- [ ] Complete doctor workflows (appointments detail actions, prescriptions, earnings, onboarding/verification edges).
+- [ ] Complete patient workflows (records, profile, notifications, emergency contacts).
+- [ ] Finish admin operations UX (dashboard metrics, consistent filters, pagination, bulk actions where needed).
 
 ## P2 — Hardening & Observability
-- [ ] Add structured logging around critical service operations.
-- [ ] Add API metrics instrumentation for latency and error-rate tracking.
-- [ ] Improve resilience patterns (retry-safe boundaries, clearer operational errors).
+- [ ] Add structured logging for service and route-level failures.
+- [ ] Add API metrics instrumentation for latency/error-rate across core endpoints.
+- [ ] Improve resilience patterns (typed operational errors, retry-safe boundaries, graceful degradation).
+- [ ] Run and track pre-release quality gate:
+  - [ ] `npm run typecheck`
+  - [ ] `npm run lint`
+  - [ ] `npm run test`
+  - [ ] `npm run build`
 
 ## Documentation & Process
 - [ ] Keep `docs/api-spec.md` updated whenever route contracts change.
-- [ ] Keep `docs/decisions.md` updated with new architecture/security decisions.
-- [ ] Add release checklist execution logs per milestone.
+- [ ] Keep `docs/decisions.md` updated for architecture/security choices.
+- [ ] Keep `docs/folder-structure.md` and `docs/ai-codebase-map.md` in sync after major file churn.
+- [ ] Add milestone release check logs in `docs/changelog.md` or a release note doc.
 
-
-## Completed Tasks
-Auth (OTP-based)
-
-Roles (patient / doctor / admin)
-
-Doctor verification
-
-Appointments API
-
-Dashboard layouts
-
-Database Schema
-
-Repository Layer
-
-Service Layer
-
-Domain Layer
-# 📋 Product Requirements — Healthcare Platform
-
----
-
-# 🛠️ Admin Panel
-
-## Settings
-- `PATCH` — Change settings
-
-## Admin View Patients
-- `GET` — Fetch patients data
-
-## Doctors
-- `GET` — Fetch doctors data
-
-## Clinics
-- `GET` — Fetch clinics data
-
-## Doctor Verification
-- `PATCH` — Update doctor verified status
-
----
-
-# 👤 Patient Panel
-
-## Profile
-- `GET` — Fetch profile
-- `UPDATE` — Update profile
-
-## Emergency Contacts
-- `GET` — Fetch emergency contacts
-- `PATCH` — Update emergency contacts
-- Repo function — Emergency contacts repository logic
-- Service function — Emergency contacts business logic
-
-## Danger Zone
-- `POST` — Request data erasure
-- `GET` — Download data via worker and send to email/WhatsApp
-
-## Doctors
-- `GET` — Consultation history & prescriptions from previously consulted doctors
-- Consultation Service function
-- Consultation Repo function
-
----
-
-# 🩺 Doctor Panel
-
-## Doctor Onboarding
-- Request doctor verification
-- Doctor fills verification forms and submits
-- Lock other components until verification completed
-
-## Prescription (Optional)
-- `POST` — Create new prescription
-
-## Earnings
-- `GET` — Fetch doctor earnings
-- `POST` — Add/update doctor earnings
-
-## Appointment Management
-- `PATCH` — Accept / Reject / Cancel appointment
-
----
-
-# 🔎 Doctor Browsing Features
-- `GET` — Fetch doctors
-  - Filter/search by:
-    - Location
-    - Specialization
-
----
-
-# 🏥 Clinic Page
-- `GET` — Clinic detail
-- `POST` — Create new clinic
-- `PATCH` — Update clinic
-- `POST` — Add doctor to clinic
-
----
-
-# 🔐 Auth
-- OTP Login
-- OTP Signup
-
----
+## Completed Foundation Work (Snapshot)
+- [x] OTP-based authentication baseline.
+- [x] Role foundations (`patient` / `doctor` / `admin`).
+- [x] Doctor verification baseline flow.
+- [x] Appointment API baseline.
+- [x] Dashboard layout scaffolding.
+- [x] Database schema + repository + service + domain layering.

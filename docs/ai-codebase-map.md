@@ -1,43 +1,44 @@
 # AI Codebase Map & 2-Week Prioritized Completion Plan
 
-> Update note (2026-03-19): Refreshed structure references and regenerated the per-file index to match the current tracked repository state.
+> Update note (2026-03-22): Refreshed task priorities and documentation references to align with the current repository snapshot.
 
-## Incremental Refresh Notes (2026-03-19)
-- Regenerated `docs/folder-structure.md` from current `git ls-files` output.
-- Rebuilt per-file analysis index in this document for all 440 tracked files.
-- Kept implementation guidance aligned with the current App Router + server-layer architecture.
+## Incremental Refresh Notes (2026-03-22)
+- Regenerated `docs/folder-structure.md` from current `git ls-files` output (479 tracked files).
+- Updated this document's planning sections to reflect current delivery priorities across auth, appointment lifecycle, and admin operations.
+- Synced backlog language with `docs/tasks.md` so AI agents and humans follow the same execution order.
 
 ## 2-Week Prioritized Completion Plan
 
-### Week 1 (Foundations + High-Risk Gaps)
-1. **Complete auth hardening and password reset backend flow**
-   - Features: connect forgot/reset pages to real API endpoints, add OTP/email verification paths, add stronger validation errors.
-   - Files: `components/auth/ForgetPasswordForm.tsx`, `components/auth/ResetPasswordForm.tsx`, `app/api/auth/*`, `server/services/auth.service.tsx`, `server/validators/auth.ts`.
-2. **Finish admin dashboard and core operational pages**
-   - Features: replace under-construction states with metrics and tables.
-   - Files: `app/admin/dashboard/page.tsx`, `components/admin/*`, `app/api/admin/metrics/route.ts`.
-3. **Eliminate mocked/static medical data from critical UI paths**
-   - Features: replace static doctor cards and booking placeholders with API-driven data.
-   - Files: `components/home/TopRatedDoctors.tsx`, `app/api/doctors/*`, `server/repositories/doctor.repo.ts`, `server/services/doctor.service.tsx`.
-4. **Expand test coverage for auth, API routes, and policies**
-   - Files: `server/**/*.test.ts`, `app/api/**/route.test.ts`, and critical component tests.
+### Week 1 (Stability + Critical Workflow Completion)
+1. **Auth flow closure and security hardening**
+   - Features: finalize forgot/reset parity, unify OTP/email behavior, tighten validation and error messaging.
+   - Files: `app/api/auth/*`, `server/services/auth.service.ts`, `server/validators/auth.ts`, `components/auth/*`.
+2. **Appointments lifecycle consistency**
+   - Features: ensure confirm/reschedule/cancel/complete flows are role-safe and reflected consistently in doctor + patient portals.
+   - Files: `app/api/appointments/*`, `server/services/appointment.service.ts`, `server/domain/appointment.domain.ts`, `app/doctor/appointments/*`, `app/patient/appointments/*`.
+3. **Admin operational readiness**
+   - Features: expand dashboard metrics and normalize table filtering/pagination on doctors, patients, and requests views.
+   - Files: `app/admin/*`, `components/admin/*`, `app/api/admin/metrics/route.ts`.
+4. **Critical test coverage expansion**
+   - Files: `server/**/*.test.ts`, `app/api/**/route.test.ts`, `components/**/*.test.tsx` for high-risk auth and appointment paths.
 
-### Week 2 (Stabilization + Release Readiness)
-1. **Patient/Doctor workflow completion**
-   - Features: appointments lifecycle, records views, prescription completion.
-   - Files: `app/patient/*`, `app/doctor/*`, `components/patient/*`, `components/doctor/*`, `app/api/appointments/*`, `app/api/patients/*`.
-2. **Observability, resiliency, and rate limiting roll-out**
+### Week 2 (Product Completion + Release Hardening)
+1. **Replace remaining static/mock UI data**
+   - Features: move public doctor/clinic pages and booking paths to repository-backed API responses.
+   - Files: `app/doctors/*`, `app/clinics/*`, `components/home/*`, `app/api/doctors/*`, `server/repositories/*`.
+2. **Patient and doctor workflow completion**
+   - Features: records/profile polish, prescriptions/earnings completeness, onboarding and verification edge-case handling.
+   - Files: `app/patient/*`, `app/doctor/*`, `components/patient/*`, `components/doctor/*`.
+3. **Observability + resiliency improvements**
    - Files: `server/middleware/rate-limit.ts`, `server/utils/logger.ts`, `server/http/route-helpers.ts`.
-3. **Docs + AI onboarding quality bar**
-   - Files: `README.md`, `AGENTS.md`, `docs/folder-structure.md`, this file.
-4. **Pre-release verification gate**
+4. **Release gate execution**
    - Run: `npm run typecheck`, `npm run lint`, `npm run test`, `npm run build`.
 
 ## Feature-to-File Mapping (Priority Ordered)
-- **P0 Auth reliability:** `app/api/auth/*`, `server/services/auth.service.tsx`, `server/validators/auth.ts`, `components/auth/*`.
-- **P0 Authorization correctness:** `server/policies/*`, `server/http/route-helpers.ts`, `app/api/users/*`, `app/api/doctors/*`.
-- **P1 Admin ops:** `app/admin/*`, `components/admin/*`, `app/api/admin/metrics/route.ts`.
-- **P1 Doctor workflows:** `app/doctor/*`, `components/doctor/*`, `app/api/appointments/*`, `app/api/doctors/*`.
+- **P0 Auth reliability:** `app/api/auth/*`, `server/services/auth.service.ts`, `server/validators/auth.ts`, `components/auth/*`.
+- **P0 Appointments state integrity:** `app/api/appointments/*`, `server/domain/appointment.domain.ts`, `server/services/appointment.service.ts`, `server/policies/*`.
+- **P1 Admin operations:** `app/admin/*`, `components/admin/*`, `app/api/admin/metrics/route.ts`.
+- **P1 Doctor workflows:** `app/doctor/*`, `components/doctor/*`, `app/api/doctors/*`.
 - **P1 Patient workflows:** `app/patient/*`, `components/patient/*`, `app/api/patients/*`.
 - **P2 Quality/ops:** `server/utils/*`, `server/middleware/*`, `scripts/*`, `db/*`, `drizzle/*`.
 
