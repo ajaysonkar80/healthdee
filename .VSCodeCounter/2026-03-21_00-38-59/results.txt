@@ -1,0 +1,658 @@
+Date : 2026-03-21 00:38:59
+Directory : c:\Users\ajays\OneDrive\Desktop\project\healthdee
+Total : 437 files,  68574 codes, 2061 comments, 7558 blanks, all 78193 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |         17 |     36,400 |          0 |          3 |     36,403 |
+| TypeScript JSX     |        248 |     16,365 |      1,022 |      2,538 |     19,925 |
+| Markdown           |         15 |      7,774 |          0 |      3,353 |     11,127 |
+| TypeScript         |        138 |      7,341 |      1,003 |      1,600 |      9,944 |
+| MS SQL             |         13 |        334 |         22 |          3 |        359 |
+| PostCSS            |          1 |        153 |          8 |         14 |        175 |
+| JavaScript         |          3 |        145 |          6 |         37 |        188 |
+| JSON with Comments |          1 |         37 |          0 |          1 |         38 |
+| PowerShell         |          1 |         25 |          0 |          9 |         34 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                 | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                    |        437 |     68,574 |      2,061 |      7,558 |     78,193 |
+| . (Files)                                                                                                            |         17 |     15,599 |         11 |        143 |     15,753 |
+| app                                                                                                                  |        120 |      6,090 |        483 |      1,076 |      7,649 |
+| app (Files)                                                                                                          |          7 |        264 |          8 |         27 |        299 |
+| app\(public)                                                                                                         |         16 |        677 |         65 |        108 |        850 |
+| app\(public) (Files)                                                                                                 |          1 |          9 |          0 |          1 |         10 |
+| app\(public)\(login-signup)                                                                                          |          8 |        130 |         14 |         31 |        175 |
+| app\(public)\(login-signup) (Files)                                                                                  |          1 |         57 |          5 |         10 |         72 |
+| app\(public)\(login-signup)\forgot-password                                                                          |          1 |          4 |          0 |          2 |          6 |
+| app\(public)\(login-signup)\login                                                                                    |          1 |          4 |          0 |          2 |          6 |
+| app\(public)\(login-signup)\reset-password                                                                           |          1 |          6 |          0 |          4 |         10 |
+| app\(public)\(login-signup)\select-role                                                                              |          1 |         23 |          6 |          5 |         34 |
+| app\(public)\(login-signup)\signup                                                                                   |          1 |          4 |          0 |          2 |          6 |
+| app\(public)\(login-signup)\verify-email                                                                             |          2 |         32 |          3 |          6 |         41 |
+| app\(public)\about                                                                                                   |          1 |         20 |          1 |          2 |         23 |
+| app\(public)\doctor-privacy-policy                                                                                   |          1 |         98 |          2 |         17 |        117 |
+| app\(public)\healthcare-provider-terms                                                                               |          1 |        109 |         16 |         17 |        142 |
+| app\(public)\help                                                                                                    |          1 |        114 |          7 |         12 |        133 |
+| app\(public)\policies                                                                                                |          1 |          9 |          0 |          1 |         10 |
+| app\(public)\privacy-policy                                                                                          |          1 |         92 |         12 |         13 |        117 |
+| app\(public)\terms-and-conditions                                                                                    |          1 |         96 |         13 |         14 |        123 |
+| app\admin                                                                                                            |         16 |        897 |         86 |        129 |      1,112 |
+| app\admin (Files)                                                                                                    |          2 |         52 |          6 |          9 |         67 |
+| app\admin\appointment-requests                                                                                       |          2 |        200 |         11 |         36 |        247 |
+| app\admin\clinics                                                                                                    |          1 |         69 |          4 |          7 |         80 |
+| app\admin\dashboard                                                                                                  |          1 |          9 |          0 |          1 |         10 |
+| app\admin\doctors                                                                                                    |          4 |        205 |         16 |         29 |        250 |
+| app\admin\doctors (Files)                                                                                            |          2 |        143 |         16 |         19 |        178 |
+| app\admin\doctors-verification                                                                                       |          2 |        222 |         31 |         29 |        282 |
+| app\admin\doctors\[doctorId]                                                                                         |          1 |         46 |          0 |          7 |         53 |
+| app\admin\doctors\[doctorId]\edit                                                                                    |          1 |         46 |          0 |          7 |         53 |
+| app\admin\doctors\create                                                                                             |          1 |         16 |          0 |          3 |         19 |
+| app\admin\patients                                                                                                   |          2 |        122 |         18 |         16 |        156 |
+| app\admin\settings                                                                                                   |          1 |          9 |          0 |          1 |         10 |
+| app\admin\users                                                                                                      |          1 |          9 |          0 |          1 |         10 |
+| app\api                                                                                                              |         35 |      1,250 |        160 |        350 |      1,760 |
+| app\api\admin                                                                                                        |          1 |         23 |          8 |          8 |         39 |
+| app\api\admin\metrics                                                                                                |          1 |         23 |          8 |          8 |         39 |
+| app\api\appointments                                                                                                 |          6 |        236 |         48 |         79 |        363 |
+| app\api\appointments (Files)                                                                                         |          1 |         88 |         10 |         27 |        125 |
+| app\api\appointments\[id]                                                                                            |          5 |        148 |         38 |         52 |        238 |
+| app\api\appointments\[id] (Files)                                                                                    |          1 |         38 |         12 |         14 |         64 |
+| app\api\appointments\[id]\cancel                                                                                     |          1 |         27 |          5 |          9 |         41 |
+| app\api\appointments\[id]\complete                                                                                   |          1 |         22 |          8 |          8 |         38 |
+| app\api\appointments\[id]\confirm                                                                                    |          1 |         27 |          5 |          9 |         41 |
+| app\api\appointments\[id]\reschedule                                                                                 |          1 |         34 |          8 |         12 |         54 |
+| app\api\auth                                                                                                         |         12 |        293 |         42 |         72 |        407 |
+| app\api\auth\login                                                                                                   |          1 |         36 |          3 |          6 |         45 |
+| app\api\auth\logout                                                                                                  |          1 |         28 |          4 |          7 |         39 |
+| app\api\auth\me                                                                                                      |          1 |         15 |          7 |          4 |         26 |
+| app\api\auth\otp                                                                                                     |          4 |        101 |          9 |         28 |        138 |
+| app\api\auth\otp\request                                                                                             |          1 |         15 |          1 |          5 |         21 |
+| app\api\auth\otp\resend-email                                                                                        |          1 |         36 |          4 |         11 |         51 |
+| app\api\auth\otp\verify                                                                                              |          1 |         25 |          2 |          6 |         33 |
+| app\api\auth\otp\verify-email                                                                                        |          1 |         25 |          2 |          6 |         33 |
+| app\api\auth\password                                                                                                |          2 |         34 |          4 |          6 |         44 |
+| app\api\auth\password\forgot                                                                                         |          1 |         17 |          2 |          3 |         22 |
+| app\api\auth\password\reset                                                                                          |          1 |         17 |          2 |          3 |         22 |
+| app\api\auth\refresh                                                                                                 |          1 |         29 |         10 |          9 |         48 |
+| app\api\auth\register                                                                                                |          1 |         28 |          2 |          6 |         36 |
+| app\api\auth\select-role                                                                                             |          1 |         22 |          3 |          6 |         31 |
+| app\api\doctor                                                                                                       |          4 |        170 |         12 |         36 |        218 |
+| app\api\doctor\active                                                                                                |          1 |         20 |          1 |          4 |         25 |
+| app\api\doctor\availability                                                                                          |          1 |         84 |          8 |         25 |        117 |
+| app\api\doctor\preferences                                                                                           |          1 |         34 |          1 |          3 |         38 |
+| app\api\doctor\profile                                                                                               |          1 |         32 |          2 |          4 |         38 |
+| app\api\doctors                                                                                                      |          5 |        183 |         25 |         52 |        260 |
+| app\api\doctors (Files)                                                                                              |          1 |         48 |          4 |         10 |         62 |
+| app\api\doctors\[id]                                                                                                 |          4 |        135 |         21 |         42 |        198 |
+| app\api\doctors\[id] (Files)                                                                                         |          1 |         38 |         12 |         13 |         63 |
+| app\api\doctors\[id]\appointments-public                                                                             |          1 |         36 |          2 |         10 |         48 |
+| app\api\doctors\[id]\availability-public                                                                             |          1 |         30 |          1 |          9 |         40 |
+| app\api\doctors\[id]\verify                                                                                          |          1 |         31 |          6 |         10 |         47 |
+| app\api\files                                                                                                        |          1 |         54 |          4 |         19 |         77 |
+| app\api\files\[...path]                                                                                              |          1 |         54 |          4 |         19 |         77 |
+| app\api\health                                                                                                       |          1 |         11 |          1 |          3 |         15 |
+| app\api\patients                                                                                                     |          3 |        190 |         18 |         55 |        263 |
+| app\api\patients (Files)                                                                                             |          1 |         41 |          2 |          9 |         52 |
+| app\api\patients\[id]                                                                                                |          1 |         77 |          8 |         23 |        108 |
+| app\api\patients\me                                                                                                  |          1 |         72 |          8 |         23 |        103 |
+| app\api\patients\me\preferences                                                                                      |          1 |         72 |          8 |         23 |        103 |
+| app\api\users                                                                                                        |          2 |         90 |          2 |         26 |        118 |
+| app\api\users (Files)                                                                                                |          1 |         22 |          0 |          7 |         29 |
+| app\api\users\[id]                                                                                                   |          1 |         68 |          2 |         19 |         89 |
+| app\clinics                                                                                                          |          9 |        490 |         15 |         60 |        565 |
+| app\clinics (Files)                                                                                                  |          1 |          9 |          0 |          1 |         10 |
+| app\clinics\[id]                                                                                                     |          8 |        481 |         15 |         59 |        555 |
+| app\context                                                                                                          |          1 |         62 |          3 |         14 |         79 |
+| app\doctor                                                                                                           |         20 |      1,550 |        106 |        181 |      1,837 |
+| app\doctor (Files)                                                                                                   |          2 |        127 |         15 |         21 |        163 |
+| app\doctor\appointments                                                                                              |          4 |        510 |         33 |         51 |        594 |
+| app\doctor\appointments (Files)                                                                                      |          2 |        162 |          8 |         17 |        187 |
+| app\doctor\appointments\[id]                                                                                         |          2 |        348 |         25 |         34 |        407 |
+| app\doctor\availability                                                                                              |          1 |        160 |         12 |         24 |        196 |
+| app\doctor\dashboard                                                                                                 |          3 |        109 |         10 |         16 |        135 |
+| app\doctor\earnings                                                                                                  |          1 |         88 |          6 |         11 |        105 |
+| app\doctor\onboarding                                                                                                |          1 |        204 |         11 |         17 |        232 |
+| app\doctor\prescriptions                                                                                             |          1 |         25 |          2 |          4 |         31 |
+| app\doctor\settings                                                                                                  |          6 |        123 |          6 |         20 |        149 |
+| app\doctor\settings (Files)                                                                                          |          2 |         35 |          2 |          4 |         41 |
+| app\doctor\settings\clinic                                                                                           |          1 |         22 |          1 |          4 |         27 |
+| app\doctor\settings\personal                                                                                         |          1 |         22 |          1 |          4 |         27 |
+| app\doctor\settings\professional                                                                                     |          1 |         22 |          1 |          4 |         27 |
+| app\doctor\settings\security                                                                                         |          1 |         22 |          1 |          4 |         27 |
+| app\doctor\verification                                                                                              |          1 |        204 |         11 |         17 |        232 |
+| app\doctors                                                                                                          |          4 |        290 |          7 |         58 |        355 |
+| app\doctors (Files)                                                                                                  |          1 |         85 |          1 |         14 |        100 |
+| app\doctors\[publicId]                                                                                               |          1 |         78 |          6 |         17 |        101 |
+| app\doctors\booking                                                                                                  |          2 |        127 |          0 |         27 |        154 |
+| app\doctors\booking (Files)                                                                                          |          1 |          8 |          0 |          2 |         10 |
+| app\doctors\booking\confirmation                                                                                     |          1 |        119 |          0 |         25 |        144 |
+| app\patient                                                                                                          |         10 |        520 |         23 |        128 |        671 |
+| app\patient (Files)                                                                                                  |          2 |         60 |          7 |         14 |         81 |
+| app\patient\appointments                                                                                             |          3 |        380 |         16 |         95 |        491 |
+| app\patient\appointments (Files)                                                                                     |          2 |        248 |          7 |         75 |        330 |
+| app\patient\appointments\book                                                                                        |          1 |        132 |          9 |         20 |        161 |
+| app\patient\danger-zone                                                                                              |          1 |          8 |          0 |          1 |          9 |
+| app\patient\emergency-contacts                                                                                       |          1 |         30 |          0 |          8 |         38 |
+| app\patient\notifications                                                                                            |          1 |         24 |          0 |          8 |         32 |
+| app\patient\profile                                                                                                  |          1 |          9 |          0 |          1 |         10 |
+| app\patient\records                                                                                                  |          1 |          9 |          0 |          1 |         10 |
+| app\services                                                                                                         |          1 |         60 |          3 |         14 |         77 |
+| app\types                                                                                                            |          1 |         30 |          7 |          7 |         44 |
+| components                                                                                                           |        149 |      9,820 |        394 |      1,419 |     11,633 |
+| components\about                                                                                                     |         13 |        339 |         25 |         49 |        413 |
+| components\about\about-hero                                                                                          |          2 |         44 |          5 |         11 |         60 |
+| components\about\core-values                                                                                         |          2 |         65 |          5 |          9 |         79 |
+| components\about\final-cta                                                                                           |          1 |         32 |          1 |          4 |         37 |
+| components\about\impact-stats                                                                                        |          2 |         48 |          2 |          5 |         55 |
+| components\about\our-story                                                                                           |          4 |         90 |          8 |         13 |        111 |
+| components\about\trust-badges                                                                                        |          2 |         60 |          4 |          7 |         71 |
+| components\admin                                                                                                     |         38 |      2,558 |        124 |        332 |      3,014 |
+| components\admin (Files)                                                                                             |          5 |        384 |         32 |         50 |        466 |
+| components\admin\appointment-requests                                                                                |          7 |        468 |         15 |         57 |        540 |
+| components\admin\clinic                                                                                              |          6 |        206 |          0 |         34 |        240 |
+| components\admin\doctor                                                                                              |          9 |        740 |         41 |         97 |        878 |
+| components\admin\doctor-verification                                                                                 |          7 |        446 |         17 |         56 |        519 |
+| components\admin\patient                                                                                             |          4 |        314 |         19 |         38 |        371 |
+| components\auth                                                                                                      |         13 |      1,130 |         32 |        190 |      1,352 |
+| components\doctor                                                                                                    |         38 |      2,451 |        136 |        358 |      2,945 |
+| components\doctor (Files)                                                                                            |          2 |         47 |          0 |          9 |         56 |
+| components\doctor\appointment                                                                                        |          2 |        178 |         35 |         22 |        235 |
+| components\doctor\booking                                                                                            |         14 |        762 |         31 |        154 |        947 |
+| components\doctor\booking (Files)                                                                                    |          6 |        456 |         18 |        116 |        590 |
+| components\doctor\booking\confirmation                                                                               |          8 |        306 |         13 |         38 |        357 |
+| components\doctor\dashboard                                                                                          |          6 |        373 |         21 |         44 |        438 |
+| components\doctor\earnings                                                                                           |          4 |        200 |         11 |         20 |        231 |
+| components\doctor\prescriptions                                                                                      |          1 |         84 |          8 |         11 |        103 |
+| components\doctor\settings                                                                                           |          9 |        807 |         30 |         98 |        935 |
+| components\doctors                                                                                                   |          5 |        299 |          0 |         55 |        354 |
+| components\help                                                                                                      |          2 |         58 |          0 |         10 |         68 |
+| components\home                                                                                                      |          7 |        629 |         45 |         57 |        731 |
+| components\layout                                                                                                    |          2 |        237 |         10 |         27 |        274 |
+| components\patient                                                                                                   |         13 |        871 |         11 |        163 |      1,045 |
+| components\ui                                                                                                        |         16 |      1,073 |          0 |        133 |      1,206 |
+| components\upload                                                                                                    |          2 |        175 |         11 |         45 |        231 |
+| db                                                                                                                   |          3 |        611 |         97 |        161 |        869 |
+| docs                                                                                                                 |         11 |      7,335 |          0 |      3,258 |     10,593 |
+| drizzle                                                                                                              |         27 |     21,802 |         22 |          3 |     21,827 |
+| drizzle (Files)                                                                                                      |         13 |        334 |         22 |          3 |        359 |
+| drizzle\meta                                                                                                         |         14 |     21,468 |          0 |          0 |     21,468 |
+| hooks                                                                                                                |          4 |          4 |          0 |          4 |          8 |
+| lib                                                                                                                  |          8 |        194 |         23 |         43 |        260 |
+| lib (Files)                                                                                                          |          6 |        140 |         13 |         29 |        182 |
+| lib\config                                                                                                           |          1 |         21 |          9 |          5 |         35 |
+| lib\utils                                                                                                            |          1 |         33 |          1 |          9 |         43 |
+| scripts                                                                                                              |          6 |        331 |         15 |         57 |        403 |
+| server                                                                                                               |         91 |      6,389 |      1,001 |      1,287 |      8,677 |
+| server\actions                                                                                                       |          6 |        210 |         14 |         59 |        283 |
+| server\constants                                                                                                     |          3 |         20 |          0 |          6 |         26 |
+| server\db                                                                                                            |          1 |          6 |          4 |          4 |         14 |
+| server\domain                                                                                                        |         11 |        639 |        211 |        141 |        991 |
+| server\email                                                                                                         |          8 |        339 |          8 |         22 |        369 |
+| server\email (Files)                                                                                                 |          1 |         45 |          0 |          7 |         52 |
+| server\email\templates                                                                                               |          7 |        294 |          8 |         15 |        317 |
+| server\http                                                                                                          |          2 |        177 |         17 |         29 |        223 |
+| server\middleware                                                                                                    |          1 |         46 |         12 |         13 |         71 |
+| server\policies                                                                                                      |         15 |        383 |        119 |        111 |        613 |
+| server\policies (Files)                                                                                              |          6 |        177 |         71 |         55 |        303 |
+| server\policies\access                                                                                               |          5 |        150 |         13 |         36 |        199 |
+| server\policies\fields                                                                                               |          1 |         41 |         23 |         11 |         75 |
+| server\policies\guards                                                                                               |          3 |         15 |         12 |          9 |         36 |
+| server\rate-limit                                                                                                    |          3 |         61 |          0 |         15 |         76 |
+| server\repositories                                                                                                  |          8 |      1,891 |        167 |        276 |      2,334 |
+| server\services                                                                                                      |         10 |      1,905 |        331 |        410 |      2,646 |
+| server\storage                                                                                                       |          3 |         77 |          0 |         19 |         96 |
+| server\types                                                                                                         |          1 |          9 |          0 |          2 |         11 |
+| server\utils                                                                                                         |         10 |        368 |        100 |        109 |        577 |
+| server\validators                                                                                                    |          9 |        258 |         18 |         71 |        347 |
+| tests                                                                                                                |          1 |        399 |         15 |        107 |        521 |
++----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                             | language           | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\AGENTS.md                                                          | Markdown           |        186 |          0 |         55 |        241 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\README.md                                                          | Markdown           |         42 |          0 |         16 |         58 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\(login-signup)\forgot-password\page.tsx               | TypeScript JSX     |          4 |          0 |          2 |          6 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\(login-signup)\layout.tsx                             | TypeScript JSX     |         57 |          5 |         10 |         72 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\(login-signup)\login\page.tsx                         | TypeScript JSX     |          4 |          0 |          2 |          6 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\(login-signup)\reset-password\page.tsx                | TypeScript JSX     |          6 |          0 |          4 |         10 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\(login-signup)\select-role\page.tsx                   | TypeScript JSX     |         23 |          6 |          5 |         34 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\(login-signup)\signup\page.tsx                        | TypeScript JSX     |          4 |          0 |          2 |          6 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\(login-signup)\verify-email\VerifyEmailClient.tsx     | TypeScript JSX     |         23 |          2 |          5 |         30 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\(login-signup)\verify-email\page.tsx                  | TypeScript JSX     |          9 |          1 |          1 |         11 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\about\page.tsx                                        | TypeScript JSX     |         20 |          1 |          2 |         23 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\doctor-privacy-policy\page.tsx                        | TypeScript JSX     |         98 |          2 |         17 |        117 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\healthcare-provider-terms\page.tsx                    | TypeScript JSX     |        109 |         16 |         17 |        142 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\help\page.tsx                                         | TypeScript JSX     |        114 |          7 |         12 |        133 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\page.tsx                                              | TypeScript JSX     |          9 |          0 |          1 |         10 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\policies\page.tsx                                     | TypeScript JSX     |          9 |          0 |          1 |         10 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\privacy-policy\page.tsx                               | TypeScript JSX     |         92 |         12 |         13 |        117 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\terms-and-conditions\page.tsx                         | TypeScript JSX     |         96 |         13 |         14 |        123 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\Header.tsx                                                     | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\appointment-requests\AppointmentRequestsClient.tsx       | TypeScript JSX     |        153 |         10 |         26 |        189 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\appointment-requests\page.tsx                            | TypeScript JSX     |         47 |          1 |         10 |         58 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\clinics\page.tsx                                         | TypeScript JSX     |         69 |          4 |          7 |         80 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\dashboard\page.tsx                                       | TypeScript JSX     |          9 |          0 |          1 |         10 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctors-verification\DoctorsVerificationClient.tsx       | TypeScript JSX     |        166 |         28 |         22 |        216 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctors-verification\page.tsx                            | TypeScript JSX     |         56 |          3 |          7 |         66 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctors\DoctorsPageClient.tsx                            | TypeScript JSX     |         94 |         14 |         13 |        121 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctors\[doctorId]\edit\page.tsx                         | TypeScript JSX     |         46 |          0 |          7 |         53 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctors\create\page.tsx                                  | TypeScript JSX     |         16 |          0 |          3 |         19 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctors\page.tsx                                         | TypeScript JSX     |         49 |          2 |          6 |         57 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\layout.tsx                                               | TypeScript JSX     |         34 |          3 |          6 |         43 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\page.tsx                                                 | TypeScript JSX     |         18 |          3 |          3 |         24 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\patients\PatientsClientPage.tsx                          | TypeScript JSX     |         71 |         15 |          9 |         95 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\patients\page.tsx                                        | TypeScript JSX     |         51 |          3 |          7 |         61 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\settings\page.tsx                                        | TypeScript JSX     |          9 |          0 |          1 |         10 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\users\page.tsx                                           | TypeScript JSX     |          9 |          0 |          1 |         10 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\admin\metrics\route.ts                                     | TypeScript         |         23 |          8 |          8 |         39 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\appointments\[id]\cancel\route.ts                          | TypeScript         |         27 |          5 |          9 |         41 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\appointments\[id]\complete\route.ts                        | TypeScript         |         22 |          8 |          8 |         38 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\appointments\[id]\confirm\route.ts                         | TypeScript         |         27 |          5 |          9 |         41 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\appointments\[id]\reschedule\route.ts                      | TypeScript         |         34 |          8 |         12 |         54 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\appointments\[id]\route.ts                                 | TypeScript         |         38 |         12 |         14 |         64 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\appointments\route.ts                                      | TypeScript         |         88 |         10 |         27 |        125 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\login\route.ts                                        | TypeScript         |         36 |          3 |          6 |         45 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\logout\route.ts                                       | TypeScript         |         28 |          4 |          7 |         39 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\me\route.ts                                           | TypeScript         |         15 |          7 |          4 |         26 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\otp\request\route.ts                                  | TypeScript         |         15 |          1 |          5 |         21 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\otp\resend-email\route.ts                             | TypeScript         |         36 |          4 |         11 |         51 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\otp\verify-email\route.ts                             | TypeScript         |         25 |          2 |          6 |         33 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\otp\verify\route.ts                                   | TypeScript         |         25 |          2 |          6 |         33 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\password\forgot\route.ts                              | TypeScript         |         17 |          2 |          3 |         22 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\password\reset\route.ts                               | TypeScript         |         17 |          2 |          3 |         22 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\refresh\route.ts                                      | TypeScript         |         29 |         10 |          9 |         48 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\register\route.ts                                     | TypeScript         |         28 |          2 |          6 |         36 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\select-role\route.ts                                  | TypeScript         |         22 |          3 |          6 |         31 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctor\active\route.ts                                     | TypeScript         |         20 |          1 |          4 |         25 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctor\availability\route.ts                               | TypeScript         |         84 |          8 |         25 |        117 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctor\preferences\route.ts                                | TypeScript         |         34 |          1 |          3 |         38 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctor\profile\route.ts                                    | TypeScript         |         32 |          2 |          4 |         38 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctors\[id]\appointments-public\route.ts                  | TypeScript         |         36 |          2 |         10 |         48 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctors\[id]\availability-public\route.ts                  | TypeScript         |         30 |          1 |          9 |         40 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctors\[id]\route.ts                                      | TypeScript         |         38 |         12 |         13 |         63 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctors\[id]\verify\route.ts                               | TypeScript         |         31 |          6 |         10 |         47 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctors\route.ts                                           | TypeScript         |         48 |          4 |         10 |         62 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\files\[...path]\route.ts                                   | TypeScript         |         54 |          4 |         19 |         77 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\health\route.ts                                            | TypeScript         |         11 |          1 |          3 |         15 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\patients\[id]\route.ts                                     | TypeScript         |         77 |          8 |         23 |        108 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\patients\me\preferences\route.ts                           | TypeScript         |         72 |          8 |         23 |        103 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\patients\route.ts                                          | TypeScript         |         41 |          2 |          9 |         52 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\users\[id]\route.ts                                        | TypeScript         |         68 |          2 |         19 |         89 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\users\route.ts                                             | TypeScript         |         22 |          0 |          7 |         29 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\clinics\[id]\ClinicDetails.tsx                                 | TypeScript JSX     |         58 |          0 |          8 |         66 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\clinics\[id]\ClinicDoctors.tsx                                 | TypeScript JSX     |         68 |          2 |          8 |         78 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\clinics\[id]\ClinicHero.tsx                                    | TypeScript JSX     |         57 |          6 |          8 |         71 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\clinics\[id]\ClinicPageLayout.tsx                              | TypeScript JSX     |         31 |          2 |          5 |         38 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\clinics\[id]\ClinicServices.tsx                                | TypeScript JSX     |         29 |          2 |          5 |         36 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\clinics\[id]\ClinicSidebar.tsx                                 | TypeScript JSX     |         79 |          3 |         10 |         92 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\clinics\[id]\ClinicSummary.tsx                                 | TypeScript JSX     |         57 |          0 |          8 |         65 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\clinics\[id]\page.tsx                                          | TypeScript JSX     |        102 |          0 |          7 |        109 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\clinics\page.tsx                                               | TypeScript JSX     |          9 |          0 |          1 |         10 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\context\AuthContext.tsx                                        | TypeScript JSX     |         62 |          3 |         14 |         79 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\appointments\AppointmentQueueSkeleton.tsx               | TypeScript JSX     |         31 |          1 |          1 |         33 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\appointments\[id]\AppointmentsDetailsSkeleton.tsx       | TypeScript JSX     |         44 |          5 |          4 |         53 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\appointments\[id]\page.tsx                              | TypeScript JSX     |        304 |         20 |         30 |        354 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\appointments\page.tsx                                   | TypeScript JSX     |        131 |          7 |         16 |        154 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\availability\page.tsx                                   | TypeScript JSX     |        160 |         12 |         24 |        196 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\dashboard\error.tsx                                     | TypeScript JSX     |         25 |          0 |          4 |         29 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\dashboard\loading.tsx                                   | TypeScript JSX     |         13 |          0 |          3 |         16 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\dashboard\page.tsx                                      | TypeScript JSX     |         71 |         10 |          9 |         90 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\earnings\page.tsx                                       | TypeScript JSX     |         88 |          6 |         11 |        105 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\layout.tsx                                              | TypeScript JSX     |         56 |          5 |         12 |         73 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\onboarding\page.tsx                                     | TypeScript JSX     |        204 |         11 |         17 |        232 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\page.tsx                                                | TypeScript JSX     |         71 |         10 |          9 |         90 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\prescriptions\page.tsx                                  | TypeScript JSX     |         25 |          2 |          4 |         31 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\settings\clinic\page.tsx                                | TypeScript JSX     |         22 |          1 |          4 |         27 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\settings\layout.tsx                                     | TypeScript JSX     |         31 |          1 |          3 |         35 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\settings\page.tsx                                       | TypeScript JSX     |          4 |          1 |          1 |          6 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\settings\personal\page.tsx                              | TypeScript JSX     |         22 |          1 |          4 |         27 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\settings\professional\page.tsx                          | TypeScript JSX     |         22 |          1 |          4 |         27 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\settings\security\page.tsx                              | TypeScript JSX     |         22 |          1 |          4 |         27 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\verification\page.tsx                                   | TypeScript JSX     |        204 |         11 |         17 |        232 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctors\[publicId]\page.tsx                                    | TypeScript JSX     |         78 |          6 |         17 |        101 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctors\booking\confirmation\page.tsx                          | TypeScript JSX     |        119 |          0 |         25 |        144 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctors\booking\layout.tsx                                     | TypeScript JSX     |          8 |          0 |          2 |         10 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctors\page.tsx                                               | TypeScript JSX     |         85 |          1 |         14 |        100 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\error.tsx                                                      | TypeScript JSX     |         27 |          0 |          5 |         32 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\globals.css                                                    | PostCSS            |        153 |          8 |         14 |        175 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\layout.tsx                                                     | TypeScript JSX     |         39 |          0 |          4 |         43 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\loading.tsx                                                    | TypeScript JSX     |          7 |          0 |          1 |          8 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\notfound.tsx                                                   | TypeScript JSX     |         14 |          0 |          1 |         15 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\page.tsx                                                       | TypeScript JSX     |         24 |          0 |          1 |         25 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\appointments\book\page.tsx                             | TypeScript JSX     |        132 |          9 |         20 |        161 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\appointments\loading.tsx                               | TypeScript JSX     |         32 |          4 |          3 |         39 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\appointments\page.tsx                                  | TypeScript JSX     |        216 |          3 |         72 |        291 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\danger-zone\page.tsx                                   | TypeScript JSX     |          8 |          0 |          1 |          9 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\emergency-contacts\page.tsx                            | TypeScript JSX     |         30 |          0 |          8 |         38 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\layout.tsx                                             | TypeScript JSX     |         44 |          7 |          9 |         60 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\notifications\page.tsx                                 | TypeScript JSX     |         24 |          0 |          8 |         32 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\page.tsx                                               | TypeScript JSX     |         16 |          0 |          5 |         21 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\profile\page.tsx                                       | TypeScript JSX     |          9 |          0 |          1 |         10 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\records\page.tsx                                       | TypeScript JSX     |          9 |          0 |          1 |         10 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\services\auth.service.ts                                       | TypeScript         |         60 |          3 |         14 |         77 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\types\auth.tsx                                                 | TypeScript JSX     |         30 |          7 |          7 |         44 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components.json                                                    | JSON               |         23 |          0 |          1 |         24 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\about\about-hero\AboutHero.tsx                          | TypeScript JSX     |         19 |          4 |          7 |         30 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\about\about-hero\HeroContent.tsx                        | TypeScript JSX     |         25 |          1 |          4 |         30 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\about\core-values\CoreValues.tsx                        | TypeScript JSX     |         42 |          1 |          4 |         47 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\about\core-values\ValueCard.tsx                         | TypeScript JSX     |         23 |          4 |          5 |         32 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\about\final-cta\FinalCTA.tsx                            | TypeScript JSX     |         32 |          1 |          4 |         37 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\about\impact-stats\ImpactCard.tsx                       | TypeScript JSX     |         32 |          1 |          3 |         36 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\about\impact-stats\StatCard.tsx                         | TypeScript JSX     |         16 |          1 |          2 |         19 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\about\our-story\ImpactInlineStats.tsx                   | TypeScript JSX     |         30 |          1 |          2 |         33 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\about\our-story\OurStory.tsx                            | TypeScript JSX     |         12 |          1 |          2 |         15 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\about\our-story\StoryContent.tsx                        | TypeScript JSX     |         30 |          5 |          6 |         41 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\about\our-story\StoryImageCard.tsx                      | TypeScript JSX     |         18 |          1 |          3 |         22 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\about\trust-badges\BadgeItem.tsx                        | TypeScript JSX     |         15 |          1 |          3 |         19 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\about\trust-badges\TrustBadges.tsx                      | TypeScript JSX     |         45 |          3 |          4 |         52 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\AdminSidebar.tsx                                  | TypeScript JSX     |         66 |          4 |         10 |         80 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\AdminTopBar.tsx                                   | TypeScript JSX     |         29 |          6 |          7 |         42 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\RecentActivity.tsx                                | TypeScript JSX     |        155 |         13 |         14 |        182 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\StatsCard.tsx                                     | TypeScript JSX     |         36 |          0 |          4 |         40 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\StatsGrid.tsx                                     | TypeScript JSX     |         98 |          9 |         15 |        122 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\appointment-requests\AppointmentActionsMenu.tsx   | TypeScript JSX     |         66 |          1 |          7 |         74 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\appointment-requests\AppointmentFilters.tsx       | TypeScript JSX     |        134 |          6 |         16 |        156 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\appointment-requests\AppointmentPagination.tsx    | TypeScript JSX     |         70 |          1 |          8 |         79 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\appointment-requests\AppointmentStatusBadge.tsx   | TypeScript JSX     |         32 |          0 |          6 |         38 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\appointment-requests\AppointmentTable.tsx         | TypeScript JSX     |         64 |          1 |          4 |         69 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\appointment-requests\AppointmentTableRow.tsx      | TypeScript JSX     |         73 |          6 |         12 |         91 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\appointment-requests\PatientInfoCell.tsx          | TypeScript JSX     |         29 |          0 |          4 |         33 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\clinic\ClinicPagination.tsx                       | TypeScript JSX     |         47 |          0 |          6 |         53 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\clinic\ClinicStatCard.tsx                         | TypeScript JSX     |         34 |          0 |          6 |         40 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\clinic\ClinicStats.tsx                            | TypeScript JSX     |         34 |          0 |          5 |         39 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\clinic\ClinicStatusBadge.tsx                      | TypeScript JSX     |         17 |          0 |          5 |         22 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\clinic\ClinicTable.tsx                            | TypeScript JSX     |         37 |          0 |          4 |         41 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\clinic\ClinicTableRow.tsx                         | TypeScript JSX     |         37 |          0 |          8 |         45 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor-verification\DoctorsInfoCell.tsx           | TypeScript JSX     |         29 |          0 |          4 |         33 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor-verification\VerificationFilters.tsx       | TypeScript JSX     |        107 |          4 |         15 |        126 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor-verification\VerificationPagination.tsx    | TypeScript JSX     |         84 |          1 |         11 |         96 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor-verification\VerificationStatusBadge.tsx   | TypeScript JSX     |         26 |          2 |          5 |         33 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor-verification\VerificationTable.tsx         | TypeScript JSX     |         63 |          1 |          5 |         69 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor-verification\VerificationTableRow.tsx      | TypeScript JSX     |         68 |          6 |          9 |         83 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor-verification\VerificationsActionsMenu.tsx  | TypeScript JSX     |         69 |          3 |          7 |         79 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\BulkHelpCards.tsx                          | TypeScript JSX     |         29 |          0 |          4 |         33 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\DoctorDeleteModal.tsx                      | TypeScript JSX     |         49 |          0 |          5 |         54 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\DoctorFilters.tsx                          | TypeScript JSX     |        136 |          8 |         18 |        162 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\DoctorForm.tsx                             | TypeScript JSX     |        129 |          0 |         16 |        145 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\DoctorPagination.tsx                       | TypeScript JSX     |         86 |          2 |         16 |        104 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\DoctorRowAction.tsx                        | TypeScript JSX     |         37 |          3 |          4 |         44 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\DoctorTable.tsx                            | TypeScript JSX     |        198 |         23 |         28 |        249 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\StatsCard.tsx                              | TypeScript JSX     |         54 |          2 |          4 |         60 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\types.ts                                   | TypeScript         |         22 |          3 |          2 |         27 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\patient\PatientFilter.tsx                         | TypeScript JSX     |         90 |          4 |         11 |        105 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\patient\PatientPagination.tsx                     | TypeScript JSX     |         67 |          1 |         11 |         79 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\patient\PatientStatsCard.tsx                      | TypeScript JSX     |         28 |          1 |          2 |         31 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\patient\PatientTable.tsx                          | TypeScript JSX     |        129 |         13 |         14 |        156 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\EmailLoginStep.tsx                                 | TypeScript JSX     |        103 |          4 |         15 |        122 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\EmailSignupStep.tsx                                | TypeScript JSX     |         79 |          4 |         15 |         98 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\EmailVerificationStep.tsx                          | TypeScript JSX     |        114 |          3 |         17 |        134 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\ForgetPasswordForm.tsx                             | TypeScript JSX     |         76 |          1 |         12 |         89 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\LoginForm.tsx                                      | TypeScript JSX     |         65 |          5 |          9 |         79 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\LoginOtpStep.tsx                                   | TypeScript JSX     |        123 |          4 |         22 |        149 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\LogoutButton.tsx                                   | TypeScript JSX     |         45 |          0 |         12 |         57 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\OtpStep.tsx                                        | TypeScript JSX     |        123 |          5 |         20 |        148 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\PhoneLoginStep.tsx                                 | TypeScript JSX     |         60 |          1 |         13 |         74 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\PhoneSignupStep.tsx                                | TypeScript JSX     |         76 |          0 |         13 |         89 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\ResetPasswordForm.tsx                              | TypeScript JSX     |         85 |          1 |         16 |        102 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\SelectRoleForm.tsx                                 | TypeScript JSX     |         97 |          1 |         14 |        112 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\SignupForm.tsx                                     | TypeScript JSX     |         84 |          3 |         12 |         99 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\DoctorCard.tsx                                   | TypeScript JSX     |         17 |          0 |          3 |         20 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\PrescriptionForm.tsx                             | TypeScript JSX     |         30 |          0 |          6 |         36 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\appointment\AppointmentQueue.tsx                 | TypeScript JSX     |        159 |         35 |         21 |        215 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\appointment\appointmentSlot.tsx                  | TypeScript JSX     |         19 |          0 |          1 |         20 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\AboutDoctor.tsx                          | TypeScript JSX     |         21 |          0 |          3 |         24 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\BookingPanel.tsx                         | TypeScript JSX     |        232 |         14 |         84 |        330 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\ClinicInfo.tsx                           | TypeScript JSX     |         55 |          4 |          9 |         68 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\DoctorProfile.tsx                        | TypeScript JSX     |         79 |          0 |         10 |         89 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\DoctorStats.tsx                          | TypeScript JSX     |         28 |          0 |          3 |         31 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\Reviews.tsx                              | TypeScript JSX     |         41 |          0 |          7 |         48 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\confirmation\AppointmentMeta.tsx         | TypeScript JSX     |         37 |          3 |          5 |         45 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\confirmation\BookingActions.tsx          | TypeScript JSX     |         38 |          2 |          7 |         47 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\confirmation\BookingConfirmationHero.tsx | TypeScript JSX     |         42 |          0 |          5 |         47 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\confirmation\BookingSummaryCard.tsx      | TypeScript JSX     |         29 |          0 |          2 |         31 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\confirmation\DoctorSummary.tsx           | TypeScript JSX     |         55 |          4 |          7 |         66 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\confirmation\ExpectationStep.tsx         | TypeScript JSX     |         33 |          2 |          4 |         39 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\confirmation\SupportFooter.tsx           | TypeScript JSX     |         37 |          2 |          3 |         42 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\confirmation\WhatToExpect.tsx            | TypeScript JSX     |         35 |          0 |          5 |         40 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\dashboard\CurrentlyConsulting.tsx                | TypeScript JSX     |         94 |          4 |         11 |        109 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\dashboard\Header.tsx                             | TypeScript JSX     |         70 |          7 |         12 |         89 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\dashboard\Sidebar.tsx                            | TypeScript JSX     |         66 |          5 |          8 |         79 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\dashboard\StatCard.tsx                           | TypeScript JSX     |         27 |          0 |          3 |         30 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\dashboard\StatsSection.tsx                       | TypeScript JSX     |         36 |          1 |          3 |         40 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\dashboard\UrgentNotifications.tsx                | TypeScript JSX     |         80 |          4 |          7 |         91 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\earnings\EarningsSummary.tsx                     | TypeScript JSX     |         57 |          3 |          5 |         65 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\earnings\EarningsSummarySkeleton.tsx             | TypeScript JSX     |         13 |          1 |          1 |         15 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\earnings\EarningsTable.tsx                       | TypeScript JSX     |        105 |          6 |         13 |        124 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\earnings\EarningsTableSkeleton.tsx               | TypeScript JSX     |         25 |          1 |          1 |         27 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\prescriptions\PrescriptionsTable.tsx             | TypeScript JSX     |         84 |          8 |         11 |        103 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\ClinicSettings.tsx                      | TypeScript JSX     |         40 |          0 |          7 |         47 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\ClinicSettingsForm.tsx                  | TypeScript JSX     |        144 |          6 |         19 |        169 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\NotificationSettings.tsx                | TypeScript JSX     |         52 |          0 |          8 |         60 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\PersonalDetailsForm.tsx                 | TypeScript JSX     |        109 |          5 |         11 |        125 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\ProfessionalDetailsForm.tsx             | TypeScript JSX     |        200 |         12 |         18 |        230 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\ProfileSettings.tsx                     | TypeScript JSX     |         38 |          0 |          7 |         45 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\SecuritySettings.tsx                    | TypeScript JSX     |         32 |          0 |          7 |         39 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\SecuritySettingsForm.tsx                | TypeScript JSX     |        157 |          6 |         17 |        180 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\SettingsTab.tsx                         | TypeScript JSX     |         35 |          1 |          4 |         40 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctors\DoctorsCard.tsx                                 | TypeScript JSX     |         56 |          0 |          9 |         65 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctors\DoctorsFilter.tsx                               | TypeScript JSX     |         79 |          0 |         17 |         96 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctors\DoctorsList.tsx                                 | TypeScript JSX     |         67 |          0 |         10 |         77 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctors\DoctorsPagination.tsx                           | TypeScript JSX     |         50 |          0 |          9 |         59 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctors\DoctorsTopBar.tsx                               | TypeScript JSX     |         47 |          0 |         10 |         57 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\help\FAQAccordion.tsx                                   | TypeScript JSX     |         41 |          0 |          7 |         48 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\help\HelpTopicCard.tsx                                  | TypeScript JSX     |         17 |          0 |          3 |         20 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\home\CTASection.tsx                                     | TypeScript JSX     |         21 |          8 |          4 |         33 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\home\HeroSection.tsx                                    | TypeScript JSX     |         56 |          5 |          9 |         70 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\home\HowItWorksSection.tsx                              | TypeScript JSX     |        108 |          6 |          9 |        123 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\home\SpecialtiesSection.tsx                             | TypeScript JSX     |        122 |          2 |          5 |        129 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\home\TopRatedDoctors.tsx                                | TypeScript JSX     |        160 |         16 |         15 |        191 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\home\TrustStatsSection.tsx                              | TypeScript JSX     |         64 |          4 |          8 |         76 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\home\WhyHealthDeeSection.tsx                            | TypeScript JSX     |         98 |          4 |          7 |        109 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\layout\Footer.tsx                                       | TypeScript JSX     |        151 |          6 |         14 |        171 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\layout\Header.tsx                                       | TypeScript JSX     |         86 |          4 |         13 |        103 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\AddEmergencyContactForm.tsx                     | TypeScript JSX     |         54 |          0 |         10 |         64 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\DangerZone.tsx                                  | TypeScript JSX     |         27 |          0 |          3 |         30 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\EditProfileModal.tsx                            | TypeScript JSX     |        127 |          0 |         33 |        160 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\EmergencyContactItem.tsx                        | TypeScript JSX     |         58 |          0 |         11 |         69 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\EmergencyContactSection.tsx                     | TypeScript JSX     |        110 |          3 |         16 |        129 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\NotificationPrivacySection.tsx                  | TypeScript JSX     |         40 |          0 |          6 |         46 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\PatientInfoCard.tsx                             | TypeScript JSX     |         50 |          0 |          5 |         55 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\PatientSideBar.tsx                              | TypeScript JSX     |        101 |          0 |          9 |        110 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\PatientTopNav.tsx                               | TypeScript JSX     |         26 |          0 |          6 |         32 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\PersonalInfoFieldCard.tsx                       | TypeScript JSX     |         26 |          0 |          3 |         29 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\PersonalInformationSection.tsx                  | TypeScript JSX     |        123 |          0 |         31 |        154 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\ProfileHeader.tsx                               | TypeScript JSX     |         85 |          8 |         22 |        115 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\ToggleSettingsItem.tsx                          | TypeScript JSX     |         44 |          0 |          8 |         52 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\PasswordInput.tsx                                    | TypeScript JSX     |         41 |          0 |          6 |         47 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\RadioGroup.tsx                                       | TypeScript JSX     |         29 |          0 |          3 |         32 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\alert.tsx                                            | TypeScript JSX     |         53 |          0 |          7 |         60 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\avatar.tsx                                           | TypeScript JSX     |         44 |          0 |          7 |         51 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\badge.tsx                                            | TypeScript JSX     |         31 |          0 |          6 |         37 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\button.test.tsx                                      | TypeScript JSX     |         18 |          0 |          4 |         22 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\button.tsx                                           | TypeScript JSX     |         52 |          0 |          6 |         58 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\card.tsx                                             | TypeScript JSX     |         68 |          0 |          9 |         77 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\dialog.tsx                                           | TypeScript JSX     |        109 |          0 |         14 |        123 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\dropdown-menu.tsx                                    | TypeScript JSX     |        183 |          0 |         19 |        202 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\input.tsx                                            | TypeScript JSX     |         31 |          0 |          3 |         34 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\pagination.tsx                                       | TypeScript JSX     |        108 |          0 |         11 |        119 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\select.tsx                                           | TypeScript JSX     |        146 |          0 |         14 |        160 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\switch.tsx                                           | TypeScript JSX     |         25 |          0 |          5 |         30 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\table.tsx                                            | TypeScript JSX     |        110 |          0 |         11 |        121 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\tooltip.tsx                                          | TypeScript JSX     |         25 |          0 |          8 |         33 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\upload\AvatarUploader.tsx                               | TypeScript JSX     |         98 |          5 |         22 |        125 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\upload\ImageUploader.tsx                                | TypeScript JSX     |         77 |          6 |         23 |        106 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\currentlyWorking.md                                                | Markdown           |          3 |          0 |          2 |          5 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\db\index.ts                                                        | TypeScript         |         13 |          3 |          4 |         20 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\db\schema.ts                                                       | TypeScript         |        598 |         94 |        156 |        848 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\db\turso.tsx                                                       | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\ai-codebase-map.md                                            | Markdown           |      6,240 |          0 |      3,100 |      9,340 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\api-spec.md                                                   | Markdown           |         96 |          0 |         19 |        115 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\architecture.md                                               | Markdown           |         74 |          0 |         22 |         96 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\auth-flow.md                                                  | Markdown           |         61 |          0 |         20 |         81 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\changelog.md                                                  | Markdown           |         12 |          0 |          8 |         20 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\completed-tasks.md                                            | Markdown           |         27 |          0 |         10 |         37 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\decisions.md                                                  | Markdown           |         36 |          0 |          8 |         44 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\folder-structure.md                                           | Markdown           |        600 |          0 |          3 |        603 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\product-requirements-completed.md                             | Markdown           |         56 |          0 |         17 |         73 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\roadmap.md                                                    | Markdown           |         41 |          0 |         11 |         52 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\tasks.md                                                      | Markdown           |         92 |          0 |         40 |        132 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle.config.ts                                                  | TypeScript         |         18 |          1 |          4 |         23 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0000_purple_tiger_shark.sql                                | MS SQL             |        174 |         15 |          1 |        190 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0001_exotic_dakota_north.sql                               | MS SQL             |          6 |          1 |          0 |          7 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0002_breezy_shape.sql                                      | MS SQL             |          8 |          0 |          1 |          9 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0003_easy_omega_flight.sql                                 | MS SQL             |         13 |          1 |          0 |         14 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0004_melodic_toad_men.sql                                  | MS SQL             |          1 |          0 |          0 |          1 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0005_military_otto_octavius.sql                            | MS SQL             |          1 |          0 |          0 |          1 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0006_many_arachne.sql                                      | MS SQL             |         15 |          0 |          0 |         15 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0007_ambiguous_shadow_king.sql                             | MS SQL             |          4 |          0 |          0 |          4 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0008_amusing_toad.sql                                      | MS SQL             |         11 |          0 |          1 |         12 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0009_overconfident_pandemic.sql                            | MS SQL             |         15 |          1 |          0 |         16 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0010_mushy_whirlwind.sql                                   | MS SQL             |         68 |          3 |          0 |         71 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0011_spotty_rage.sql                                       | MS SQL             |          1 |          0 |          0 |          1 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0012_slippery_lady_vermin.sql                              | MS SQL             |         17 |          1 |          0 |         18 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0000_snapshot.json                                    | JSON               |      1,334 |          0 |          0 |      1,334 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0001_snapshot.json                                    | JSON               |      1,373 |          0 |          0 |      1,373 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0002_snapshot.json                                    | JSON               |      1,434 |          0 |          0 |      1,434 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0003_snapshot.json                                    | JSON               |      1,539 |          0 |          0 |      1,539 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0004_snapshot.json                                    | JSON               |      1,434 |          0 |          0 |      1,434 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0005_snapshot.json                                    | JSON               |      1,441 |          0 |          0 |      1,441 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0006_snapshot.json                                    | JSON               |      1,441 |          0 |          0 |      1,441 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0007_snapshot.json                                    | JSON               |      1,470 |          0 |          0 |      1,470 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0008_snapshot.json                                    | JSON               |      1,554 |          0 |          0 |      1,554 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0009_snapshot.json                                    | JSON               |      1,666 |          0 |          0 |      1,666 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0010_snapshot.json                                    | JSON               |      2,176 |          0 |          0 |      2,176 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0011_snapshot.json                                    | JSON               |      2,184 |          0 |          0 |      2,184 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0012_snapshot.json                                    | JSON               |      2,325 |          0 |          0 |      2,325 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\_journal.json                                         | JSON               |         97 |          0 |          0 |         97 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\eslint.config.mjs                                                  | JavaScript         |         87 |          6 |         21 |        114 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\export-tree-for-ai.ps1                                             | PowerShell         |         25 |          0 |          9 |         34 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\hooks\useAppointment.tsx                                           | TypeScript JSX     |          1 |          0 |          1 |          2 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\hooks\useAuth.tsx                                                  | TypeScript JSX     |          1 |          0 |          1 |          2 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\hooks\useDebounce.tsx                                              | TypeScript JSX     |          1 |          0 |          1 |          2 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\hooks\useRole.tsx                                                  | TypeScript JSX     |          1 |          0 |          1 |          2 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\lib\auth.ts                                                        | TypeScript         |         29 |          2 |          7 |         38 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\lib\config\features.ts                                             | TypeScript         |         21 |          9 |          5 |         35 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\lib\constant.tsx                                                   | TypeScript JSX     |          1 |          0 |          1 |          2 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\lib\routes.tsx                                                     | TypeScript JSX     |          1 |          0 |          1 |          2 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\lib\utils.test.ts                                                  | TypeScript         |         13 |          0 |          4 |         17 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\lib\utils.ts                                                       | TypeScript         |          5 |          0 |          2 |          7 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\lib\utils\slot.ts                                                  | TypeScript         |         33 |          1 |          9 |         43 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\lib\validators.tsx                                                 | TypeScript JSX     |         91 |         11 |         14 |        116 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\middleware.ts                                                      | TypeScript         |         10 |          2 |          2 |         14 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\next.config.ts                                                     | TypeScript         |         20 |          1 |          1 |         22 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\package-lock.json                                                  | JSON               |     14,830 |          0 |          1 |     14,831 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\package.json                                                       | JSON               |         79 |          0 |          1 |         80 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\planning.md                                                        | Markdown           |        208 |          0 |         22 |        230 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\postcss.config.mjs                                                 | JavaScript         |          6 |          0 |          2 |          8 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\scripts\get-s3.ts                                                  | TypeScript         |         36 |          0 |         10 |         46 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\scripts\presigned.ts                                               | TypeScript         |         24 |          0 |          5 |         29 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\scripts\seed.ts                                                    | TypeScript         |        170 |         15 |         15 |        200 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\scripts\seedAvailability.ts                                        | TypeScript         |         17 |          0 |          5 |         22 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\scripts\test-s3.ts                                                 | TypeScript         |         32 |          0 |          8 |         40 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\scripts\wifi-network-warning.js                                    | JavaScript         |         52 |          0 |         14 |         66 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\actions\doctorSettings.actions.ts                           | TypeScript         |         61 |          4 |          8 |         73 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\actions\emergencyContacts.actions.ts                        | TypeScript         |         38 |          0 |         13 |         51 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\actions\patient.actions.ts                                  | TypeScript         |         22 |          0 |          8 |         30 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\actions\patientProfile.actions.ts                           | TypeScript         |         40 |          0 |         11 |         51 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\actions\patientsProfile.actions.ts                          | TypeScript         |         14 |          0 |          7 |         21 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\actions\uploadAvatar.actions.ts                             | TypeScript         |         35 |         10 |         12 |         57 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\constants\otp-channel.ts                                    | TypeScript         |          6 |          0 |          2 |          8 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\constants\user-role.ts                                      | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\constants\user-status.ts                                    | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\db\types.ts                                                 | TypeScript         |          6 |          4 |          4 |         14 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\appointment.domain.ts                                | TypeScript         |         65 |         21 |         14 |        100 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\audit.domain.ts                                      | TypeScript         |         87 |         18 |         11 |        116 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\auth.domain.ts                                       | TypeScript         |         64 |         15 |         14 |         93 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\clinic.domain.ts                                     | TypeScript         |         41 |         18 |          9 |         68 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\consent.domain.ts                                    | TypeScript         |         54 |         12 |         13 |         79 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\consultation.domain.ts                               | TypeScript         |         72 |         21 |         14 |        107 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\doctor.domain.ts                                     | TypeScript         |        102 |         29 |         23 |        154 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\erasure.domain.ts                                    | TypeScript         |         41 |         15 |         11 |         67 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\index.ts                                             | TypeScript         |         10 |         30 |         10 |         50 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\prescription.domain.ts                               | TypeScript         |         64 |         26 |         13 |        103 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\user.domain.ts                                       | TypeScript         |         39 |          6 |          9 |         54 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\appointment-cancelled.template.ts           | TypeScript         |         35 |          1 |          2 |         38 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\appointment-confirmation.template.ts        | TypeScript         |         44 |          1 |          2 |         47 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\appointment-reminder.template.ts            | TypeScript         |         35 |          1 |          2 |         38 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\doctor-approved.template.ts                 | TypeScript         |         41 |          1 |          2 |         44 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\doctor-rejected.template.ts                 | TypeScript         |         46 |          1 |          2 |         49 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\otp.template.ts                             | TypeScript         |         48 |          2 |          3 |         53 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\password-reset.template.ts                  | TypeScript         |         45 |          1 |          2 |         48 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\transport.ts                                          | TypeScript         |         45 |          0 |          7 |         52 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\http\response.ts                                            | TypeScript         |         44 |          0 |          5 |         49 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\http\route-helpers.ts                                       | TypeScript         |        133 |         17 |         24 |        174 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\middleware\rate-limit.ts                                    | TypeScript         |         46 |         12 |         13 |         71 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\ability.ts                                         | TypeScript         |         31 |         11 |         12 |         54 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\access\canAccess.ts                                | TypeScript         |         27 |          4 |          7 |         38 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\access\canAccessAppointment.ts                     | TypeScript         |         33 |          1 |          8 |         42 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\access\canAccessPatient.ts                         | TypeScript         |         29 |          4 |          7 |         40 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\access\canAccessPrescription.ts                    | TypeScript         |         33 |          1 |          8 |         42 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\access\canAccessUser.ts                            | TypeScript         |         28 |          3 |          6 |         37 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\fields\patient.fields.ts                           | TypeScript         |         41 |         23 |         11 |         75 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\guards\isAdmin.ts                                  | TypeScript         |          5 |          4 |          3 |         12 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\guards\isDoctor.ts                                 | TypeScript         |          5 |          4 |          3 |         12 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\guards\isPatient.ts                                | TypeScript         |          5 |          4 |          3 |         12 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\permissions.ts                                     | TypeScript         |         54 |         12 |         15 |         81 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\rbac-deps.ts                                       | TypeScript         |         34 |         31 |          8 |         73 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\repositories.ts                                    | TypeScript         |         18 |          5 |          6 |         29 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\roles.ts                                           | TypeScript         |         22 |          7 |          8 |         37 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\types.ts                                           | TypeScript         |         18 |          5 |          6 |         29 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\rate-limit\memory-store.ts                                  | TypeScript         |         21 |          0 |          6 |         27 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\rate-limit\sqlite-store.ts                                  | TypeScript         |         37 |          0 |          8 |         45 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\rate-limit\store.ts                                         | TypeScript         |          3 |          0 |          1 |          4 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\appointment.repo.ts                            | TypeScript         |        409 |         22 |         39 |        470 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\audit.repo.ts                                  | TypeScript         |         42 |         17 |          4 |         63 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\doctor.repo.ts                                 | TypeScript         |        465 |          6 |         45 |        516 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\doctor_earning.repo.ts                         | TypeScript         |        140 |         34 |         23 |        197 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\patient.repo.ts                                | TypeScript         |        359 |         44 |         57 |        460 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\prescription.repo.ts                           | TypeScript         |        154 |         16 |         36 |        206 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\refreshToken.repo.ts                           | TypeScript         |         40 |          8 |          8 |         56 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\user.repo.ts                                   | TypeScript         |        282 |         20 |         64 |        366 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\admin.service.tsx                                  | TypeScript JSX     |        193 |         29 |         37 |        259 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\api.tsx                                            | TypeScript JSX     |          1 |          0 |          1 |          2 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\appointment.service.tsx                            | TypeScript JSX     |        494 |        123 |        133 |        750 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\auth.service.tsx                                   | TypeScript JSX     |        337 |         46 |         78 |        461 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\doctor.service.tsx                                 | TypeScript JSX     |        288 |          4 |         45 |        337 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\doctor_earning.service.tsx                         | TypeScript JSX     |         88 |         31 |         18 |        137 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\email.service.ts                                   | TypeScript         |         62 |         23 |          8 |         93 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\patient.service.tsx                                | TypeScript JSX     |        252 |         38 |         40 |        330 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\prescription.services.tsx                          | TypeScript JSX     |        107 |         18 |         24 |        149 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\user.service.tsx                                   | TypeScript JSX     |         83 |         19 |         26 |        128 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\storage\getFileStream.ts                                    | TypeScript         |         15 |          0 |          4 |         19 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\storage\imageUpload.ts                                      | TypeScript         |         45 |          0 |         12 |         57 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\storage\s3.client.ts                                        | TypeScript         |         17 |          0 |          3 |         20 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\types\next-request.d.ts                                     | TypeScript         |          9 |          0 |          2 |         11 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\errors.ts                                             | TypeScript         |         40 |         22 |         10 |         72 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\hash.ts                                               | TypeScript         |          6 |          0 |          2 |          8 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\jwt.ts                                                | TypeScript         |         91 |         10 |         28 |        129 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\logger.ts                                             | TypeScript         |         77 |          7 |         22 |        106 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\logger_test.ts                                        | TypeScript         |          5 |          3 |          4 |         12 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\pagination.ts                                         | TypeScript         |         71 |         23 |         15 |        109 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\pagination_test.ts                                    | TypeScript         |         13 |         19 |          8 |         40 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\password.ts                                           | TypeScript         |         42 |          9 |         12 |         63 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\password_test.ts                                      | TypeScript         |          2 |          5 |          3 |         10 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\sessions.ts                                           | TypeScript         |         21 |          2 |          5 |         28 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\validators\appointment.ts                                   | TypeScript         |         14 |          0 |          3 |         17 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\validators\audit.ts                                         | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\validators\auth.ts                                          | TypeScript         |         64 |          9 |         24 |         97 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\validators\clinic.ts                                        | TypeScript         |         27 |          0 |         11 |         38 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\validators\consent.ts                                       | TypeScript         |         17 |          0 |          3 |         20 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\validators\consultation.ts                                  | TypeScript         |         20 |          0 |          2 |         22 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\validators\doctor.ts                                        | TypeScript         |         82 |          9 |         17 |        108 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\validators\prescription.ts                                  | TypeScript         |         19 |          0 |          6 |         25 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\validators\user.ts                                          | TypeScript         |          8 |          0 |          3 |         11 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\tailwind.config.ts                                                 | TypeScript         |         13 |          1 |          2 |         16 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\tests\appointment.api.test.ts                                      | TypeScript         |        399 |         15 |        107 |        521 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\tsconfig.json                                                      | JSON with Comments |         37 |          0 |          1 |         38 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\vitest.config.ts                                                   | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Users\ajays\OneDrive\Desktop\project\healthdee\vitest.setup.ts                                                    | TypeScript         |          1 |          0 |          1 |          2 |
+| Total                                                                                                                |                    |     68,574 |      2,061 |      7,558 |     78,193 |
++----------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

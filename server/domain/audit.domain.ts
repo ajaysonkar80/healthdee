@@ -39,6 +39,7 @@ export type AuditAction =
   | "DOCTOR_ACTIVATED"
   | "DOCTOR_DEACTIVATED"
   | "EARNING_RECORDED"
+  | "USER_ROLE_SELECTED"
   ;
 
 export type AuditLogInput = {

@@ -1,3 +1,4 @@
+// components/auth/SignupForm.tsx
 "use client";
 
 import { useState } from "react";
@@ -13,15 +14,13 @@ type Step = "EMAIL" | "PHONE" | "OTP" | "EMAIL_VERIFY";
 export function SignupForm() {
   const [step, setStep] = useState<Step>("EMAIL");
 
-  // Store full signup data for phone flow
+  // Email stored here so EmailVerificationStep can use it
+  const [signupEmail, setSignupEmail] = useState<string>("");
+
   const [phoneSignupData, setPhoneSignupData] = useState<{
     name: string;
     phone: string;
   } | null>(null);
-
-  function handleOtpVerified() {
-    setStep("EMAIL_VERIFY");
-  }
 
   return (
     <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg">
@@ -34,6 +33,7 @@ export function SignupForm() {
         </p>
       </div>
 
+      {/* Tab toggle — only on first step */}
       {(step === "EMAIL" || step === "PHONE") && (
         <div className="mb-6 flex gap-2">
           <Button
@@ -44,7 +44,6 @@ export function SignupForm() {
           >
             Email
           </Button>
-
           <Button
             type="button"
             variant={step === "PHONE" ? "default" : "outline"}
@@ -57,7 +56,12 @@ export function SignupForm() {
       )}
 
       {step === "EMAIL" && (
-        <EmailSignupStep setStep={setStep} />
+        <EmailSignupStep
+          onEmailRegistered={(email) => {
+            setSignupEmail(email);
+            setStep("EMAIL_VERIFY");
+          }}
+        />
       )}
 
       {step === "PHONE" && (
@@ -73,28 +77,21 @@ export function SignupForm() {
         <OtpStep
           name={phoneSignupData.name}
           phone={phoneSignupData.phone}
-          onVerified={handleOtpVerified}
         />
       )}
 
-      {step === "EMAIL_VERIFY" && <EmailVerificationStep />}
+      {step === "EMAIL_VERIFY" && (
+        <EmailVerificationStep email={signupEmail} />
+      )}
 
       <div className="mt-8 text-center text-sm text-muted-foreground">
         Already registered?{" "}
-        <Link
-          href="/login"
-          className="font-medium text-primary hover:underline"
-        >
+        <Link href="/login" className="font-medium text-primary hover:underline">
           Login here
         </Link>
-
         <div className="mt-3 flex justify-center gap-4 text-xs">
-          <Link href="/privacy" className="hover:underline">
-            Privacy Policy
-          </Link>
-          <Link href="/terms" className="hover:underline">
-            Terms of Service
-          </Link>
+          <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
+          <Link href="/terms-and-conditions" className="hover:underline">Terms of Service</Link>
         </div>
       </div>
     </div>

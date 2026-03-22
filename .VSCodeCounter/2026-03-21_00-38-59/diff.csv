@@ -1,0 +1,282 @@
+"filename", "language", "TypeScript", "TypeScript JSX", "JSON", "MS SQL", "JavaScript", "Markdown", "JSON with Comments", "comment", "blank", "total"
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\.eslintrc.json", "JSON with Comments", 0, 0, 0, 0, 0, 0, -73, -7, -8, -88
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\(login-signup)\layout.tsx", "TypeScript JSX", 0, 2, 0, 0, 0, 0, 0, 0, -1, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\(login-signup)\select-role\page.tsx", "TypeScript JSX", 0, 23, 0, 0, 0, 0, 0, 6, 5, 34
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\(login-signup)\verify-email\VerifyEmailClient.tsx", "TypeScript JSX", 0, 23, 0, 0, 0, 0, 0, 2, 5, 30
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\(login-signup)\verify-email\page.tsx", "TypeScript JSX", 0, -16, 0, 0, 0, 0, 0, -1, -7, -24
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\doctor-privacy-policy\page.tsx", "TypeScript JSX", 0, 98, 0, 0, 0, 0, 0, 2, 17, 117
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\healthcare-provider-terms\page.tsx", "TypeScript JSX", 0, 109, 0, 0, 0, 0, 0, 16, 17, 142
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\privacy-policy\page.tsx", "TypeScript JSX", 0, 92, 0, 0, 0, 0, 0, 12, 13, 117
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\select-role\page.tsx", "TypeScript JSX", 0, -10, 0, 0, 0, 0, 0, 0, -2, -12
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\(public)\terms-and-conditions\page.tsx", "TypeScript JSX", 0, 96, 0, 0, 0, 0, 0, 13, 14, 123
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\api\doctors\[id]\route.ts", "TypeScript", -90, 0, 0, 0, 0, 0, 0, -12, -24, -126
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\api\doctors\route.ts", "TypeScript", -119, 0, 0, 0, 0, 0, 0, -8, -23, -150
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\appointment-requests\AppointmentRequestsClient.tsx", "TypeScript JSX", 0, 153, 0, 0, 0, 0, 0, 10, 26, 189
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\appointment-requests\page.tsx", "TypeScript JSX", 0, -20, 0, 0, 0, 0, 0, -3, 3, -20
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctor\[doctorId]\edit\page.tsx", "TypeScript JSX", 0, -46, 0, 0, 0, 0, 0, 0, -7, -53
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctor\create\page.tsx", "TypeScript JSX", 0, -16, 0, 0, 0, 0, 0, 0, -3, -19
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctor\page.tsx", "TypeScript JSX", 0, -32, 0, 0, 0, 0, 0, 0, -6, -38
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctors-verification\DoctorsVerificationClient.tsx", "TypeScript JSX", 0, 166, 0, 0, 0, 0, 0, 28, 22, 216
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctors-verification\page.tsx", "TypeScript JSX", 0, -3, 0, 0, 0, 0, 0, -1, 0, -4
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctors\DoctorsPageClient.tsx", "TypeScript JSX", 0, 94, 0, 0, 0, 0, 0, 14, 13, 121
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctors\[doctorId]\edit\page.tsx", "TypeScript JSX", 0, 46, 0, 0, 0, 0, 0, 0, 7, 53
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctors\create\page.tsx", "TypeScript JSX", 0, 16, 0, 0, 0, 0, 0, 0, 3, 19
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\doctors\page.tsx", "TypeScript JSX", 0, 49, 0, 0, 0, 0, 0, 2, 6, 57
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\layout.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, -6, -2, -8
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\page.tsx", "TypeScript JSX", 0, 8, 0, 0, 0, 0, 0, 3, 1, 12
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\patients\PatientsClientPage.tsx", "TypeScript JSX", 0, 71, 0, 0, 0, 0, 0, 15, 9, 95
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\admin\patients\page.tsx", "TypeScript JSX", 0, 51, 0, 0, 0, 0, 0, 3, 7, 61
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\appointments\[id]\cancel\route.ts", "TypeScript", 27, 0, 0, 0, 0, 0, 0, 5, 9, 41
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\appointments\[id]\complete\route.ts", "TypeScript", 22, 0, 0, 0, 0, 0, 0, 8, 8, 38
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\appointments\[id]\confirm\route.ts", "TypeScript", 27, 0, 0, 0, 0, 0, 0, 5, 9, 41
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\appointments\[id]\reschedule\route.ts", "TypeScript", 34, 0, 0, 0, 0, 0, 0, 8, 12, 54
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\appointments\[id]\route.ts", "TypeScript", -15, 0, 0, 0, 0, 0, 0, -11, -4, -30
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\appointments\route.ts", "TypeScript", 37, 0, 0, 0, 0, 0, 0, -7, 8, 38
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\login\route.ts", "TypeScript", -17, 0, 0, 0, 0, 0, 0, 0, -6, -23
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\logout\route.ts", "TypeScript", 19, 0, 0, 0, 0, 0, 0, 4, 5, 28
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\otp\request\route.ts", "TypeScript", -1, 0, 0, 0, 0, 0, 0, 1, 0, 0
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\otp\resend-email\route.ts", "TypeScript", 36, 0, 0, 0, 0, 0, 0, 4, 11, 51
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\otp\verify-email\route.ts", "TypeScript", 25, 0, 0, 0, 0, 0, 0, 2, 6, 33
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\otp\verify\route.ts", "TypeScript", 4, 0, 0, 0, 0, 0, 0, 2, 1, 7
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\password\forgot\route.ts", "TypeScript", 17, 0, 0, 0, 0, 0, 0, 2, 3, 22
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\password\reset\route.ts", "TypeScript", 17, 0, 0, 0, 0, 0, 0, 2, 3, 22
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\refresh\route.ts", "TypeScript", 12, 0, 0, 0, 0, 0, 0, 10, 5, 27
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\register\route.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 2, -1, 2
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\auth\select-role\route.ts", "TypeScript", 22, 0, 0, 0, 0, 0, 0, 3, 6, 31
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctor\active\route.ts", "TypeScript", 20, 0, 0, 0, 0, 0, 0, 1, 4, 25
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctor\availability\route.ts", "TypeScript", 84, 0, 0, 0, 0, 0, 0, 8, 25, 117
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctor\preferences\route.ts", "TypeScript", 34, 0, 0, 0, 0, 0, 0, 1, 3, 38
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctor\profile\route.ts", "TypeScript", 32, 0, 0, 0, 0, 0, 0, 2, 4, 38
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctors\[id]\appointments-public\route.ts", "TypeScript", 36, 0, 0, 0, 0, 0, 0, 2, 10, 48
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctors\[id]\availability-public\route.ts", "TypeScript", 30, 0, 0, 0, 0, 0, 0, 1, 9, 40
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctors\[id]\route.ts", "TypeScript", -7, 0, 0, 0, 0, 0, 0, 10, -3, 0
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctors\[id]\verify\route.ts", "TypeScript", -9, 0, 0, 0, 0, 0, 0, -5, -1, -15
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\doctors\route.ts", "TypeScript", 5, 0, 0, 0, 0, 0, 0, 2, -3, 4
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\files\[...path]\route.ts", "TypeScript", 54, 0, 0, 0, 0, 0, 0, 4, 19, 77
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\patients\me\preferences\route.ts", "TypeScript", 72, 0, 0, 0, 0, 0, 0, 8, 23, 103
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\api\patients\route.ts", "TypeScript", 17, 0, 0, 0, 0, 0, 0, -2, 0, 15
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\context\AuthContext.tsx", "TypeScript JSX", 0, -38, 0, 0, 0, 0, 0, -22, -9, -69
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\appointments\AppointmentQueueSkeleton.tsx", "TypeScript JSX", 0, 31, 0, 0, 0, 0, 0, 1, 1, 33
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\appointments\[id]\AppointmentsDetailsSkeleton.tsx", "TypeScript JSX", 0, 44, 0, 0, 0, 0, 0, 5, 4, 53
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\appointments\[id]\page.tsx", "TypeScript JSX", 0, 190, 0, 0, 0, 0, 0, 11, 15, 216
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\appointments\page.tsx", "TypeScript JSX", 0, 81, 0, 0, 0, 0, 0, 4, 10, 95
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\availability\page.tsx", "TypeScript JSX", 0, 160, 0, 0, 0, 0, 0, 12, 24, 196
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\dashboard\page.tsx", "TypeScript JSX", 0, 48, 0, 0, 0, 0, 0, 5, 4, 57
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\earnings\page.tsx", "TypeScript JSX", 0, 70, 0, 0, 0, 0, 0, 3, 7, 80
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\layout.tsx", "TypeScript JSX", 0, 37, 0, 0, 0, 0, 0, 1, 8, 46
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\onboarding\page.tsx", "TypeScript JSX", 0, 195, 0, 0, 0, 0, 0, 11, 16, 222
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\page.tsx", "TypeScript JSX", 0, 71, 0, 0, 0, 0, 0, 10, 9, 90
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\settings\clinic\page.tsx", "TypeScript JSX", 0, 22, 0, 0, 0, 0, 0, 1, 4, 27
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\settings\layout.tsx", "TypeScript JSX", 0, 31, 0, 0, 0, 0, 0, 1, 3, 35
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\settings\page.tsx", "TypeScript JSX", 0, -13, 0, 0, 0, 0, 0, 1, -2, -14
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\settings\personal\page.tsx", "TypeScript JSX", 0, 22, 0, 0, 0, 0, 0, 1, 4, 27
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\settings\professional\page.tsx", "TypeScript JSX", 0, 22, 0, 0, 0, 0, 0, 1, 4, 27
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\settings\security\page.tsx", "TypeScript JSX", 0, 22, 0, 0, 0, 0, 0, 1, 4, 27
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctor\verification\page.tsx", "TypeScript JSX", 0, 195, 0, 0, 0, 0, 0, 11, 16, 222
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctors\[publicId]\page.tsx", "TypeScript JSX", 0, 78, 0, 0, 0, 0, 0, 6, 17, 101
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctors\booking\confirmation\page.tsx", "TypeScript JSX", 0, 79, 0, 0, 0, 0, 0, -6, 15, 88
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctors\booking\page.tsx", "TypeScript JSX", 0, -26, 0, 0, 0, 0, 0, 0, -5, -31
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\doctors\page.tsx", "TypeScript JSX", 0, 85, 0, 0, 0, 0, 0, 1, 14, 100
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\layout.tsx", "TypeScript JSX", 0, -13, 0, 0, 0, 0, 0, -2, -1, -16
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\appointments\book\page.tsx", "TypeScript JSX", 0, 123, 0, 0, 0, 0, 0, 9, 19, 151
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\appointments\loading.tsx", "TypeScript JSX", 0, 32, 0, 0, 0, 0, 0, 4, 3, 39
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\appointments\page.tsx", "TypeScript JSX", 0, 207, 0, 0, 0, 0, 0, 3, 71, 281
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\danger-zone\page.tsx", "TypeScript JSX", 0, 8, 0, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\dashboard\page.tsx", "TypeScript JSX", 0, -17, 0, 0, 0, 0, 0, 0, -2, -19
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\emergency-contacts\page.tsx", "TypeScript JSX", 0, 30, 0, 0, 0, 0, 0, 0, 8, 38
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\layout.tsx", "TypeScript JSX", 0, 8, 0, 0, 0, 0, 0, -4, -1, 3
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\notifications\page.tsx", "TypeScript JSX", 0, 24, 0, 0, 0, 0, 0, 0, 8, 32
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\patient\page.tsx", "TypeScript JSX", 0, 16, 0, 0, 0, 0, 0, 0, 5, 21
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\app\services\auth.service.ts", "TypeScript", -16, 0, 0, 0, 0, 0, 0, -22, -9, -47
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\AdminSidebar.tsx", "TypeScript JSX", 0, 14, 0, 0, 0, 0, 0, 1, 0, 15
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\AdminTopBar.tsx", "TypeScript JSX", 0, 4, 0, 0, 0, 0, 0, 4, 1, 9
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\RecentActivity.tsx", "TypeScript JSX", 0, 68, 0, 0, 0, 0, 0, 13, 7, 88
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\appointment-requests\AppointmentActionsMenu.tsx", "TypeScript JSX", 0, 18, 0, 0, 0, 0, 0, 1, 1, 20
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\appointment-requests\AppointmentFilters.tsx", "TypeScript JSX", 0, 90, 0, 0, 0, 0, 0, 4, 10, 104
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\appointment-requests\AppointmentPagination.tsx", "TypeScript JSX", 0, 36, 0, 0, 0, 0, 0, 1, 2, 39
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\appointment-requests\AppointmentStatusBadge.tsx", "TypeScript JSX", 0, 11, 0, 0, 0, 0, 0, 0, 1, 12
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\appointment-requests\AppointmentTable.tsx", "TypeScript JSX", 0, 28, 0, 0, 0, 0, 0, 1, 0, 29
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\appointment-requests\AppointmentTableRow.tsx", "TypeScript JSX", 0, -2, 0, 0, 0, 0, 0, 1, 2, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\clinic\ClinicTable.tsx", "TypeScript JSX", 0, 1, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor-verification\VerificationFilters.tsx", "TypeScript JSX", 0, 63, 0, 0, 0, 0, 0, 2, 9, 74
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor-verification\VerificationPagination.tsx", "TypeScript JSX", 0, 51, 0, 0, 0, 0, 0, 1, 6, 58
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor-verification\VerificationStatusBadge.tsx", "TypeScript JSX", 0, 5, 0, 0, 0, 0, 0, 2, 0, 7
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor-verification\VerificationTable.tsx", "TypeScript JSX", 0, 28, 0, 0, 0, 0, 0, 1, 1, 30
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor-verification\VerificationTableRow.tsx", "TypeScript JSX", 0, 2, 0, 0, 0, 0, 0, 2, 0, 4
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor-verification\VerificationsActionsMenu.tsx", "TypeScript JSX", 0, 21, 0, 0, 0, 0, 0, 3, 1, 25
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\DoctorFilters.tsx", "TypeScript JSX", 0, 136, 0, 0, 0, 0, 0, 8, 18, 162
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\DoctorPagination.tsx", "TypeScript JSX", 0, 86, 0, 0, 0, 0, 0, 2, 16, 104
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\DoctorRowAction.tsx", "TypeScript JSX", 0, -6, 0, 0, 0, 0, 0, 3, -3, -6
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\DoctorTable.tsx", "TypeScript JSX", 0, 9, 0, 0, 0, 0, 0, 23, 7, 39
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\StatsCard.tsx", "TypeScript JSX", 0, 21, 0, 0, 0, 0, 0, 2, -1, 22
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\doctor\types.ts", "TypeScript", 22, 0, 0, 0, 0, 0, 0, 3, 2, 27
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\patient\PatientFilter.tsx", "TypeScript JSX", 0, 90, 0, 0, 0, 0, 0, 4, 11, 105
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\patient\PatientPagination.tsx", "TypeScript JSX", 0, 67, 0, 0, 0, 0, 0, 1, 11, 79
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\patient\PatientStatsCard.tsx", "TypeScript JSX", 0, 28, 0, 0, 0, 0, 0, 1, 2, 31
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\admin\patient\PatientTable.tsx", "TypeScript JSX", 0, 129, 0, 0, 0, 0, 0, 13, 14, 156
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\EmailLoginStep.tsx", "TypeScript JSX", 0, 43, 0, 0, 0, 0, 0, 3, 3, 49
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\EmailSignupStep.tsx", "TypeScript JSX", 0, -14, 0, 0, 0, 0, 0, 3, 2, -9
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\EmailVerificationStep.tsx", "TypeScript JSX", 0, 103, 0, 0, 0, 0, 0, 3, 16, 122
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\ForgetPasswordForm.tsx", "TypeScript JSX", 0, 44, 0, 0, 0, 0, 0, 0, 3, 47
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\LoginForm.tsx", "TypeScript JSX", 0, -22, 0, 0, 0, 0, 0, 0, -7, -29
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\LoginOtpStep.tsx", "TypeScript JSX", 0, 78, 0, 0, 0, 0, 0, 3, 13, 94
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\LogoutButton.tsx", "TypeScript JSX", 0, 45, 0, 0, 0, 0, 0, 0, 12, 57
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\OtpStep.tsx", "TypeScript JSX", 0, 68, 0, 0, 0, 0, 0, 4, 11, 83
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\PhoneLoginStep.tsx", "TypeScript JSX", 0, 22, 0, 0, 0, 0, 0, 1, 6, 29
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\PhoneSignupStep.tsx", "TypeScript JSX", 0, 23, 0, 0, 0, 0, 0, -2, 4, 25
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\ResetPasswordForm.tsx", "TypeScript JSX", 0, 49, 0, 0, 0, 0, 0, 1, 6, 56
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\SelectRoleForm.tsx", "TypeScript JSX", 0, 23, 0, 0, 0, 0, 0, -1, 3, 25
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\auth\SignupForm.tsx", "TypeScript JSX", 0, -4, 0, 0, 0, 0, 0, 3, -4, -5
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\appointment\AppointmentQueue.tsx", "TypeScript JSX", 0, 34, 0, 0, 0, 0, 0, 27, 5, 66
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\AboutDoctor.tsx", "TypeScript JSX", 0, 6, 0, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\BookingPanel.tsx", "TypeScript JSX", 0, 107, 0, 0, 0, 0, 0, 9, 68, 184
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\DoctorProfile.tsx", "TypeScript JSX", 0, 32, 0, 0, 0, 0, 0, -4, 3, 31
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\DoctorStats.tsx", "TypeScript JSX", 0, 9, 0, 0, 0, 0, 0, 0, -1, 8
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\Reviews.tsx", "TypeScript JSX", 0, 5, 0, 0, 0, 0, 0, 0, 2, 7
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\confirmation\BookingActions.tsx", "TypeScript JSX", 0, 6, 0, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\confirmation\BookingConfirmationHero.tsx", "TypeScript JSX", 0, 18, 0, 0, 0, 0, 0, -3, 0, 15
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\confirmation\BookingSummaryCard.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, -1, -1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\booking\confirmation\DoctorSummary.tsx", "TypeScript JSX", 0, 2, 0, 0, 0, 0, 0, 0, 0, 2
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\dashboard\CurrentlyConsulting.tsx", "TypeScript JSX", 0, 63, 0, 0, 0, 0, 0, 4, 7, 74
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\dashboard\Header.tsx", "TypeScript JSX", 0, 18, 0, 0, 0, 0, 0, 1, -2, 17
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\dashboard\Sidebar.tsx", "TypeScript JSX", 0, -17, 0, 0, 0, 0, 0, 2, -1, -16
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\dashboard\StatsSection.tsx", "TypeScript JSX", 0, 13, 0, 0, 0, 0, 0, 1, -1, 13
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\dashboard\UrgentNotifications.tsx", "TypeScript JSX", 0, 54, 0, 0, 0, 0, 0, 4, 2, 60
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\earnings\EarningsSummary.tsx", "TypeScript JSX", 0, 8, 0, 0, 0, 0, 0, 3, -1, 10
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\earnings\EarningsSummarySkeleton.tsx", "TypeScript JSX", 0, 13, 0, 0, 0, 0, 0, 1, 1, 15
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\earnings\EarningsTable.tsx", "TypeScript JSX", 0, 21, 0, 0, 0, 0, 0, 3, 3, 27
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\earnings\EarningsTableSkeleton.tsx", "TypeScript JSX", 0, 25, 0, 0, 0, 0, 0, 1, 1, 27
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\ClinicSettingsForm.tsx", "TypeScript JSX", 0, 144, 0, 0, 0, 0, 0, 6, 19, 169
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\PersonalDetailsForm.tsx", "TypeScript JSX", 0, 109, 0, 0, 0, 0, 0, 5, 11, 125
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\ProfessionalDetailsForm.tsx", "TypeScript JSX", 0, 200, 0, 0, 0, 0, 0, 12, 18, 230
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\SecuritySettingsForm.tsx", "TypeScript JSX", 0, 157, 0, 0, 0, 0, 0, 6, 17, 180
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctor\settings\SettingsTab.tsx", "TypeScript JSX", 0, 35, 0, 0, 0, 0, 0, 1, 4, 40
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctors\DoctorsCard.tsx", "TypeScript JSX", 0, 56, 0, 0, 0, 0, 0, 0, 9, 65
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctors\DoctorsFilter.tsx", "TypeScript JSX", 0, 79, 0, 0, 0, 0, 0, 0, 17, 96
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctors\DoctorsList.tsx", "TypeScript JSX", 0, 67, 0, 0, 0, 0, 0, 0, 10, 77
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctors\DoctorsPagination.tsx", "TypeScript JSX", 0, 50, 0, 0, 0, 0, 0, 0, 9, 59
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\doctors\DoctorsTopBar.tsx", "TypeScript JSX", 0, 47, 0, 0, 0, 0, 0, 0, 10, 57
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\layout\Footer.tsx", "TypeScript JSX", 0, 34, 0, 0, 0, 0, 0, -3, 1, 32
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\layout\Header.tsx", "TypeScript JSX", 0, 25, 0, 0, 0, 0, 0, -1, 5, 29
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\AddEmergencyContactForm.tsx", "TypeScript JSX", 0, 54, 0, 0, 0, 0, 0, 0, 10, 64
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\EditProfileModal.tsx", "TypeScript JSX", 0, 127, 0, 0, 0, 0, 0, 0, 33, 160
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\EmergencyContactItem.tsx", "TypeScript JSX", 0, 22, 0, 0, 0, 0, 0, 0, 7, 29
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\EmergencyContactSection.tsx", "TypeScript JSX", 0, 77, 0, 0, 0, 0, 0, 3, 9, 89
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\NotificationPrivacySection.tsx", "TypeScript JSX", 0, 16, 0, 0, 0, 0, 0, 0, 1, 17
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\PatientInfoCard.tsx", "TypeScript JSX", 0, 6, 0, 0, 0, 0, 0, 0, 0, 6
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\PatientSettingsLayout.tsx", "TypeScript JSX", 0, -21, 0, 0, 0, 0, 0, 0, -4, -25
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\PatientSideBar.tsx", "TypeScript JSX", 0, 26, 0, 0, 0, 0, 0, 0, 1, 27
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\PatientTopNav.tsx", "TypeScript JSX", 0, -26, 0, 0, 0, 0, 0, 0, 1, -25
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\PersonalInformationSection.tsx", "TypeScript JSX", 0, 84, 0, 0, 0, 0, 0, 0, 26, 110
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\ProfileHeader.tsx", "TypeScript JSX", 0, 41, 0, 0, 0, 0, 0, 8, 17, 66
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\patient\ToggleSettingsItem.tsx", "TypeScript JSX", 0, 21, 0, 0, 0, 0, 0, 0, 3, 24
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\PasswordInput.tsx", "TypeScript JSX", 0, 3, 0, 0, 0, 0, 0, -1, -1, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\dialog.tsx", "TypeScript JSX", 0, 109, 0, 0, 0, 0, 0, 0, 14, 123
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\input.tsx", "TypeScript JSX", 0, 2, 0, 0, 0, 0, 0, 0, -1, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\ui\pagination.tsx", "TypeScript JSX", 0, 1, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\upload\AvatarUploader.tsx", "TypeScript JSX", 0, 98, 0, 0, 0, 0, 0, 5, 22, 125
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\components\upload\ImageUploader.tsx", "TypeScript JSX", 0, 77, 0, 0, 0, 0, 0, 6, 23, 106
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\currentlyWorking.md", "Markdown", 0, 0, 0, 0, 0, 3, 0, 0, 2, 5
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\db\schema.ts", "TypeScript", 233, 0, 0, 0, 0, 0, 0, 61, 111, 405
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\ai-codebase-map.md", "Markdown", 0, 0, 0, 0, 0, 1355, 0, 0, 443, 1798
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\api-spec.md", "Markdown", 0, 0, 0, 0, 0, 96, 0, 0, 19, 115
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\architecture.md", "Markdown", 0, 0, 0, 0, 0, 74, 0, 0, 22, 96
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\auth-flow.md", "Markdown", 0, 0, 0, 0, 0, 61, 0, 0, 20, 81
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\changelog.md", "Markdown", 0, 0, 0, 0, 0, 12, 0, 0, 8, 20
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\completed-tasks.md", "Markdown", 0, 0, 0, 0, 0, 27, 0, 0, 10, 37
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\decisions.md", "Markdown", 0, 0, 0, 0, 0, 36, 0, 0, 8, 44
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\folder-structure.md", "Markdown", 0, 0, 0, 0, 0, 141, 0, 0, 1, 142
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\product-requirements-completed.md", "Markdown", 0, 0, 0, 0, 0, 56, 0, 0, 17, 73
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\roadmap.md", "Markdown", 0, 0, 0, 0, 0, 41, 0, 0, 11, 52
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\docs\tasks.md", "Markdown", 0, 0, 0, 0, 0, 92, 0, 0, 40, 132
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0002_breezy_shape.sql", "MS SQL", 0, 0, 0, 8, 0, 0, 0, 0, 1, 9
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0003_easy_omega_flight.sql", "MS SQL", 0, 0, 0, 13, 0, 0, 0, 1, 0, 14
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0004_melodic_toad_men.sql", "MS SQL", 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0005_military_otto_octavius.sql", "MS SQL", 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0006_many_arachne.sql", "MS SQL", 0, 0, 0, 15, 0, 0, 0, 0, 0, 15
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0007_ambiguous_shadow_king.sql", "MS SQL", 0, 0, 0, 4, 0, 0, 0, 0, 0, 4
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0008_amusing_toad.sql", "MS SQL", 0, 0, 0, 11, 0, 0, 0, 0, 1, 12
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0009_overconfident_pandemic.sql", "MS SQL", 0, 0, 0, 15, 0, 0, 0, 1, 0, 16
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0010_mushy_whirlwind.sql", "MS SQL", 0, 0, 0, 68, 0, 0, 0, 3, 0, 71
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0011_spotty_rage.sql", "MS SQL", 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\0012_slippery_lady_vermin.sql", "MS SQL", 0, 0, 0, 17, 0, 0, 0, 1, 0, 18
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0002_snapshot.json", "JSON", 0, 0, 1434, 0, 0, 0, 0, 0, 0, 1434
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0003_snapshot.json", "JSON", 0, 0, 1539, 0, 0, 0, 0, 0, 0, 1539
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0004_snapshot.json", "JSON", 0, 0, 1434, 0, 0, 0, 0, 0, 0, 1434
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0005_snapshot.json", "JSON", 0, 0, 1441, 0, 0, 0, 0, 0, 0, 1441
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0006_snapshot.json", "JSON", 0, 0, 1441, 0, 0, 0, 0, 0, 0, 1441
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0007_snapshot.json", "JSON", 0, 0, 1470, 0, 0, 0, 0, 0, 0, 1470
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0008_snapshot.json", "JSON", 0, 0, 1554, 0, 0, 0, 0, 0, 0, 1554
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0009_snapshot.json", "JSON", 0, 0, 1666, 0, 0, 0, 0, 0, 0, 1666
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0010_snapshot.json", "JSON", 0, 0, 2176, 0, 0, 0, 0, 0, 0, 2176
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0011_snapshot.json", "JSON", 0, 0, 2184, 0, 0, 0, 0, 0, 0, 2184
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\0012_snapshot.json", "JSON", 0, 0, 2325, 0, 0, 0, 0, 0, 0, 2325
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\drizzle\meta\_journal.json", "JSON", 0, 0, 77, 0, 0, 0, 0, 0, 0, 77
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\eslint.config.mjs", "JavaScript", 0, 0, 0, 0, 73, 0, 0, 4, 18, 95
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\lib\config\features.ts", "TypeScript", 21, 0, 0, 0, 0, 0, 0, 9, 5, 35
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\lib\utils\slot.ts", "TypeScript", 33, 0, 0, 0, 0, 0, 0, 1, 9, 43
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\lib\validators.tsx", "TypeScript JSX", 0, -20, 0, 0, 0, 0, 0, -14, -18, -52
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\middleware.ts", "TypeScript", 10, 0, 0, 0, 0, 0, 0, 2, 2, 14
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\next.config.ts", "TypeScript", 5, 0, 0, 0, 0, 0, 0, 0, 0, 5
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\package-lock.json", "JSON", 0, 0, 1995, 0, 0, 0, 0, 0, 0, 1995
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\package.json", "JSON", 0, 0, 8, 0, 0, 0, 0, 0, 0, 8
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\planning.md", "Markdown", 0, 0, 0, 0, 0, 208, 0, 0, 22, 230
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\scripts\get-s3.ts", "TypeScript", 36, 0, 0, 0, 0, 0, 0, 0, 10, 46
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\scripts\presigned.ts", "TypeScript", 24, 0, 0, 0, 0, 0, 0, 0, 5, 29
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\scripts\seed.ts", "TypeScript", 89, 0, 0, 0, 0, 0, 0, 0, 1, 90
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\scripts\seedAvailability.ts", "TypeScript", 17, 0, 0, 0, 0, 0, 0, 0, 5, 22
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\scripts\test-s3.ts", "TypeScript", 32, 0, 0, 0, 0, 0, 0, 0, 8, 40
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\scripts\wifi-network-warning.js", "JavaScript", 0, 0, 0, 0, 52, 0, 0, 0, 14, 66
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\actions\doctorSettings.actions.ts", "TypeScript", 61, 0, 0, 0, 0, 0, 0, 4, 8, 73
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\actions\emergencyContacts.actions.ts", "TypeScript", 38, 0, 0, 0, 0, 0, 0, 0, 13, 51
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\actions\patient.actions.ts", "TypeScript", 22, 0, 0, 0, 0, 0, 0, 0, 8, 30
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\actions\patientProfile.actions.ts", "TypeScript", 40, 0, 0, 0, 0, 0, 0, 0, 11, 51
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\actions\patientsProfile.actions.ts", "TypeScript", 14, 0, 0, 0, 0, 0, 0, 0, 7, 21
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\actions\uploadAvatar.actions.ts", "TypeScript", 35, 0, 0, 0, 0, 0, 0, 10, 12, 57
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\appointment.domain.ts", "TypeScript", 2, 0, 0, 0, 0, 0, 0, 0, -1, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\audit.domain.ts", "TypeScript", 13, 0, 0, 0, 0, 0, 0, 0, 0, 13
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\doctor.domain.ts", "TypeScript", 35, 0, 0, 0, 0, 0, 0, 14, 8, 57
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\domain\user.domain.ts", "TypeScript", 2, 0, 0, 0, 0, 0, 0, -6, -2, -6
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\appointment-cancelled.template.ts", "TypeScript", 35, 0, 0, 0, 0, 0, 0, 1, 2, 38
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\appointment-confirmation.template.ts", "TypeScript", 44, 0, 0, 0, 0, 0, 0, 1, 2, 47
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\appointment-reminder.template.ts", "TypeScript", 35, 0, 0, 0, 0, 0, 0, 1, 2, 38
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\doctor-approved.template.ts", "TypeScript", 41, 0, 0, 0, 0, 0, 0, 1, 2, 44
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\doctor-rejected.template.ts", "TypeScript", 46, 0, 0, 0, 0, 0, 0, 1, 2, 49
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\otp.template.ts", "TypeScript", 48, 0, 0, 0, 0, 0, 0, 2, 3, 53
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\templates\password-reset.template.ts", "TypeScript", 45, 0, 0, 0, 0, 0, 0, 1, 2, 48
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\email\transport.ts", "TypeScript", 45, 0, 0, 0, 0, 0, 0, 0, 7, 52
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\http\route-helpers.ts", "TypeScript", 68, 0, 0, 0, 0, 0, 0, 3, 12, 83
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\middleware\auth.ts", "TypeScript", -25, 0, 0, 0, 0, 0, 0, 0, -8, -33
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\middleware\rate-limit.ts", "TypeScript", 24, 0, 0, 0, 0, 0, 0, 12, 5, 41
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\ability.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\guards\isAdmin.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\guards\isDoctor.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\guards\isPatient.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\policies\permissions.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\appointment.repo.ts", "TypeScript", 139, 0, 0, 0, 0, 0, 0, 6, -23, 122
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\audit.repo.ts", "TypeScript", 18, 0, 0, 0, 0, 0, 0, 11, 2, 31
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\doctor.repo.ts", "TypeScript", 274, 0, 0, 0, 0, 0, 0, -13, 7, 268
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\doctor_earning.repo.ts", "TypeScript", 140, 0, 0, 0, 0, 0, 0, 34, 23, 197
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\patient.repo.ts", "TypeScript", 219, 0, 0, 0, 0, 0, 0, 27, 29, 275
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\prescription.repo.ts", "TypeScript", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\refreshToken.repo.ts", "TypeScript", 40, 0, 0, 0, 0, 0, 0, 8, 8, 56
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\repositories\user.repo.ts", "TypeScript", 22, 0, 0, 0, 0, 0, 0, 1, 5, 28
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\appointment.service.tsx", "TypeScript JSX", 0, 220, 0, 0, 0, 0, 0, 91, 77, 388
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\auth.service.tsx", "TypeScript JSX", 0, 67, 0, 0, 0, 0, 0, 8, 4, 79
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\doctor.service.tsx", "TypeScript JSX", 0, 155, 0, 0, 0, 0, 0, -20, 13, 148
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\doctor_earning.service.tsx", "TypeScript JSX", 0, 88, 0, 0, 0, 0, 0, 31, 18, 137
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\email.service.ts", "TypeScript", 62, 0, 0, 0, 0, 0, 0, 23, 8, 93
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\services\patient.service.tsx", "TypeScript JSX", 0, 112, 0, 0, 0, 0, 0, 12, 4, 128
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\storage\getFileStream.ts", "TypeScript", 15, 0, 0, 0, 0, 0, 0, 0, 4, 19
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\storage\imageUpload.ts", "TypeScript", 45, 0, 0, 0, 0, 0, 0, 0, 12, 57
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\storage\s3.client.ts", "TypeScript", 17, 0, 0, 0, 0, 0, 0, 0, 3, 20
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\hash.ts", "TypeScript", 6, 0, 0, 0, 0, 0, 0, 0, 2, 8
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\jwt.ts", "TypeScript", -9, 0, 0, 0, 0, 0, 0, -9, -1, -19
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\logger.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, -3, 6, 3
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\pagination_test.ts", "TypeScript", -3, 0, 0, 0, 0, 0, 0, 3, 0, 0
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\password_test.ts", "TypeScript", -3, 0, 0, 0, 0, 0, 0, 5, 0, 2
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\utils\sessions.ts", "TypeScript", 21, 0, 0, 0, 0, 0, 0, 2, 5, 28
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\validators\auth.ts", "TypeScript", -10, 0, 0, 0, 0, 0, 0, -6, 5, -11
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\server\validators\doctor.ts", "TypeScript", 55, 0, 0, 0, 0, 0, 0, 3, 11, 69
+"c:\Users\ajays\OneDrive\Desktop\project\healthdee\tests\appointment.api.test.ts", "TypeScript", 399, 0, 0, 0, 0, 0, 0, 15, 107, 521
+"Total", "-", 3053, 6993, 20744, 154, 125, 2202, -73, 761, 2298, 36257

@@ -4,7 +4,7 @@ import type { InputHTMLAttributes } from "react";
 import { useState } from "react";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
 }
 
 export function PasswordInput({ label, ...props }: Props) {
@@ -12,9 +12,11 @@ export function PasswordInput({ label, ...props }: Props) {
 
   return (
     <div className="flex flex-col gap-1 relative">
-      <label className="text-sm font-medium text-gray-700">
-        {label}
-      </label>
+      {label && (
+        <label className="text-sm font-medium text-gray-700">
+          {label}
+        </label>
+      )}
 
       <input
         {...props}
@@ -32,11 +34,10 @@ export function PasswordInput({ label, ...props }: Props) {
         "
       />
 
-      {/* 👁 Eye Toggle */}
       <button
         type="button"
         onClick={() => setVisible((v) => !v)}
-        className="absolute right-3 top-9 text-gray-500 text-sm"
+        className={`absolute right-3 text-gray-500 text-sm ${label ? "top-9" : "top-2"}`}
         aria-label={visible ? "Hide password" : "Show password"}
       >
         {visible ? "🙈" : "👁️"}

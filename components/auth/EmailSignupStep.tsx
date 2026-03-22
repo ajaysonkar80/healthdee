@@ -1,24 +1,26 @@
+// components/auth/EmailSignupStep.tsx
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { z } from "zod";
-
 import { emailSignupSchema } from "@/lib/validators";
+import type { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 import { Button } from "@/components/ui/button";
 
 type EmailSignupFormData = z.infer<typeof emailSignupSchema>;
 
-// Extracting types for better readability
-type Step = "EMAIL" | "PHONE" | "OTP" | "EMAIL_VERIFY";
-
 interface EmailSignupStepProps {
-  setStep: React.Dispatch<React.SetStateAction<Step>>;
+  // Called with the registered email so SignupForm can
+  // pass it down to EmailVerificationStep
+  onEmailRegistered: (email: string) => void;
 }
 
-export function EmailSignupStep({ setStep }: EmailSignupStepProps) {
+export function EmailSignupStep({ onEmailRegistered }: EmailSignupStepProps) {
+  const [serverError, setServerError] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -28,77 +30,67 @@ export function EmailSignupStep({ setStep }: EmailSignupStepProps) {
   });
 
   async function onSubmit(data: EmailSignupFormData) {
+    setServerError(null);
     try {
-      const response = await fetch("/api/auth/register", {
+      const res = await fetch("/api/auth/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({
-          type: "email",
-          name: data.name,
-          email: data.email,
-          password: data.password,
+          name:            data.name,
+          email:           data.email,
+          password:        data.password,
           confirmPassword: data.confirmPassword,
         }),
       });
 
-      const result = await response.json();
+      const json = await res.json();
 
-      if (!response.ok) {
-        // Safe access using optional chaining on the parsed JSON
-        throw new Error(result?.message || "Registration failed");
+      if (!res.ok) {
+        setServerError(json?.error ?? "Registration failed. Please try again.");
+        return;
       }
 
-      setStep("EMAIL_VERIFY");
-    } catch (err: unknown) {
-      // ✅ Refactored: Use 'unknown' and narrow the type
-      console.error("Signup error:", err);
-      
-      const errorMessage = err instanceof Error 
-        ? err.message 
-        : "Registration failed. Please try again.";
-
-      alert(errorMessage);
+      // nextStep is either "verify_email" or "select_role" (feature flag)
+      onEmailRegistered(data.email);
+    } catch {
+      setServerError("Something went wrong. Please try again.");
     }
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <Input label="Full Name" {...register("name")} />
-      {errors.name?.message && (
-        <p className="text-xs text-red-500">{errors.name.message}</p>
+      <div>
+        <Input label="Full Name" {...register("name")} />
+        {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>}
+      </div>
+
+      <div>
+        <Input label="Email Address" type="email" {...register("email")} />
+        {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
+      </div>
+
+      <div>
+        <PasswordInput label="Password" {...register("password")} />
+        {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>}
+      </div>
+
+      <div>
+        <PasswordInput label="Confirm Password" {...register("confirmPassword")} />
+        {errors.confirmPassword && (
+          <p className="mt-1 text-xs text-red-500">{errors.confirmPassword.message}</p>
+        )}
+      </div>
+
+      {serverError && (
+        <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
+          {serverError}
+        </div>
       )}
 
-      <Input
-        label="Email Address"
-        type="email"
-        {...register("email")}
-      />
-      {errors.email?.message && (
-        <p className="text-xs text-red-500">{errors.email.message}</p>
-      )}
-
-      <PasswordInput
-        label="Password"
-        {...register("password")}
-      />
-      {errors.password?.message && (
-        <p className="text-xs text-red-500">{errors.password.message}</p>
-      )}
-
-      <PasswordInput
-        label="Confirm Password"
-        {...register("confirmPassword")}
-      />
-      {errors.confirmPassword?.message && (
-        <p className="text-xs text-red-500">{errors.confirmPassword.message}</p>
-      )}
-
-      <div className="pt-4">
+      <div className="pt-2">
         <Button type="submit" disabled={isSubmitting} className="w-full">
-          {isSubmitting ? "Please wait..." : "Continue"}
+          {isSubmitting ? "Creating account…" : "Continue"}
         </Button>
       </div>
     </form>

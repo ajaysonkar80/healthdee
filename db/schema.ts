@@ -25,7 +25,8 @@ const uuid = () =>
 export const UserRoleSchema = z.enum(["patient", "doctor", "admin"]);
 export type UserRole = z.infer<typeof UserRoleSchema>;
 
-export const UserStatusSchema = z.enum(["active", "deactivated", "deleted"]);
+export const UserStatusSchema = z.enum(["active", "deactivated", "deleted","pending_verification", // ← add
+  "pending_role",  ]);
 export type UserStatus = z.infer<typeof UserStatusSchema>;
 
 export const OtpChannelSchema = z.enum(["whatsapp", "email"]);
@@ -37,6 +38,8 @@ export const ConsentStatusSchema = z.enum([
   "expired",
 ]);
 export type ConsentStatus = z.infer<typeof ConsentStatusSchema>;
+
+
 
 export const ErasureStatusSchema = z.enum([
   "requested",

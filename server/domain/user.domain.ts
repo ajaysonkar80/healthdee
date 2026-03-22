@@ -1,8 +1,5 @@
+// server/domain/user.domain.ts
 import type { UserRole, UserStatus } from "@/db/schema";
-
-/* ======================================================
-   Errors
-====================================================== */
 
 export class UserDomainError extends Error {
   constructor(message: string) {
@@ -11,14 +8,16 @@ export class UserDomainError extends Error {
   }
 }
 
-/* ======================================================
-   User Status Transitions
-====================================================== */
+/* ── Status Transitions ── */
 
 const USER_STATUS_TRANSITIONS: Record<UserStatus, UserStatus[]> = {
-  active: ["deactivated", "deleted"],
-  deactivated: ["active", "deleted"],
-  deleted: [],
+  // Onboarding stages — can only move forward or abandon to deleted
+  pending_verification: ["pending_role", "deleted"],
+  pending_role:         ["active", "deleted"],
+  // Normal lifecycle
+  active:               ["deactivated", "deleted"],
+  deactivated:          ["active", "deleted"],
+  deleted:              [],
 };
 
 export function assertValidUserStatusTransition(
@@ -35,9 +34,7 @@ export function assertValidUserStatusTransition(
   }
 }
 
-/* ======================================================
-   Role Rules
-====================================================== */
+/* ── Role Rules ── */
 
 export function assertUserRoleImmutable(
   currentRole: UserRole,
@@ -48,9 +45,7 @@ export function assertUserRoleImmutable(
   }
 }
 
-/* ======================================================
-   Deleted User Invariants
-====================================================== */
+/* ── Deleted User Invariants ── */
 
 export function assertUserNotDeleted(status: UserStatus) {
   if (status === "deleted") {
