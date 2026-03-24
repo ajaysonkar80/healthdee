@@ -137,6 +137,11 @@ export const authService = {
   const auth = await userRepo.getAuthByEmail(data.email);
   const user = await userRepo.getUserById(auth.userId);
 
+  // ✅ FIX: Check user status BEFORE domain rules
+  if (user.status !== UserStatus.active) {
+    throw new ForbiddenError("User is not active");
+  }
+
   const authState = toAuthDomainState(auth);
 
   assertHasAtLeastOneCredential(authState);
@@ -152,10 +157,6 @@ export const authService = {
 
   if (!ok) {
     throw new ValidationError("Invalid credentials");
-  }
-
-  if (user.status !== UserStatus.active) {
-    throw new ForbiddenError("User is not active");
   }
 
   await userRepo.updateLastLogin(user.id);
