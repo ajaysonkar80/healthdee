@@ -1,10 +1,10 @@
 # AI Codebase Map & 2-Week Prioritized Completion Plan
 
-> Update note (2026-03-19): Refreshed structure references and regenerated the per-file index to match the current tracked repository state.
+> Update note (2026-03-26): Refreshed structure references and regenerated the per-file index to match the current tracked repository state.
 
-## Incremental Refresh Notes (2026-03-19)
+## Incremental Refresh Notes (2026-03-26)
 - Regenerated `docs/folder-structure.md` from current `git ls-files` output.
-- Rebuilt per-file analysis index in this document for all 440 tracked files.
+- Rebuilt per-file analysis index in this document for all 505 tracked files.
 - Kept implementation guidance aligned with the current App Router + server-layer architecture.
 
 ## 2-Week Prioritized Completion Plan
@@ -118,6 +118,7 @@ Side effects:
 - Depends on implementation in `.VSCodeCounter/2026-02-11_18-50-40/details.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: .VSCodeCounter/2026-02-11_18-50-40/diff-details.md
 
 Purpose:
@@ -139,6 +140,7 @@ Side effects:
 - Depends on implementation in `.VSCodeCounter/2026-02-11_18-50-40/diff-details.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: .VSCodeCounter/2026-02-11_18-50-40/diff.csv
 
 Purpose:
@@ -160,6 +162,7 @@ Side effects:
 - Depends on implementation in `.VSCodeCounter/2026-02-11_18-50-40/diff.csv` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: .VSCodeCounter/2026-02-11_18-50-40/diff.md
 
 Purpose:
@@ -181,6 +184,7 @@ Side effects:
 - Depends on implementation in `.VSCodeCounter/2026-02-11_18-50-40/diff.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: .VSCodeCounter/2026-02-11_18-50-40/diff.txt
 
 Purpose:
@@ -202,6 +206,7 @@ Side effects:
 - Depends on implementation in `.VSCodeCounter/2026-02-11_18-50-40/diff.txt` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: .VSCodeCounter/2026-02-11_18-50-40/results.csv
 
 Purpose:
@@ -223,10 +228,11 @@ Side effects:
 - Depends on implementation in `.VSCodeCounter/2026-02-11_18-50-40/results.csv` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: .VSCodeCounter/2026-02-11_18-50-40/results.json
 
 Purpose:
-- Project configuration, lockfile, or workspace metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -244,6 +250,7 @@ Side effects:
 - Depends on implementation in `.VSCodeCounter/2026-02-11_18-50-40/results.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: .VSCodeCounter/2026-02-11_18-50-40/results.md
 
 Purpose:
@@ -265,6 +272,7 @@ Side effects:
 - Depends on implementation in `.VSCodeCounter/2026-02-11_18-50-40/results.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: .VSCodeCounter/2026-02-11_18-50-40/results.txt
 
 Purpose:
@@ -286,6 +294,29 @@ Side effects:
 - Depends on implementation in `.VSCodeCounter/2026-02-11_18-50-40/results.txt` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: .github/workflows/playwright.yml
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `.github/workflows/playwright.yml`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `.github/workflows/playwright.yml` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: .gitignore
 
 Purpose:
@@ -307,10 +338,11 @@ Side effects:
 - Depends on implementation in `.gitignore` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: .vscode/settings.json
 
 Purpose:
-- Project configuration, lockfile, or workspace metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -328,6 +360,7 @@ Side effects:
 - Depends on implementation in `.vscode/settings.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: AGENTS.md
 
 Purpose:
@@ -349,6 +382,7 @@ Side effects:
 - Depends on implementation in `AGENTS.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: README.md
 
 Purpose:
@@ -370,6 +404,7 @@ Side effects:
 - Depends on implementation in `README.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: ai-tree/tree-app.txt
 
 Purpose:
@@ -391,6 +426,7 @@ Side effects:
 - Depends on implementation in `ai-tree/tree-app.txt` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: ai-tree/tree-db.txt
 
 Purpose:
@@ -412,6 +448,7 @@ Side effects:
 - Depends on implementation in `ai-tree/tree-db.txt` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: ai-tree/tree-hooks.txt
 
 Purpose:
@@ -433,6 +470,7 @@ Side effects:
 - Depends on implementation in `ai-tree/tree-hooks.txt` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: ai-tree/tree-lib.txt
 
 Purpose:
@@ -454,6 +492,7 @@ Side effects:
 - Depends on implementation in `ai-tree/tree-lib.txt` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: ai-tree/tree-root.txt
 
 Purpose:
@@ -475,6 +514,7 @@ Side effects:
 - Depends on implementation in `ai-tree/tree-root.txt` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: ai-tree/tree-server.txt
 
 Purpose:
@@ -496,6 +536,7 @@ Side effects:
 - Depends on implementation in `ai-tree/tree-server.txt` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: ajaygit.txt
 
 Purpose:
@@ -517,6 +558,7 @@ Side effects:
 - Depends on implementation in `ajaygit.txt` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: ajaygit.txt.pub
 
 Purpose:
@@ -538,10 +580,11 @@ Side effects:
 - Depends on implementation in `ajaygit.txt.pub` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/(login-signup)/forgot-password/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -559,10 +602,11 @@ Side effects:
 - Depends on implementation in `app/(public)/(login-signup)/forgot-password/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/(login-signup)/layout.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -580,10 +624,11 @@ Side effects:
 - Depends on implementation in `app/(public)/(login-signup)/layout.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/(login-signup)/login/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -601,10 +646,11 @@ Side effects:
 - Depends on implementation in `app/(public)/(login-signup)/login/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/(login-signup)/reset-password/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -622,10 +668,11 @@ Side effects:
 - Depends on implementation in `app/(public)/(login-signup)/reset-password/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/(login-signup)/signup/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -643,10 +690,11 @@ Side effects:
 - Depends on implementation in `app/(public)/(login-signup)/signup/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/(login-signup)/verify-email/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -664,10 +712,11 @@ Side effects:
 - Depends on implementation in `app/(public)/(login-signup)/verify-email/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/about/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -685,10 +734,11 @@ Side effects:
 - Depends on implementation in `app/(public)/about/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/doctor-privacy-policy/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -706,10 +756,11 @@ Side effects:
 - Depends on implementation in `app/(public)/doctor-privacy-policy/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/healthcare-provider-terms/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -727,10 +778,11 @@ Side effects:
 - Depends on implementation in `app/(public)/healthcare-provider-terms/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/help/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -748,10 +800,11 @@ Side effects:
 - Depends on implementation in `app/(public)/help/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -769,10 +822,11 @@ Side effects:
 - Depends on implementation in `app/(public)/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/policies/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -790,10 +844,11 @@ Side effects:
 - Depends on implementation in `app/(public)/policies/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/privacy-policy/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -811,10 +866,11 @@ Side effects:
 - Depends on implementation in `app/(public)/privacy-policy/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/select-role/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -832,10 +888,11 @@ Side effects:
 - Depends on implementation in `app/(public)/select-role/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/(public)/terms-and-conditions/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -853,10 +910,11 @@ Side effects:
 - Depends on implementation in `app/(public)/terms-and-conditions/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/Header.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -874,10 +932,11 @@ Side effects:
 - Depends on implementation in `app/Header.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/appointment-requests/AppointmentRequestsClient.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -895,10 +954,11 @@ Side effects:
 - Depends on implementation in `app/admin/appointment-requests/AppointmentRequestsClient.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/appointment-requests/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -916,10 +976,11 @@ Side effects:
 - Depends on implementation in `app/admin/appointment-requests/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/clinics/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -937,10 +998,11 @@ Side effects:
 - Depends on implementation in `app/admin/clinics/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/dashboard/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -958,10 +1020,11 @@ Side effects:
 - Depends on implementation in `app/admin/dashboard/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/doctors-verification/DoctorsVerificationClient.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -979,10 +1042,11 @@ Side effects:
 - Depends on implementation in `app/admin/doctors-verification/DoctorsVerificationClient.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/doctors-verification/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1000,10 +1064,11 @@ Side effects:
 - Depends on implementation in `app/admin/doctors-verification/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/doctors/DoctorsPageClient.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1021,10 +1086,11 @@ Side effects:
 - Depends on implementation in `app/admin/doctors/DoctorsPageClient.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/doctors/[doctorId]/edit/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1042,10 +1108,11 @@ Side effects:
 - Depends on implementation in `app/admin/doctors/[doctorId]/edit/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/doctors/create/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1063,10 +1130,11 @@ Side effects:
 - Depends on implementation in `app/admin/doctors/create/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/doctors/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1084,10 +1152,11 @@ Side effects:
 - Depends on implementation in `app/admin/doctors/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/layout.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1105,10 +1174,11 @@ Side effects:
 - Depends on implementation in `app/admin/layout.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1126,10 +1196,11 @@ Side effects:
 - Depends on implementation in `app/admin/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/patients/PatientsClientPage.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1147,10 +1218,11 @@ Side effects:
 - Depends on implementation in `app/admin/patients/PatientsClientPage.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/patients/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1168,10 +1240,11 @@ Side effects:
 - Depends on implementation in `app/admin/patients/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/settings/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1189,10 +1262,11 @@ Side effects:
 - Depends on implementation in `app/admin/settings/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/admin/users/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1210,10 +1284,11 @@ Side effects:
 - Depends on implementation in `app/admin/users/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/admin/metrics/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1231,10 +1306,11 @@ Side effects:
 - Depends on implementation in `app/api/admin/metrics/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/appointments/[id]/cancel/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1252,10 +1328,11 @@ Side effects:
 - Depends on implementation in `app/api/appointments/[id]/cancel/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/appointments/[id]/complete/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1273,10 +1350,11 @@ Side effects:
 - Depends on implementation in `app/api/appointments/[id]/complete/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/appointments/[id]/confirm/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1294,10 +1372,11 @@ Side effects:
 - Depends on implementation in `app/api/appointments/[id]/confirm/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/appointments/[id]/reschedule/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1315,10 +1394,11 @@ Side effects:
 - Depends on implementation in `app/api/appointments/[id]/reschedule/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/appointments/[id]/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1336,10 +1416,11 @@ Side effects:
 - Depends on implementation in `app/api/appointments/[id]/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/appointments/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1357,10 +1438,33 @@ Side effects:
 - Depends on implementation in `app/api/appointments/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/api/auth/login/route.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/auth/login/route.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/api/auth/login/route.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/api/auth/login/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1378,10 +1482,33 @@ Side effects:
 - Depends on implementation in `app/api/auth/login/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/api/auth/logout/route.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/auth/logout/route.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/api/auth/logout/route.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/api/auth/logout/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1399,10 +1526,33 @@ Side effects:
 - Depends on implementation in `app/api/auth/logout/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/api/auth/me/route.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/auth/me/route.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/api/auth/me/route.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/api/auth/me/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1420,10 +1570,33 @@ Side effects:
 - Depends on implementation in `app/api/auth/me/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/api/auth/otp/request/route.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/auth/otp/request/route.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/api/auth/otp/request/route.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/api/auth/otp/request/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1441,10 +1614,33 @@ Side effects:
 - Depends on implementation in `app/api/auth/otp/request/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/api/auth/otp/verify/route.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/auth/otp/verify/route.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/api/auth/otp/verify/route.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/api/auth/otp/verify/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1462,10 +1658,33 @@ Side effects:
 - Depends on implementation in `app/api/auth/otp/verify/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/api/auth/password/forgot/route.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/auth/password/forgot/route.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/api/auth/password/forgot/route.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/api/auth/password/forgot/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1483,10 +1702,33 @@ Side effects:
 - Depends on implementation in `app/api/auth/password/forgot/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/api/auth/password/reset/route.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/auth/password/reset/route.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/api/auth/password/reset/route.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/api/auth/password/reset/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1504,10 +1746,33 @@ Side effects:
 - Depends on implementation in `app/api/auth/password/reset/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/api/auth/refresh/route.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/auth/refresh/route.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/api/auth/refresh/route.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/api/auth/refresh/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1525,10 +1790,33 @@ Side effects:
 - Depends on implementation in `app/api/auth/refresh/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/api/auth/register/route.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/auth/register/route.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/api/auth/register/route.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/api/auth/register/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1546,10 +1834,33 @@ Side effects:
 - Depends on implementation in `app/api/auth/register/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/api/doctor/active/route.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/doctor/active/route.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/api/doctor/active/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/api/doctor/availability/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1567,10 +1878,33 @@ Side effects:
 - Depends on implementation in `app/api/doctor/availability/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/api/doctor/preferences/route.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/doctor/preferences/route.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/api/doctor/preferences/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/api/doctors/[id]/appointments-public/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1588,10 +1922,11 @@ Side effects:
 - Depends on implementation in `app/api/doctors/[id]/appointments-public/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/doctors/[id]/availability-public/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1609,10 +1944,11 @@ Side effects:
 - Depends on implementation in `app/api/doctors/[id]/availability-public/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/doctors/[id]/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1630,10 +1966,11 @@ Side effects:
 - Depends on implementation in `app/api/doctors/[id]/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/doctors/[id]/verify/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1651,10 +1988,11 @@ Side effects:
 - Depends on implementation in `app/api/doctors/[id]/verify/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/doctors/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1672,10 +2010,11 @@ Side effects:
 - Depends on implementation in `app/api/doctors/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/files/[...path]/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1693,10 +2032,11 @@ Side effects:
 - Depends on implementation in `app/api/files/[...path]/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/health/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1714,10 +2054,11 @@ Side effects:
 - Depends on implementation in `app/api/health/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/patients/[id]/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1735,10 +2076,11 @@ Side effects:
 - Depends on implementation in `app/api/patients/[id]/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/patients/me/preferences/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1756,10 +2098,11 @@ Side effects:
 - Depends on implementation in `app/api/patients/me/preferences/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/patients/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1777,10 +2120,33 @@ Side effects:
 - Depends on implementation in `app/api/patients/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/api/sentry-example-api/route.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/api/sentry-example-api/route.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/api/sentry-example-api/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/api/users/[id]/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1798,10 +2164,11 @@ Side effects:
 - Depends on implementation in `app/api/users/[id]/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/api/users/route.ts
 
 Purpose:
-- Next.js App Router API handler.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1819,10 +2186,11 @@ Side effects:
 - Depends on implementation in `app/api/users/route.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/clinics/[id]/ClinicDetails.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1840,10 +2208,11 @@ Side effects:
 - Depends on implementation in `app/clinics/[id]/ClinicDetails.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/clinics/[id]/ClinicDoctors.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1861,10 +2230,11 @@ Side effects:
 - Depends on implementation in `app/clinics/[id]/ClinicDoctors.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/clinics/[id]/ClinicHero.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1882,10 +2252,11 @@ Side effects:
 - Depends on implementation in `app/clinics/[id]/ClinicHero.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/clinics/[id]/ClinicPageLayout.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1903,10 +2274,11 @@ Side effects:
 - Depends on implementation in `app/clinics/[id]/ClinicPageLayout.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/clinics/[id]/ClinicServices.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1924,10 +2296,11 @@ Side effects:
 - Depends on implementation in `app/clinics/[id]/ClinicServices.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/clinics/[id]/ClinicSidebar.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1945,10 +2318,11 @@ Side effects:
 - Depends on implementation in `app/clinics/[id]/ClinicSidebar.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/clinics/[id]/ClinicSummary.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1966,10 +2340,11 @@ Side effects:
 - Depends on implementation in `app/clinics/[id]/ClinicSummary.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/clinics/[id]/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -1987,10 +2362,11 @@ Side effects:
 - Depends on implementation in `app/clinics/[id]/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/clinics/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2008,10 +2384,11 @@ Side effects:
 - Depends on implementation in `app/clinics/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/context/AuthContext.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2029,10 +2406,11 @@ Side effects:
 - Depends on implementation in `app/context/AuthContext.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctor/appointments/AppointmentQueueSkeleton.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2050,10 +2428,11 @@ Side effects:
 - Depends on implementation in `app/doctor/appointments/AppointmentQueueSkeleton.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctor/appointments/[id]/AppointmentsDetailsSkeleton.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2071,10 +2450,11 @@ Side effects:
 - Depends on implementation in `app/doctor/appointments/[id]/AppointmentsDetailsSkeleton.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctor/appointments/[id]/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2092,10 +2472,11 @@ Side effects:
 - Depends on implementation in `app/doctor/appointments/[id]/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctor/appointments/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2113,10 +2494,11 @@ Side effects:
 - Depends on implementation in `app/doctor/appointments/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctor/availability/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2134,10 +2516,11 @@ Side effects:
 - Depends on implementation in `app/doctor/availability/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctor/dashboard/error.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2155,10 +2538,11 @@ Side effects:
 - Depends on implementation in `app/doctor/dashboard/error.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctor/dashboard/loading.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2176,10 +2560,11 @@ Side effects:
 - Depends on implementation in `app/doctor/dashboard/loading.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctor/dashboard/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2197,10 +2582,11 @@ Side effects:
 - Depends on implementation in `app/doctor/dashboard/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctor/earnings/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2218,10 +2604,11 @@ Side effects:
 - Depends on implementation in `app/doctor/earnings/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctor/layout.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2239,10 +2626,11 @@ Side effects:
 - Depends on implementation in `app/doctor/layout.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctor/onboarding/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2260,10 +2648,11 @@ Side effects:
 - Depends on implementation in `app/doctor/onboarding/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctor/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2281,10 +2670,11 @@ Side effects:
 - Depends on implementation in `app/doctor/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctor/prescriptions/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2302,10 +2692,55 @@ Side effects:
 - Depends on implementation in `app/doctor/prescriptions/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/doctor/settings/clinic/page.tsx
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/doctor/settings/clinic/page.tsx`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/doctor/settings/clinic/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
+FILE: app/doctor/settings/layout.tsx
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/doctor/settings/layout.tsx`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/doctor/settings/layout.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/doctor/settings/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2323,10 +2758,77 @@ Side effects:
 - Depends on implementation in `app/doctor/settings/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/doctor/settings/personal/page.tsx
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/doctor/settings/personal/page.tsx`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/doctor/settings/personal/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
+FILE: app/doctor/settings/professional/page.tsx
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/doctor/settings/professional/page.tsx`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/doctor/settings/professional/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
+FILE: app/doctor/settings/security/page.tsx
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/doctor/settings/security/page.tsx`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/doctor/settings/security/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/doctor/verification/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2344,10 +2846,11 @@ Side effects:
 - Depends on implementation in `app/doctor/verification/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctors/[publicId]/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2365,10 +2868,11 @@ Side effects:
 - Depends on implementation in `app/doctors/[publicId]/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctors/booking/confirmation/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2386,10 +2890,11 @@ Side effects:
 - Depends on implementation in `app/doctors/booking/confirmation/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctors/booking/layout.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2407,10 +2912,11 @@ Side effects:
 - Depends on implementation in `app/doctors/booking/layout.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/doctors/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2428,10 +2934,11 @@ Side effects:
 - Depends on implementation in `app/doctors/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/error.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2449,10 +2956,11 @@ Side effects:
 - Depends on implementation in `app/error.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/favicon.ico
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2470,10 +2978,33 @@ Side effects:
 - Depends on implementation in `app/favicon.ico` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/global-error.tsx
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/global-error.tsx`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/global-error.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/globals.css
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2491,10 +3022,11 @@ Side effects:
 - Depends on implementation in `app/globals.css` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/layout.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2512,10 +3044,11 @@ Side effects:
 - Depends on implementation in `app/layout.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/loading.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2533,10 +3066,11 @@ Side effects:
 - Depends on implementation in `app/loading.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/notfound.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2554,10 +3088,11 @@ Side effects:
 - Depends on implementation in `app/notfound.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2575,10 +3110,11 @@ Side effects:
 - Depends on implementation in `app/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/patient/appointments/book/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2596,10 +3132,11 @@ Side effects:
 - Depends on implementation in `app/patient/appointments/book/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/patient/appointments/loading.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2617,10 +3154,11 @@ Side effects:
 - Depends on implementation in `app/patient/appointments/loading.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/patient/appointments/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2638,10 +3176,11 @@ Side effects:
 - Depends on implementation in `app/patient/appointments/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/patient/danger-zone/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2659,10 +3198,11 @@ Side effects:
 - Depends on implementation in `app/patient/danger-zone/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/patient/emergency-contacts/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2680,10 +3220,11 @@ Side effects:
 - Depends on implementation in `app/patient/emergency-contacts/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/patient/layout.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2701,10 +3242,11 @@ Side effects:
 - Depends on implementation in `app/patient/layout.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/patient/notifications/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2722,10 +3264,11 @@ Side effects:
 - Depends on implementation in `app/patient/notifications/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/patient/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2743,10 +3286,11 @@ Side effects:
 - Depends on implementation in `app/patient/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/patient/profile/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2764,10 +3308,11 @@ Side effects:
 - Depends on implementation in `app/patient/profile/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: app/patient/records/page.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2785,10 +3330,33 @@ Side effects:
 - Depends on implementation in `app/patient/records/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/sentry-example-page/page.tsx
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/sentry-example-page/page.tsx`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/sentry-example-page/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/services/auth.service.ts
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2806,10 +3374,33 @@ Side effects:
 - Depends on implementation in `app/services/auth.service.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: app/temp/page.tsx
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `app/temp/page.tsx`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `app/temp/page.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: app/types/auth.tsx
 
 Purpose:
-- Next.js route, layout, or page component.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2827,10 +3418,11 @@ Side effects:
 - Depends on implementation in `app/types/auth.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components.json
 
 Purpose:
-- Project configuration, lockfile, or workspace metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2848,10 +3440,11 @@ Side effects:
 - Depends on implementation in `components.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/about/about-hero/AboutHero.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2869,10 +3462,11 @@ Side effects:
 - Depends on implementation in `components/about/about-hero/AboutHero.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/about/about-hero/HeroContent.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2890,10 +3484,11 @@ Side effects:
 - Depends on implementation in `components/about/about-hero/HeroContent.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/about/core-values/CoreValues.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2911,10 +3506,11 @@ Side effects:
 - Depends on implementation in `components/about/core-values/CoreValues.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/about/core-values/ValueCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2932,10 +3528,11 @@ Side effects:
 - Depends on implementation in `components/about/core-values/ValueCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/about/final-cta/FinalCTA.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2953,10 +3550,11 @@ Side effects:
 - Depends on implementation in `components/about/final-cta/FinalCTA.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/about/impact-stats/ImpactCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2974,10 +3572,11 @@ Side effects:
 - Depends on implementation in `components/about/impact-stats/ImpactCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/about/impact-stats/StatCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -2995,10 +3594,11 @@ Side effects:
 - Depends on implementation in `components/about/impact-stats/StatCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/about/our-story/ImpactInlineStats.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3016,10 +3616,11 @@ Side effects:
 - Depends on implementation in `components/about/our-story/ImpactInlineStats.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/about/our-story/OurStory.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3037,10 +3638,11 @@ Side effects:
 - Depends on implementation in `components/about/our-story/OurStory.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/about/our-story/StoryContent.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3058,10 +3660,11 @@ Side effects:
 - Depends on implementation in `components/about/our-story/StoryContent.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/about/our-story/StoryImageCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3079,10 +3682,11 @@ Side effects:
 - Depends on implementation in `components/about/our-story/StoryImageCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/about/trust-badges/BadgeItem.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3100,10 +3704,11 @@ Side effects:
 - Depends on implementation in `components/about/trust-badges/BadgeItem.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/about/trust-badges/TrustBadges.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3121,10 +3726,11 @@ Side effects:
 - Depends on implementation in `components/about/trust-badges/TrustBadges.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/AdminSidebar.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3142,10 +3748,11 @@ Side effects:
 - Depends on implementation in `components/admin/AdminSidebar.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/AdminTopBar.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3163,10 +3770,11 @@ Side effects:
 - Depends on implementation in `components/admin/AdminTopBar.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/RecentActivity.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3184,10 +3792,11 @@ Side effects:
 - Depends on implementation in `components/admin/RecentActivity.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/StatsCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3205,10 +3814,11 @@ Side effects:
 - Depends on implementation in `components/admin/StatsCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/StatsGrid.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3226,10 +3836,11 @@ Side effects:
 - Depends on implementation in `components/admin/StatsGrid.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/appointment-requests/AppointmentActionsMenu.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3247,10 +3858,11 @@ Side effects:
 - Depends on implementation in `components/admin/appointment-requests/AppointmentActionsMenu.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/appointment-requests/AppointmentFilters.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3268,10 +3880,11 @@ Side effects:
 - Depends on implementation in `components/admin/appointment-requests/AppointmentFilters.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/appointment-requests/AppointmentPagination.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3289,10 +3902,11 @@ Side effects:
 - Depends on implementation in `components/admin/appointment-requests/AppointmentPagination.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/appointment-requests/AppointmentStatusBadge.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3310,10 +3924,11 @@ Side effects:
 - Depends on implementation in `components/admin/appointment-requests/AppointmentStatusBadge.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/appointment-requests/AppointmentTable.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3331,10 +3946,11 @@ Side effects:
 - Depends on implementation in `components/admin/appointment-requests/AppointmentTable.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/appointment-requests/AppointmentTableRow.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3352,10 +3968,11 @@ Side effects:
 - Depends on implementation in `components/admin/appointment-requests/AppointmentTableRow.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/appointment-requests/PatientInfoCell.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3373,10 +3990,11 @@ Side effects:
 - Depends on implementation in `components/admin/appointment-requests/PatientInfoCell.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/clinic/ClinicPagination.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3394,10 +4012,11 @@ Side effects:
 - Depends on implementation in `components/admin/clinic/ClinicPagination.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/clinic/ClinicStatCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3415,10 +4034,11 @@ Side effects:
 - Depends on implementation in `components/admin/clinic/ClinicStatCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/clinic/ClinicStats.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3436,10 +4056,11 @@ Side effects:
 - Depends on implementation in `components/admin/clinic/ClinicStats.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/clinic/ClinicStatusBadge.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3457,10 +4078,11 @@ Side effects:
 - Depends on implementation in `components/admin/clinic/ClinicStatusBadge.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/clinic/ClinicTable.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3478,10 +4100,11 @@ Side effects:
 - Depends on implementation in `components/admin/clinic/ClinicTable.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/clinic/ClinicTableRow.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3499,10 +4122,11 @@ Side effects:
 - Depends on implementation in `components/admin/clinic/ClinicTableRow.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor-verification/DoctorsInfoCell.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3520,10 +4144,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor-verification/DoctorsInfoCell.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor-verification/VerificationFilters.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3541,10 +4166,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor-verification/VerificationFilters.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor-verification/VerificationPagination.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3562,10 +4188,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor-verification/VerificationPagination.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor-verification/VerificationStatusBadge.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3583,10 +4210,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor-verification/VerificationStatusBadge.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor-verification/VerificationTable.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3604,10 +4232,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor-verification/VerificationTable.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor-verification/VerificationTableRow.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3625,10 +4254,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor-verification/VerificationTableRow.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor-verification/VerificationsActionsMenu.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3646,10 +4276,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor-verification/VerificationsActionsMenu.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor/BulkHelpCards.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3667,10 +4298,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor/BulkHelpCards.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor/DoctorDeleteModal.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3688,10 +4320,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor/DoctorDeleteModal.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor/DoctorFilters.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3709,10 +4342,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor/DoctorFilters.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor/DoctorForm.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3730,10 +4364,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor/DoctorForm.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor/DoctorPagination.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3751,10 +4386,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor/DoctorPagination.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor/DoctorRowAction.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3772,10 +4408,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor/DoctorRowAction.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor/DoctorTable.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3793,10 +4430,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor/DoctorTable.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor/StatsCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3814,10 +4452,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor/StatsCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/doctor/types.ts
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3835,10 +4474,11 @@ Side effects:
 - Depends on implementation in `components/admin/doctor/types.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/patient/PatientFilter.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3856,10 +4496,11 @@ Side effects:
 - Depends on implementation in `components/admin/patient/PatientFilter.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/patient/PatientPagination.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3877,10 +4518,11 @@ Side effects:
 - Depends on implementation in `components/admin/patient/PatientPagination.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/patient/PatientStatsCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3898,10 +4540,11 @@ Side effects:
 - Depends on implementation in `components/admin/patient/PatientStatsCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/admin/patient/PatientTable.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3919,10 +4562,11 @@ Side effects:
 - Depends on implementation in `components/admin/patient/PatientTable.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/auth/EmailLoginStep.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3940,10 +4584,11 @@ Side effects:
 - Depends on implementation in `components/auth/EmailLoginStep.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/auth/EmailSignupStep.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3961,10 +4606,11 @@ Side effects:
 - Depends on implementation in `components/auth/EmailSignupStep.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/auth/EmailVerificationStep.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -3982,10 +4628,11 @@ Side effects:
 - Depends on implementation in `components/auth/EmailVerificationStep.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/auth/ForgetPasswordForm.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4003,10 +4650,11 @@ Side effects:
 - Depends on implementation in `components/auth/ForgetPasswordForm.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/auth/LoginForm.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4024,10 +4672,11 @@ Side effects:
 - Depends on implementation in `components/auth/LoginForm.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/auth/LoginOtpStep.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4045,10 +4694,11 @@ Side effects:
 - Depends on implementation in `components/auth/LoginOtpStep.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/auth/LogoutButton.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4066,10 +4716,11 @@ Side effects:
 - Depends on implementation in `components/auth/LogoutButton.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/auth/OtpStep.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4087,10 +4738,11 @@ Side effects:
 - Depends on implementation in `components/auth/OtpStep.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/auth/PhoneLoginStep.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4108,10 +4760,11 @@ Side effects:
 - Depends on implementation in `components/auth/PhoneLoginStep.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/auth/PhoneSignupStep.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4129,10 +4782,11 @@ Side effects:
 - Depends on implementation in `components/auth/PhoneSignupStep.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/auth/ResetPasswordForm.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4150,10 +4804,11 @@ Side effects:
 - Depends on implementation in `components/auth/ResetPasswordForm.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/auth/SelectRoleForm.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4171,10 +4826,11 @@ Side effects:
 - Depends on implementation in `components/auth/SelectRoleForm.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/auth/SignupForm.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4192,10 +4848,11 @@ Side effects:
 - Depends on implementation in `components/auth/SignupForm.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/DoctorCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4213,10 +4870,11 @@ Side effects:
 - Depends on implementation in `components/doctor/DoctorCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/PrescriptionForm.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4234,10 +4892,11 @@ Side effects:
 - Depends on implementation in `components/doctor/PrescriptionForm.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/appointment/AppointmentQueue.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4255,10 +4914,11 @@ Side effects:
 - Depends on implementation in `components/doctor/appointment/AppointmentQueue.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/appointment/appointmentSlot.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4276,10 +4936,11 @@ Side effects:
 - Depends on implementation in `components/doctor/appointment/appointmentSlot.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/AboutDoctor.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4297,10 +4958,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/AboutDoctor.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/BookingPanel.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4318,10 +4980,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/BookingPanel.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/ClinicInfo.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4339,10 +5002,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/ClinicInfo.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/DoctorProfile.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4360,10 +5024,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/DoctorProfile.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/DoctorStats.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4381,10 +5046,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/DoctorStats.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/Reviews.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4402,10 +5068,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/Reviews.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/confirmation/AppointmentMeta.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4423,10 +5090,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/confirmation/AppointmentMeta.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/confirmation/BookingActions.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4444,10 +5112,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/confirmation/BookingActions.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/confirmation/BookingConfirmationHero.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4465,10 +5134,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/confirmation/BookingConfirmationHero.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/confirmation/BookingSummaryCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4486,10 +5156,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/confirmation/BookingSummaryCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/confirmation/DoctorSummary.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4507,10 +5178,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/confirmation/DoctorSummary.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/confirmation/ExpectationStep.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4528,10 +5200,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/confirmation/ExpectationStep.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/confirmation/SupportFooter.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4549,10 +5222,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/confirmation/SupportFooter.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/booking/confirmation/WhatToExpect.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4570,10 +5244,11 @@ Side effects:
 - Depends on implementation in `components/doctor/booking/confirmation/WhatToExpect.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/dashboard/CurrentlyConsulting.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4591,10 +5266,11 @@ Side effects:
 - Depends on implementation in `components/doctor/dashboard/CurrentlyConsulting.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/dashboard/Header.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4612,10 +5288,11 @@ Side effects:
 - Depends on implementation in `components/doctor/dashboard/Header.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/dashboard/Sidebar.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4633,10 +5310,11 @@ Side effects:
 - Depends on implementation in `components/doctor/dashboard/Sidebar.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/dashboard/StatCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4654,10 +5332,11 @@ Side effects:
 - Depends on implementation in `components/doctor/dashboard/StatCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/dashboard/StatsSection.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4675,10 +5354,11 @@ Side effects:
 - Depends on implementation in `components/doctor/dashboard/StatsSection.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/dashboard/UrgentNotifications.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4696,10 +5376,11 @@ Side effects:
 - Depends on implementation in `components/doctor/dashboard/UrgentNotifications.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/earnings/EarningsSummary.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4717,10 +5398,11 @@ Side effects:
 - Depends on implementation in `components/doctor/earnings/EarningsSummary.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/earnings/EarningsSummarySkeleton.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4738,10 +5420,11 @@ Side effects:
 - Depends on implementation in `components/doctor/earnings/EarningsSummarySkeleton.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/earnings/EarningsTable.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4759,10 +5442,11 @@ Side effects:
 - Depends on implementation in `components/doctor/earnings/EarningsTable.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/earnings/EarningsTableSkeleton.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4780,10 +5464,11 @@ Side effects:
 - Depends on implementation in `components/doctor/earnings/EarningsTableSkeleton.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/prescriptions/PrescriptionsTable.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4801,10 +5486,11 @@ Side effects:
 - Depends on implementation in `components/doctor/prescriptions/PrescriptionsTable.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/settings/ClinicSettings.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4822,10 +5508,33 @@ Side effects:
 - Depends on implementation in `components/doctor/settings/ClinicSettings.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: components/doctor/settings/ClinicSettingsForm.tsx
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/doctor/settings/ClinicSettingsForm.tsx`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `components/doctor/settings/ClinicSettingsForm.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: components/doctor/settings/NotificationSettings.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4843,10 +5552,55 @@ Side effects:
 - Depends on implementation in `components/doctor/settings/NotificationSettings.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: components/doctor/settings/PersonalDetailsForm.tsx
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/doctor/settings/PersonalDetailsForm.tsx`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `components/doctor/settings/PersonalDetailsForm.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
+FILE: components/doctor/settings/ProfessionalDetailsForm.tsx
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/doctor/settings/ProfessionalDetailsForm.tsx`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `components/doctor/settings/ProfessionalDetailsForm.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: components/doctor/settings/ProfileSettings.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4864,10 +5618,11 @@ Side effects:
 - Depends on implementation in `components/doctor/settings/ProfileSettings.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctor/settings/SecuritySettings.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4885,10 +5640,55 @@ Side effects:
 - Depends on implementation in `components/doctor/settings/SecuritySettings.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: components/doctor/settings/SecuritySettingsForm.tsx
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/doctor/settings/SecuritySettingsForm.tsx`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `components/doctor/settings/SecuritySettingsForm.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
+FILE: components/doctor/settings/SettingsTab.tsx
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `components/doctor/settings/SettingsTab.tsx`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `components/doctor/settings/SettingsTab.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: components/doctors/DoctorsCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4906,10 +5706,11 @@ Side effects:
 - Depends on implementation in `components/doctors/DoctorsCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctors/DoctorsFilter.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4927,10 +5728,11 @@ Side effects:
 - Depends on implementation in `components/doctors/DoctorsFilter.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctors/DoctorsList.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4948,10 +5750,11 @@ Side effects:
 - Depends on implementation in `components/doctors/DoctorsList.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctors/DoctorsPagination.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4969,10 +5772,11 @@ Side effects:
 - Depends on implementation in `components/doctors/DoctorsPagination.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/doctors/DoctorsTopBar.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -4990,10 +5794,11 @@ Side effects:
 - Depends on implementation in `components/doctors/DoctorsTopBar.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/help/FAQAccordion.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5011,10 +5816,11 @@ Side effects:
 - Depends on implementation in `components/help/FAQAccordion.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/help/HelpTopicCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5032,10 +5838,11 @@ Side effects:
 - Depends on implementation in `components/help/HelpTopicCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/home/CTASection.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5053,10 +5860,11 @@ Side effects:
 - Depends on implementation in `components/home/CTASection.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/home/HeroSection.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5074,10 +5882,11 @@ Side effects:
 - Depends on implementation in `components/home/HeroSection.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/home/HowItWorksSection.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5095,10 +5904,11 @@ Side effects:
 - Depends on implementation in `components/home/HowItWorksSection.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/home/SpecialtiesSection.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5116,10 +5926,11 @@ Side effects:
 - Depends on implementation in `components/home/SpecialtiesSection.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/home/TopRatedDoctors.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5137,10 +5948,11 @@ Side effects:
 - Depends on implementation in `components/home/TopRatedDoctors.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/home/TrustStatsSection.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5158,10 +5970,11 @@ Side effects:
 - Depends on implementation in `components/home/TrustStatsSection.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/home/WhyHealthDeeSection.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5179,10 +5992,11 @@ Side effects:
 - Depends on implementation in `components/home/WhyHealthDeeSection.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/layout/Footer.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5200,10 +6014,11 @@ Side effects:
 - Depends on implementation in `components/layout/Footer.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/layout/Header.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5221,10 +6036,11 @@ Side effects:
 - Depends on implementation in `components/layout/Header.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/patient/AddEmergencyContactForm.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5242,10 +6058,11 @@ Side effects:
 - Depends on implementation in `components/patient/AddEmergencyContactForm.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/patient/DangerZone.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5263,10 +6080,11 @@ Side effects:
 - Depends on implementation in `components/patient/DangerZone.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/patient/EditProfileModal.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5284,10 +6102,11 @@ Side effects:
 - Depends on implementation in `components/patient/EditProfileModal.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/patient/EmergencyContactItem.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5305,10 +6124,11 @@ Side effects:
 - Depends on implementation in `components/patient/EmergencyContactItem.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/patient/EmergencyContactSection.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5326,10 +6146,11 @@ Side effects:
 - Depends on implementation in `components/patient/EmergencyContactSection.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/patient/NotificationPrivacySection.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5347,10 +6168,11 @@ Side effects:
 - Depends on implementation in `components/patient/NotificationPrivacySection.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/patient/PatientInfoCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5368,10 +6190,11 @@ Side effects:
 - Depends on implementation in `components/patient/PatientInfoCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/patient/PatientSideBar.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5389,10 +6212,11 @@ Side effects:
 - Depends on implementation in `components/patient/PatientSideBar.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/patient/PatientTopNav.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5410,10 +6234,11 @@ Side effects:
 - Depends on implementation in `components/patient/PatientTopNav.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/patient/PersonalInfoFieldCard.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5431,10 +6256,11 @@ Side effects:
 - Depends on implementation in `components/patient/PersonalInfoFieldCard.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/patient/PersonalInformationSection.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5452,10 +6278,11 @@ Side effects:
 - Depends on implementation in `components/patient/PersonalInformationSection.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/patient/ProfileHeader.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5473,10 +6300,11 @@ Side effects:
 - Depends on implementation in `components/patient/ProfileHeader.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/patient/ToggleSettingsItem.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5494,10 +6322,11 @@ Side effects:
 - Depends on implementation in `components/patient/ToggleSettingsItem.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/PasswordInput.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5515,10 +6344,11 @@ Side effects:
 - Depends on implementation in `components/ui/PasswordInput.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/RadioGroup.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5536,10 +6366,11 @@ Side effects:
 - Depends on implementation in `components/ui/RadioGroup.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/alert.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5557,10 +6388,11 @@ Side effects:
 - Depends on implementation in `components/ui/alert.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/avatar.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5578,10 +6410,11 @@ Side effects:
 - Depends on implementation in `components/ui/avatar.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/badge.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5599,10 +6432,11 @@ Side effects:
 - Depends on implementation in `components/ui/badge.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/button.test.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5620,10 +6454,11 @@ Side effects:
 - Depends on implementation in `components/ui/button.test.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/button.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5641,10 +6476,11 @@ Side effects:
 - Depends on implementation in `components/ui/button.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/card.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5662,10 +6498,11 @@ Side effects:
 - Depends on implementation in `components/ui/card.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/dialog.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5683,10 +6520,11 @@ Side effects:
 - Depends on implementation in `components/ui/dialog.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/dropdown-menu.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5704,10 +6542,11 @@ Side effects:
 - Depends on implementation in `components/ui/dropdown-menu.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/input.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5725,10 +6564,11 @@ Side effects:
 - Depends on implementation in `components/ui/input.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/pagination.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5746,10 +6586,11 @@ Side effects:
 - Depends on implementation in `components/ui/pagination.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/select.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5767,10 +6608,11 @@ Side effects:
 - Depends on implementation in `components/ui/select.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/switch.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5788,10 +6630,11 @@ Side effects:
 - Depends on implementation in `components/ui/switch.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/table.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5809,10 +6652,11 @@ Side effects:
 - Depends on implementation in `components/ui/table.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/ui/tooltip.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5830,10 +6674,11 @@ Side effects:
 - Depends on implementation in `components/ui/tooltip.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/upload/AvatarUploader.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5851,10 +6696,11 @@ Side effects:
 - Depends on implementation in `components/upload/AvatarUploader.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: components/upload/ImageUploader.tsx
 
 Purpose:
-- Reusable UI/component module.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5872,6 +6718,7 @@ Side effects:
 - Depends on implementation in `components/upload/ImageUploader.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: currentlyWorking.md
 
 Purpose:
@@ -5893,10 +6740,11 @@ Side effects:
 - Depends on implementation in `currentlyWorking.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: db/index.ts
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5914,10 +6762,11 @@ Side effects:
 - Depends on implementation in `db/index.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: db/schema.ts
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5935,10 +6784,11 @@ Side effects:
 - Depends on implementation in `db/schema.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: db/turso.tsx
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5956,10 +6806,11 @@ Side effects:
 - Depends on implementation in `db/turso.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: docs/ai-codebase-map.md
 
 Purpose:
-- Project documentation and navigation metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5977,10 +6828,11 @@ Side effects:
 - Depends on implementation in `docs/ai-codebase-map.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: docs/api-spec.md
 
 Purpose:
-- Project documentation and navigation metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -5998,10 +6850,11 @@ Side effects:
 - Depends on implementation in `docs/api-spec.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: docs/architecture.md
 
 Purpose:
-- Project documentation and navigation metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6019,10 +6872,11 @@ Side effects:
 - Depends on implementation in `docs/architecture.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: docs/auth-flow.md
 
 Purpose:
-- Project documentation and navigation metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6040,10 +6894,11 @@ Side effects:
 - Depends on implementation in `docs/auth-flow.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: docs/changelog.md
 
 Purpose:
-- Project documentation and navigation metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6061,10 +6916,11 @@ Side effects:
 - Depends on implementation in `docs/changelog.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: docs/completed-tasks.md
 
 Purpose:
-- Project documentation and navigation metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6082,10 +6938,11 @@ Side effects:
 - Depends on implementation in `docs/completed-tasks.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: docs/decisions.md
 
 Purpose:
-- Project documentation and navigation metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6103,10 +6960,11 @@ Side effects:
 - Depends on implementation in `docs/decisions.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: docs/folder-structure.md
 
 Purpose:
-- Project documentation and navigation metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6124,10 +6982,11 @@ Side effects:
 - Depends on implementation in `docs/folder-structure.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: docs/product-requirements-completed.md
 
 Purpose:
-- Project documentation and navigation metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6145,10 +7004,11 @@ Side effects:
 - Depends on implementation in `docs/product-requirements-completed.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: docs/roadmap.md
 
 Purpose:
-- Project documentation and navigation metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6166,10 +7026,11 @@ Side effects:
 - Depends on implementation in `docs/roadmap.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: docs/tasks.md
 
 Purpose:
-- Project documentation and navigation metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6187,10 +7048,11 @@ Side effects:
 - Depends on implementation in `docs/tasks.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle.config.ts
 
 Purpose:
-- Project configuration, lockfile, or workspace metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6208,10 +7070,11 @@ Side effects:
 - Depends on implementation in `drizzle.config.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/0000_purple_tiger_shark.sql
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6229,10 +7092,11 @@ Side effects:
 - Depends on implementation in `drizzle/0000_purple_tiger_shark.sql` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/0001_exotic_dakota_north.sql
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6250,10 +7114,11 @@ Side effects:
 - Depends on implementation in `drizzle/0001_exotic_dakota_north.sql` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/0002_breezy_shape.sql
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6271,10 +7136,11 @@ Side effects:
 - Depends on implementation in `drizzle/0002_breezy_shape.sql` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/0003_easy_omega_flight.sql
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6292,10 +7158,11 @@ Side effects:
 - Depends on implementation in `drizzle/0003_easy_omega_flight.sql` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/0004_melodic_toad_men.sql
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6313,10 +7180,11 @@ Side effects:
 - Depends on implementation in `drizzle/0004_melodic_toad_men.sql` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/0005_military_otto_octavius.sql
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6334,10 +7202,11 @@ Side effects:
 - Depends on implementation in `drizzle/0005_military_otto_octavius.sql` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/0006_many_arachne.sql
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6355,10 +7224,11 @@ Side effects:
 - Depends on implementation in `drizzle/0006_many_arachne.sql` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/0007_ambiguous_shadow_king.sql
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6376,10 +7246,11 @@ Side effects:
 - Depends on implementation in `drizzle/0007_ambiguous_shadow_king.sql` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/0008_amusing_toad.sql
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6397,10 +7268,11 @@ Side effects:
 - Depends on implementation in `drizzle/0008_amusing_toad.sql` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/0009_overconfident_pandemic.sql
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6418,10 +7290,11 @@ Side effects:
 - Depends on implementation in `drizzle/0009_overconfident_pandemic.sql` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/0010_mushy_whirlwind.sql
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6439,10 +7312,11 @@ Side effects:
 - Depends on implementation in `drizzle/0010_mushy_whirlwind.sql` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/0011_spotty_rage.sql
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6460,10 +7334,11 @@ Side effects:
 - Depends on implementation in `drizzle/0011_spotty_rage.sql` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/0012_slippery_lady_vermin.sql
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6481,10 +7356,11 @@ Side effects:
 - Depends on implementation in `drizzle/0012_slippery_lady_vermin.sql` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/0000_snapshot.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6502,10 +7378,11 @@ Side effects:
 - Depends on implementation in `drizzle/meta/0000_snapshot.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/0001_snapshot.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6523,10 +7400,11 @@ Side effects:
 - Depends on implementation in `drizzle/meta/0001_snapshot.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/0002_snapshot.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6544,10 +7422,11 @@ Side effects:
 - Depends on implementation in `drizzle/meta/0002_snapshot.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/0003_snapshot.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6565,10 +7444,11 @@ Side effects:
 - Depends on implementation in `drizzle/meta/0003_snapshot.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/0004_snapshot.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6586,10 +7466,11 @@ Side effects:
 - Depends on implementation in `drizzle/meta/0004_snapshot.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/0005_snapshot.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6607,10 +7488,11 @@ Side effects:
 - Depends on implementation in `drizzle/meta/0005_snapshot.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/0006_snapshot.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6628,10 +7510,11 @@ Side effects:
 - Depends on implementation in `drizzle/meta/0006_snapshot.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/0007_snapshot.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6649,10 +7532,11 @@ Side effects:
 - Depends on implementation in `drizzle/meta/0007_snapshot.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/0008_snapshot.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6670,10 +7554,11 @@ Side effects:
 - Depends on implementation in `drizzle/meta/0008_snapshot.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/0009_snapshot.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6691,10 +7576,11 @@ Side effects:
 - Depends on implementation in `drizzle/meta/0009_snapshot.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/0010_snapshot.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6712,10 +7598,11 @@ Side effects:
 - Depends on implementation in `drizzle/meta/0010_snapshot.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/0011_snapshot.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6733,10 +7620,11 @@ Side effects:
 - Depends on implementation in `drizzle/meta/0011_snapshot.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/0012_snapshot.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6754,10 +7642,11 @@ Side effects:
 - Depends on implementation in `drizzle/meta/0012_snapshot.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: drizzle/meta/_journal.json
 
 Purpose:
-- Database schema or migration artifact.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -6775,6 +7664,51 @@ Side effects:
 - Depends on implementation in `drizzle/meta/_journal.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: e2e/example.spec.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `e2e/example.spec.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `e2e/example.spec.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
+FILE: e2e/login.spec.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `e2e/login.spec.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `e2e/login.spec.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: eslint.config.mjs
 
 Purpose:
@@ -6796,6 +7730,7 @@ Side effects:
 - Depends on implementation in `eslint.config.mjs` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: export-tree-for-ai.ps1
 
 Purpose:
@@ -6817,6 +7752,7 @@ Side effects:
 - Depends on implementation in `export-tree-for-ai.ps1` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: hooks/useAppointment.tsx
 
 Purpose:
@@ -6838,6 +7774,7 @@ Side effects:
 - Depends on implementation in `hooks/useAppointment.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: hooks/useAuth.tsx
 
 Purpose:
@@ -6859,6 +7796,7 @@ Side effects:
 - Depends on implementation in `hooks/useAuth.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: hooks/useDebounce.tsx
 
 Purpose:
@@ -6880,6 +7818,7 @@ Side effects:
 - Depends on implementation in `hooks/useDebounce.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: hooks/useRole.tsx
 
 Purpose:
@@ -6901,6 +7840,51 @@ Side effects:
 - Depends on implementation in `hooks/useRole.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: instrumentation-client.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `instrumentation-client.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `instrumentation-client.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
+FILE: instrumentation.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `instrumentation.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `instrumentation.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: lib/auth.ts
 
 Purpose:
@@ -6922,6 +7906,7 @@ Side effects:
 - Depends on implementation in `lib/auth.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: lib/constant.tsx
 
 Purpose:
@@ -6943,6 +7928,7 @@ Side effects:
 - Depends on implementation in `lib/constant.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: lib/routes.tsx
 
 Purpose:
@@ -6964,6 +7950,7 @@ Side effects:
 - Depends on implementation in `lib/routes.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: lib/utils.test.ts
 
 Purpose:
@@ -6985,6 +7972,7 @@ Side effects:
 - Depends on implementation in `lib/utils.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: lib/utils.ts
 
 Purpose:
@@ -7006,6 +7994,7 @@ Side effects:
 - Depends on implementation in `lib/utils.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: lib/utils/slot.ts
 
 Purpose:
@@ -7027,6 +8016,7 @@ Side effects:
 - Depends on implementation in `lib/utils/slot.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: lib/validators.tsx
 
 Purpose:
@@ -7048,10 +8038,11 @@ Side effects:
 - Depends on implementation in `lib/validators.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: next.config.ts
 
 Purpose:
-- Project configuration, lockfile, or workspace metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7069,10 +8060,11 @@ Side effects:
 - Depends on implementation in `next.config.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: package-lock.json
 
 Purpose:
-- Project configuration, lockfile, or workspace metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7090,10 +8082,11 @@ Side effects:
 - Depends on implementation in `package-lock.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: package.json
 
 Purpose:
-- Project configuration, lockfile, or workspace metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7111,6 +8104,7 @@ Side effects:
 - Depends on implementation in `package.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: planning.md
 
 Purpose:
@@ -7132,6 +8126,29 @@ Side effects:
 - Depends on implementation in `planning.md` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: playwright.config.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `playwright.config.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `playwright.config.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: postcss.config.mjs
 
 Purpose:
@@ -7153,6 +8170,7 @@ Side effects:
 - Depends on implementation in `postcss.config.mjs` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: public/avatar.jpg
 
 Purpose:
@@ -7174,6 +8192,7 @@ Side effects:
 - Depends on implementation in `public/avatar.jpg` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: public/avatar.png
 
 Purpose:
@@ -7195,6 +8214,7 @@ Side effects:
 - Depends on implementation in `public/avatar.png` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: public/clinic-logo.jpg
 
 Purpose:
@@ -7216,6 +8236,7 @@ Side effects:
 - Depends on implementation in `public/clinic-logo.jpg` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: public/clinic.jpg
 
 Purpose:
@@ -7237,6 +8258,7 @@ Side effects:
 - Depends on implementation in `public/clinic.jpg` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: public/doctor-1.jpg
 
 Purpose:
@@ -7258,6 +8280,7 @@ Side effects:
 - Depends on implementation in `public/doctor-1.jpg` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: public/doctor-2.jpg
 
 Purpose:
@@ -7279,6 +8302,7 @@ Side effects:
 - Depends on implementation in `public/doctor-2.jpg` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: public/doctors.jpg
 
 Purpose:
@@ -7300,6 +8324,7 @@ Side effects:
 - Depends on implementation in `public/doctors.jpg` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: public/fonts/Geist-Bold.ttf
 
 Purpose:
@@ -7321,6 +8346,7 @@ Side effects:
 - Depends on implementation in `public/fonts/Geist-Bold.ttf` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: public/fonts/Geist-Regular.ttf
 
 Purpose:
@@ -7342,6 +8368,7 @@ Side effects:
 - Depends on implementation in `public/fonts/Geist-Regular.ttf` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: public/fonts/GeistMono-Regular.ttf
 
 Purpose:
@@ -7363,6 +8390,7 @@ Side effects:
 - Depends on implementation in `public/fonts/GeistMono-Regular.ttf` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: public/hospital.jpg
 
 Purpose:
@@ -7384,6 +8412,7 @@ Side effects:
 - Depends on implementation in `public/hospital.jpg` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: public/water-flask.png
 
 Purpose:
@@ -7405,10 +8434,11 @@ Side effects:
 - Depends on implementation in `public/water-flask.png` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: scripts/get-s3.ts
 
 Purpose:
-- Developer automation script.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7426,10 +8456,11 @@ Side effects:
 - Depends on implementation in `scripts/get-s3.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: scripts/presigned.ts
 
 Purpose:
-- Developer automation script.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7447,10 +8478,11 @@ Side effects:
 - Depends on implementation in `scripts/presigned.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: scripts/seed.ts
 
 Purpose:
-- Developer automation script.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7468,10 +8500,11 @@ Side effects:
 - Depends on implementation in `scripts/seed.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: scripts/seedAvailability.ts
 
 Purpose:
-- Developer automation script.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7489,10 +8522,11 @@ Side effects:
 - Depends on implementation in `scripts/seedAvailability.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: scripts/test-s3.ts
 
 Purpose:
-- Developer automation script.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7510,10 +8544,11 @@ Side effects:
 - Depends on implementation in `scripts/test-s3.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: scripts/test.txt
 
 Purpose:
-- Developer automation script.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7531,10 +8566,11 @@ Side effects:
 - Depends on implementation in `scripts/test.txt` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: scripts/wifi-network-warning.js
 
 Purpose:
-- Developer automation script.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7552,10 +8588,77 @@ Side effects:
 - Depends on implementation in `scripts/wifi-network-warning.js` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: sentry.edge.config.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `sentry.edge.config.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `sentry.edge.config.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
+FILE: sentry.server.config.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `sentry.server.config.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `sentry.server.config.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
+FILE: server/actions/doctorSettings.actions.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/actions/doctorSettings.actions.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/actions/doctorSettings.actions.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/actions/emergencyContacts.actions.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7573,10 +8676,11 @@ Side effects:
 - Depends on implementation in `server/actions/emergencyContacts.actions.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/actions/patient.actions.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7594,10 +8698,11 @@ Side effects:
 - Depends on implementation in `server/actions/patient.actions.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/actions/patientProfile.actions.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7615,10 +8720,11 @@ Side effects:
 - Depends on implementation in `server/actions/patientProfile.actions.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/actions/patientsProfile.actions.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7636,10 +8742,11 @@ Side effects:
 - Depends on implementation in `server/actions/patientsProfile.actions.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/actions/uploadAvatar.actions.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7657,10 +8764,11 @@ Side effects:
 - Depends on implementation in `server/actions/uploadAvatar.actions.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/constants/otp-channel.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7678,10 +8786,11 @@ Side effects:
 - Depends on implementation in `server/constants/otp-channel.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/constants/user-role.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7699,10 +8808,11 @@ Side effects:
 - Depends on implementation in `server/constants/user-role.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/constants/user-status.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7720,10 +8830,11 @@ Side effects:
 - Depends on implementation in `server/constants/user-status.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/db/types.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7741,10 +8852,33 @@ Side effects:
 - Depends on implementation in `server/db/types.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/domain/appointment.domain.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/domain/appointment.domain.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/domain/appointment.domain.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/domain/appointment.domain.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7762,10 +8896,33 @@ Side effects:
 - Depends on implementation in `server/domain/appointment.domain.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/domain/audit.domain.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/domain/audit.domain.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/domain/audit.domain.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/domain/audit.domain.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7783,10 +8940,33 @@ Side effects:
 - Depends on implementation in `server/domain/audit.domain.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/domain/auth.domain.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/domain/auth.domain.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/domain/auth.domain.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/domain/auth.domain.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7804,10 +8984,33 @@ Side effects:
 - Depends on implementation in `server/domain/auth.domain.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/domain/clinic.domain.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/domain/clinic.domain.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/domain/clinic.domain.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/domain/clinic.domain.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7825,10 +9028,33 @@ Side effects:
 - Depends on implementation in `server/domain/clinic.domain.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/domain/consent.domain.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/domain/consent.domain.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/domain/consent.domain.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/domain/consent.domain.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7846,10 +9072,33 @@ Side effects:
 - Depends on implementation in `server/domain/consent.domain.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/domain/consultation.domain.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/domain/consultation.domain.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/domain/consultation.domain.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/domain/consultation.domain.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7867,10 +9116,33 @@ Side effects:
 - Depends on implementation in `server/domain/consultation.domain.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/domain/doctor.domain.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/domain/doctor.domain.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/domain/doctor.domain.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/domain/doctor.domain.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7888,10 +9160,33 @@ Side effects:
 - Depends on implementation in `server/domain/doctor.domain.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/domain/erasure.domain.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/domain/erasure.domain.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/domain/erasure.domain.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/domain/erasure.domain.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7909,10 +9204,11 @@ Side effects:
 - Depends on implementation in `server/domain/erasure.domain.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/domain/index.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7930,10 +9226,33 @@ Side effects:
 - Depends on implementation in `server/domain/index.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/domain/prescription.domain.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/domain/prescription.domain.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/domain/prescription.domain.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/domain/prescription.domain.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7951,10 +9270,33 @@ Side effects:
 - Depends on implementation in `server/domain/prescription.domain.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/domain/user.domain.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/domain/user.domain.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/domain/user.domain.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/domain/user.domain.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7972,10 +9314,11 @@ Side effects:
 - Depends on implementation in `server/domain/user.domain.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/http/response.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -7993,10 +9336,11 @@ Side effects:
 - Depends on implementation in `server/http/response.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/http/route-helpers.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8014,10 +9358,11 @@ Side effects:
 - Depends on implementation in `server/http/route-helpers.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/middleware/rate-limit.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8035,10 +9380,11 @@ Side effects:
 - Depends on implementation in `server/middleware/rate-limit.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/ability.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8056,10 +9402,11 @@ Side effects:
 - Depends on implementation in `server/policies/ability.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/access/canAccess.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8077,10 +9424,11 @@ Side effects:
 - Depends on implementation in `server/policies/access/canAccess.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/access/canAccessAppointment.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8098,10 +9446,11 @@ Side effects:
 - Depends on implementation in `server/policies/access/canAccessAppointment.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/access/canAccessPatient.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8119,10 +9468,11 @@ Side effects:
 - Depends on implementation in `server/policies/access/canAccessPatient.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/access/canAccessPrescription.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8140,10 +9490,11 @@ Side effects:
 - Depends on implementation in `server/policies/access/canAccessPrescription.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/access/canAccessUser.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8161,10 +9512,11 @@ Side effects:
 - Depends on implementation in `server/policies/access/canAccessUser.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/fields/patient.fields.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8182,10 +9534,11 @@ Side effects:
 - Depends on implementation in `server/policies/fields/patient.fields.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/guards/isAdmin.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8203,10 +9556,11 @@ Side effects:
 - Depends on implementation in `server/policies/guards/isAdmin.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/guards/isDoctor.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8224,10 +9578,11 @@ Side effects:
 - Depends on implementation in `server/policies/guards/isDoctor.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/guards/isPatient.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8245,10 +9600,11 @@ Side effects:
 - Depends on implementation in `server/policies/guards/isPatient.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/permissions.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8266,10 +9622,11 @@ Side effects:
 - Depends on implementation in `server/policies/permissions.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/rbac-deps.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8287,10 +9644,11 @@ Side effects:
 - Depends on implementation in `server/policies/rbac-deps.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/repositories.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8308,10 +9666,11 @@ Side effects:
 - Depends on implementation in `server/policies/repositories.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/roles.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8329,10 +9688,11 @@ Side effects:
 - Depends on implementation in `server/policies/roles.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/policies/types.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8350,10 +9710,11 @@ Side effects:
 - Depends on implementation in `server/policies/types.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/rate-limit/memory-store.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8371,10 +9732,11 @@ Side effects:
 - Depends on implementation in `server/rate-limit/memory-store.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/rate-limit/sqlite-store.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8392,10 +9754,11 @@ Side effects:
 - Depends on implementation in `server/rate-limit/sqlite-store.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/rate-limit/store.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8413,10 +9776,11 @@ Side effects:
 - Depends on implementation in `server/rate-limit/store.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/repositories/appointment.repo.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8434,10 +9798,11 @@ Side effects:
 - Depends on implementation in `server/repositories/appointment.repo.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/repositories/audit.repo.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8455,10 +9820,11 @@ Side effects:
 - Depends on implementation in `server/repositories/audit.repo.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/repositories/doctor.repo.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8476,10 +9842,11 @@ Side effects:
 - Depends on implementation in `server/repositories/doctor.repo.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/repositories/doctor_earning.repo.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8497,10 +9864,11 @@ Side effects:
 - Depends on implementation in `server/repositories/doctor_earning.repo.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/repositories/patient.repo.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8518,10 +9886,11 @@ Side effects:
 - Depends on implementation in `server/repositories/patient.repo.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/repositories/prescription.repo.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8539,10 +9908,11 @@ Side effects:
 - Depends on implementation in `server/repositories/prescription.repo.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/repositories/refreshToken.repo.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8560,10 +9930,11 @@ Side effects:
 - Depends on implementation in `server/repositories/refreshToken.repo.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/repositories/user.repo.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8581,10 +9952,33 @@ Side effects:
 - Depends on implementation in `server/repositories/user.repo.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/services/admin.service.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/services/admin.service.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/services/admin.service.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/services/admin.service.tsx
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8602,10 +9996,11 @@ Side effects:
 - Depends on implementation in `server/services/admin.service.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
-FILE: server/services/api.tsx
+
+FILE: server/services/appointment.service.test.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8614,19 +10009,20 @@ Outputs:
 - Exposes behavior, UI, or configuration consumed by adjacent layers.
 
 Dependencies:
-- See direct imports/usages in `server/services/api.tsx`.
+- See direct imports/usages in `server/services/appointment.service.test.ts`.
 
 Invariants:
 - Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
 
 Side effects:
-- Depends on implementation in `server/services/api.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
+- Depends on implementation in `server/services/appointment.service.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/services/appointment.service.tsx
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8644,10 +10040,33 @@ Side effects:
 - Depends on implementation in `server/services/appointment.service.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/services/auth.service.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/services/auth.service.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/services/auth.service.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/services/auth.service.tsx
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8665,10 +10084,33 @@ Side effects:
 - Depends on implementation in `server/services/auth.service.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/services/doctor.service.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/services/doctor.service.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/services/doctor.service.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/services/doctor.service.tsx
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8686,10 +10128,33 @@ Side effects:
 - Depends on implementation in `server/services/doctor.service.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/services/doctor_earning.service.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/services/doctor_earning.service.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/services/doctor_earning.service.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/services/doctor_earning.service.tsx
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8707,10 +10172,33 @@ Side effects:
 - Depends on implementation in `server/services/doctor_earning.service.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/services/patient.service.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/services/patient.service.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/services/patient.service.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/services/patient.service.tsx
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8728,10 +10216,33 @@ Side effects:
 - Depends on implementation in `server/services/patient.service.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/services/prescription.service.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/services/prescription.service.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/services/prescription.service.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/services/prescription.services.tsx
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8749,10 +10260,33 @@ Side effects:
 - Depends on implementation in `server/services/prescription.services.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/services/user.service.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/services/user.service.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/services/user.service.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/services/user.service.tsx
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8770,10 +10304,11 @@ Side effects:
 - Depends on implementation in `server/services/user.service.tsx` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/storage/getFileStream.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8791,10 +10326,11 @@ Side effects:
 - Depends on implementation in `server/storage/getFileStream.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/storage/imageUpload.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8812,10 +10348,11 @@ Side effects:
 - Depends on implementation in `server/storage/imageUpload.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/storage/s3.client.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8833,10 +10370,11 @@ Side effects:
 - Depends on implementation in `server/storage/s3.client.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/types/next-request.d.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8854,10 +10392,11 @@ Side effects:
 - Depends on implementation in `server/types/next-request.d.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/utils/errors.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8875,10 +10414,33 @@ Side effects:
 - Depends on implementation in `server/utils/errors.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/utils/hash.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/utils/hash.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/utils/hash.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/utils/hash.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8896,10 +10458,33 @@ Side effects:
 - Depends on implementation in `server/utils/hash.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/utils/jwt.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/utils/jwt.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/utils/jwt.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/utils/jwt.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8917,10 +10502,11 @@ Side effects:
 - Depends on implementation in `server/utils/jwt.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/utils/logger.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8938,10 +10524,11 @@ Side effects:
 - Depends on implementation in `server/utils/logger.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/utils/logger_test.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8959,10 +10546,33 @@ Side effects:
 - Depends on implementation in `server/utils/logger_test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/utils/pagination.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/utils/pagination.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/utils/pagination.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/utils/pagination.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -8980,10 +10590,11 @@ Side effects:
 - Depends on implementation in `server/utils/pagination.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/utils/pagination_test.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9001,10 +10612,11 @@ Side effects:
 - Depends on implementation in `server/utils/pagination_test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/utils/password.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9022,10 +10634,11 @@ Side effects:
 - Depends on implementation in `server/utils/password.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: server/utils/password_test.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9043,10 +10656,33 @@ Side effects:
 - Depends on implementation in `server/utils/password_test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/validators/appointment.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/validators/appointment.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/validators/appointment.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/validators/appointment.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9064,10 +10700,33 @@ Side effects:
 - Depends on implementation in `server/validators/appointment.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/validators/audit.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/validators/audit.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/validators/audit.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/validators/audit.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9085,10 +10744,33 @@ Side effects:
 - Depends on implementation in `server/validators/audit.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/validators/auth.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/validators/auth.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/validators/auth.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/validators/auth.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9106,10 +10788,33 @@ Side effects:
 - Depends on implementation in `server/validators/auth.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/validators/clinic.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/validators/clinic.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/validators/clinic.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/validators/clinic.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9127,10 +10832,33 @@ Side effects:
 - Depends on implementation in `server/validators/clinic.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/validators/consent.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/validators/consent.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/validators/consent.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/validators/consent.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9148,10 +10876,33 @@ Side effects:
 - Depends on implementation in `server/validators/consent.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/validators/consultation.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/validators/consultation.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/validators/consultation.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/validators/consultation.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9169,10 +10920,33 @@ Side effects:
 - Depends on implementation in `server/validators/consultation.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/validators/doctor.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/validators/doctor.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/validators/doctor.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/validators/doctor.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9190,10 +10964,33 @@ Side effects:
 - Depends on implementation in `server/validators/doctor.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/validators/prescription.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/validators/prescription.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/validators/prescription.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/validators/prescription.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9211,10 +11008,33 @@ Side effects:
 - Depends on implementation in `server/validators/prescription.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: server/validators/user.test.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `server/validators/user.test.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `server/validators/user.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: server/validators/user.ts
 
 Purpose:
-- Backend/domain/service/repository implementation.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9232,10 +11052,11 @@ Side effects:
 - Depends on implementation in `server/validators/user.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: tailwind.config.ts
 
 Purpose:
-- Project configuration, lockfile, or workspace metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9253,6 +11074,7 @@ Side effects:
 - Depends on implementation in `tailwind.config.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: tests/appointment.api.test.ts
 
 Purpose:
@@ -9274,10 +11096,55 @@ Side effects:
 - Depends on implementation in `tests/appointment.api.test.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
+FILE: tests/mocks/auth.service.mock.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `tests/mocks/auth.service.mock.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `tests/mocks/auth.service.mock.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
+FILE: tests/utils/testRequest.ts
+
+Purpose:
+- Project source, asset, or metadata file.
+
+Inputs:
+- Determined by imports/callers for this file within its module boundary.
+
+Outputs:
+- Exposes behavior, UI, or configuration consumed by adjacent layers.
+
+Dependencies:
+- See direct imports/usages in `tests/utils/testRequest.ts`.
+
+Invariants:
+- Must remain consistent with repository architecture, coding conventions, and auth/response wrappers where applicable.
+
+Side effects:
+- Depends on implementation in `tests/utils/testRequest.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
+
+---
+
 FILE: tsconfig.json
 
 Purpose:
-- Project configuration, lockfile, or workspace metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9295,10 +11162,11 @@ Side effects:
 - Depends on implementation in `tsconfig.json` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: vitest.config.ts
 
 Purpose:
-- Project configuration, lockfile, or workspace metadata.
+- Project source, asset, or metadata file.
 
 Inputs:
 - Determined by imports/callers for this file within its module boundary.
@@ -9316,6 +11184,7 @@ Side effects:
 - Depends on implementation in `vitest.config.ts` (pure rendering, IO, DB access, runtime setup, or static metadata).
 
 ---
+
 FILE: vitest.setup.ts
 
 Purpose:
