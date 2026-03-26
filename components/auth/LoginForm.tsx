@@ -44,6 +44,7 @@ export function LoginForm() {
         </button>
         <button
           onClick={() => setStep("EMAIL")}
+          id="emailbutton"
           className={`flex-1 rounded-md py-2 text-sm ${
             step === "EMAIL"
               ? "bg-white font-medium shadow"
