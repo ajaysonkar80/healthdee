@@ -174,7 +174,7 @@ export const authCredentials = sqliteTable(
 );
 
 export const otpSessions = sqliteTable("otp_sessions", {
-  id: uuid(),
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   userId: text("user_id").references(() => users.id, {
     onDelete: "cascade",
   }),

@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { z } from "zod";
-
+import { useState } from "react";
 import { emailSignupSchema } from "@/lib/validators";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/PasswordInput";
@@ -16,9 +16,10 @@ type Step = "EMAIL" | "PHONE" | "OTP" | "EMAIL_VERIFY";
 
 interface EmailSignupStepProps {
   setStep: React.Dispatch<React.SetStateAction<Step>>;
+  onEmailSubmit: (email: string) => void; // Added to fix the 'onEmailSubmit' does not exist error
 }
 
-export function EmailSignupStep({ setStep }: EmailSignupStepProps) {
+export function EmailSignupStep({ setStep, onEmailSubmit }: EmailSignupStepProps) {
   const {
     register,
     handleSubmit,
@@ -27,7 +28,11 @@ export function EmailSignupStep({ setStep }: EmailSignupStepProps) {
     resolver: zodResolver(emailSignupSchema),
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   async function onSubmit(data: EmailSignupFormData) {
+    if (isLoading) return; // Prevent double trigger
+  setIsLoading(true);
     try {
       const response = await fetch("/api/auth/register", {
         method: "POST",
@@ -43,17 +48,19 @@ export function EmailSignupStep({ setStep }: EmailSignupStepProps) {
           confirmPassword: data.confirmPassword,
         }),
       });
+// Inside onSubmit in EmailSignupStep.tsx
+const result = await response.json();
 
-      const result = await response.json();
+if (!response.ok) {
+  // FIX: Access the message from the error object
+  const serverErrorMessage = result?.error?.message || result?.message || "Registration failed";
+  throw new Error(serverErrorMessage);
+}
 
-      if (!response.ok) {
-        // Safe access using optional chaining on the parsed JSON
-        throw new Error(result?.message || "Registration failed");
-      }
-
+      // Capture the email for the verification screen before changing steps
+      onEmailSubmit(data.email); 
       setStep("EMAIL_VERIFY");
     } catch (err: unknown) {
-      // ✅ Refactored: Use 'unknown' and narrow the type
       console.error("Signup error:", err);
       
       const errorMessage = err instanceof Error 
@@ -61,6 +68,8 @@ export function EmailSignupStep({ setStep }: EmailSignupStepProps) {
         : "Registration failed. Please try again.";
 
       alert(errorMessage);
+    } finally{
+      setIsLoading(false);
     }
   }
 

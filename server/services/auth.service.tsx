@@ -8,7 +8,8 @@ import {
   signRefreshToken,
   verifyRefreshToken,
 } from "@/server/utils/jwt";
-
+import { randomBytes } from "crypto"; // Added for secure verification tokens
+import { mailService } from "./mail.service"; // Import our new service
 import {
   ValidationError,
   ForbiddenError,
@@ -56,22 +57,26 @@ async function persistAudit(log: AuditLogInput) {
   assertAuditMetadataSerializable(log.metadata);
   await auditRepo.create(log);
 }
+// server/services/auth.service.tsx
 
 function toAuthDomainState(auth: {
   email?: string | null;
-  emailVerifiedAt?: Date | null;
+  emailVerifiedAt?: Date | number | null; // Allow both types
   whatsappPhone?: string | null;
-  whatsappVerifiedAt?: Date | null;
+  whatsappVerifiedAt?: Date | number | null;
 }) {
+  // Helper to safely get Unix time regardless of if the DB returns a Date or a Number
+  const getUnix = (val: Date | number | null | undefined) => {
+    if (!val) return null;
+    if (val instanceof Date) return val.getTime();
+    return val; // It's already a number
+  };
+
   return {
     email: auth.email ?? null,
-    emailVerifiedAt: auth.emailVerifiedAt
-      ? auth.emailVerifiedAt.getTime()
-      : null,
+    emailVerifiedAt: getUnix(auth.emailVerifiedAt),
     whatsappPhone: auth.whatsappPhone ?? null,
-    whatsappVerifiedAt: auth.whatsappVerifiedAt
-      ? auth.whatsappVerifiedAt.getTime()
-      : null,
+    whatsappVerifiedAt: getUnix(auth.whatsappVerifiedAt),
   };
 }
 
@@ -84,9 +89,13 @@ export const authService = {
      EMAIL AUTH
   ====================================================== */
 
+  /* ======================================================
+     EMAIL AUTH
+  ====================================================== */
+
   async registerWithEmail(input: unknown) {
     const data = emailSignupSchema.parse(input);
-
+    const email = data.email.trim().toLowerCase();
     const existing = await userRepo
       .getAuthByEmail(data.email)
       .catch(() => null);
@@ -95,97 +104,164 @@ export const authService = {
       throw new ValidationError("User already exists");
     }
 
+    // 1. Create the User
     const user = await userRepo.createUser({
       name: data.name,
       role: UserRole.patient,
-      status: UserStatus.active,
+      status: UserStatus.active, 
     });
 
+    // 3. CRITICAL: Create the Auth Credentials (Linked Table)
+    // This is the part that was likely missing or failing.
     await userRepo.createAuthCredentials({
       userId: user.id,
-      email: data.email,
+      email: email,
       passwordHash: await hash(data.password),
     });
 
-    await patientRepo.createAbhaProfile({
+    
+    await userRepo.deleteUnverifiedOtpSessions(email, OtpChannel.email);
+    // 2. Generate secure verification token
+    const verificationToken = crypto.randomUUID();
+
+  await userRepo.createOtpSession({
+    userId: user.id,
+    channel: OtpChannel.email,
+    destination: email,
+    // FIX: Store the hex token directly (don't use the 'hash' function)
+    otpHash: verificationToken, 
+    // FIX: Ensure expiry is saved as Unix seconds
+    expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), 
+  });
+
+    
+    /*
+    await userRepo.createOtpSession({
       userId: user.id,
-      abhaNumber: `TEMP-${user.id}`,
+      channel: OtpChannel.email,
+      destination: data.email,
+      otpHash: await hash(verificationToken),
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 Hours
     });
+    */
+    try{
+      await mailService.sendVerification(data.email, data.name, verificationToken);
+    }catch{
+      console.error("Failed to send verification email")
+      throw new Error("failed to send verification email")
+    }
+    // 4. Send Verification Email via Zepto Mail
+    
 
-    await persistAudit({
-      actorUserId: user.id,
-      action: "USER_CREATED",
-      targetType: "user",
-      targetId: user.id,
-      metadata: { method: "email" },
-    });
-
+    // FIX: Removed accessToken and refreshToken. 
+    // This blocks the user from being logged in immediately.
     return {
-      accessToken: signAccessToken({
-        sub: user.id,
-        role: user.role,
-      }),
-      refreshToken: signRefreshToken({
-        sub: user.id,
-      }),
+      success: true,
+      message: "Verification email sent. Please check your inbox."
     };
   },
 
+  /* --- Inside verifyEmail --- */
+  async verifyEmail(email: string, token: string) {
+    const session = await userRepo.getValidOtpSession(email, OtpChannel.email);
+
+    // DEBUG: Logs to your terminal so you can see why it fails
+    console.log("🔍 Verifying Token...");
+    console.log("Token from URL:", token);
+    console.log("Token from DB: ", session.otpHash);
+
+    // FIX: Use simple string comparison (hex tokens don't need bcrypt)
+    const ok = token === session.otpHash; 
+    
+    if (!ok) {
+      console.error("❌ Token mismatch!");
+      throw new ValidationError("Invalid or expired verification link");
+    }
+
+    await userRepo.markOtpVerified(session.id);
+    await userRepo.updateEmailVerifiedAt(email);
+    
+    const user = await userRepo.getUserById(session.userId!);
+    try {
+    await mailService.sendWelcome(email, user.name);
+  } catch (mailError) {
+    console.warn("Welcome email failed, but user is verified:", mailError);
+  }
+
+    return { success: true };
+  },
+
+  /* ======================================================
+     EMAIL LOGIN (ENFORCED VERIFICATION)
+  ====================================================== */
+
   async loginWithEmail(input: unknown) {
-  const data = emailLoginSchema.parse(input);
+    const data = emailLoginSchema.parse(input);
 
-  const auth = await userRepo.getAuthByEmail(data.email);
-  const user = await userRepo.getUserById(auth.userId);
+    const auth = await userRepo.getAuthByEmail(data.email);
+    const user = await userRepo.getUserById(auth.userId);
 
-  // ✅ FIX: Check user status BEFORE domain rules
-  if (user.status !== UserStatus.active) {
-    throw new ForbiddenError("User is not active");
-  }
+    // 1. Check if user account is active
+    if (user.status !== UserStatus.active) {
+      throw new ForbiddenError("User is not active");
+    }
 
-  const authState = toAuthDomainState(auth);
+    const authState = toAuthDomainState(auth);
 
-  assertHasAtLeastOneCredential(authState);
-  assertLoginAllowed(authState, "email");
+    // 2. Enforce Domain Rules (Verification Check)
+    try {
+      assertHasAtLeastOneCredential(authState);
+      assertLoginAllowed(authState, "email");
+    } catch (err) {
+      // If the domain throws a "not verified" error, we wrap it in a ForbiddenError
+      // so the API returns a 403 status instead of a 500.
+      if (err instanceof Error && err.name === "AuthDomainError") {
+        throw new ForbiddenError(err.message);
+      }
+      throw err;
+    }
 
-  if (!auth.passwordHash) {
-    throw new ValidationError(
-      "Password login not available for this account"
-    );
-  }
+    if (!auth.passwordHash) {
+      throw new ValidationError(
+        "Password login not available for this account"
+      );
+    }
 
-  const ok = await verify(data.password, auth.passwordHash);
+    // 3. Verify Password
+    const ok = await verify(data.password, auth.passwordHash);
 
-  if (!ok) {
-    throw new ValidationError("Invalid credentials");
-  }
+    if (!ok) {
+      throw new ValidationError("Invalid credentials");
+    }
 
-  await userRepo.updateLastLogin(user.id);
+    await userRepo.updateLastLogin(user.id);
 
-  const accessToken = signAccessToken({
-    sub: user.id,
-    role: user.role,
-  });
-
-  const refreshToken = signRefreshToken({
-    sub: user.id,
-  });
-
-  await refreshTokenRepo.create({
-    userId: user.id,
-    tokenHash: await hash(refreshToken),
-    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-  });
-
-  return {
-    user: {
-      id: user.id,
+    // 4. Generate Tokens
+    const accessToken = signAccessToken({
+      sub: user.id,
       role: user.role,
-      name: user.name,
-    },
-    accessToken,
-    refreshToken,
-  };
-},
+    });
+
+    const refreshToken = signRefreshToken({
+      sub: user.id,
+    });
+
+    await refreshTokenRepo.create({
+      userId: user.id,
+      tokenHash: await hash(refreshToken),
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    });
+
+    return {
+      user: {
+        id: user.id,
+        role: user.role,
+        name: user.name,
+      },
+      accessToken,
+      refreshToken,
+    };
+  },
 
   /* ======================================================
      PHONE SIGNUP (STRICT)

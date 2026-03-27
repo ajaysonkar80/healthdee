@@ -12,6 +12,7 @@ type Step = "EMAIL" | "PHONE" | "OTP" | "EMAIL_VERIFY";
 
 export function SignupForm() {
   const [step, setStep] = useState<Step>("EMAIL");
+  const [userEmail, setUserEmail] = useState(""); // Track email for the next screen
 
   // Store full signup data for phone flow
   const [phoneSignupData, setPhoneSignupData] = useState<{
@@ -26,12 +27,8 @@ export function SignupForm() {
   return (
     <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg">
       <div className="mb-6 text-center">
-        <h1 className="text-xl font-semibold text-gray-900">
-          Sign up to continue
-        </h1>
-        <p className="mt-1 text-sm text-gray-500">
-          Create an account to get started
-        </p>
+        <h1 className="text-xl font-semibold text-gray-900">Sign up to continue</h1>
+        <p className="mt-1 text-sm text-gray-500">Create an account to get started</p>
       </div>
 
       {(step === "EMAIL" || step === "PHONE") && (
@@ -41,23 +38,21 @@ export function SignupForm() {
             variant={step === "EMAIL" ? "default" : "outline"}
             className="flex-1"
             onClick={() => setStep("EMAIL")}
-          >
-            Email
-          </Button>
-
+          >Email</Button>
           <Button
             type="button"
             variant={step === "PHONE" ? "default" : "outline"}
             className="flex-1"
             onClick={() => setStep("PHONE")}
-          >
-            Phone
-          </Button>
+          >Phone</Button>
         </div>
       )}
 
       {step === "EMAIL" && (
-        <EmailSignupStep setStep={setStep} />
+        <EmailSignupStep 
+          setStep={setStep} 
+          onEmailSubmit={(email) => setUserEmail(email)} 
+        />
       )}
 
       {step === "PHONE" && (
@@ -77,24 +72,16 @@ export function SignupForm() {
         />
       )}
 
-      {step === "EMAIL_VERIFY" && <EmailVerificationStep />}
+      {step === "EMAIL_VERIFY" && <EmailVerificationStep email={userEmail} />}
 
       <div className="mt-8 text-center text-sm text-muted-foreground">
         Already registered?{" "}
-        <Link
-          href="/login"
-          className="font-medium text-primary hover:underline"
-        >
+        <Link href="/login" className="font-medium text-primary hover:underline">
           Login here
         </Link>
-
         <div className="mt-3 flex justify-center gap-4 text-xs">
-          <Link href="/privacy" className="hover:underline">
-            Privacy Policy
-          </Link>
-          <Link href="/terms" className="hover:underline">
-            Terms of Service
-          </Link>
+          <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
+          <Link href="/terms-and-conditions" className="hover:underline">Terms of Service</Link>
         </div>
       </div>
     </div>

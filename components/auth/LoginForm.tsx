@@ -1,9 +1,10 @@
 "use client";
-
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useAuth } from "@/app/context/AuthContext";
-
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { CheckCircle2, AlertCircle } from "lucide-react";
 import { EmailLoginStep } from "./EmailLoginStep";
 import { PhoneLoginStep } from "./PhoneLoginStep";
 import { LoginOtpStep } from "./LoginOtpStep";
@@ -13,8 +14,24 @@ type Step = "PHONE" | "EMAIL" | "OTP";
 export function LoginForm() {
   const [step, setStep] = useState<Step>("PHONE");
   const [phone, setPhone] = useState("");
-
+  const searchParams = useSearchParams();
+  const [status, setStatus] = useState<"success" | "error" | null>(null);
+  const [message, setMessage] = useState("");
   const { loading } = useAuth();
+
+  // 1. Read the URL parameters from the verification redirect
+  useEffect(() => {
+    const verified = searchParams.get("verified");
+    const errorParam = searchParams.get("error");
+
+    if (verified === "true") {
+      setStatus("success");
+      setMessage("Your email has been verified successfully! You can now log in.");
+    } else if (errorParam === "verification_failed") {
+      setStatus("error");
+      setMessage("The verification link is invalid or has expired. Please try registering again.");
+    }
+  }, [searchParams]);
 
   async function handleOtpVerified() {
     // After OTP verification backend should return role
@@ -23,6 +40,25 @@ export function LoginForm() {
 
   return (
     <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-lg">
+      {/* 2. Display Status Alerts */}
+      {status === "success" && (
+        <Alert className="border-green-200 bg-green-50 text-green-800">
+          <CheckCircle2 className="h-4 w-4 text-green-600" />
+          <AlertTitle>Success</AlertTitle>
+          <AlertDescription>{message}</AlertDescription>
+        </Alert>
+      )}
+
+      {status === "error" && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Verification Failed</AlertTitle>
+          <AlertDescription>{message}</AlertDescription>
+        </Alert>
+      )}
+
+
+      
       <h2 className="text-xl font-semibold text-center">
         Welcome Back
       </h2>
@@ -104,5 +140,6 @@ export function LoginForm() {
         </div>
       </div>
     </div>
+    
   );
 }

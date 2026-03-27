@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { DoctorVerificationSchema } from "@/db/schema";
+
 /* ======================================================
    PASSWORD RULE (Reusable)
 ====================================================== */
@@ -11,6 +12,38 @@ const strongPassword = z
   .regex(/[A-Z]/, "Password must include an uppercase letter")
   .regex(/[0-9]/, "Password must include a number")
   .regex(/[^a-zA-Z0-9]/, "Password must include a special character");
+
+/* ======================================================
+   NEW: REGISTER GATEKEEPER SCHEMA 
+   (Prevents 'name' from being stripped in API routes)
+====================================================== */
+
+/* ======================================================
+   REGISTER GATEKEEPER SCHEMA 
+   (Must include name to prevent stripping)
+====================================================== */
+
+/* ======================================================
+   REGISTER GATEKEEPER SCHEMA 
+   (Must include name to prevent stripping)
+====================================================== */
+
+export const registerSchema = z.discriminatedUnion("type", [
+  z.object({
+    type: z.literal("email"),
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(8),
+    confirmPassword: z.string(),
+  }),
+  z.object({
+    type: z.literal("phone"),
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    phone: z.string().length(10),
+  }),
+]);
+
+export type RegisterInput = z.infer<typeof registerSchema>;
 
 /* ======================================================
    EMAIL SIGNUP VALIDATION
@@ -47,9 +80,23 @@ export const phoneSignupSchema = z.object({
 export const otpSchema = z.object({
   otp: z.string().regex(/^\d{4}$/, "OTP must be exactly 4 digits"),
 });
+
 /* ======================================================
    LOGIN VALIDATION
 ====================================================== */
+
+export const loginSchema = z.discriminatedUnion("type", [
+  z.object({
+    type: z.literal("email"),
+    email: z.string().email(),
+    password: z.string().min(1),
+  }),
+  z.object({
+    type: z.literal("phone"),
+    phone: z.string().length(10),
+    otp: z.string().min(4),
+  }),
+]);
 
 export const emailLoginSchema = z.object({
   email: z.string().email("Enter a valid email"),
@@ -64,7 +111,6 @@ export const phoneLoginSchema = z.object({
 });
 
 export type PhoneLoginInput = z.infer<typeof phoneLoginSchema>;
-
 
 /* =========================
    RESET PASSWORD
@@ -120,41 +166,35 @@ export const doctorProfileSchema = z.object({
     .int("Consultation fee must be an integer")
     .nonnegative("Consultation fee must be positive"),
 
-  // ✅ Zod v3 compatible
   availability: z.record(z.array(z.string())).optional(),
 
   verificationStatus: z
     .enum(["pending", "approved", "rejected"])
     .optional(),
 });
+
 export const doctorCreateSchema = z.object({
   profile: z.object({
     specialty: z.string().min(1),
-
     yearsOfExperience: z.number().int().nonnegative().optional(),
-
     profileImageUrl: z.string().url().nullable().optional(),
-
     rmpRegistrationNumber: z.string().min(1),
-
     rmpStateMedicalCouncil: z.string().min(1),
-
     verificationStatus: DoctorVerificationSchema.optional(),
   }),
 });
+
 export const doctorUpdateSchema = z.object({
   profile: z
     .object({
       specialty: z.string().min(1).optional(),
-
       yearsOfExperience: z.number().int().nonnegative().optional(),
-
       verificationStatus: DoctorVerificationSchema.optional(),
-
       profileImageUrl: z.string().url().nullable().optional(),
     })
     .optional(),
 });
+
 /* =========================
    DOCTOR FORM
 ========================= */

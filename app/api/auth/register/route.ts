@@ -1,11 +1,13 @@
 import { withErrorHandling } from "@/server/http/route-helpers";
 import { success, error } from "@/server/http/response";
 import { authService } from "@/server/services/auth.service";
-import { registerSchema } from "@/server/validators/auth";
+import { registerSchema } from "@/lib/validators";
 import type { NextRequest } from "next/server";
 
 export const POST = withErrorHandling(async (req: NextRequest) => {
   const body = await req.json();
+
+  // FIX: Use .safeParse() (lowercase 's') to return a result object
   const parsed = registerSchema.safeParse(body);
 
   if (!parsed.success) {
@@ -19,18 +21,12 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
   const data = parsed.data;
 
   switch (data.type) {
-    /* ===============================================
-       EMAIL SIGNUP (unchanged)
-    =============================================== */
     case "email":
+      // 'data' now includes 'name' and 'confirmPassword'
       return success(
         await authService.registerWithEmail(data)
       );
 
-    /* ===============================================
-       PHONE SIGNUP - STEP 1 (Send OTP only)
-       Does NOT create user yet
-    =============================================== */
     case "phone":
       return success(
         await authService.startPhoneSignup(data)

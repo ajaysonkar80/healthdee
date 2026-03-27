@@ -184,6 +184,10 @@ export const userRepo = {
     return credentials;
   },
 
+  /**
+   * Updates the email verification timestamp for a specific user.
+   */
+  
   async updatePasswordHashByUserId(
   userId: string,
   passwordHash: string
@@ -208,7 +212,43 @@ export const userRepo = {
   return result[0];
 },
 
+async updateEmailVerifiedAt(email: string) {
+    // FIX: Use a real Date object. Drizzle will convert this 
+    // to the Integer format your Turso DB expects automatically.
+    const now = new Date();
+    const normalizedEmail = email.trim().toLowerCase();
+    const result = await db
+      .update(schema.authCredentials)
+      .set({
+        emailVerifiedAt: new Date(), 
+      })
+      .where(eq(schema.authCredentials.email, normalizedEmail))
+      .returning();
 
+    if (result.length === 0) {
+      console.error(`❌ Repo Error: No auth record found for email: ${normalizedEmail}`);
+      throw new RepositoryError(
+        "NOT_FOUND",
+        `Auth credentials not found for user: ${normalizedEmail}`
+      );
+    }
+
+    return result[0];
+  },
+
+
+  async deleteUnverifiedOtpSessions(destination: string, channel: schema.OtpChannel) {
+    await db
+      .delete(schema.otpSessions)
+      .where(
+        and(
+          eq(schema.otpSessions.destination, destination),
+          eq(schema.otpSessions.channel, channel),
+          sql`${schema.otpSessions.verifiedAt} IS NULL`
+        )
+      );
+  },
+  
   async getAuthByEmail(email: string) {
     const record = await db.query.authCredentials.findFirst({
       where: eq(schema.authCredentials.email, email),
@@ -276,7 +316,7 @@ export const userRepo = {
     const [otp] = await db
       .insert(schema.otpSessions)
       .values({
-        userId: input.userId,
+        userId: input.userId ?? null,
         channel: input.channel,
         destination: input.destination,
         otpHash: input.otpHash,
@@ -289,13 +329,17 @@ export const userRepo = {
   },
 
   async getValidOtpSession(destination: string, channel: schema.OtpChannel) {
+    const nowSeconds = Math.floor(Date.now() / 1000);
+
     const otp = await db.query.otpSessions.findFirst({
       where: and(
         eq(schema.otpSessions.destination, destination),
         eq(schema.otpSessions.channel, channel),
-        sql`${schema.otpSessions.expiresAt} > CURRENT_TIMESTAMP`,
+        sql`${schema.otpSessions.expiresAt} > ${nowSeconds}`,
         sql`${schema.otpSessions.verifiedAt} IS NULL`
       ),
+      // FIX: Ensure we get the LATEST session created
+      orderBy: (sessions, { desc }) => [desc(sessions.createdAt)], 
     });
 
     if (!otp) {
