@@ -226,7 +226,6 @@ export const patientService = {
   --------------------------------------------------- */
   async getUserPreferences(userId: string) {
     let prefs = await patientRepo.getUserPreferences(userId);
-    if (!prefs) prefs = await patientRepo.createUserPreferences(userId);
     return prefs;
   },
 

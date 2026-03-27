@@ -14,11 +14,11 @@ export function SelectRoleForm() {
     if (!role) return;
 
     if (role === "patient") {
-      router.push("/patient/dashboard");
+      router.push("/patient/");
     }
 
     if (role === "doctor") {
-      router.push("/doctor/dashboard");
+      router.push("/doctor/");
     }
   }
 

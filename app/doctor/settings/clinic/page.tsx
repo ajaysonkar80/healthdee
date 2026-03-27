@@ -13,15 +13,21 @@ export default async function ClinicSettingsPage() {
   let actorUserId: string;
   try {
     const payload = verifyAccessToken(token);
+    // Strict role check
     if (payload.role !== "doctor") redirect("/login");
     actorUserId = payload.sub as string;
   } catch {
     redirect("/login");
   }
 
+  // Fetch profile and handle potential null result
   const profile = await doctorService
     .getDoctorSettingsProfile(actorUserId)
-    .catch(() => null);
+    .catch((err) => {
+      console.error("Failed to fetch doctor settings profile:", err);
+      return null;
+    });
 
+  // Pass profile to client component (it handles the null case internally)
   return <ClinicSettingsForm profile={profile} />;
 }

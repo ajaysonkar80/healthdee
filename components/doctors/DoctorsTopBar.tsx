@@ -6,7 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-export default function DoctorsTopBar() {
+interface DoctorsTopBarProps {
+  total: number;
+}
+
+export default function DoctorsTopBar({ total }: DoctorsTopBarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -53,5 +57,6 @@ export default function DoctorsTopBar() {
         </Button>
       </CardContent>
     </Card>
+    
   );
 }

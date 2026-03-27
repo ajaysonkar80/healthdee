@@ -23,7 +23,7 @@ export const GET = withErrorHandling(async (req: NextRequest) => {
   try {
     await authService.verifyEmail(email, token);
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-    return Response.redirect(`${baseUrl}/login?verified=true`);
+    return Response.redirect(`${baseUrl}/select-role?verified=true`);
   } catch (err) {
     // ADD THIS LOG TO SEE THE ACTUAL ERROR IN TERMINAL
     console.error("❌ VERIFICATION ROUTE FAILURE:", err);

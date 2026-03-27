@@ -1,4 +1,5 @@
 import { userRepo } from "@/server/repositories/user.repo";
+import { patientService } from "./patient.service";
 import { patientRepo } from "@/server/repositories/patient.repo";
 import { auditRepo } from "@/server/repositories/audit.repo";
 import { refreshTokenRepo } from "../repositories/refreshToken.repo";
@@ -14,7 +15,7 @@ import {
   ValidationError,
   ForbiddenError,
 } from "@/server/utils/errors";
-
+import { doctorRepo } from "../repositories/doctor.repo";
 import {
   phoneSignupSchema,
   emailLoginSchema,
@@ -351,6 +352,32 @@ export const authService = {
       }),
     };
   },
+
+  // server/services/auth.service.tsx
+
+async completeOnboarding(userId: string, role: "patient" | "doctor") {
+  // 1. Update the User's Role in the DB
+  await userRepo.updateUser(userId, { role });
+
+  // 2. Create the specific Profile
+  if (role === "patient") {
+    await patientService.initializePatientProfile(userId);
+    
+    
+  } else {
+    const publicId = `doc_${crypto.randomUUID().split('-')[0].slice(0, 5)}`;
+    await doctorRepo.createDoctor({ 
+      userId, 
+      publicId, 
+    });
+  }
+
+  // 3. Create Default Notification Preferences
+  
+
+  // 4. Return the path they should go to
+  return role === "patient" ? "/patient/dashboard" : "/doctor-onboarding";
+},
 
   /* ======================================================
      PHONE LOGIN (STRICT)

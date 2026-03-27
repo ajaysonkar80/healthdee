@@ -62,7 +62,7 @@ export default async function DoctorDetailPage({
           <DoctorProfile
             fullName={doctor.fullName ?? ""}
             degrees={doctor.degrees ?? ""}
-            specialty={doctor.specialty}
+            specialty={doctor.specialty ?? ""}
             languages={doctor.languages ?? ""}
             experienceYears={
               doctor.experienceYears ?? 0

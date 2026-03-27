@@ -4,16 +4,20 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Building2, Loader2 } from "lucide-react";
+// Import the status type from your schema if available, 
+// otherwise use the literal union
+import type { DoctorVerificationStatus } from "@/db/schema";
 
 interface Profile {
   isActive?: boolean | null;
-  specialty: string;
+  // FIX: Make specialty nullable to match DB/Service response
+  specialty?: string | null; 
   consultationFee?: number | null;
   fullName?: string | null;
-  verificationStatus: string;
+  // FIX: Use specific union type for status
+  verificationStatus?: DoctorVerificationStatus | string | null;
 }
 
 interface Props {
@@ -22,10 +26,12 @@ interface Props {
 
 export default function ClinicSettingsForm({ profile }: Props) {
   const router = useRouter();
-  const [isActive, setIsActive]   = useState(profile?.isActive ?? true);
+  
+  // Initialize state with fallback for null profile
+  const [isActive, setIsActive] = useState(profile?.isActive ?? true);
   const [isPending, startTransition] = useTransition();
-  const [success, setSuccess]     = useState(false);
-  const [error, setError]         = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleToggle(value: boolean) {
     setIsActive(value);
@@ -47,10 +53,8 @@ export default function ClinicSettingsForm({ profile }: Props) {
         }
 
         setSuccess(true);
-        // Refresh so the sidebar re-fetches the updated isActive
         router.refresh();
       } catch (err) {
-        // Roll back optimistic toggle on error
         setIsActive(!value);
         setError(err instanceof Error ? err.message : "Something went wrong");
       }
@@ -73,13 +77,11 @@ export default function ClinicSettingsForm({ profile }: Props) {
       </CardHeader>
 
       <CardContent className="space-y-6">
-        {/* Clinic Active Toggle */}
         <div className="flex items-center justify-between rounded-lg border p-4">
           <div>
             <p className="text-sm font-medium">Accepting Appointments</p>
             <p className="text-xs text-muted-foreground mt-0.5">
-              When inactive, you won&apos;t appear in search results and new bookings
-              will be blocked.
+              When inactive, you won&apos;t appear in search results and new bookings will be blocked.
             </p>
           </div>
 
@@ -91,14 +93,13 @@ export default function ClinicSettingsForm({ profile }: Props) {
               {statusLabel}
             </span>
             <Switch
-              checked={isActive}
+              checked={!!isActive} // Ensure boolean type
               onCheckedChange={handleToggle}
               disabled={isPending}
             />
           </div>
         </div>
 
-        {/* Verification Status — read only info card */}
         <div className="rounded-lg border p-4 space-y-3">
           <p className="text-sm font-medium">Profile Summary</p>
 
@@ -106,7 +107,7 @@ export default function ClinicSettingsForm({ profile }: Props) {
             <div className="flex justify-between">
               <span>Specialty</span>
               <span className="text-foreground font-medium">
-                {profile?.specialty ?? "—"}
+                {profile?.specialty ?? "Not specified"}
               </span>
             </div>
 
@@ -133,35 +134,15 @@ export default function ClinicSettingsForm({ profile }: Props) {
                 {profile?.verificationStatus ?? "pending"}
               </span>
             </div>
-
-            <div className="flex justify-between">
-              <span>Status</span>
-              <span className={`font-medium ${statusColor}`}>
-                {statusLabel}
-              </span>
-            </div>
           </div>
         </div>
 
-        {/* Feedback */}
-        {success && (
-          <p className="text-sm text-green-600">
-            Status updated. Sidebar will reflect the change.
-          </p>
-        )}
-        {error && (
-          <p className="text-sm text-red-600">{error}</p>
-        )}
+        {success && <p className="text-sm text-green-600 font-medium">Status updated successfully.</p>}
+        {error && <p className="text-sm text-red-600 font-medium">{error}</p>}
 
         <p className="text-xs text-muted-foreground">
           To update specialty or consultation fee, go to the{" "}
-          <a
-            href="/doctor/settings/professional"
-            className="underline underline-offset-2"
-          >
-            Professional
-          </a>{" "}
-          tab.
+          <a href="/doctor/settings/professional" className="underline underline-offset-2">Professional</a> tab.
         </p>
       </CardContent>
     </Card>

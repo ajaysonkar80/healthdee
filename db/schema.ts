@@ -58,6 +58,22 @@ export type DoctorVerificationStatus = z.infer<
   typeof DoctorVerificationSchema
 >;
 
+export const DoctorGenderSchema= z.enum([
+  "male",
+  "female"
+]);
+export type DoctorGenderStatus = z.infer<
+  typeof DoctorGenderSchema
+>;
+
+export const DoctorAvailabilitySchema= z.enum([
+  "today",
+  "tommorow",
+  "unavailable"
+]);
+export type DoctorAvailabilityStatus = z.infer<
+  typeof DoctorAvailabilitySchema
+>;
 export const AppointmentStatusSchema = z.enum([
   "PENDING",
   "CONFIRMED",
@@ -324,7 +340,7 @@ export const doctors = sqliteTable(
        CORE FIELDS
     ----------------------------- */
 
-    specialty: text("specialty").notNull(),
+    specialty: text("specialty"),
 
     experienceYears: integer("experience_years").default(0),
 
@@ -332,9 +348,9 @@ export const doctors = sqliteTable(
 
     profileImageUrl: text("profile_image_url"),
 
-    rmpRegistrationNumber: text("rmp_registration_number").notNull(),
+    rmpRegistrationNumber: text("rmp_registration_number"),
 
-    rmpStateMedicalCouncil: text("rmp_state_medical_council").notNull(),
+    rmpStateMedicalCouncil: text("rmp_state_medical_council"),
 
     bio: text("bio"),
 
@@ -346,10 +362,12 @@ export const doctors = sqliteTable(
 
     verificationStatus: text("verification_status")
       .$type<DoctorVerificationStatus>()
-      .notNull(),
-
+      .notNull().default("pending"),
+    doctorGender:text("doctor_gender").$type<DoctorGenderStatus>().default("male"),
+    doctorAvailability:text("doctor_availability").$type<DoctorAvailabilityStatus>(),
     verifiedAt: integer("verified_at", { mode: "timestamp" }),
-
+    city:text("city"),
+    state:text("state"),
     createdAt: integer("created_at", { mode: "timestamp" })
       .notNull()
       .default(sql`(unixepoch())`),

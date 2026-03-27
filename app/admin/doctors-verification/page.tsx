@@ -43,11 +43,11 @@ export default async function DoctorVerificationPage({
   // Map repo shape → VerificationRowData
   const rows: VerificationRowData[] = listResult.data.map((d) => ({
     id: d.id,
-    doctorName: d.fullName,
+    doctorName: d.fullName  ?? null,
     email: d.email ?? null,
-    avatarUrl: d.profileImageUrl,
-    specialty: d.specialty,
-    rmpRegistrationNumber: d.rmpRegistrationNumber,
+    avatarUrl: d.profileImageUrl ?? null,
+    specialty: d.specialty ?? null,
+    rmpRegistrationNumber: d.rmpRegistrationNumber  ?? null,
     submittedAt: d.createdAt,
     verificationStatus: d.verificationStatus,
   }));

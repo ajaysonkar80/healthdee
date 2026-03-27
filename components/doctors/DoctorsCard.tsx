@@ -3,15 +3,22 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-export type DoctorListItem = {
+export interface DoctorListItem {
   id: string;
   publicId: string;
-  specialty: string;
-  experienceYears: number | null;
-  rating: number;
-  profileImageUrl: string | null;
-  consultationFee: number | null;
-};
+  fullName: string | null;
+  specialty: string | null;
+  // Ensure these match the exact strings from your service/DB
+  availablility: "today" | "tommorow" | "unavailable" | null; 
+  gender: "male" | "female" | null;
+  city: string | null;
+  tagline: string | null;
+  // ADD THESE MISSING FIELDS:
+  profileImageUrl?: string | null;
+  experienceYears?: number | null;
+  consultationFee?: number | null;
+  rating?: number | null;
+}
 
 type Props = {
   doctor: DoctorListItem;

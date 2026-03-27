@@ -57,7 +57,7 @@ describe("authService", () => {
 
       const result = await authService.registerWithEmail(
         signupInput
-      );
+      ) as any;
 
       expect(userRepo.createUser).toHaveBeenCalledWith(
         expect.objectContaining({ name: signupInput.name })

@@ -19,9 +19,13 @@ export default async function ProfessionalSettingsPage() {
     redirect("/login");
   }
 
+  // Fetch profile. If it fails, return null to let the form handle empty state
   const profile = await doctorService
     .getDoctorSettingsProfile(actorUserId)
-    .catch(() => null);
+    .catch((err) => {
+      console.error("Error fetching professional settings:", err);
+      return null;
+    });
 
   return <ProfessionalDetailsForm profile={profile} />;
 }

@@ -5,16 +5,16 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { VerificationStatusBadge } from "./VerificationStatusBadge";
 import { VerificationActionsMenu } from "./VerificationsActionsMenu";
 import { DoctorInfoCell } from "./DoctorsInfoCell";
-
+import { DoctorVerificationStatus } from "@/db/schema";
 export interface VerificationRowData {
   id: string;
   doctorName: string | null;
   email: string | null;
   avatarUrl?: string | null;
-  specialty: string;
-  rmpRegistrationNumber: string;
-  submittedAt: Date | null;
-  verificationStatus: "pending" | "verified" | "rejected";
+  specialty: string | null;
+  rmpRegistrationNumber: string  | null;
+  submittedAt: Date | number| string| null;
+  verificationStatus: DoctorVerificationStatus;
 }
 
 interface VerificationTableRowProps {
@@ -30,6 +30,7 @@ export function VerificationTableRow({
   onApprove,
   onReject,
 }: VerificationTableRowProps) {
+  
   const formattedDate = data.submittedAt
     ? new Intl.DateTimeFormat("en-IN", {
         day: "2-digit",
@@ -55,7 +56,7 @@ export function VerificationTableRow({
       <TableCell>
         <p className="text-sm font-medium">{data.specialty}</p>
         <p className="text-xs text-muted-foreground font-mono">
-          {data.rmpRegistrationNumber}
+          {data.rmpRegistrationNumber ?? "N/A"}
         </p>
       </TableCell>
 

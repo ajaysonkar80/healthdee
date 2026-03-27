@@ -7,7 +7,7 @@ import { Share2 } from "lucide-react";
 type DoctorProfileProps = {
   fullName: string | null;
   degrees: string | null;
-  specialty: string;
+  specialty: string | null;
   languages: string | null;
   experienceYears: number | null;
   profileImageUrl: string | null;

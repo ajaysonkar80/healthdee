@@ -8,17 +8,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Stethoscope } from "lucide-react";
 
+// FIX: Align interface with Database/Service (nullable fields)
 interface Profile {
-  fullName?:               string | null;
-  specialty:               string;
-  degrees?:                string | null;
-  languages?:              string | null;
-  tagline?:                string | null;
-  experienceYears?:        number | null;
-  bio?:                    string | null;
-  consultationFee?:        number | null;
-  rmpRegistrationNumber:   string;
-  rmpStateMedicalCouncil:  string;
+  fullName?: string | null;
+  specialty?: string | null; // Changed to nullable
+  degrees?: string | null;
+  languages?: string | null;
+  tagline?: string | null;
+  experienceYears?: number | null;
+  bio?: string | null;
+  consultationFee?: number | null;
+  rmpRegistrationNumber?: string | null; // Changed to nullable
+  rmpStateMedicalCouncil?: string | null; // Changed to nullable
 }
 
 interface Props {
@@ -29,7 +30,7 @@ export default function ProfessionalDetailsForm({ profile }: Props) {
   const formRef = useRef<HTMLFormElement>(null);
   const [isPending, startTransition] = useTransition();
   const [success, setSuccess] = useState(false);
-  const [error, setError]     = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -62,13 +63,12 @@ export default function ProfessionalDetailsForm({ profile }: Props) {
       <CardContent>
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
           <div className="grid gap-4 sm:grid-cols-2">
-            {/* Full Name */}
             <div className="space-y-1.5">
               <label className="text-sm font-medium" htmlFor="fullName">
                 Full Name (with title)
               </label>
               <Input
-                label=""
+              label=""
                 id="fullName"
                 name="fullName"
                 defaultValue={profile?.fullName ?? ""}
@@ -76,14 +76,13 @@ export default function ProfessionalDetailsForm({ profile }: Props) {
               />
             </div>
 
-            {/* Specialty */}
             <div className="space-y-1.5">
               <label className="text-sm font-medium" htmlFor="specialty">
                 Specialty <span className="text-red-500">*</span>
               </label>
               <Input
-                label=""
                 id="specialty"
+                label=""
                 name="specialty"
                 defaultValue={profile?.specialty ?? ""}
                 placeholder="General Physician"
@@ -91,42 +90,39 @@ export default function ProfessionalDetailsForm({ profile }: Props) {
               />
             </div>
 
-            {/* Degrees */}
             <div className="space-y-1.5">
               <label className="text-sm font-medium" htmlFor="degrees">
                 Degrees
               </label>
               <Input
-              label=""
                 id="degrees"
+                label=""
                 name="degrees"
                 defaultValue={profile?.degrees ?? ""}
                 placeholder="MBBS, MD"
               />
             </div>
 
-            {/* Languages */}
             <div className="space-y-1.5">
               <label className="text-sm font-medium" htmlFor="languages">
                 Languages
               </label>
               <Input
-                label=""
                 id="languages"
+                label=""
                 name="languages"
                 defaultValue={profile?.languages ?? ""}
                 placeholder="Hindi, English"
               />
             </div>
 
-            {/* Experience */}
             <div className="space-y-1.5">
               <label className="text-sm font-medium" htmlFor="experienceYears">
                 Years of Experience
               </label>
               <Input
-                label=""
                 id="experienceYears"
+                label=""
                 name="experienceYears"
                 type="number"
                 min={0}
@@ -136,15 +132,14 @@ export default function ProfessionalDetailsForm({ profile }: Props) {
               />
             </div>
 
-            {/* Consultation Fee */}
             <div className="space-y-1.5">
               <label className="text-sm font-medium" htmlFor="consultationFee">
                 Consultation Fee (₹)
               </label>
               <Input
-                label=""
                 id="consultationFee"
                 name="consultationFee"
+                label=""
                 type="number"
                 min={0}
                 defaultValue={profile?.consultationFee ?? ""}
@@ -152,14 +147,13 @@ export default function ProfessionalDetailsForm({ profile }: Props) {
               />
             </div>
 
-            {/* RMP Number */}
             <div className="space-y-1.5">
               <label className="text-sm font-medium" htmlFor="rmpRegistrationNumber">
                 RMP Registration Number <span className="text-red-500">*</span>
               </label>
               <Input
-                label=""
                 id="rmpRegistrationNumber"
+                label=""
                 name="rmpRegistrationNumber"
                 defaultValue={profile?.rmpRegistrationNumber ?? ""}
                 placeholder="MCI-12345"
@@ -167,15 +161,14 @@ export default function ProfessionalDetailsForm({ profile }: Props) {
               />
             </div>
 
-            {/* State Medical Council */}
             <div className="space-y-1.5">
               <label className="text-sm font-medium" htmlFor="rmpStateMedicalCouncil">
                 State Medical Council <span className="text-red-500">*</span>
               </label>
               <Input
-                label=""
                 id="rmpStateMedicalCouncil"
                 name="rmpStateMedicalCouncil"
+                label=""
                 defaultValue={profile?.rmpStateMedicalCouncil ?? ""}
                 placeholder="Maharashtra Medical Council"
                 required
@@ -183,21 +176,19 @@ export default function ProfessionalDetailsForm({ profile }: Props) {
             </div>
           </div>
 
-          {/* Tagline — full width */}
           <div className="space-y-1.5">
             <label className="text-sm font-medium" htmlFor="tagline">
               Tagline
             </label>
             <Input
-              label=""
               id="tagline"
+              label=""
               name="tagline"
               defaultValue={profile?.tagline ?? ""}
               placeholder="Compassionate care for every patient"
             />
           </div>
 
-          {/* Bio — full width */}
           <div className="space-y-1.5">
             <label className="text-sm font-medium" htmlFor="bio">
               Bio
@@ -212,13 +203,8 @@ export default function ProfessionalDetailsForm({ profile }: Props) {
             />
           </div>
 
-          {/* Feedback */}
-          {success && (
-            <p className="text-sm text-green-600">Changes saved successfully.</p>
-          )}
-          {error && (
-            <p className="text-sm text-red-600">{error}</p>
-          )}
+          {success && <p className="text-sm text-green-600 font-medium">Changes saved successfully.</p>}
+          {error && <p className="text-sm text-red-600 font-medium">{error}</p>}
 
           <Button type="submit" disabled={isPending}>
             {isPending ? "Saving…" : "Save Changes"}

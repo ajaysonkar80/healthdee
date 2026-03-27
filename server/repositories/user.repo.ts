@@ -2,7 +2,7 @@
 import { db } from "@/db";
 import * as schema from "@/db/schema";
 import { and, eq, like, or, sql } from "drizzle-orm";
-
+import { InferInsertModel } from "drizzle-orm";
 /* -----------------------------------------------------
    Errors
 ----------------------------------------------------- */
@@ -62,6 +62,23 @@ export const userRepo = {
       .returning();
 
     return user;
+  },
+
+  async updateUser(userId: string, data: Partial<InferInsertModel<typeof schema.users>>) {
+    const result = await db
+      .update(schema.users)
+      .set({
+        ...data,
+        updatedAt: new Date(), // Automatically track when the record was changed
+      })
+      .where(eq(schema.users.id, userId))
+      .returning();
+
+    if (result.length === 0) {
+      throw new RepositoryError("NOT_FOUND", `User with ID ${userId} not found`);
+    }
+
+    return result[0];
   },
 
   async getUserById(userId: string) {
@@ -312,7 +329,7 @@ async updateEmailVerifiedAt(email: string) {
     expiresAt: Date;
   }) {
     const now = new Date();
-
+ 
     const [otp] = await db
       .insert(schema.otpSessions)
       .values({

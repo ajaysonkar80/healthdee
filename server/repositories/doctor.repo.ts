@@ -5,7 +5,8 @@ import { and, eq, like, or, sql } from "drizzle-orm";
 import type { PaginationParams } from "./user.repo";
 import { RepositoryError } from "./user.repo";
 import { doctorAvailability } from "@/db/schema";
-
+import { DoctorGenderSchema } from "@/db/schema";
+import { DoctorAvailabilitySchema } from "@/db/schema";
 const DEFAULT_LIMIT = 10;
 
 function getPagination(params?: PaginationParams) {
@@ -20,14 +21,18 @@ export const doctorRepo = {
   async createDoctor(input: {
     userId: string;
     publicId: string;
-    specialty: string;
+    specialty?: string;
     experienceYears?: number;
     bio?: string;
     consultationFee?: number;
     profileImageUrl?: string;
-    rmpRegistrationNumber: string;
-    rmpStateMedicalCouncil: string;
-    verificationStatus: schema.DoctorVerificationStatus;
+    rmpRegistrationNumber?: string;
+    rmpStateMedicalCouncil?: string;
+    verificationStatus?: schema.DoctorVerificationStatus;
+    availablility?:schema.DoctorAvailabilityStatus;
+    gender?:schema.DoctorGenderStatus;
+    city?:string;
+    state?:string;
     fullName?: string;
     degrees?: string;
     languages?: string;
@@ -92,6 +97,10 @@ export const doctorRepo = {
         publicId: schema.doctors.publicId,
         fullName: schema.doctors.fullName,
         specialty: schema.doctors.specialty,
+        availablility:schema.doctors.doctorAvailability,
+        gender:schema.doctors.doctorGender,
+        city:schema.doctors.city,
+        state:schema.doctors.state,
         experienceYears: schema.doctors.experienceYears,
         rating: schema.doctors.rating,
         profileImageUrl: schema.doctors.profileImageUrl,
@@ -122,6 +131,10 @@ export const doctorRepo = {
         fullName: schema.doctors.fullName,
         degrees: schema.doctors.degrees,
         specialty: schema.doctors.specialty,
+        availablility:schema.doctors.doctorAvailability,
+        gender:schema.doctors.doctorGender,
+        city:schema.doctors.city,
+        state:schema.doctors.state,
         languages: schema.doctors.languages,
         tagline: schema.doctors.tagline,
         experienceYears: schema.doctors.experienceYears,
@@ -148,6 +161,10 @@ export const doctorRepo = {
         fullName: schema.doctors.fullName,
         degrees: schema.doctors.degrees,
         specialty: schema.doctors.specialty,
+        availablility:schema.doctors.doctorAvailability,
+        gender:schema.doctors.doctorGender,
+        city:schema.doctors.city,
+        state:schema.doctors.state,
         languages: schema.doctors.languages,
         tagline: schema.doctors.tagline,
         experienceYears: schema.doctors.experienceYears,
@@ -206,6 +223,10 @@ export const doctorRepo = {
         consultationFee: schema.doctors.consultationFee,
         rating: schema.doctors.rating,
         profileImageUrl: schema.doctors.profileImageUrl,
+        availablility:schema.doctors.doctorAvailability,
+        gender:schema.doctors.doctorGender,
+        city:schema.doctors.city,
+        state:schema.doctors.state,
         rmpRegistrationNumber: schema.doctors.rmpRegistrationNumber,
         verificationStatus: schema.doctors.verificationStatus,
         isActive: schema.doctors.isActive,
@@ -385,6 +406,7 @@ export const doctorRepo = {
         rmpRegistrationNumber: schema.doctors.rmpRegistrationNumber,
         rmpStateMedicalCouncil: schema.doctors.rmpStateMedicalCouncil,
         profileImageUrl: schema.doctors.profileImageUrl,
+
         verificationStatus: schema.doctors.verificationStatus,
         createdAt: schema.doctors.createdAt,
         email: schema.authCredentials.email,
@@ -434,6 +456,10 @@ export const doctorRepo = {
       experienceYears:        schema.doctors.experienceYears,
       bio:                    schema.doctors.bio,
       consultationFee:        schema.doctors.consultationFee,
+      availablility:schema.doctors.doctorAvailability,
+        gender:schema.doctors.doctorGender,
+        city:schema.doctors.city,
+        state:schema.doctors.state,
       rmpRegistrationNumber:  schema.doctors.rmpRegistrationNumber,
       rmpStateMedicalCouncil: schema.doctors.rmpStateMedicalCouncil,
       profileImageUrl:        schema.doctors.profileImageUrl,
@@ -458,6 +484,10 @@ export const doctorRepo = {
     degrees?:                string;
     languages?:              string;
     tagline?:                string;
+    availablility?:schema.DoctorAvailabilityStatus,
+        gender?:schema.DoctorGenderStatus,
+        city?:string,
+        state?:string,
     experienceYears?:        number;
     bio?:                    string;
     consultationFee?:        number;
@@ -473,6 +503,10 @@ export const doctorRepo = {
     if (input.tagline                !== undefined) patch.tagline                = input.tagline;
     if (input.experienceYears        !== undefined) patch.experienceYears        = input.experienceYears;
     if (input.bio                    !== undefined) patch.bio                    = input.bio;
+    if (input.availablility                    !== undefined) patch.doctorAvailability  =input.availablility;
+    if (input.city                    !== undefined) patch.city  = input.city;
+    if (input.state                    !== undefined) patch.state  = input.state;
+    if (input.gender                    !== undefined) patch.doctorGender          = input.gender;
     if (input.consultationFee        !== undefined) patch.consultationFee        = input.consultationFee;
     if (input.rmpRegistrationNumber  !== undefined) patch.rmpRegistrationNumber  = input.rmpRegistrationNumber;
     if (input.rmpStateMedicalCouncil !== undefined) patch.rmpStateMedicalCouncil = input.rmpStateMedicalCouncil;

@@ -11,7 +11,7 @@ import { DoctorTable } from "@/components/admin/doctor/DoctorTable";
 import { DoctorPagination } from "@/components/admin/doctor/DoctorPagination";
 import { BulkHelpCards } from "@/components/admin/doctor/BulkHelpCards";
 import type { DoctorRow } from "@/components/admin/doctor/DoctorTable";
-
+import { DoctorVerificationSchema, DoctorVerificationStatus } from "@/db/schema";
 type DoctorStats = {
   total: number;
   verified: number;
@@ -20,14 +20,14 @@ type DoctorStats = {
 };
 
 interface DoctorsPageClientProps {
-  initialDoctors: DoctorRow[];
+  initialDoctors: any[];
   total: number;
   page: number;
   limit: number;
   stats: DoctorStats;
-  currentSearch: string;
-  currentVerificationStatus: string;
-  currentSpecialty: string;
+  currentSearch: string|null|undefined;
+  currentVerificationStatus: DoctorVerificationStatus | undefined;
+  currentSpecialty: string|null|undefined;
 }
 
 /* -------------------------------------------------------
@@ -99,9 +99,9 @@ export default function DoctorsPageClient({
            causes a hydration mismatch if rendered without a boundary ── */}
       <Suspense fallback={<FiltersSkeleton />}>
         <DoctorFilters
-          currentSearch={currentSearch}
+          currentSearch={currentSearch??""}
           currentVerificationStatus={currentVerificationStatus}
-          currentSpecialty={currentSpecialty}
+          currentSpecialty={currentSpecialty??""}
         />
       </Suspense>
 

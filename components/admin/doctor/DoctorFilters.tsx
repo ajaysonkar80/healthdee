@@ -35,7 +35,7 @@ const ALL_VALUE = "__all__";
 
 interface DoctorFiltersProps {
   currentSearch: string;
-  currentVerificationStatus: string;
+  currentVerificationStatus: string|undefined;
   currentSpecialty: string;
 }
 
